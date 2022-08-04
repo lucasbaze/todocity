@@ -1,3 +1,4 @@
+// docs/analytics.md
 export function GoogleTagManagerNoScript() {
   return (
     <>

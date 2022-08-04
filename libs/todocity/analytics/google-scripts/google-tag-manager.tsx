@@ -1,5 +1,6 @@
 import Script from 'next/script';
 
+// docs/analytics.md
 export function GoogleTagManager() {
   return (
     <Script id="google-tag-manager" strategy="afterInteractive">
