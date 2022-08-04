@@ -14,12 +14,12 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-		"baseUrl": ".",
-		"paths": {
-			"@todocity/theme": ["libs/todocity/theme/index.ts"],
-			"@todocity/components": ["libs/todocity/components/index.ts"]
-		}
+    "baseUrl": ".",
+    "paths": {
+      "@todocity/theme": ["libs/todocity/theme/index.ts"],
+      "@todocity/components": ["libs/todocity/components/index.ts"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }
