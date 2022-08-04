@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@todocity/theme": ["libs/todocity/theme/index.ts"],
+      "@todocity/analytics": ["libs/todocity/analytics/index.ts"],
       "@todocity/components": ["libs/todocity/components/index.ts"]
     }
   },
