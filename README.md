@@ -11,6 +11,10 @@ First, run the development server:
 # start "server" emulators
 > firebase emulators:start --project demo-todocity
 
+# set env vars correct ( in .env file)
+> NEXT_PUBLIC_FIREBASE_EMULATE=true
+
+# start project
 > yarn dev
 ```
 
