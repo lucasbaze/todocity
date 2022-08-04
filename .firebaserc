@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "todocity-dev",
+    "prod": "todocity-prod"
+  }
+}
