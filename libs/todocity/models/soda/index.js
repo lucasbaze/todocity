@@ -1,14 +1,17 @@
-import { useState, useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
-import { GroupProps, useFrame } from '@react-three/fiber';
-import { Group } from 'three';
-
-export function Soda(props: any) {
-  const ref = useRef<Group>(null!);
-  const gltf = useGLTF(
+'use strict';
+exports.__esModule = true;
+exports.Soda = void 0;
+var react_1 = require('react');
+var drei_1 = require('@react-three/drei');
+var fiber_1 = require('@react-three/fiber');
+function Soda(props) {
+  var ref = (0, react_1.useRef)(null);
+  var gltf = (0, drei_1.useGLTF)(
     'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/soda-bottle/model.gltf'
   );
-  useFrame((state, delta) => (ref.current.rotation.y += delta));
+  (0, fiber_1.useFrame)(function (state, delta) {
+    return (ref.current.rotation.y += delta);
+  });
   return (
     <group ref={ref} {...props} dispose={null}>
       <mesh geometry={gltf.nodes.Mesh_sodaBottle.geometry}>
@@ -27,3 +30,4 @@ export function Soda(props: any) {
     </group>
   );
 }
+exports.Soda = Soda;
