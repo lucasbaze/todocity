@@ -4,14 +4,10 @@ import Head from 'next/head';
 import { MainLayout } from '@todocity/ui';
 import { LightDarkButton } from '@todocity/components';
 import { Suspense, useRef } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import {
-  Environment,
-  View,
-  OrbitControls,
-  PerspectiveCamera,
-} from '@react-three/drei';
-import { Soda } from '@todocity/models';
+import dynamic from 'next/dynamic';
+const HomeScene = dynamic(() => import('../libs/todocity/three/index'), {
+  suspense: true,
+});
 
 function Header() {
   return (
@@ -27,29 +23,7 @@ function Header() {
   );
 }
 
-function Scene() {
-  const { camera } = useThree();
-  return (
-    <>
-      <ambientLight intensity={1} />
-      <pointLight position={[-20, 30, 10]} intensity={1} />
-      <pointLight position={[-10, -10, -10]} color="blue" />
-      <Environment preset="dawn" />
-      <Soda />
-      <gridHelper args={[30, 30, 30]} />
-      <PerspectiveCamera
-        args={[45, 1, 1, 1000]}
-        makeDefault
-        fov={8}
-        position={[2.8176288609275293, 4.870110528616384, 3.365151300662069]}
-      />
-      <OrbitControls makeDefault />
-    </>
-  );
-}
-
 const Home: NextPage = () => {
-  const view1Ref = useRef<HTMLDivElement>(null!);
   const mainRef = useRef<HTMLDivElement>(null!);
 
   return (
@@ -80,11 +54,9 @@ const Home: NextPage = () => {
               </Box>
             </Box>
             <Box flex={2} height="100%">
-              <Canvas>
-                <Suspense fallback={null}>
-                  <Scene />
-                </Suspense>
-              </Canvas>
+              <Suspense fallback={null}>
+                <HomeScene />
+              </Suspense>
             </Box>
           </Flex>
         </MainLayout>

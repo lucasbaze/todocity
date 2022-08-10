@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "ts-lint": "tsc --noEmit --incremental",
@@ -14,6 +15,7 @@
     "@chakra-ui/react": "^2.2.4",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@next/bundle-analyzer": "^12.2.4",
     "@react-three/drei": "^9.19.7",
     "@react-three/fiber": "^8.3.1",
     "@tabler/icons": "^1.79.0",
@@ -21,6 +23,7 @@
     "firebase": "^9.9.1",
     "framer-motion": "^6.5.1",
     "next": "12.2.3",
+    "next-compose-plugins": "^2.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.0.3",
