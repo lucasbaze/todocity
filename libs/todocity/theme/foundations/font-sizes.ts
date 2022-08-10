@@ -4,5 +4,6 @@ export const fontSizes = {
   '14': '14px',
   '15': '15px',
   '16': '16px',
+  '24': '24px',
   '72': '72px',
 };

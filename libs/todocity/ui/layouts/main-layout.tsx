@@ -8,10 +8,15 @@ export interface IMainLayoutProps {
 export const MainLayout = ({ children }: IMainLayoutProps) => {
   const { colorMode } = useColorMode();
   return (
-    <Box height="100vh" bg={colorMode === 'dark' ? 'gray.900' : 'orange.50'}>
-      <Container display="flex" flexDirection="column" height="100%">
-        {children}
-      </Container>
-    </Box>
+    <>
+      <Box height="100vh" bg={colorMode === 'dark' ? 'gray.900' : 'orange.50'}>
+        <Container display="flex" flexDirection="column" height="100%">
+          {children}
+        </Container>
+      </Box>
+      <Box p={2} bg="gray.900" borderTop="1px" color="gray.600">
+        Footer
+      </Box>
+    </>
   );
 };

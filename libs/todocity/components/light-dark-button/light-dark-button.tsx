@@ -1,12 +1,14 @@
-import { useColorMode, Button } from '@chakra-ui/react';
+import { useColorMode, IconButton } from '@chakra-ui/react';
+import { IconMoon, IconBrightness2 } from '@tabler/icons';
 
 export function LightDarkButton() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <header>
-      <Button variant={'solid'} onClick={toggleColorMode}>
-        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-      </Button>
-    </header>
+    <IconButton
+      icon={colorMode === 'light' ? <IconMoon /> : <IconBrightness2 />}
+      variant={'solid'}
+      onClick={toggleColorMode}
+      aria-label="light / dark mode button"
+    />
   );
 }

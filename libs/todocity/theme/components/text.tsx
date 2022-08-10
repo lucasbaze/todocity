@@ -13,7 +13,7 @@ export const Text: ComponentStyleConfig = {
       fontWeight: 'bold',
       fontSize: { base: '30', md: '72' },
       lineHeight: '100%',
-      pb: { base: '12' },
+      pb: { base: '8' },
     },
     h1: (props: StyleFunctionProps) => ({
       fontWeight: 'bold',
@@ -21,10 +21,10 @@ export const Text: ComponentStyleConfig = {
       letterSpacing: '-0.03em',
     }),
     h2: {
-      fontWeight: 'light',
-      color: 'pink',
-      fontSize: { base: '30', md: '40' },
-      letterSpacing: '-0.03em',
+      fontSize: { base: '30', md: '28' },
+      letterSpacing: '-0.05em',
+      lineHeight: '100%',
+      pb: { base: '8' },
     },
     h3: {
       fontFamily: 'Inter',
@@ -35,7 +35,7 @@ export const Text: ComponentStyleConfig = {
     },
     bodyBig: {
       fontWeight: '400',
-      fontSize: '16',
+      fontSize: '18',
       lineHeight: '120%',
     },
     body: {
