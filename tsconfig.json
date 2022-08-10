@@ -20,7 +20,8 @@
       "@todocity/firebase": ["libs/todocity/firebase/index.ts"],
       "@todocity/analytics": ["libs/todocity/analytics/index.ts"],
       "@todocity/components": ["libs/todocity/components/index.ts"],
-      "@todocity/ui": ["libs/todocity/ui/index.ts"]
+      "@todocity/ui": ["libs/todocity/ui/index.ts"],
+      "@todocity/models": ["libs/todocity/models/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
