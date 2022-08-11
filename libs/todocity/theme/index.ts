@@ -6,6 +6,7 @@ import { Text } from './components/text';
 import { colors } from './foundations/colors';
 import { fontSizes } from './foundations/font-sizes';
 import { sizes } from './foundations/sizes';
+import { zIndices } from './foundations/z-indices';
 import { styles } from './styles';
 
 const config: ThemeConfig = {
@@ -19,6 +20,7 @@ export const theme = extendTheme({
   fontSizes,
   sizes,
   styles,
+  zIndices,
   components: {
     Button,
     Container,
