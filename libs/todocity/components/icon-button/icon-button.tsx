@@ -1,20 +1,20 @@
 import React from 'react';
 import {
-  IconButton as ChakraIconButton,
+  IconButton as TodoCityIconButton,
   IconButtonProps,
-} from '@chakra-ui/react';
+} from '@todocity/ui';
 import { events, TButtonAnalytics } from '@todocity/analytics';
 
 interface IIconButtonProps extends IconButtonProps {
   analytics: TButtonAnalytics;
 }
 
-export const IconButton = ChakraIconButton;
+export const IconButton = TodoCityIconButton;
 
 export const AnalIconButton = React.forwardRef(
   ({ analytics, ...props }: IIconButtonProps, ref: any) => {
     return (
-      <ChakraIconButton
+      <TodoCityIconButton
         // @ts-ignore
         ref={ref}
         {...props}

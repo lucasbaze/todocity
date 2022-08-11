@@ -1,4 +1,4 @@
-import { Avatar } from '@chakra-ui/react';
+import { Avatar } from '@todocity/ui';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@todocity/firebase';
 

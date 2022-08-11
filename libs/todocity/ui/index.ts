@@ -1,1 +1,1 @@
-export * from './layouts/main-layout';
+export * from './components/index';

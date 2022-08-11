@@ -1,17 +1,20 @@
-import { Box, Flex } from '@chakra-ui/react';
-import { Text, AnalButton, Button } from '@todocity/components';
+import { Text, Box, Flex } from '@todocity/ui';
+import { AnalButton, MainLayout } from '@todocity/components';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
-import { MainLayout } from '@todocity/ui';
 import { Suspense, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { eventTriggers } from '@todocity/analytics';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@todocity/firebase';
+import { IconArrowRight } from '@tabler/icons';
 const HomeScene = dynamic(() => import('../libs/todocity/three/index'), {
   suspense: true,
 });
 
 const Home: NextPage = () => {
+  const [user, loading] = useAuthState(auth);
   const mainRef = useRef<HTMLDivElement>(null!);
 
   return (
@@ -32,14 +35,21 @@ const Home: NextPage = () => {
                 Complete your Todos. Get points. Build your city.
               </Text>
               <Box width="max-content">
-                <Link href="/signup">
+                <Link href={user ? '/city' : '/signup'}>
                   <AnalButton
                     variant="primary"
                     size="xl"
                     mb="2"
+                    isLoading={loading}
                     analytics={{ buttonName: eventTriggers.MAIN_CTA }}
                   >
-                    Create your city
+                    {user ? (
+                      <>
+                        Go to Your City <IconArrowRight />
+                      </>
+                    ) : (
+                      'Create your city'
+                    )}
                   </AnalButton>
                 </Link>
                 <Text textAlign="center" color="gray.600">

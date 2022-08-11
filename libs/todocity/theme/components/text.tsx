@@ -27,8 +27,7 @@ export const Text: ComponentStyleConfig = {
       pb: { base: '8' },
     },
     h3: {
-      fontFamily: 'Inter',
-      fontWeight: 'light',
+      fontWeight: 'regular',
       fontSize: { base: '25', md: '30' },
       lineHeight: '120%',
       letterSpacing: '-0.03em',
@@ -44,32 +43,25 @@ export const Text: ComponentStyleConfig = {
       lineHeight: '150%',
     },
     disclaimer: {
-      fontFamily: 'Inter',
       fontWeight: 400,
-      fontSize: '11',
+      fontSize: '14',
       lineHeight: '150%',
     },
     label: {
-      fontFamily: 'Roboto',
       fontWeight: '400',
       fontSize: '12',
       lineHeight: 'normal',
-    },
-    mono: {
-      fontFamily: 'Roboto',
     },
     uppercase: {
       textTransform: 'uppercase',
     },
     uppercaseAccent: {
-      fontFamily: 'Roboto',
       textTransform: 'uppercase',
       color: 'brand.green.active',
       lineHeight: '1.3em',
       fontSize: '10',
     },
     footerTitle: {
-      fontFamily: 'Roboto',
       mb: '1.5rem',
       fontSize: '12px',
       fontWeight: '700',

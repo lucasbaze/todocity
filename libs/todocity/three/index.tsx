@@ -1,10 +1,5 @@
-import { Box, Text, Flex, Link, Button } from '@chakra-ui/react';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import { MainLayout } from '@todocity/ui';
-import { LightDarkButton } from '@todocity/components';
-import { Suspense, useRef } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
 import {
   Environment,
   View,
@@ -14,7 +9,6 @@ import {
 import { Soda } from '@todocity/models';
 
 function Scene() {
-  const { camera } = useThree();
   return (
     <>
       <ambientLight intensity={1} />
