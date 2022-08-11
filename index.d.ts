@@ -5,3 +5,9 @@ declare module 'three-stdlib' {
     materials: Record<string, Material>;
   }
 }
+
+declare global {
+  interface Window {
+    dataLayer: [any];
+  }
+}

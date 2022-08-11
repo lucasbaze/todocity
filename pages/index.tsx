@@ -1,27 +1,15 @@
-import { Box, Text, Flex, Link, Button } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
+import { Text, AnalButton, Button } from '@todocity/components';
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import Head from 'next/head';
 import { MainLayout } from '@todocity/ui';
-import { LightDarkButton } from '@todocity/components';
 import { Suspense, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { eventTriggers } from '@todocity/analytics';
 const HomeScene = dynamic(() => import('../libs/todocity/three/index'), {
   suspense: true,
 });
-
-function Header() {
-  return (
-    <Flex p="2" alignItems="center">
-      <Text variant="h1" flex="1">
-        TODOCITY
-      </Text>
-      <Flex alignItems="center" gap="12">
-        <Link href="/pricing">Early Pricing</Link>
-        <LightDarkButton />
-      </Flex>
-    </Flex>
-  );
-}
 
 const Home: NextPage = () => {
   const mainRef = useRef<HTMLDivElement>(null!);
@@ -35,7 +23,6 @@ const Home: NextPage = () => {
       </Head>
       <main ref={mainRef}>
         <MainLayout>
-          <Header />
           <Flex flex={1} alignItems="center">
             <Box flex={3}>
               <Text as="h1" variant="hero">
@@ -45,9 +32,16 @@ const Home: NextPage = () => {
                 Complete your Todos. Get points. Build your city.
               </Text>
               <Box width="max-content">
-                <Button variant="primary" size="xl" mb="2">
-                  Create your city
-                </Button>
+                <Link href="/signup">
+                  <AnalButton
+                    variant="primary"
+                    size="xl"
+                    mb="2"
+                    analytics={{ buttonName: eventTriggers.MAIN_CTA }}
+                  >
+                    Create your city
+                  </AnalButton>
+                </Link>
                 <Text textAlign="center" color="gray.600">
                   Your todo city is free forever
                 </Text>

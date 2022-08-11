@@ -12,4 +12,9 @@ const nextConfig = {
   swcMinify: true,
 };
 
-module.exports = withPlugins([withBundleAnalyzer], nextConfig);
+module.exports = () => {
+  const plugins = [withBundleAnalyzer];
+  return plugins.reduce((acc, plugin) => plugin(acc), {
+    ...nextConfig,
+  });
+};
