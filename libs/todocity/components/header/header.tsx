@@ -1,6 +1,7 @@
-import { Text, Flex, Box } from '@todocity/ui';
 import Link from 'next/link';
+
 import { LightDarkButton } from '@todocity/components';
+import { Box, Flex, Text } from '@todocity/ui';
 
 export function Header() {
   return (

@@ -1,6 +1,7 @@
-import { Box } from '@todocity/ui';
-import { MainLayout } from '@todocity/components';
 import { NextPage } from 'next';
+
+import { MainLayout } from '@todocity/components';
+import { Box } from '@todocity/ui';
 
 const City: NextPage = () => {
   return (

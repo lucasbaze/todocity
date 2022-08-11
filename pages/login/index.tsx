@@ -1,32 +1,34 @@
 import React from 'react';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
+import { Button } from '@chakra-ui/react';
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
   EmailAuthCredential,
   EmailAuthProvider,
-  UserCredential,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
   User,
+  UserCredential,
 } from 'firebase/auth';
-import firebaseui from 'firebaseui';
 import {
   addDoc,
   collection,
-  query,
-  where,
-  getDoc,
   doc,
+  getDoc,
+  query,
   setDoc,
+  where,
 } from 'firebase/firestore';
+import firebaseui from 'firebaseui';
+import router from 'next/router';
 import {
   useCollection,
   useCollectionOnce,
   useDocumentDataOnce,
 } from 'react-firebase-hooks/firestore';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
 import { auth, db } from '@todocity/firebase';
-import router from 'next/router';
-import { Button } from '@chakra-ui/react';
 
 function addNewUserToFireStore(user: User) {
   const details = {

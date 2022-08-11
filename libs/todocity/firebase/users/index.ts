@@ -1,7 +1,8 @@
 import { User, UserCredential } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { db } from '../client-app';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import router from 'next/router';
+
+import { db } from '../client-app';
 
 export function addNewUserToFireStore(user: User) {
   const details = {

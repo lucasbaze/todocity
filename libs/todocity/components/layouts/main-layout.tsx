@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Box, Container, useColorMode } from '@chakra-ui/react';
+
 import { Header } from '@todocity/components';
 export interface IMainLayoutProps {
   children: React.ReactNode;

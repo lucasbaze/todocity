@@ -20,6 +20,7 @@
     "@react-three/fiber": "^8.3.1",
     "@tabler/icons": "^1.79.0",
     "@types/three": "^0.143.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "firebase": "^9.9.1",
     "framer-motion": "^6.5.1",
     "next": "12.2.3",

@@ -1,9 +1,11 @@
 import '../styles/globals.css';
-import type { AppProps } from 'next/app';
+
 import { ChakraProvider } from '@chakra-ui/react';
-import { theme } from '@todocity/theme';
+import type { AppProps } from 'next/app';
 import Head from 'next/head';
+
 import { GoogleTagManager } from '@todocity/analytics';
+import { theme } from '@todocity/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

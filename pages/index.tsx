@@ -1,14 +1,16 @@
-import { Text, Box, Flex } from '@todocity/ui';
-import { AnalButton, MainLayout } from '@todocity/components';
-import type { NextPage } from 'next';
-import Link from 'next/link';
-import Head from 'next/head';
 import { Suspense, useRef } from 'react';
-import dynamic from 'next/dynamic';
-import { eventTriggers } from '@todocity/analytics';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@todocity/firebase';
+
 import { IconArrowRight } from '@tabler/icons';
+import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+import { eventTriggers } from '@todocity/analytics';
+import { AnalButton, MainLayout } from '@todocity/components';
+import { auth } from '@todocity/firebase';
+import { Box, Flex, Text } from '@todocity/ui';
 const HomeScene = dynamic(() => import('../libs/todocity/three/index'), {
   suspense: true,
 });

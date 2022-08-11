@@ -1,6 +1,7 @@
-import { Text, Flex, Card, Box } from '@todocity/ui';
-import { LoginSignup, MainLayout } from '@todocity/components';
 import type { NextPage } from 'next';
+
+import { LoginSignup, MainLayout } from '@todocity/components';
+import { Box, Card, Flex, Text } from '@todocity/ui';
 
 const Signup: NextPage = () => {
   return (

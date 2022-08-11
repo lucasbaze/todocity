@@ -1,7 +1,8 @@
 import { ColorModeScript } from '@chakra-ui/react';
-import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
-import { theme } from '@todocity/theme';
+import NextDocument, { Head, Html, Main, NextScript } from 'next/document';
+
 import { GoogleTagManagerNoScript } from '@todocity/analytics';
+import { theme } from '@todocity/theme';
 
 export default class Document extends NextDocument {
   render() {

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button as TodoCityButton, ButtonProps } from '@todocity/ui';
+
 import { events, TButtonAnalytics } from '@todocity/analytics';
+import { Button as TodoCityButton, ButtonProps } from '@todocity/ui';
 
 interface IButtonProps extends ButtonProps {
   analytics: TButtonAnalytics;

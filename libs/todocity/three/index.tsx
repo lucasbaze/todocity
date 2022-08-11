@@ -1,11 +1,13 @@
 import { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+
 import {
   Environment,
-  View,
   OrbitControls,
   PerspectiveCamera,
+  View,
 } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+
 import { Soda } from '@todocity/models';
 
 function Scene() {

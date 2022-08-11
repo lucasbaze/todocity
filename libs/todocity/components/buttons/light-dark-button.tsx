@@ -1,7 +1,8 @@
 import { useColorMode } from '@chakra-ui/react';
-import { AnalIconButton } from '@todocity/components';
-import { IconMoon, IconBrightness2 } from '@tabler/icons';
+import { IconBrightness2, IconMoon } from '@tabler/icons';
+
 import { eventTriggers } from '@todocity/analytics';
+import { AnalIconButton } from '@todocity/components';
 
 export function LightDarkButton() {
   const { colorMode, toggleColorMode } = useColorMode();

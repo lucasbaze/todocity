@@ -1,9 +1,10 @@
 import React from 'react';
+
+import { events, TButtonAnalytics } from '@todocity/analytics';
 import {
   IconButton as TodoCityIconButton,
   IconButtonProps,
 } from '@todocity/ui';
-import { events, TButtonAnalytics } from '@todocity/analytics';
 
 interface IIconButtonProps extends IconButtonProps {
   analytics: TButtonAnalytics;
