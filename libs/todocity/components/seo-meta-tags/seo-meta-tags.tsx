@@ -1,8 +1,9 @@
 import { NextSEOMetaTags } from '@todocity/seo';
 
 const URL = 'todocity.app';
-const TITLE = 'TodoCity - Home';
-const DESCRIPTION = 'A gamified todo app to boost productivity and have fun!';
+const TITLE = 'TodoCity - A Gamified Todo App';
+const DESCRIPTION =
+  'A new style of todo app to boost productivity and have fun building your city!';
 const IMAGE = 'https://todocity.app/static/images/todocity.png';
 
 export const SEOMetaTags = () => {
