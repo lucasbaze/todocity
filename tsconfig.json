@@ -21,7 +21,8 @@
       "@todocity/analytics": ["libs/todocity/analytics/index.ts"],
       "@todocity/components": ["libs/todocity/components/index.ts"],
       "@todocity/ui": ["libs/todocity/ui/index.ts"],
-      "@todocity/models": ["libs/todocity/models/index.ts"]
+      "@todocity/models": ["libs/todocity/models/index.ts"],
+      "@todocity/seo": ["libs/todocity/seo"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
