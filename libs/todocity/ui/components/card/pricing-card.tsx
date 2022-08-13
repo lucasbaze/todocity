@@ -77,7 +77,7 @@ export const PricingCard = ({
         )}
         <List spacing="2" mt="10" mb="14" maxW="85%" ml="10">
           {features.map((feature, index) => (
-            <ListItem fontWeight="medium" key={index} color="gray.900">
+            <ListItem fontWeight="medium" key={index}>
               <ListIcon
                 fontSize="xl"
                 as={IconCircleCheck}
