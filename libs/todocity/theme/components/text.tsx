@@ -11,24 +11,25 @@ export const Text: ComponentStyleConfig = {
   variants: {
     hero: {
       fontWeight: 'bold',
-      fontSize: { base: '30', md: '72' },
+      fontSize: { base: '48', md: '72' },
       lineHeight: '100%',
-      pb: { base: '8' },
+      letterSpacing: '-3px',
+      py: { base: '6', md: '4' },
     },
     h1: (props: StyleFunctionProps) => ({
       fontWeight: 'bold',
-      fontSize: { base: '30', md: '40' },
+      fontSize: { base: '36', md: '40' },
       letterSpacing: '-0.03em',
     }),
     h2: {
       fontSize: { base: '30', md: '28' },
       letterSpacing: '-0.05em',
-      lineHeight: '100%',
+      lineHeight: '120%',
       pb: { base: '8' },
     },
     h3: {
       fontWeight: 'regular',
-      fontSize: { base: '25', md: '30' },
+      fontSize: { base: '24', md: '24' },
       lineHeight: '120%',
       letterSpacing: '-0.03em',
     },

@@ -9,6 +9,7 @@ export const colors = {
     '50': '#FCF9F6',
   },
   purple: {
+    '300': '#9F7AEA',
     '600': '#6B46C1',
   },
 };

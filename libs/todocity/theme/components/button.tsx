@@ -1,20 +1,21 @@
 // https://chakra-ui.com/docs/styled-system/theming/component-style
 import type { ComponentStyleConfig } from '@chakra-ui/theme';
 import { StyleFunctionProps } from '@chakra-ui/theme-tools';
-import { Props } from 'react-firebaseui';
 
 export const Button: ComponentStyleConfig = {
   baseStyle: {
-    fontWeight: 'bold', // Normally, it is "semibold"
+    fontWeight: 'bold',
   },
   sizes: {
     xl: {
-      // fontSize: 'lg',
       p: '22px 62px',
       fontSize: '24',
     },
+    lg: {
+      p: '32px 48px',
+      fontSize: '20',
+    },
   },
-  // 3. We can add a new visual variant
   variants: {
     primary: (props: StyleFunctionProps) => ({
       bg: props.colorMode === 'dark' ? 'purple.300' : 'purple.600',
