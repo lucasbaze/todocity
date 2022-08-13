@@ -1,20 +1,22 @@
 import { useColorMode } from '@chakra-ui/react';
 
-import { Box } from '../chakra/chakra';
+import { Box, BoxProps } from '../chakra/chakra';
 
 export interface ICardProps {
   children: React.ReactNode;
+  boxProps?: BoxProps;
 }
 
-export function Card({ children }: ICardProps) {
+export function Card({ children, boxProps }: ICardProps) {
   const { colorMode } = useColorMode();
   return (
     <Box
       py="6"
-      border="1px solid #838180"
+      border="1px solid #e2e2e2"
       bg={colorMode === 'dark' ? 'gray.900' : 'white'}
       borderRadius="2xl"
-      boxShadow="xl"
+      boxShadow="2xl"
+      {...boxProps}
     >
       {children}
     </Box>
