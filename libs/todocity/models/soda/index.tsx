@@ -6,25 +6,17 @@ import { Group } from 'three';
 
 export function Soda(props: any) {
   const ref = useRef<Group>(null!);
-  const gltf = useGLTF(
-    'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/soda-bottle/model.gltf'
-  );
-  useFrame((state, delta) => (ref.current.rotation.y += delta));
+  const gltf = useGLTF('./static/models/rocket/scene.gltf');
+  useFrame((state, delta) => (ref.current.rotation.y += delta / 4));
   return (
     <group ref={ref} {...props} dispose={null}>
-      <mesh geometry={gltf.nodes.Mesh_sodaBottle.geometry}>
-        <meshStandardMaterial
-          color={'green'}
-          roughness={0}
-          metalness={0.8}
-          envMapIntensity={2}
+      <group rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh
+          geometry={gltf.nodes.Object_2.geometry}
+          material={gltf.materials.Texture}
+          material-envMapIntensity={0}
         />
-      </mesh>
-      <mesh
-        geometry={gltf.nodes.Mesh_sodaBottle_1.geometry}
-        material={gltf.materials.red}
-        material-envMapIntensity={0}
-      />
+      </group>
     </group>
   );
 }

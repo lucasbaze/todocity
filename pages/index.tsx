@@ -57,7 +57,7 @@ const Home: NextPage = () => {
               </Text>
             </Box>
           </Box>
-          <Box flex={2} height="100%">
+          <Box flex={2} height={`calc(100vh - ${sizes.header})`}>
             <Suspense fallback={null}>
               <HomeScene />
             </Suspense>
