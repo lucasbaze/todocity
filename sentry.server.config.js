@@ -11,9 +11,10 @@ Sentry.init({
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1.0,
   environment: process.env.NEXT_PUBLIC_WEB_APP_ENV || 'development',
-  release: process.env.SENTRY_RELEASE,
   // ...
-  // Note: if you want to override the automatic release value, do not set a
-  // `release` value here - use the environment variable `SENTRY_RELEASE`, so
+  // Note: if you want to override the automatic release value, do set the
+  // `release` value to the environment variable `SENTRY_RELEASE`, so
   // that it will also get attached to your source maps
+  // Sentry automatically sets this value to the Git commit sha
+  release: process.env.SENTRY_RELEASE,
 });
