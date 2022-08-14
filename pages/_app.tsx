@@ -7,7 +7,7 @@ import { GoogleTagManager } from '@todocity/analytics';
 import { SEOMetaTags } from '@todocity/components';
 import { theme } from '@todocity/theme';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function TodoCity({ Component, pageProps }: AppProps) {
   return (
     <>
       <SEOMetaTags />
@@ -19,4 +19,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default TodoCity;

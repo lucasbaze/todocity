@@ -31,7 +31,7 @@ const firebaseEmulateConfig = {
 const clientCredentials =
   process.env.NEXT_PUBLIC_FIREBASE_EMULATE === 'true'
     ? firebaseEmulateConfig
-    : process.env.NEXT_PUBLIC_APP_ENV === 'production'
+    : process.env.NEXT_PUBLIC_WEB_APP_ENV === 'production'
     ? firebaseProdConfig
     : firebaseDevConfig;
 
