@@ -18,6 +18,7 @@
     "@next/bundle-analyzer": "^12.2.4",
     "@react-three/drei": "^9.19.7",
     "@react-three/fiber": "^8.3.1",
+    "@sentry/nextjs": "^7.10.0",
     "@tabler/icons": "^1.79.0",
     "@types/three": "^0.143.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
