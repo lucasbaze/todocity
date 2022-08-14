@@ -27,7 +27,7 @@ const Home: NextPage = () => {
         minHeight={`calc(100vh - ${sizes.header})`}
       >
         <Flex flex={1} alignItems="center">
-          <Box flex={3}>
+          <Box flex={3} zIndex={4}>
             <Text as="h1" variant="hero">
               Your New Favorite Todo App
             </Text>
@@ -58,9 +58,18 @@ const Home: NextPage = () => {
             </Box>
           </Box>
           <Box flex={2} height={`calc(100vh - ${sizes.header})`}>
-            <Suspense fallback={null}>
-              <HomeScene />
-            </Suspense>
+            <Box
+              position="absolute"
+              transform="translateX(25%)"
+              height={`calc(100vh - ${sizes.header})`}
+              right="0"
+              left="0"
+              zIndex={2}
+            >
+              <Suspense fallback={null}>
+                <HomeScene />
+              </Suspense>
+            </Box>
           </Box>
         </Flex>
       </Container>

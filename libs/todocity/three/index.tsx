@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import { useColorMode } from '@chakra-ui/react';
 import {
+  ContactShadows,
   Environment,
   OrbitControls,
   PerspectiveCamera,
@@ -14,19 +15,22 @@ import { Soda } from '@todocity/models';
 export function HomeScene() {
   const { colorMode } = useColorMode();
   return (
-    <Canvas>
+    <Canvas
+      camera={{ position: [8, 8, 8], fov: 30 }}
+      onCreated={({ camera }) => camera.lookAt(-1, 0, -1)}
+    >
       <Suspense fallback={null}>
         <pointLight position={[-20, 30, 10]} intensity={1} />
-        {colorMode !== 'dark' && <Environment preset="dawn" />}
+        {colorMode !== 'dark' && <Environment preset="forest" />}
         <Soda />
         {/* <gridHelper args={[30, 30, 30]} /> */}
-        <PerspectiveCamera
-          args={[45, 1, 1, 1000]}
-          makeDefault
-          fov={30}
-          position={[8, 8, 8]}
+        <ContactShadows
+          position={[0, 0, 0]}
+          opacity={0.75}
+          scale={10}
+          blur={2.5}
+          far={4}
         />
-        <OrbitControls makeDefault />
       </Suspense>
     </Canvas>
   );

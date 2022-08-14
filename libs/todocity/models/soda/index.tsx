@@ -2,20 +2,17 @@ import { useRef } from 'react';
 
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Group } from 'three';
+import { Group, Matrix4 } from 'three';
 
 export function Soda(props: any) {
   const ref = useRef<Group>(null!);
-  const gltf = useGLTF('./static/models/rocket/scene.gltf');
-  useFrame((state, delta) => (ref.current.rotation.y += delta / 4));
+  const gltf = useGLTF('./static/models/main_house.glb');
+  useFrame((state, delta) => ref.current.rotateY(delta / 4));
+
   return (
     <group ref={ref} {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
-        <mesh
-          geometry={gltf.nodes.Object_2.geometry}
-          material={gltf.materials.Texture}
-          material-envMapIntensity={0}
-        />
+      <group rotation={[0, 0, 0]} scale={0.4}>
+        <primitive object={gltf.scene} />
       </group>
     </group>
   );
