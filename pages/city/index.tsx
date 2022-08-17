@@ -1,13 +1,23 @@
-import { NextPage } from 'next';
+import { Suspense } from 'react';
 
-import { MainLayout } from '@todocity/components';
+import { NextPage } from 'next';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+import { auth } from '@todocity/firebase';
+import { Game } from '@todocity/game';
 import { Box } from '@todocity/ui';
 
 const City: NextPage = () => {
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) {
+    return <Box>Loading...</Box>;
+  }
+
   return (
-    <MainLayout>
-      <Box>App Content</Box>
-    </MainLayout>
+    <Suspense fallback={null}>
+      <Game />
+    </Suspense>
   );
 };
 

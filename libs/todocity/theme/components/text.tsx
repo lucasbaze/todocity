@@ -43,6 +43,12 @@ export const Text: ComponentStyleConfig = {
       fontSize: 'lg',
       lineHeight: '150%',
     },
+    inverseBody: (props: StyleFunctionProps) => ({
+      color: props.colorMode === 'dark' ? 'white' : 'white',
+      fontWeight: '400',
+      fontSize: 'lg',
+      lineHeight: '150%',
+    }),
     disclaimer: {
       fontWeight: 400,
       fontSize: '14',

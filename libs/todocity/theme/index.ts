@@ -3,6 +3,7 @@ import { type ThemeConfig, extendTheme } from '@chakra-ui/react';
 import { Badge } from './components/badge';
 import { Button } from './components/button';
 import { Container } from './components/container';
+import { Modal } from './components/modal';
 import { Text } from './components/text';
 import { colors } from './foundations/colors';
 import { fontSizes } from './foundations/font-sizes';
@@ -27,5 +28,6 @@ export const theme = extendTheme({
     Button,
     Container,
     Text,
+    Modal,
   },
 });
