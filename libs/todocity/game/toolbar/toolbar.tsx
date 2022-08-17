@@ -17,12 +17,14 @@ import {
   Box,
   Flex,
   Grid,
+  Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ModalOverlay,
   Text,
   Tooltip,
 } from '@todocity/ui';
@@ -155,19 +157,14 @@ export function Toolbar() {
         </Flex>
       </Flex>
       <Modal
-        isCentered
         isOpen={isOpen}
         onClose={onClose}
-        size="2xl"
+        size="xl"
         variant="sidebarContent"
       >
         <ModalContent>
+          <ModalCloseButton />
           <Grid gridTemplateColumns="repeat(1fr, 12)" gridTemplateRows="6">
-            <Box gridColumn="3 / span 8" gridRow="1" p="0.5em">
-              Account
-              {/* <ModalHeader>Modal Tits</ModalHeader> */}
-              <ModalCloseButton />
-            </Box>
             <Flex
               gridColumn="1 / span 1"
               gridRow="1 / span 5"
@@ -182,31 +179,11 @@ export function Toolbar() {
               <Box>Billing</Box>
               <Box>Reminders</Box>
               <Box>Notifications</Box>
-              {/* <ModalBody display="flex">
-								<Text fontWeight="bold" mb="1rem">
-									You can scroll the content behind the modal
-								</Text>
-								<Text fontWeight="bold" mb="1rem">
-									You can scroll the content behind the modal
-								</Text>
-								<Text fontWeight="bold" mb="1rem">
-									You can scroll the content behind the modal
-								</Text>
-							</ModalBody>
-							<ModalBody display="flex">
-								<Text fontWeight="bold" mb="1rem">
-									You can scroll the content behind the modal
-								</Text>
-								<Text fontWeight="bold" mb="1rem">
-									You can scroll the content behind the modal
-								</Text>
-								<Text fontWeight="bold" mb="1rem">
-									You can scroll the content behind the modal
-								</Text>
-							</ModalBody> */}
-              Content
             </Flex>
-            <Flex gridColumn="3 / span 8" gridRow="2 / 6"></Flex>
+            <Box gridColumn="2 / span 8" gridRow="1 / span 5" p="0.5em">
+              <Heading>Account</Heading>
+              <Text>Content</Text>
+            </Box>
           </Grid>
         </ModalContent>
       </Modal>

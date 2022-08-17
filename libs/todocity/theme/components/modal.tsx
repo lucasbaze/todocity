@@ -11,6 +11,9 @@ export const Modal: ComponentStyleConfig = {
         // p: { base: '1rem', md: '0' },
       },
       dialog: {
+        borderRadius: '15px',
+        position: 'absolute',
+        bottom: '10vh',
         backgroundColor: 'orange.50',
         overflowY: 'auto',
       },
