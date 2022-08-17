@@ -16,6 +16,7 @@ import {
   Avatar,
   Box,
   Flex,
+  Grid,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -71,6 +72,7 @@ export function Toolbar() {
             <Avatar
               onClick={onOpen}
               border="3px solid black"
+              cursor="pointer"
               size="lg"
               referrerPolicy="no-referrer"
               src={user?.photoURL || undefined}
@@ -152,18 +154,60 @@ export function Toolbar() {
           </Flex>
         </Flex>
       </Flex>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        <ModalContent display="flex">
-          <ModalHeader>Modal Tits</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody display="flex">
-            <Text fontWeight="bold" mb="1rem">
-              You can scroll the content behind the modal
-            </Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
+      <Modal
+        isCentered
+        isOpen={isOpen}
+        onClose={onClose}
+        size="2xl"
+        variant="sidebarContent"
+      >
+        <ModalContent>
+          <Grid gridTemplateColumns="repeat(1fr, 12)" gridTemplateRows="6">
+            <Box gridColumn="3 / span 8" gridRow="1" p="0.5em">
+              Account
+              {/* <ModalHeader>Modal Tits</ModalHeader> */}
+              <ModalCloseButton />
+            </Box>
+            <Flex
+              gridColumn="1 / span 1"
+              gridRow="1 / span 5"
+              direction="column"
+              p="0.5em"
+              minHeight="300px"
+              backgroundColor="gray.100"
+              borderRight="1px solid #D6D6D6"
+            >
+              <Box>Account</Box>
+              <Box>Referrals</Box>
+              <Box>Billing</Box>
+              <Box>Reminders</Box>
+              <Box>Notifications</Box>
+              {/* <ModalBody display="flex">
+								<Text fontWeight="bold" mb="1rem">
+									You can scroll the content behind the modal
+								</Text>
+								<Text fontWeight="bold" mb="1rem">
+									You can scroll the content behind the modal
+								</Text>
+								<Text fontWeight="bold" mb="1rem">
+									You can scroll the content behind the modal
+								</Text>
+							</ModalBody>
+							<ModalBody display="flex">
+								<Text fontWeight="bold" mb="1rem">
+									You can scroll the content behind the modal
+								</Text>
+								<Text fontWeight="bold" mb="1rem">
+									You can scroll the content behind the modal
+								</Text>
+								<Text fontWeight="bold" mb="1rem">
+									You can scroll the content behind the modal
+								</Text>
+							</ModalBody> */}
+              Content
+            </Flex>
+            <Flex gridColumn="3 / span 8" gridRow="2 / 6"></Flex>
+          </Grid>
         </ModalContent>
       </Modal>
     </>
