@@ -1,10 +1,11 @@
-import { useDisclosure, useTheme } from '@chakra-ui/react';
+import { useColorMode, useDisclosure, useTheme } from '@chakra-ui/react';
 import {
   IconAdjustments,
   IconBox,
   IconBuildingCommunity,
   IconFence,
 } from '@tabler/icons';
+import { useControls } from 'leva';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { Button, IconButton } from '@todocity/components';
@@ -26,7 +27,15 @@ import {
 export function Toolbar() {
   const [user] = useAuthState(auth);
   const { zIndices } = useTheme();
+  const { colorMode, setColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  useControls({
+    theme: {
+      value: colorMode,
+      options: ['light', 'dark'],
+      onChange: (value) => setColorMode(value),
+    },
+  });
 
   console.log('User: ', user);
   return (
