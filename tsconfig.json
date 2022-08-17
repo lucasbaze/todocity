@@ -23,7 +23,8 @@
       "@todocity/ui": ["libs/todocity/ui/index.ts"],
       "@todocity/models": ["libs/todocity/models/index.ts"],
       "@todocity/seo": ["libs/shared/seo"],
-      "@todocity/game": ["libs/todocity/game"]
+      "@todocity/game": ["libs/todocity/game"],
+      "@todocity/store": ["libs/todocity/store"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

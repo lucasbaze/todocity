@@ -7,9 +7,11 @@ import {
 } from '@tabler/icons';
 import { useControls } from 'leva';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import shallow from 'zustand/shallow';
 
 import { Button, IconButton } from '@todocity/components';
 import { auth } from '@todocity/firebase';
+import { useLevaStore } from '@todocity/store';
 import {
   Avatar,
   Box,
@@ -29,6 +31,13 @@ export function Toolbar() {
   const { zIndices } = useTheme();
   const { colorMode, setColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { hidden, setHidden } = useLevaStore(
+    (state) => ({
+      hidden: state.hidden,
+      setHidden: state.setHidden,
+    }),
+    shallow
+  );
   useControls({
     theme: {
       value: colorMode,
@@ -61,7 +70,7 @@ export function Toolbar() {
           >
             <Avatar
               onClick={onOpen}
-              border="2px"
+              border="3px solid black"
               size="lg"
               referrerPolicy="no-referrer"
               src={user?.photoURL || undefined}
@@ -138,6 +147,7 @@ export function Toolbar() {
               icon={<IconAdjustments />}
               aria-label="fence icon"
               isRound
+              onClick={() => setHidden(!hidden)}
             />
           </Flex>
         </Flex>
