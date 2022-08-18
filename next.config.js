@@ -11,6 +11,12 @@ const nextConfig = {
   // Off because StylesFirebaseAuth throws warnings everywhere otherwise
   reactStrictMode: false,
   swcMinify: true,
+
+  // Only compile pages that end in .page.tsx
+  pageExtensions:
+    process.env.DRAFT_PAGES === 'true'
+      ? ['page.tsx', 'draft-page.tsx']
+      : ['page.tsx'],
 };
 
 const sentryWebpackPluginOptions = {
