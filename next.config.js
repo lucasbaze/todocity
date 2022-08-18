@@ -31,6 +31,11 @@ const composeplugins = () => {
   });
 };
 
-// Make sure adding Sentry options is the last code to run before exporting, to
-// ensure that your source maps include changes from all other Webpack plugins
-module.exports = withSentryConfig(composeplugins(), sentryWebpackPluginOptions);
+/* - Make sure adding Sentry options is the last code to run before exporting, to
+ 			ensure that your source maps include changes from all other Webpack plugins
+    - Don't build and push sentry in test env
+*/
+module.exports =
+  process.env.NEXT_PUBLIC_WEB_APP_ENV !== 'test'
+    ? withSentryConfig(composeplugins(), sentryWebpackPluginOptions)
+    : composeplugins();

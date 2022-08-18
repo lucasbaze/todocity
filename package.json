@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:test": "NEXT_PUBLIC_WEB_APP_ENV=test next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",

@@ -1,6 +1,5 @@
-import { PropsWithChildren } from 'react';
-
 import Head from 'next/head';
+import type { PropsWithChildren } from 'react';
 
 import type { INextSEOMetaTagsProps } from '../types';
 import { openGraphTags } from './open-graph-tags';
