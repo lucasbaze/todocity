@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:test": "NEXT_PUBLIC_WEB_APP_ENV=test next build",
-    "build:analyze": "ANALYZE=true next build",
+    "build:analyze": "ANALYZE=true NEXT_PUBLIC_WEB_APP_ENV=test next build",
     "start": "next start",
     "lint": "next lint",
     "ts-lint": "tsc --noEmit --incremental",

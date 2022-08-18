@@ -8,6 +8,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const nextConfig = {
+  // Off because StylesFirebaseAuth throws warnings everywhere otherwise
   reactStrictMode: false,
   swcMinify: true,
 };
