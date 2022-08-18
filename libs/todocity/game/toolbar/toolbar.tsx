@@ -9,11 +9,12 @@ import { useControls } from 'leva';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import shallow from 'zustand/shallow';
 
-import { Button, IconButton } from '@todocity/components';
+import { Button, IconButton, LightDarkButton } from '@todocity/components';
 import { auth } from '@todocity/firebase';
 import { useLevaStore } from '@todocity/store';
 import {
   Avatar,
+  Badge,
   Box,
   Flex,
   Grid,
@@ -34,22 +35,22 @@ export function Toolbar() {
   const { zIndices } = useTheme();
   const { colorMode, setColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { hidden, setHidden } = useLevaStore(
-    (state) => ({
-      hidden: state.hidden,
-      setHidden: state.setHidden,
-    }),
-    shallow
-  );
-  useControls({
-    theme: {
-      value: colorMode,
-      options: ['light', 'dark'],
-      onChange: (value) => setColorMode(value),
-    },
-  });
+  // TODO: Theme and use Leva for controls. Removing for now as there aren't enough controls yet.
+  // const { hidden, setHidden } = useLevaStore(
+  //   (state) => ({
+  //     hidden: state.hidden,
+  //     setHidden: state.setHidden,
+  //   }),
+  //   shallow
+  // );
+  // useControls({
+  //   theme: {
+  //     value: colorMode,
+  //     options: ['light', 'dark'],
+  //     onChange: (value) => setColorMode(value),
+  //   },
+  // });
 
-  console.log('User: ', user);
   return (
     <>
       <Flex
@@ -62,7 +63,7 @@ export function Toolbar() {
         opacity={0.9}
         padding={2}
         zIndex={zIndices.overlay}
-        backgroundColor="black"
+        backgroundColor={colorMode === 'dark' ? 'gray.900' : 'orange.50'}
       >
         <Flex position="relative" minWidth="500px" alignItems="center">
           <Box
@@ -73,16 +74,16 @@ export function Toolbar() {
           >
             <Avatar
               onClick={onOpen}
-              border="3px solid black"
               cursor="pointer"
               size="lg"
+              variant="outline"
               referrerPolicy="no-referrer"
               src={user?.photoURL || undefined}
             />
           </Box>
           <Flex flex={1} ml="10">
             <Box>
-              <Text variant="inverseBody">
+              <Text variant="body">
                 {new Date().toLocaleTimeString('en-GB', {
                   hour: '2-digit',
                   minute: '2-digit',
@@ -93,7 +94,19 @@ export function Toolbar() {
           <Flex alignItems="center" justifyContent="center" flex={3} gap={3}>
             <Flex alignItems="center">
               <Tooltip
-                label="Components: These are the building blocks of your city. Coming Soon"
+                label={
+                  <Flex direction="column" mt="1">
+                    <Flex gap="2">
+                      <Badge colorScheme="purple" fontSize="0.8em" size="sm">
+                        Coming Soon
+                      </Badge>
+                    </Flex>
+                    <Box mt="1">
+                      Components are the building blocks of your city including
+                      buildings, trees, and more...
+                    </Box>
+                  </Flex>
+                }
                 hasArrow
                 offset={[20, 20]}
               >
@@ -102,15 +115,28 @@ export function Toolbar() {
                   icon={<IconBox />}
                   aria-label="3d cube sphere icon"
                   isRound
+                  variant="ghost"
                 />
               </Tooltip>
-              <Text variant="inverseBody" ml="1">
+              <Text variant="body" ml="1">
                 12
               </Text>
             </Flex>
             <Flex alignItems="center">
               <Tooltip
-                label="Components: These are the building blocks of your city. Coming Soon"
+                label={
+                  <Flex direction="column" mt="1">
+                    <Flex gap="2">
+                      <Badge colorScheme="purple" fontSize="0.8em" size="sm">
+                        Coming Soon
+                      </Badge>
+                    </Flex>
+                    <Box mt="1">
+                      City points let you buy more buildings, trees, etc... to
+                      build your city
+                    </Box>
+                  </Flex>
+                }
                 hasArrow
                 offset={[20, 20]}
               >
@@ -119,16 +145,29 @@ export function Toolbar() {
                   icon={<IconBuildingCommunity />}
                   aria-label="house and building icon"
                   isRound
+                  variant="ghost"
                   ml="1"
                 />
               </Tooltip>
-              <Text variant="inverseBody" ml="1">
+              <Text variant="body" ml="1">
                 12
               </Text>
             </Flex>
             <Flex alignItems="center">
               <Tooltip
-                label="Components: These are the building blocks of your city. Coming Soon"
+                label={
+                  <Flex direction="column" mt="1">
+                    <Flex gap="2">
+                      <Badge colorScheme="purple" fontSize="0.8em" size="sm">
+                        Coming Soon
+                      </Badge>
+                    </Flex>
+                    <Box mt="1">
+                      Lot points let you unlock new locations and places to
+                      build.
+                    </Box>
+                  </Flex>
+                }
                 hasArrow
                 offset={[20, 20]}
               >
@@ -137,22 +176,17 @@ export function Toolbar() {
                   icon={<IconFence />}
                   aria-label="fence icon"
                   isRound
+                  variant="ghost"
                   ml="1"
                 />
               </Tooltip>
-              <Text variant="inverseBody" ml="1">
+              <Text variant="body" ml="1">
                 12
               </Text>
             </Flex>
           </Flex>
           <Flex flex={1} alignItems="center" justifyContent="flex-end">
-            <IconButton
-              size="sm"
-              icon={<IconAdjustments />}
-              aria-label="fence icon"
-              isRound
-              onClick={() => setHidden(!hidden)}
-            />
+            <LightDarkButton size="sm" variant="ghost" isRound={true} />
           </Flex>
         </Flex>
       </Flex>

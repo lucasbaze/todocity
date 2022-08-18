@@ -1,6 +1,7 @@
 // https://chakra-ui.com/docs/styled-system/theming/component-style
+// https://github.com/chakra-ui/chakra-ui/blob/main/packages/theme/src/components/button.ts
 import type { ComponentStyleConfig } from '@chakra-ui/theme';
-import { StyleFunctionProps } from '@chakra-ui/theme-tools';
+import { mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 export const Button: ComponentStyleConfig = {
   baseStyle: {
@@ -18,7 +19,7 @@ export const Button: ComponentStyleConfig = {
   },
   variants: {
     primary: (props: StyleFunctionProps) => ({
-      bg: props.colorMode === 'dark' ? 'purple.300' : 'purple.600',
+      bg: mode('purple.600', 'purple.300')(props),
       borderRadius: 99,
       color: 'white',
       boxShadow:
@@ -28,6 +29,12 @@ export const Button: ComponentStyleConfig = {
       bg: 'red.400',
       boxShadow: '0 0 2px 2px #efdfde',
     },
+    ghost: (props: StyleFunctionProps) => ({
+      _hover: {
+        bg: mode(`gray.200`, `whiteAlpha.200`)(props),
+      },
+      _active: { bg: mode(`gray.200`, `whiteAlpha.300`)(props) },
+    }),
     // 4. We can override existing variants
     solid: (props: StyleFunctionProps) => ({
       // bg: props.colorMode === 'dark' ? 'white' : 'gray.900',
