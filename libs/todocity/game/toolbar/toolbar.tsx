@@ -5,7 +5,9 @@ import {
   IconBuildingCommunity,
   IconFence,
 } from '@tabler/icons';
+import { signOut } from 'firebase/auth';
 import { useControls } from 'leva';
+import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import shallow from 'zustand/shallow';
 
@@ -31,10 +33,17 @@ import {
 } from '@todocity/ui';
 
 export function Toolbar() {
+  const router = useRouter();
   const [user] = useAuthState(auth);
   const { zIndices } = useTheme();
   const { colorMode, setColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.push('/');
+  };
+
   // TODO: Theme and use Leva for controls. Removing for now as there aren't enough controls yet.
   // const { hidden, setHidden } = useLevaStore(
   //   (state) => ({
@@ -213,6 +222,9 @@ export function Toolbar() {
               <Box>Billing</Box>
               <Box>Reminders</Box>
               <Box>Notifications</Box>
+              <Flex flex={1} direction="column" justifyContent="flex-end">
+                <Box onClick={handleLogout}>Logout</Box>
+              </Flex>
             </Flex>
             <Box gridColumn="2 / span 8" gridRow="1 / span 5" p="0.5em">
               <Heading>Account</Heading>
