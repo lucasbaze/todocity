@@ -1,10 +1,29 @@
+import { useState } from 'react';
+
 import { useTheme } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { AnalButton, MainLayout } from '@todocity/components';
+import { auth } from '@todocity/firebase';
 import { Badge, Box, Container, Flex, PricingCard, Text } from '@todocity/ui';
 
-function HomePage() {
+function PricingPage() {
+  const router = useRouter();
+  const [user] = useAuthState(auth);
+  const [loadingCheckoutSession, setLoadingCheckoutSession] =
+    useState<boolean>(false);
   const { sizes } = useTheme();
+
+  const handlePreorder = () => {
+    if (user) {
+      router.push('/api/stripe/create-checkout-session');
+      setLoadingCheckoutSession(true);
+    } else {
+      router.push('/signup');
+    }
+  };
+
   return (
     <MainLayout>
       <Container
@@ -75,7 +94,7 @@ function HomePage() {
               <Box flex={1}>
                 <PricingCard
                   data={{
-                    price: '$24',
+                    price: '$25',
                     name: 'Metropolis',
                     discount: (
                       <Badge
@@ -98,6 +117,7 @@ function HomePage() {
                         text: 'Recurring reminders',
                       },
                       { text: 'Premium object access' },
+                      { text: '10x starting points' },
                       { text: '...much more to come' },
                     ],
                   }}
@@ -106,22 +126,24 @@ function HomePage() {
                       <AnalButton
                         variant="primary"
                         size="lg"
+                        isLoading={loadingCheckoutSession}
                         analytics={{ buttonName: 'buy-now' }}
+                        onClick={handlePreorder}
                       >
                         Pre-order today
                       </AnalButton>
                     </>
                   }
-                  disclaimer={
-                    <Text
-                      textAlign="center"
-                      variant="disclaimer"
-                      margin="0 auto"
-                    >
-                      You will not be charged until notified. <br /> Cancel any
-                      time beforehand.
-                    </Text>
-                  }
+                  // disclaimer={
+                  //   <Text
+                  //     textAlign="center"
+                  //     variant="disclaimer"
+                  //     margin="0 auto"
+                  //   >
+                  //     You will be charged today. <br /> However, you can request to cancel any
+                  //     time beforehand.
+                  //   </Text>
+                  // }
                 />
               </Box>
             </Flex>
@@ -132,4 +154,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default PricingPage;
