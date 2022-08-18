@@ -1,1 +1,1 @@
-export * from './soda/index';
+export * from './home-page-model/index';
