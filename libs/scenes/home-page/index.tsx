@@ -11,7 +11,7 @@ import {
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Group } from 'three';
 
-import { RectAreaLight } from '@todocity/components/lights/rectAreaLight';
+import { RectAreaLight } from '@todocity/three/lights/rect-area-light';
 
 export function HomePageModel(props: any) {
   const { camera } = useThree();

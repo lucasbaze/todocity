@@ -1,6 +1,6 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { auth } from '@todocity/firebase';
+import { auth } from '@todocity/firebase/client-app';
 import { Avatar } from '@todocity/ui/core';
 
 export const UserAvatar = () => {

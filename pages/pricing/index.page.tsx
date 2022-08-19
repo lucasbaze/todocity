@@ -6,9 +6,10 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { AnalButton } from '@todocity/components/buttons/button';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
-import { auth } from '@todocity/firebase';
-import { PricingCard } from '@todocity/ui/components/pricing-card/pricing-card';
+import { auth } from '@todocity/firebase/client-app';
 import { Badge, Box, Container, Flex, Text } from '@todocity/ui/core';
+
+import { PricingCard } from './ui/components/pricing-card/pricing-card';
 
 function PricingPage() {
   const router = useRouter();

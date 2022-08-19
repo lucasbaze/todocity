@@ -4,7 +4,8 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import firebaseui from 'firebaseui';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-import { auth, signInSuccessWithAuthResult } from '@todocity/firebase';
+import { auth } from '@todocity/firebase/client-app';
+import { signInSuccessWithAuthResult } from '@todocity/firebase/users';
 import { Box } from '@todocity/ui/core';
 
 // Configure FirebaseUI.

@@ -7,7 +7,7 @@ import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout
 import { Card } from '@todocity/ui/components/card/card';
 import { Box, Flex, Text } from '@todocity/ui/core';
 const LoginSignup = dynamic(
-  () => import('../../libs/todocity/components/buttons/login-signup-button'),
+  () => import('../../libs/components/buttons/login-signup-button'),
   { suspense: true }
 );
 

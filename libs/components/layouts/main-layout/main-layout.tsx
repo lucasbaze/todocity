@@ -2,8 +2,9 @@ import React from 'react';
 
 import { useColorMode } from '@chakra-ui/react';
 
-import { Header } from '@todocity/components/header/header';
 import { Box, Grid } from '@todocity/ui/core';
+
+import { Header } from '../header/header';
 
 import styles from './main-layout.module.css';
 

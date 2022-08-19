@@ -16,17 +16,18 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@todocity/theme": ["libs/todocity/theme/index.ts"],
-      "@todocity/firebase": ["libs/todocity/firebase/index.ts"],
+      "@todocity/theme": ["libs/theme/index.ts"],
+      "@todocity/firebase/*": ["libs/firebase/*"],
+      "@todocity/three/*": ["libs/three/*"],
       "@todocity/analytics": ["libs/analytics/index.ts"],
       "@todocity/analytics/*": ["libs/analytics/*"],
-      "@todocity/components/*": ["libs/todocity/components/*"],
+      "@todocity/components/*": ["libs/components/*"],
       "@todocity/ui/core": ["libs/ui/core/index.ts"],
       "@todocity/ui/components/*": ["libs/ui/components/*"],
-      "@todocity/scenes": ["libs/todocity/scenes/index.ts"],
-      "@todocity/seo": ["libs/shared/seo"],
-      "@todocity/game": ["libs/todocity/game"],
-      "@todocity/store": ["libs/todocity/store"]
+      "@todocity/scenes/*": ["libs/scenes/*"],
+      "@todocity/seo/*": ["libs/seo/*"],
+      "@todocity/game": ["libs/game"],
+      "@todocity/stores/*": ["libs/stores/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

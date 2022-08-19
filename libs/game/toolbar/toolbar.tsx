@@ -1,12 +1,12 @@
 import { useColorMode, useDisclosure, useTheme } from '@chakra-ui/react';
 import { IconBox, IconBuildingCommunity, IconFence } from '@tabler/icons';
 import { signOut } from 'firebase/auth';
+import { auth } from 'libs/firebase/client-app';
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { LightDarkButton } from '@todocity/components/buttons/light-dark-button';
 import { IconButton } from '@todocity/components/icon-button/icon-button';
-import { auth } from '@todocity/firebase';
 import {
   Avatar,
   Badge,

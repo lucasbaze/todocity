@@ -4,7 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { eventTriggers } from '@todocity/analytics/events';
 import { AnalButton } from '@todocity/components/buttons/button';
-import { auth } from '@todocity/firebase';
+import { auth } from '@todocity/firebase/client-app';
 
 export const CreateAccountButton = () => {
   const [user, loading] = useAuthState(auth);
