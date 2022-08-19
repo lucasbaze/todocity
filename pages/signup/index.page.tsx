@@ -8,7 +8,7 @@ import { Card } from '@todocity/ui/components/card/card';
 import { Box, Flex, Text } from '@todocity/ui/core';
 const LoginSignup = dynamic(
   () => import('../../libs/components/buttons/login-signup-button'),
-  { suspense: true }
+  { ssr: false, suspense: true }
 );
 
 const Signup: NextPage = () => {

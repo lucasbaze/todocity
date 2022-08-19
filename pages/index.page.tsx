@@ -7,11 +7,12 @@ import dynamic from 'next/dynamic';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { Box, Button, Container, Flex, Text } from '@todocity/ui/core';
 const HomeScene = dynamic(() => import('../libs/scenes/home-page/index'), {
+  ssr: false,
   suspense: true,
 });
 const CreateAccountButton = dynamic(
   () => import('../libs/components/buttons/create-account-button'),
-  { suspense: true }
+  { ssr: false, suspense: true }
 );
 
 const Home: NextPage = () => {

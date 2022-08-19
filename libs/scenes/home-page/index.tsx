@@ -4,6 +4,7 @@ import { ColorModeContext } from '@chakra-ui/react';
 import {
   ContactShadows,
   Environment,
+  Html,
   PresentationControls,
   useContextBridge,
   useGLTF,
@@ -11,6 +12,7 @@ import {
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Group } from 'three';
 
+import { ThreeDLoader } from '@todocity/components/three-d-loader/three-d-loader';
 import { RectAreaLight } from '@todocity/three/lights/rect-area-light';
 
 export function HomePageModel(props: any) {
@@ -107,7 +109,13 @@ export function HomeScene() {
   return (
     <Canvas camera={{ position: [7, 10, 10], fov: 30 }}>
       <ContextBridge>
-        <Suspense fallback={null}>
+        <Suspense
+          fallback={
+            <Html>
+              <ThreeDLoader />
+            </Html>
+          }
+        >
           <HomePageModel />
         </Suspense>
       </ContextBridge>
