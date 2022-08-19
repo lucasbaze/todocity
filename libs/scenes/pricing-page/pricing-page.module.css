@@ -1,0 +1,9 @@
+.canvas {
+  pointer-events: none;
+  position: fixed !important;
+  top: 0px;
+  left: 0px;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 20;
+}

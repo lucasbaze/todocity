@@ -46,12 +46,12 @@ export const PricingCard = ({
       <Card
         boxProps={{
           margin: { base: '0 auto' },
+          pt: 16,
           width: { base: '95%' },
           position: 'relative',
         }}
       >
         <VStack spacing={6}>
-          {/* TODO: Add the object here */}
           <Heading size="md" fontWeight="medium">
             {name}
           </Heading>

@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import { useTheme } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
@@ -12,10 +13,16 @@ const LoginSignup = dynamic(
 );
 
 const Signup: NextPage = () => {
+  const { sizes } = useTheme();
   return (
     <main>
       <MainLayout>
-        <Flex direction="column" alignItems="center" height="100%" my="24">
+        <Flex
+          direction="column"
+          alignItems="center"
+          minHeight={`calc(100vh - ${sizes.header})`}
+          pt="24"
+        >
           <Text as="h1" variant="h1" pb="2">
             Create your new Todo City!
           </Text>
