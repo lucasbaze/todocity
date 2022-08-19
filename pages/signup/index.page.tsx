@@ -1,7 +1,15 @@
-import type { NextPage } from 'next';
+import { Suspense } from 'react';
 
-import { LoginSignup, MainLayout } from '@todocity/components';
-import { Box, Card, Flex, Text } from '@todocity/ui';
+import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
+
+import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
+import { Card } from '@todocity/ui/components/card/card';
+import { Box, Flex, Text } from '@todocity/ui/core';
+const LoginSignup = dynamic(
+  () => import('../../libs/todocity/components/buttons/login-signup-button'),
+  { suspense: true }
+);
 
 const Signup: NextPage = () => {
   return (
@@ -24,7 +32,9 @@ const Signup: NextPage = () => {
           </Text>
           <Card>
             <Flex direction="column" alignItems="center">
-              <LoginSignup />
+              <Suspense fallback={<Box minHeight="100px" width="200px" />}>
+                <LoginSignup />
+              </Suspense>
               <Text variant="disclaimer" width="60%" textAlign="center">
                 By doing so you agree to our terms of service and privacy policy
               </Text>

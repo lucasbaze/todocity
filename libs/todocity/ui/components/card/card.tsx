@@ -1,6 +1,6 @@
 import { useColorMode } from '@chakra-ui/react';
 
-import { Box, BoxProps } from '../chakra/chakra';
+import { Box, BoxProps } from '../../core';
 
 export interface ICardProps {
   children: React.ReactNode;

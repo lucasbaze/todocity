@@ -1,22 +1,23 @@
 import { Suspense } from 'react';
 
 import { useTheme } from '@chakra-ui/react';
-import { IconArrowRight } from '@tabler/icons';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { eventTriggers } from '@todocity/analytics';
-import { AnalButton, MainLayout } from '@todocity/components';
-import { auth } from '@todocity/firebase';
-import { Box, Container, Flex, Text } from '@todocity/ui';
-const HomeScene = dynamic(() => import('../libs/todocity/three/index'), {
-  suspense: true,
-});
+import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
+import { Box, Button, Container, Flex, Text } from '@todocity/ui/core';
+const HomeScene = dynamic(
+  () => import('../libs/todocity/scenes/home-page/index'),
+  {
+    suspense: true,
+  }
+);
+const CreateAccountButton = dynamic(
+  () => import('../libs/todocity/components/buttons/create-account-button'),
+  { suspense: true }
+);
 
 const Home: NextPage = () => {
-  const [user, loading] = useAuthState(auth);
   const { sizes } = useTheme();
 
   return (
@@ -39,23 +40,15 @@ const Home: NextPage = () => {
               Complete your Todos. Get points. Build your city.
             </Text>
             <Box width="max-content">
-              <Link href={user ? '/city' : '/signup'}>
-                <AnalButton
-                  variant="primary"
-                  size="xl"
-                  mb="2"
-                  isLoading={loading}
-                  analytics={{ buttonName: eventTriggers.MAIN_CTA }}
-                >
-                  {user ? (
-                    <>
-                      Go to Your City <IconArrowRight />
-                    </>
-                  ) : (
-                    'Create your city'
-                  )}
-                </AnalButton>
-              </Link>
+              <Suspense
+                fallback={
+                  <Button variant="primary" size="xl" mb="2">
+                    Create your city
+                  </Button>
+                }
+              >
+                <CreateAccountButton />
+              </Suspense>
               <Text textAlign="center" color="gray.600">
                 Your todo city is free forever
               </Text>

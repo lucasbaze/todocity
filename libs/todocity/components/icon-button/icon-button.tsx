@@ -4,7 +4,7 @@ import { events, TButtonAnalytics } from '@todocity/analytics';
 import {
   IconButton as TodoCityIconButton,
   IconButtonProps,
-} from '@todocity/ui';
+} from '@todocity/ui/core';
 
 interface IIconButtonProps extends IconButtonProps {
   analytics: TButtonAnalytics;

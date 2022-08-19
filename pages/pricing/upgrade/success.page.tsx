@@ -1,8 +1,8 @@
 import { useTheme } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
-import { MainLayout } from '@todocity/components';
-import { Container } from '@todocity/ui';
+import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
+import { Container } from '@todocity/ui/core';
 
 const UpgradeSuccess: NextPage = () => {
   const { sizes } = useTheme();

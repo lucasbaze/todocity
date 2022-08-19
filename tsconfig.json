@@ -19,9 +19,10 @@
       "@todocity/theme": ["libs/todocity/theme/index.ts"],
       "@todocity/firebase": ["libs/todocity/firebase/index.ts"],
       "@todocity/analytics": ["libs/todocity/analytics/index.ts"],
-      "@todocity/components": ["libs/todocity/components/index.ts"],
-      "@todocity/ui": ["libs/todocity/ui/index.ts"],
-      "@todocity/models": ["libs/todocity/models/index.ts"],
+      "@todocity/components/*": ["libs/todocity/components/*"],
+      "@todocity/ui/core": ["libs/todocity/ui/core/index.ts"],
+      "@todocity/ui/components/*": ["libs/todocity/ui/components/*"],
+      "@todocity/scenes": ["libs/todocity/scenes/index.ts"],
       "@todocity/seo": ["libs/shared/seo"],
       "@todocity/game": ["libs/todocity/game"],
       "@todocity/store": ["libs/todocity/store"]

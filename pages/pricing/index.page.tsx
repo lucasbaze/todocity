@@ -4,9 +4,11 @@ import { useTheme } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { AnalButton, MainLayout } from '@todocity/components';
+import { AnalButton } from '@todocity/components/buttons/button';
+import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { auth } from '@todocity/firebase';
-import { Badge, Box, Container, Flex, PricingCard, Text } from '@todocity/ui';
+import { PricingCard } from '@todocity/ui/components/pricing-card/pricing-card';
+import { Badge, Box, Container, Flex, Text } from '@todocity/ui/core';
 
 function PricingPage() {
   const router = useRouter();

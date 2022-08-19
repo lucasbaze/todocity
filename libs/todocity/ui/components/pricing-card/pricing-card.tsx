@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { IconCircleCheck, IconInfoCircle } from '@tabler/icons';
 
-import { Card } from './card';
+import { Card } from '../card/card';
 
 export interface PricingCardData {
   features: { text: string; tooltipText?: string }[];

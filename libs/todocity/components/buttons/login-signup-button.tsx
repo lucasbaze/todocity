@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { GoogleAuthProvider, User, UserCredential } from 'firebase/auth';
+import { GoogleAuthProvider } from 'firebase/auth';
 import firebaseui from 'firebaseui';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 import { auth, signInSuccessWithAuthResult } from '@todocity/firebase';
+import { Box } from '@todocity/ui/core';
 
 // Configure FirebaseUI.
 const uiConfig: firebaseui.auth.Config = {
@@ -17,5 +18,12 @@ const uiConfig: firebaseui.auth.Config = {
 };
 
 export function LoginSignup() {
-  return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />;
+  return (
+    <Box minHeight="100px">
+      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
+    </Box>
+  );
 }
+
+// Required for lazy loading
+export default LoginSignup;

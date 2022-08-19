@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '@todocity/firebase';
 import { Game } from '@todocity/game';
-import { Box } from '@todocity/ui';
+import { Box } from '@todocity/ui/core';
 
 const City: NextPage = () => {
   const [user, loading] = useAuthState(auth);
