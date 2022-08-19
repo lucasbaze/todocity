@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { events, TButtonAnalytics } from '@todocity/analytics';
+import { events } from '@todocity/analytics/events';
+import type { TButtonAnalytics } from '@todocity/analytics/types';
 import {
   IconButton as TodoCityIconButton,
   IconButtonProps,
