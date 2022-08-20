@@ -5,6 +5,7 @@ import { auth } from 'libs/firebase/client-app';
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import { events } from '@todocity/analytics/events';
 import { LightDarkButton } from '@todocity/components/buttons/light-dark-button';
 import { IconButton } from '@todocity/components/icon-button/icon-button';
 import {
@@ -30,6 +31,9 @@ export function Toolbar() {
 
   const handleLogout = async () => {
     await signOut(auth);
+    window.dataLayer?.push({
+      event: events.LOGOUT,
+    });
     router.push('/');
   };
 

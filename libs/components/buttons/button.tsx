@@ -20,9 +20,9 @@ export const AnalButton = React.forwardRef(
         onClick={(event) => {
           if (props.onClick) {
             props.onClick(event);
-            window.dataLayer.push({
+            window.dataLayer?.push({
               event: events.BUTTON_CLICK,
-              button_name: analytics.buttonName,
+              BUTTON_NAME: analytics.buttonName,
               ...analytics.params,
             });
           }

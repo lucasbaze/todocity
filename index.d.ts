@@ -8,6 +8,6 @@ declare module 'three-stdlib' {
 
 declare global {
   interface Window {
-    dataLayer: [any];
+    dataLayer?: [any];
   }
 }
