@@ -1,21 +1,23 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 
 import { LightDarkButton } from '@todocity/components/buttons/light-dark-button';
-import { Box, Container, Flex, Text } from '@todocity/ui/core';
+import { Box, Container, Flex, Link, Text } from '@todocity/ui/core';
 
 export function Header() {
   return (
     <Container display="flex" alignItems="center" height="header">
       <Box flex="1">
-        <Link href="/">
+        <NextLink href="/">
           <Text variant="h1" cursor="pointer">
             TODOCITY
           </Text>
-        </Link>
+        </NextLink>
       </Box>
       <Flex alignItems="center" gap="12">
-        <Link href="/pricing">Early Pricing</Link>
-        <LightDarkButton />
+        <Link variant="headerNav" href="/pricing">
+          Early Pricing
+        </Link>
+        <LightDarkButton variant="ghost" />
       </Flex>
     </Container>
   );

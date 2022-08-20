@@ -19,11 +19,14 @@ export const Button: ComponentStyleConfig = {
   },
   variants: {
     primary: (props: StyleFunctionProps) => ({
-      bg: mode('purple.600', 'purple.300')(props),
+      bg: 'purple.600',
       borderRadius: 99,
       color: 'white',
       boxShadow:
         '0px 20px 25px -5px rgba(0, 0, 0, 0.15), 0px 10px 10px -5px rgba(0, 0, 0, 0.1)',
+      _hover: {
+        bg: mode('purple.700', 'purple.500')(props),
+      },
     }),
     'with-shadow': {
       bg: 'red.400',

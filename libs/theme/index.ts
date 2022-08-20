@@ -4,6 +4,7 @@ import { Avatar } from './components/avatar';
 import { Badge } from './components/badge';
 import { Button } from './components/button';
 import { Container } from './components/container';
+import { Link } from './components/link';
 import { Modal } from './components/modal';
 import { Text } from './components/text';
 import { Tooltip } from './components/tooltip';
@@ -30,8 +31,9 @@ export const theme = extendTheme({
     Badge,
     Button,
     Container,
-    Text,
+    Link,
     Modal,
+    Text,
     Tooltip,
   },
 });

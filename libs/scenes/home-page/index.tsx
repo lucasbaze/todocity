@@ -33,7 +33,6 @@ export function HomePageModel(props: any) {
   return (
     <>
       <PresentationControls
-        global={true}
         config={{ mass: 10, tension: 0, friction: 1 }}
         rotation={[0, 0, 0]}
         polar={[0, 0]}

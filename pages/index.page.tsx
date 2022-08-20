@@ -5,7 +5,7 @@ import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
-import { Box, Button, Container, Flex, Text } from '@todocity/ui/core';
+import { Box, Button, Container, Flex, Link, Text } from '@todocity/ui/core';
 const HomeScene = dynamic(() => import('../libs/scenes/home-page/index'), {
   ssr: false,
   suspense: true,
@@ -47,9 +47,11 @@ const Home: NextPage = () => {
               >
                 <CreateAccountButton />
               </Suspense>
-              <Text textAlign="center" color="gray.600">
-                Your todo city is free forever
-              </Text>
+              <Link href="/pricing">
+                <Text textAlign="center" color="gray.600">
+                  Your todo city is free forever
+                </Text>
+              </Link>
             </Box>
           </Box>
           <Box flex={2} height={`calc(100vh - ${sizes.header})`}>
