@@ -3,7 +3,6 @@ import { Suspense, useContext, useEffect, useRef } from 'react';
 import { ColorModeContext } from '@chakra-ui/react';
 import {
   ContactShadows,
-  Environment,
   Html,
   PresentationControls,
   useContextBridge,
@@ -13,6 +12,9 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Group } from 'three';
 
 import { ThreeDLoader } from '@todocity/components/three-d-loader/three-d-loader';
+import { AmbientLight } from '@todocity/three/lights/ambient-light';
+import { DirectionalLight } from '@todocity/three/lights/directional-light';
+import { PointLight } from '@todocity/three/lights/point-light';
 import { RectAreaLight } from '@todocity/three/lights/rect-area-light';
 
 export function HomePageModel(props: any) {
@@ -24,6 +26,7 @@ export function HomePageModel(props: any) {
 
   useEffect(() => {
     // Bad practice, but I just wanted to get this to work
+    // This "positions" the object down as the camera looks slightly up
     camera.lookAt(0, 1, 0);
   }, []);
 
@@ -85,7 +88,18 @@ export function HomePageModel(props: any) {
           </group>
         </>
       ) : (
-        <Environment preset="forest" />
+        <>
+          <AmbientLight threeProps={{ args: ['white', 0.6] }} />
+          <DirectionalLight
+            threeProps={{
+              args: ['white', 1],
+              position: [7, 10, 0],
+            }}
+          />
+          <PointLight
+            threeProps={{ args: ['white', 3, 0.5, 1], position: [2, 2, 2] }}
+          />
+        </>
       )}
       <axesHelper />
       {/* <gridHelper /> */}
