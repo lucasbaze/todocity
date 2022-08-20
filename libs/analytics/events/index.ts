@@ -3,6 +3,7 @@ export const events = {
   SIGN_UP: 'sign_up',
   LOGIN: 'login',
   LOGOUT: 'logout',
+  PURCHASE: 'purchase',
 };
 
 export const eventTriggers = {

@@ -9,19 +9,22 @@ import { signInSuccessWithAuthResult } from '@todocity/firebase/users';
 import { Box } from '@todocity/ui/core';
 
 // Configure FirebaseUI.
-const uiConfig: firebaseui.auth.Config = {
-  signInSuccessUrl: '/city',
+const uiConfig = (navigateTo?: string): firebaseui.auth.Config => ({
   signInFlow: 'popup',
   signInOptions: [GoogleAuthProvider.PROVIDER_ID],
   callbacks: {
-    signInSuccessWithAuthResult: signInSuccessWithAuthResult,
+    signInSuccessWithAuthResult: signInSuccessWithAuthResult(navigateTo),
   },
-};
+});
 
-export function LoginSignup() {
+interface ILoginSignupProps {
+  navigateTo?: string;
+}
+
+export function LoginSignup({ navigateTo }: ILoginSignupProps) {
   return (
     <Box minHeight="100px">
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
+      <StyledFirebaseAuth uiConfig={uiConfig(navigateTo)} firebaseAuth={auth} />
     </Box>
   );
 }

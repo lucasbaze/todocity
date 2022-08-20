@@ -17,8 +17,8 @@ export async function addNewUserToFireStore(user: User) {
     createdAt: new Date(),
   };
   try {
-    const newDoc = await setDoc(doc(db, 'users', user.uid), details);
-    console.log('New user Created: ', newDoc);
+    await setDoc(doc(db, 'users', user.uid), details);
+    console.log('New user Created');
   } catch (e) {
     console.error('Error creating new user: ', e);
   }
@@ -36,33 +36,31 @@ export async function updateUserLastLoginDate(user: User) {
   }
 }
 
-export function signInSuccessWithAuthResult(authResult: UserCredential) {
-  console.log('AuthResult: ', authResult.user);
+export const signInSuccessWithAuthResult =
+  (navigateTo = '/city') =>
+  (authResult: UserCredential) => {
+    const userDocRef = doc(db, 'users', authResult.user.uid);
+    getDoc(userDocRef)
+      .then((doc) => {
+        if (doc.exists()) {
+          // Analytics trigger
+          window.dataLayer?.push({
+            event: events.LOGIN,
+          });
+          updateUserLastLoginDate(authResult.user);
+          router.push(navigateTo);
+        } else {
+          window.dataLayer?.push({
+            event: events.SIGN_UP,
+          });
+          addNewUserToFireStore(authResult.user);
+          router.push(navigateTo);
+        }
+      })
+      .catch((error) => {
+        console.error('Checking if user exists failed" ' + error);
+      });
 
-  const userDocRef = doc(db, 'users', authResult.user.uid);
-  getDoc(userDocRef)
-    .then((doc) => {
-      if (doc.exists()) {
-        // Navigate to the app
-        console.log('user already exists: ', doc);
-        // Analytics trigger
-        window.dataLayer?.push({
-          event: events.LOGIN,
-        });
-        updateUserLastLoginDate(authResult.user);
-        router.push('/city');
-      } else {
-        window.dataLayer?.push({
-          event: events.SIGN_UP,
-        });
-        addNewUserToFireStore(authResult.user);
-        router.push('/city');
-      }
-    })
-    .catch((error) => {
-      console.error('Checking if user exists failed" ' + error);
-    });
-
-  // Required do not remove
-  return false;
-}
+    // Required do not remove
+    return false;
+  };

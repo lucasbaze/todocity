@@ -15,8 +15,8 @@ const nextConfig = {
   // Only compile pages that end in .page.tsx
   pageExtensions:
     process.env.DRAFT_PAGES === 'true'
-      ? ['page.tsx', 'draft-page.tsx']
-      : ['page.tsx'],
+      ? ['page.tsx', 'api.ts', 'draft-api.ts', 'draft-page.tsx']
+      : ['page.tsx', 'api.ts'],
 };
 
 const sentryWebpackPluginOptions = {

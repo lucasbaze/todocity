@@ -9,6 +9,10 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { AnalButton } from '@todocity/components/buttons/button';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { auth } from '@todocity/firebase/client-app';
+import { Badge, Box, Container, Flex, Text } from '@todocity/ui/core';
+
+import { PricingCard } from './ui/components/pricing-card/pricing-card';
+
 const PricingPageScene = dynamic(
   () => import('../../libs/scenes/pricing-page/index'),
   {
@@ -16,9 +20,6 @@ const PricingPageScene = dynamic(
     suspense: true,
   }
 );
-import { Badge, Box, Container, Flex, Text } from '@todocity/ui/core';
-
-import { PricingCard } from './ui/components/pricing-card/pricing-card';
 
 function PricingPage() {
   const router = useRouter();
@@ -29,12 +30,12 @@ function PricingPage() {
   const view1Ref = useRef<HTMLDivElement>(null);
   const view2Ref = useRef<HTMLDivElement>(null);
 
-  const handlePreorder = () => {
+  const handlePreorder = async () => {
     if (user) {
-      router.push('/api/stripe/create-checkout-session');
       setLoadingCheckoutSession(true);
+      router.push('/api/stripe/create-checkout-session');
     } else {
-      router.push('/signup');
+      router.push('/signup?navigate_to=checkout');
     }
   };
 
