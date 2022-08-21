@@ -25,7 +25,7 @@ const PreOrderButton = dynamic(
 );
 
 const CreateAccountButton = dynamic(
-  () => import('./components/pre-order-button/pre-order-button'),
+  () => import('../../libs/components/buttons/create-account-button'),
   {
     ssr: false,
     suspense: true,
@@ -42,6 +42,7 @@ function PricingPage() {
       <MainLayout>
         <Container
           display="grid"
+          mb={20}
           alignItems="center"
           minHeight={`calc(100vh - ${sizes.header})`}
           zIndex="15"
@@ -102,7 +103,7 @@ function PricingPage() {
                         },
                       ],
                     }}
-                    button={<CreateAccountButton />}
+                    button={<CreateAccountButton size="lg" />}
                   />
                 </Box>
                 <Box flex={1}>
