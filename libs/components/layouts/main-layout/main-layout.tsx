@@ -4,6 +4,7 @@ import { useColorMode } from '@chakra-ui/react';
 
 import { Box, Grid } from '@todocity/ui/core';
 
+import { Footer } from '../footer/footer';
 import { Header } from '../header/header';
 
 import styles from './main-layout.module.css';
@@ -29,8 +30,14 @@ export const MainLayout = ({ children }: IMainLayoutProps) => {
           </Box>
           <Box gridColumn="1 / span 12">{children}</Box>
           <Box gridColumn="1 / span 12">
-            <Box p={2} bg="gray.900" borderTop="1px" color="gray.600">
-              Footer
+            <Box
+              p={6}
+              bg={colorMode === 'dark' ? '#0d0e10' : 'gray.900'}
+              borderTop={
+                colorMode === 'dark' ? '1px solid white' : '1px solid gray'
+              }
+            >
+              <Footer />
             </Box>
           </Box>
         </Grid>
