@@ -2,7 +2,7 @@ import { User, UserCredential } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import router from 'next/router';
 
-import { events } from '@todocity/analytics/events';
+import * as track from '@todocity/analytics/events/track';
 
 import { db } from '../client-app';
 
@@ -43,16 +43,11 @@ export const signInSuccessWithAuthResult =
     getDoc(userDocRef)
       .then((doc) => {
         if (doc.exists()) {
-          // Analytics trigger
-          window.dataLayer?.push({
-            event: events.LOGIN,
-          });
+          track.login();
           updateUserLastLoginDate(authResult.user);
           router.push(navigateTo);
         } else {
-          window.dataLayer?.push({
-            event: events.SIGN_UP,
-          });
+          track.signup();
           addNewUserToFireStore(authResult.user);
           router.push(navigateTo);
         }

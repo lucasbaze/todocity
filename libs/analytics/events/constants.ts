@@ -1,5 +1,5 @@
 export const events = {
-  BUTTON_CLICK: 'button_click',
+  CLICK: 'click',
   SIGN_UP: 'sign_up',
   LOGIN: 'login',
   LOGOUT: 'logout',
@@ -9,4 +9,12 @@ export const events = {
 export const eventTriggers = {
   MAIN_CTA: 'main_cta',
   LIGHT_DARK_MODE: 'light_dark_mode',
+};
+
+export const eventMetaKeys = {
+  PURCHASE_PRODUCT: 'purchase_product',
+};
+
+export const eventMetaValues = {
+  PRE_ORDER: 'pre_order',
 };

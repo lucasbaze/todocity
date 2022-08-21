@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Stripe from 'stripe';
 
-import { events } from '@todocity/analytics/events';
+import * as track from '@todocity/analytics/events/track';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { auth } from '@todocity/firebase/client-app';
 import { Container } from '@todocity/ui/core';
@@ -33,12 +33,9 @@ const UpgradeSuccessPage: NextPage = () => {
       getOrderData(
         `/api/stripe/get-order-success?session_id=${sessionId}`
       ).then((data) => {
-        console.log('Data: ', data);
         setOrderData(data);
         setLoading(false);
-        window.dataLayer?.push({
-          event: events.PURCHASE,
-        });
+        track.purchasePreOrder();
         // TODO, tie this purchase to the user
       });
     }

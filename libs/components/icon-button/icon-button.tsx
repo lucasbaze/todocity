@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { events } from '@todocity/analytics/events';
+import * as track from '@todocity/analytics/events/track';
 import type { TButtonAnalytics } from '@todocity/analytics/types';
 import {
   IconButton as TodoCityIconButton,
@@ -23,11 +23,7 @@ export const AnalIconButton = React.forwardRef(
         onClick={(event) => {
           if (props.onClick) {
             props.onClick(event);
-            window.dataLayer?.push({
-              event: events.BUTTON_CLICK,
-              button_name: analytics.buttonName,
-              ...analytics.params,
-            });
+            track.buttonClick(analytics.buttonName, analytics.params);
           }
         }}
       />
