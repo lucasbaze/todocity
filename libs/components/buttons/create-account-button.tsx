@@ -6,7 +6,13 @@ import { eventTriggers } from '@todocity/analytics/events/constants';
 import { AnalButton } from '@todocity/components/buttons/button';
 import { auth } from '@todocity/firebase/client-app';
 
-export const CreateAccountButton = () => {
+interface ICreateAccountButtonProps {
+  size?: 'lg' | 'xl';
+}
+
+export const CreateAccountButton = ({
+  size = 'xl',
+}: ICreateAccountButtonProps) => {
   const [user, loading] = useAuthState(auth);
 
   return (
@@ -14,7 +20,7 @@ export const CreateAccountButton = () => {
       <Link href={user ? '/city' : '/signup'}>
         <AnalButton
           variant="primary"
-          size="xl"
+          size={size}
           mb="2"
           isLoading={loading}
           analytics={{ buttonName: eventTriggers.MAIN_CTA }}

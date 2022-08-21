@@ -1,17 +1,12 @@
-import { Suspense, useRef, useState } from 'react';
+import { Suspense, useRef } from 'react';
 
 import { useTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { AnalButton } from '@todocity/components/buttons/button';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
-import { auth } from '@todocity/firebase/client-app';
 import { Badge, Box, Container, Flex, Text } from '@todocity/ui/core';
 
-import { PricingCard } from './ui/components/pricing-card/pricing-card';
+import { PricingCard } from './components/pricing-card/pricing-card';
 
 const PricingPageScene = dynamic(
   () => import('../../libs/scenes/pricing-page/index'),
@@ -21,23 +16,26 @@ const PricingPageScene = dynamic(
   }
 );
 
+const PreOrderButton = dynamic(
+  () => import('./components/pre-order-button/pre-order-button'),
+  {
+    ssr: false,
+    suspense: true,
+  }
+);
+
+const CreateAccountButton = dynamic(
+  () => import('./components/pre-order-button/pre-order-button'),
+  {
+    ssr: false,
+    suspense: true,
+  }
+);
+
 function PricingPage() {
-  const router = useRouter();
-  const [user] = useAuthState(auth);
-  const [loadingCheckoutSession, setLoadingCheckoutSession] =
-    useState<boolean>(false);
   const { sizes } = useTheme();
   const view1Ref = useRef<HTMLDivElement>(null);
   const view2Ref = useRef<HTMLDivElement>(null);
-
-  const handlePreorder = async () => {
-    if (user) {
-      setLoadingCheckoutSession(true);
-      router.push('/api/stripe/create-checkout-session');
-    } else {
-      router.push('/signup?navigate_to=checkout');
-    }
-  };
 
   return (
     <>
@@ -104,17 +102,7 @@ function PricingPage() {
                         },
                       ],
                     }}
-                    button={
-                      <Link href="/signup">
-                        <AnalButton
-                          variant="primary"
-                          size="lg"
-                          analytics={{ buttonName: 'buy-now' }}
-                        >
-                          Create your city
-                        </AnalButton>
-                      </Link>
-                    }
+                    button={<CreateAccountButton />}
                   />
                 </Box>
                 <Box flex={1}>
@@ -154,19 +142,7 @@ function PricingPage() {
                         { text: '...much more to come' },
                       ],
                     }}
-                    button={
-                      <>
-                        <AnalButton
-                          variant="primary"
-                          size="lg"
-                          isLoading={loadingCheckoutSession}
-                          analytics={{ buttonName: 'buy-now' }}
-                          onClick={handlePreorder}
-                        >
-                          Pre-order today
-                        </AnalButton>
-                      </>
-                    }
+                    button={<PreOrderButton />}
                     // disclaimer={
                     //   <Text
                     //     textAlign="center"

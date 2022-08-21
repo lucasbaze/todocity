@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { GoogleAuthProvider } from 'firebase/auth';
 import firebaseui from 'firebaseui';
@@ -22,6 +22,12 @@ interface ILoginSignupProps {
 }
 
 export function LoginSignup({ navigateTo }: ILoginSignupProps) {
+  useEffect(() => {
+    if (document) {
+      const buttonText = document.querySelector('.firebaseui-idp-text-long');
+      if (buttonText) buttonText.textContent = 'Continue with Google';
+    }
+  }, []);
   return (
     <Box minHeight="100px">
       <StyledFirebaseAuth uiConfig={uiConfig(navigateTo)} firebaseAuth={auth} />
