@@ -2,7 +2,7 @@ import { IconArrowRight } from '@tabler/icons';
 import Link from 'next/link';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { eventTriggers } from '@todocity/analytics/events';
+import { eventTriggers } from '@todocity/analytics/events/constants';
 import { AnalButton } from '@todocity/components/buttons/button';
 import { auth } from '@todocity/firebase/client-app';
 
