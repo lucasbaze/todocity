@@ -1,3 +1,7 @@
+# Conventions
+
+Collection of personal preferences for writing code withint the application
+
 ## Styling
 
 ### Prefer useColorModeValue

@@ -13,3 +13,7 @@ https://samuelschmitt.medium.com/how-to-setup-google-tag-manager-like-a-pro-and-
 Create a new event within `analytics/events` and then use where you need it. Navigate to Google Tag Manager and open the preview tab. Connect to localhost:3000. After pushing to the dataLayer with your new event, you should see it in the preview mode.
 
 Once that works, you'll need to create a new tag / trigger combo to send the event specifically to GA4.
+
+## Identifying users
+
+The AuthListener is lazy loaded into the \_app and is used to identify a user within Sentry and within Google Analytics via the users uuid

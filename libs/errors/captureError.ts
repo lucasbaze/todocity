@@ -1,6 +1,7 @@
 import { captureException } from '@sentry/nextjs';
 import { Context } from '@sentry/types';
 
+// docs/errors.md
 export function captureError(msg: string, err: Error, data?: Context) {
   captureException(err, (scope) => {
     scope.addBreadcrumb({
