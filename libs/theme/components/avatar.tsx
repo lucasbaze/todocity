@@ -1,6 +1,6 @@
 // https://chakra-ui.com/docs/styled-system/theming/component-style
 import type { ComponentStyleConfig } from '@chakra-ui/theme';
-import { StyleFunctionProps } from '@chakra-ui/theme-tools';
+import { mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 export const Avatar: ComponentStyleConfig = {
   baseStyle: {},
@@ -10,7 +10,7 @@ export const Avatar: ComponentStyleConfig = {
       container: {
         borderWidth: '4px',
         borderStyle: 'solid',
-        borderColor: props.colorMode === 'dark' ? 'gray.900' : 'orange.50',
+        borderColor: mode('orange.50', 'gray.900')(props),
       },
     }),
   },

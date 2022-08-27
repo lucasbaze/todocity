@@ -10,7 +10,7 @@ export const Tooltip: ComponentStyleConfig = {
     const bg = mode('orange.50', 'gray.900')(props);
     return {
       color: mode('gray.900', 'white')(props),
-      // Haven't looking into CssVar, simply modified example from above
+      // Haven't looked into CssVar, simply modified example from above
       [$bg.variable]: `colors.${bg}`,
       bg: [$bg.reference],
       [$arrowBg.variable]: [$bg.reference],

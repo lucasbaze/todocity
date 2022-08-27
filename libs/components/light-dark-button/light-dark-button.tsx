@@ -1,4 +1,4 @@
-import { useColorMode } from '@chakra-ui/react';
+import { useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { IconBrightness2, IconMoon } from '@tabler/icons';
 
 import { eventTriggers } from '@todocity/analytics/events/constants';
@@ -18,9 +18,11 @@ export function LightDarkButton({
   isRound = false,
 }: ILightDarkButtonProps) {
   const { colorMode, toggleColorMode } = useColorMode();
+  const icon = useColorModeValue(<IconMoon />, <IconBrightness2 />);
+
   return (
     <AnalIconButton
-      icon={colorMode === 'light' ? <IconMoon /> : <IconBrightness2 />}
+      icon={icon}
       variant={variant}
       onClick={toggleColorMode}
       aria-label="light / dark mode button"

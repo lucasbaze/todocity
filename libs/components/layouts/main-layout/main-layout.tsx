@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useColorMode } from '@chakra-ui/react';
+import { useColorModeValue } from '@chakra-ui/react';
 
 import { Box, Grid } from '@todocity/ui/core';
 
@@ -14,15 +14,17 @@ export interface IMainLayoutProps {
 }
 
 export const MainLayout = ({ children }: IMainLayoutProps) => {
-  const { colorMode } = useColorMode();
+  const showStars = useColorModeValue(
+    null,
+    <>
+      <div className={styles.stars}></div>
+      <div className={styles.twinkling}></div>
+    </>
+  );
+
   return (
     <>
-      {colorMode === 'dark' && (
-        <>
-          <div className={styles.stars}></div>
-          <div className={styles.twinkling}></div>
-        </>
-      )}
+      {showStars}
       <Box zIndex="docked" position="relative">
         <Grid gridTemplateColumns="repeat(1fr, 12)" gridTemplateRows="auto">
           <Box gridColumn="1 / span 12">
@@ -30,15 +32,7 @@ export const MainLayout = ({ children }: IMainLayoutProps) => {
           </Box>
           <Box gridColumn="1 / span 12">{children}</Box>
           <Box gridColumn="1 / span 12">
-            <Box
-              p={6}
-              bg={colorMode === 'dark' ? '#0d0e10' : 'gray.900'}
-              borderTop={
-                colorMode === 'dark' ? '1px solid white' : '1px solid gray'
-              }
-            >
-              <Footer />
-            </Box>
+            <Footer />
           </Box>
         </Grid>
       </Box>

@@ -1,4 +1,4 @@
-import { useColorMode, useDisclosure, useTheme } from '@chakra-ui/react';
+import { useColorModeValue, useDisclosure, useTheme } from '@chakra-ui/react';
 import { IconBox, IconBuildingCommunity, IconFence } from '@tabler/icons';
 import { signOut } from 'firebase/auth';
 import { auth } from 'libs/firebase/client-app';
@@ -27,7 +27,7 @@ export function Toolbar() {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const { zIndices } = useTheme();
-  const { colorMode, setColorMode } = useColorMode();
+  const backgroundColor = useColorModeValue('orange.50', 'gray.900');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleLogout = async () => {
@@ -64,7 +64,7 @@ export function Toolbar() {
         opacity={0.9}
         padding={2}
         zIndex={zIndices.overlay}
-        backgroundColor={colorMode === 'dark' ? 'gray.900' : 'orange.50'}
+        backgroundColor={backgroundColor}
       >
         <Flex position="relative" minWidth="500px" alignItems="center">
           <Box
