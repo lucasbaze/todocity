@@ -1,26 +1,26 @@
 import { eventMetaKeys, eventMetaValues, events } from './constants';
 
 export const purchasePreOrder = () => {
-  window.dataLayer?.push({
+  window?.dataLayer?.push({
     event: events.PURCHASE,
     [eventMetaKeys.PURCHASE_PRODUCT]: eventMetaValues.PRE_ORDER,
   });
 };
 
 export const login = () => {
-  window.dataLayer?.push({
+  window?.dataLayer?.push({
     event: events.LOGIN,
   });
 };
 
 export const signup = () => {
-  window.dataLayer?.push({
+  window?.dataLayer?.push({
     event: events.SIGN_UP,
   });
 };
 
 export const logout = () => {
-  window.dataLayer?.push({
+  window?.dataLayer?.push({
     event: events.LOGOUT,
   });
 };
@@ -29,9 +29,15 @@ export const buttonClick = (
   buttonName: string,
   params?: Record<string, string>
 ) => {
-  window.dataLayer?.push({
+  window?.dataLayer?.push({
     event: events.CLICK,
     button_name: buttonName,
     ...params,
+  });
+};
+
+export const identifyUser = (userId: string) => {
+  window?.dataLayer?.push({
+    user_id: userId,
   });
 };

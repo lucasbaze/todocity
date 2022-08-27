@@ -1,9 +1,8 @@
 import { IconArrowRight } from '@tabler/icons';
 import Link from 'next/link';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { eventTriggers } from '@todocity/analytics/events/constants';
-import { auth } from '@todocity/firebase/client-app';
+import { useAuth } from '@todocity/auth';
 
 import { AnalButton } from '../anal-button/anal-button';
 
@@ -14,7 +13,7 @@ interface ICreateAccountButtonProps {
 export const CreateAccountButton = ({
   size = 'xl',
 }: ICreateAccountButtonProps) => {
-  const [user, loading] = useAuthState(auth);
+  const { user, loading } = useAuth();
 
   return (
     <>

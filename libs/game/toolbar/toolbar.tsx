@@ -1,12 +1,9 @@
 import { useColorModeValue, useDisclosure, useTheme } from '@chakra-ui/react';
 import { IconBox, IconBuildingCommunity, IconFence } from '@tabler/icons';
-import { signOut } from 'firebase/auth';
-import { auth } from 'libs/firebase/client-app';
 import { useRouter } from 'next/router';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { eventTriggers } from '@todocity/analytics/events/constants';
-import * as track from '@todocity/analytics/events/track';
+import { useAuth } from '@todocity/auth';
 import { AnalIconButton } from '@todocity/components/anal-icon-button/anal-icon-button';
 import { LightDarkButton } from '@todocity/components/light-dark-button/light-dark-button';
 import {
@@ -25,14 +22,13 @@ import {
 
 export function Toolbar() {
   const router = useRouter();
-  const [user] = useAuthState(auth);
+  const { user, logout } = useAuth();
   const { zIndices } = useTheme();
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleLogout = async () => {
-    await signOut(auth);
-    track.logout();
+    await logout();
     router.push('/');
   };
 

@@ -9,9 +9,11 @@ First, run the development server:
 > yarn
 
 # start "server" emulators
+# You may need to install the latest java runtime
+# https://www.oracle.com/java/technologies/downloads/
 > firebase emulators:start --project demo-todocity
 
-# set env vars correct ( in .env file)
+# set env vars correct ( in .env.local file)
 > NEXT_PUBLIC_FIREBASE_EMULATE=true
 
 # start project

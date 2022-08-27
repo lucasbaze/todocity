@@ -17,6 +17,8 @@
     "baseUrl": ".",
     "paths": {
       "@todocity/theme": ["libs/theme/index.ts"],
+      "@todocity/auth": ["libs/auth/index.ts"],
+      "@todocity/errors": ["libs/errors/index.ts"],
       "@todocity/firebase/*": ["libs/firebase/*"],
       "@todocity/three/*": ["libs/three/*"],
       "@todocity/analytics": ["libs/analytics/index.ts"],

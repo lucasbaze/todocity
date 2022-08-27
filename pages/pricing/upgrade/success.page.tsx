@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { useTheme } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import Stripe from 'stripe';
 
 import * as track from '@todocity/analytics/events/track';
+import { useAuth } from '@todocity/auth';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
-import { auth } from '@todocity/firebase/client-app';
 import { Container } from '@todocity/ui/core';
 
 async function getOrderData(url = '') {
@@ -20,7 +19,7 @@ const UpgradeSuccessPage: NextPage = () => {
   const { sizes } = useTheme();
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
-  const [user, userLoading, error] = useAuthState(auth);
+  const { user, loading: userLoading } = useAuth();
   const [orderData, setOrderData] = useState<{
     session: Stripe.Checkout.Session;
     customer: Stripe.Customer;
@@ -43,9 +42,6 @@ const UpgradeSuccessPage: NextPage = () => {
 
   if (loading) return null;
   if (!sessionId) router.push('/pricing');
-  if (error) {
-    // Always log any errors that come out of the error object
-  }
 
   if (user && orderData) {
     return (

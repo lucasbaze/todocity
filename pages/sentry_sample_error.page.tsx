@@ -1,11 +1,20 @@
 import Head from 'next/head';
 
+import { captureError } from '@todocity/errors';
+
 const boxStyles = {
   padding: '12px',
   border: '1px solid #eaeaea',
   borderRadius: '10px',
 };
 export default function Home() {
+  const handleCustomError = () => {
+    captureError(
+      'Something exploded',
+      new Error('Poorly formed error message')
+    );
+  };
+
   return (
     <div>
       <Head>
@@ -53,6 +62,18 @@ export default function Home() {
           }}
         >
           Throw error
+        </button>
+        <button
+          type="button"
+          style={{
+            ...boxStyles,
+            backgroundColor: '#c73852',
+            borderRadius: '12px',
+            border: 'none',
+          }}
+          onClick={handleCustomError}
+        >
+          Throw custom Error
         </button>
 
         <p>
