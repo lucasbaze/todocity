@@ -17,6 +17,68 @@ import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
 import { RectAreaLight } from '@todocity/three/lights/rect-area-light';
 
+export function NightLights() {
+  return (
+    <>
+      <directionalLight
+        rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
+        position={[0, 10, 0]}
+        intensity={0.5}
+      />
+      <ambientLight intensity={0.05} />
+      <group>
+        <RectAreaLight
+          threeProps={{
+            args: ['orange', 1, 2.5, 1.2],
+            position: [0, 0, 1.5],
+            rotation: [Math.PI / 4, 0, 0],
+          }}
+        />
+        <RectAreaLight
+          threeProps={{
+            args: ['orange', 1, 2.5, 1.2],
+            position: [0, 0, -1.5],
+            rotation: [(3 * Math.PI) / 4, 0, 0],
+          }}
+        />
+      </group>
+      <group rotation={[0, Math.PI / 2, 0]}>
+        <RectAreaLight
+          threeProps={{
+            args: ['orange', 1, 2.5, 1.2],
+            position: [0, 0, 1.5],
+            rotation: [Math.PI / 4, 0, 0],
+          }}
+        />
+        <RectAreaLight
+          threeProps={{
+            args: ['orange', 1, 2.5, 1.2],
+            position: [0, 0, -1.5],
+            rotation: [(3 * Math.PI) / 4, 0, 0],
+          }}
+        />
+      </group>
+    </>
+  );
+}
+
+export function DayLights() {
+  return (
+    <>
+      <AmbientLight threeProps={{ args: ['white', 0.6] }} />
+      <DirectionalLight
+        threeProps={{
+          args: ['white', 1],
+          position: [7, 10, 0],
+        }}
+      />
+      <PointLight
+        threeProps={{ args: ['white', 3, 0.5, 1], position: [2, 2, 2] }}
+      />
+    </>
+  );
+}
+
 export function HomePageModel(props: any) {
   const { camera } = useThree();
   const ref = useRef<Group>(null!);
@@ -45,61 +107,7 @@ export function HomePageModel(props: any) {
           </group>
         </group>
       </PresentationControls>
-      {colorMode === 'dark' ? (
-        <>
-          <directionalLight
-            rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
-            position={[0, 10, 0]}
-            intensity={0.5}
-          />
-          <ambientLight intensity={0.05} />
-          <group>
-            <RectAreaLight
-              threeProps={{
-                args: ['orange', 1, 2.5, 1.2],
-                position: [0, 0, 1.5],
-                rotation: [Math.PI / 4, 0, 0],
-              }}
-            />
-            <RectAreaLight
-              threeProps={{
-                args: ['orange', 1, 2.5, 1.2],
-                position: [0, 0, -1.5],
-                rotation: [(3 * Math.PI) / 4, 0, 0],
-              }}
-            />
-          </group>
-          <group rotation={[0, Math.PI / 2, 0]}>
-            <RectAreaLight
-              threeProps={{
-                args: ['orange', 1, 2.5, 1.2],
-                position: [0, 0, 1.5],
-                rotation: [Math.PI / 4, 0, 0],
-              }}
-            />
-            <RectAreaLight
-              threeProps={{
-                args: ['orange', 1, 2.5, 1.2],
-                position: [0, 0, -1.5],
-                rotation: [(3 * Math.PI) / 4, 0, 0],
-              }}
-            />
-          </group>
-        </>
-      ) : (
-        <>
-          <AmbientLight threeProps={{ args: ['white', 0.6] }} />
-          <DirectionalLight
-            threeProps={{
-              args: ['white', 1],
-              position: [7, 10, 0],
-            }}
-          />
-          <PointLight
-            threeProps={{ args: ['white', 3, 0.5, 1], position: [2, 2, 2] }}
-          />
-        </>
-      )}
+      {colorMode === 'light' ? <DayLights /> : <NightLights />}
       <axesHelper />
       {/* <gridHelper /> */}
       <ContactShadows
