@@ -9,7 +9,7 @@ import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout
 import { Card } from '@todocity/ui/components/card/card';
 import { Box, Flex, Text } from '@todocity/ui/core';
 const LoginSignupButton = dynamic(
-  () => import('../../libs/components/buttons/login-signup-button'),
+  () => import('../../libs/components/login-signup-button/login-signup-button'),
   { ssr: false, suspense: true }
 );
 

@@ -2,7 +2,8 @@ import { useColorMode } from '@chakra-ui/react';
 import { IconBrightness2, IconMoon } from '@tabler/icons';
 
 import { eventTriggers } from '@todocity/analytics/events/constants';
-import { AnalIconButton } from '@todocity/components/icon-button/icon-button';
+
+import { AnalIconButton } from '../anal-icon-button/anal-icon-button';
 
 // TODO: Use chakra cli to generate usable types
 interface ILightDarkButtonProps {

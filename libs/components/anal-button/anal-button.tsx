@@ -2,18 +2,16 @@ import React from 'react';
 
 import * as track from '@todocity/analytics/events/track';
 import type { TButtonAnalytics } from '@todocity/analytics/types';
-import { Button as TodoCityButton, ButtonProps } from '@todocity/ui/core';
+import { Button, ButtonProps } from '@todocity/ui/core';
 
 interface IButtonProps extends ButtonProps {
   analytics: TButtonAnalytics;
 }
 
-export const Button = TodoCityButton;
-
 export const AnalButton = React.forwardRef(
   ({ analytics, ...props }: IButtonProps, ref: any) => {
     return (
-      <TodoCityButton
+      <Button
         // @ts-ignore
         ref={ref}
         {...props}

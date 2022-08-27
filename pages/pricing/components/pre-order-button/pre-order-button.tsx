@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { AnalButton } from '@todocity/components/buttons/button';
+import { AnalButton } from '@todocity/components/anal-button/anal-button';
 import { auth } from '@todocity/firebase/client-app';
 
 export function PreOrderButton() {

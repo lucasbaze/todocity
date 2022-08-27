@@ -5,9 +5,10 @@ import { auth } from 'libs/firebase/client-app';
 import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+import { eventTriggers } from '@todocity/analytics/events/constants';
 import * as track from '@todocity/analytics/events/track';
-import { LightDarkButton } from '@todocity/components/buttons/light-dark-button';
-import { IconButton } from '@todocity/components/icon-button/icon-button';
+import { AnalIconButton } from '@todocity/components/anal-icon-button/anal-icon-button';
+import { LightDarkButton } from '@todocity/components/light-dark-button/light-dark-button';
 import {
   Avatar,
   Badge,
@@ -110,12 +111,13 @@ export function Toolbar() {
                 hasArrow
                 offset={[20, 20]}
               >
-                <IconButton
+                <AnalIconButton
                   size="sm"
                   icon={<IconBox />}
                   aria-label="3d cube sphere icon"
                   isRound
                   variant="ghost"
+                  analytics={{ buttonName: eventTriggers.TOOlBAR_COMPONENTS }}
                 />
               </Tooltip>
               <Text variant="body" ml="1">
@@ -140,13 +142,14 @@ export function Toolbar() {
                 hasArrow
                 offset={[20, 20]}
               >
-                <IconButton
+                <AnalIconButton
                   size="sm"
                   icon={<IconBuildingCommunity />}
                   aria-label="house and building icon"
                   isRound
                   variant="ghost"
                   ml="1"
+                  analytics={{ buttonName: eventTriggers.TOOlBAR_CITY_POINTS }}
                 />
               </Tooltip>
               <Text variant="body" ml="1">
@@ -171,13 +174,14 @@ export function Toolbar() {
                 hasArrow
                 offset={[20, 20]}
               >
-                <IconButton
+                <AnalIconButton
                   size="sm"
                   icon={<IconFence />}
                   aria-label="fence icon"
                   isRound
                   variant="ghost"
                   ml="1"
+                  analytics={{ buttonName: eventTriggers.TOOLBAR_LOT_POINTS }}
                 />
               </Tooltip>
               <Text variant="body" ml="1">

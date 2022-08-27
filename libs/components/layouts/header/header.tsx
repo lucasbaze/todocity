@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 
-import { LightDarkButton } from '@todocity/components/buttons/light-dark-button';
+import { LightDarkButton } from '@todocity/components/light-dark-button/light-dark-button';
 import { Box, Container, Flex, Link, Text } from '@todocity/ui/core';
 
 export function Header() {

@@ -22,6 +22,7 @@ interface ILoginSignupProps {
 }
 
 export function LoginSignup({ navigateTo }: ILoginSignupProps) {
+  // TODO: This is stupid
   useEffect(() => {
     if (document) {
       const buttonText = document.querySelector('.firebaseui-idp-text-long');

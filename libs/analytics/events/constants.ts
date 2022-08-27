@@ -9,6 +9,9 @@ export const events = {
 export const eventTriggers = {
   MAIN_CTA: 'main_cta',
   LIGHT_DARK_MODE: 'light_dark_mode',
+  TOOlBAR_COMPONENTS: 'toolbar_components',
+  TOOlBAR_CITY_POINTS: 'toolbar_city_points',
+  TOOLBAR_LOT_POINTS: 'toolbar_lot_points',
 };
 
 export const eventMetaKeys = {

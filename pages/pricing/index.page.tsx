@@ -25,7 +25,8 @@ const PreOrderButton = dynamic(
 );
 
 const CreateAccountButton = dynamic(
-  () => import('../../libs/components/buttons/create-account-button'),
+  () =>
+    import('../../libs/components/create-account-button/create-account-button'),
   {
     ssr: false,
     suspense: true,
