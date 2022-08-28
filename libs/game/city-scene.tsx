@@ -4,7 +4,10 @@ import { ColorModeContext } from '@chakra-ui/react';
 import {
   ContactShadows,
   Html,
+  OrbitControls,
   PresentationControls,
+  Sky,
+  Stars,
   useContextBridge,
   useGLTF,
 } from '@react-three/drei';
@@ -17,6 +20,8 @@ import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
 import { RectAreaLight } from '@todocity/three/lights/rect-area-light';
+
+import { FloatingRockModel } from './models/floating-rock';
 
 export function NightLights() {
   return (
@@ -138,6 +143,39 @@ export function HomePageModel(props: any) {
   );
 }
 
+function Scene() {
+  const { colorMode } = useContext(ColorModeContext);
+  const { showGrid } = useControls('Scene', {
+    showGrid: false,
+  });
+  return (
+    <>
+      {showGrid && <gridHelper />}
+      <FloatingRockModel />
+      <OrbitControls />
+      <AmbientLight threeProps={{ args: [] }} />
+      {colorMode === 'light' ? (
+        <Sky
+          distance={450000}
+          sunPosition={[0, 1, 0]}
+          inclination={0}
+          azimuth={0.25}
+        />
+      ) : (
+        <Stars
+          radius={10}
+          depth={50}
+          count={5000}
+          factor={4}
+          saturation={0}
+          fade
+          speed={1}
+        />
+      )}
+    </>
+  );
+}
+
 export function CityScene() {
   const ContextBridge = useContextBridge(ColorModeContext);
 
@@ -154,7 +192,7 @@ export function CityScene() {
             </Html>
           }
         >
-          <HomePageModel />
+          <Scene />
         </Suspense>
       </ContextBridge>
     </Canvas>
