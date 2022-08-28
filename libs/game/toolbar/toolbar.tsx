@@ -20,6 +20,8 @@ import {
   Tooltip,
 } from '@todocity/ui/core';
 
+import { SceneSettings } from './scene-settings/scene-settings';
+
 export function Toolbar() {
   const router = useRouter();
   const { user, logout } = useAuth();
@@ -187,6 +189,7 @@ export function Toolbar() {
           </Flex>
           <Flex flex={1} alignItems="center" justifyContent="flex-end">
             <LightDarkButton size="sm" variant="ghost" isRound={true} />
+            <SceneSettings />
           </Flex>
         </Flex>
       </Flex>

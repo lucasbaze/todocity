@@ -12,6 +12,7 @@ export const eventTriggers = {
   TOOlBAR_COMPONENTS: 'toolbar_components',
   TOOlBAR_CITY_POINTS: 'toolbar_city_points',
   TOOLBAR_LOT_POINTS: 'toolbar_lot_points',
+  SCENE_SETTINGS: 'scene_settings',
 };
 
 export const eventMetaKeys = {
