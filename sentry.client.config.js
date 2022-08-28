@@ -17,4 +17,11 @@ Sentry.init({
   // that it will also get attached to your source maps
   // Sentry automatically sets this value to the Git commit sha
   release: process.env.SENTRY_RELEASE,
+  // https://github.com/getsentry/sentry-react-native/issues/794#issuecomment-908189765
+  // Prevent instrument.js from overriding location of where console log is coming from
+  integrations: [
+    new Sentry.Integrations.Breadcrumbs({
+      console: false,
+    }),
+  ],
 });

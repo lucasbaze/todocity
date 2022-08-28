@@ -19,6 +19,7 @@
     "@next/bundle-analyzer": "^12.2.4",
     "@react-three/drei": "^9.19.7",
     "@react-three/fiber": "^8.3.1",
+    "@sentry/integrations": "^7.11.1",
     "@sentry/nextjs": "^7.10.0",
     "@stripe/react-stripe-js": "^1.10.0",
     "@tabler/icons": "^1.79.0",
