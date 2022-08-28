@@ -5,6 +5,7 @@ export {
   Container,
   Heading,
   Avatar,
+  ButtonGroup,
   Button,
   Icon,
   IconButton,

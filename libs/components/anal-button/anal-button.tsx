@@ -14,6 +14,7 @@ export const AnalButton = React.forwardRef(
       <Button
         // @ts-ignore
         ref={ref}
+        variant="primary"
         {...props}
         onClick={(event) => {
           if (props.onClick) {

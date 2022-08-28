@@ -2,6 +2,12 @@
 
 Collection of personal preferences for writing code withint the application
 
+## Components
+
+### Links
+
+Use next/link when wrapping something that needs a link. Use <Link> from `@todocity/ui/core` when wrapping text and want link styling
+
 ## Styling
 
 ### Prefer useColorModeValue

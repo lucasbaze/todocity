@@ -13,7 +13,7 @@ const LoginSignupButton = dynamic(
   { ssr: false, suspense: true }
 );
 
-const copy = (navigateTo: string | undefined) => {
+const textCopy = (navigateTo: string | undefined) => {
   switch (navigateTo) {
     case 'checkout':
       return {
@@ -45,45 +45,43 @@ const Signup: NextPage = () => {
 
   const { navigate_to } = router.query;
   const navigateTo = Array.isArray(navigate_to) ? navigate_to[0] : navigate_to;
-  const { title, description } = copy(navigateTo);
+  const { title, description } = textCopy(navigateTo);
 
   return (
-    <main>
-      <MainLayout>
-        <Flex
-          direction="column"
-          alignItems="center"
-          minHeight={`calc(100vh - ${sizes.header})`}
-          pt="24"
+    <MainLayout>
+      <Flex
+        direction="column"
+        alignItems="center"
+        minHeight={`calc(100vh - ${sizes.header})`}
+        pt="24"
+      >
+        <Text as="h1" variant="h1" pb="2">
+          {title}
+        </Text>
+        <Text
+          as="h2"
+          variant="h3"
+          color="gray.600"
+          pb={12}
+          width={{ base: '80%', md: '60%' }}
+          textAlign="center"
         >
-          <Text as="h1" variant="h1" pb="2">
-            {title}
-          </Text>
-          <Text
-            as="h2"
-            variant="h3"
-            color="gray.600"
-            pb={12}
-            width={{ base: '80%', md: '60%' }}
-            textAlign="center"
-          >
-            {description}
-          </Text>
-          <Card>
-            <Flex direction="column" alignItems="center">
-              <Suspense fallback={<Box minHeight="100px" width="200px" />}>
-                <LoginSignupButton
-                  navigateTo={loginSignupNavigateTo(navigateTo)}
-                />
-              </Suspense>
-              <Text variant="disclaimer" width="60%" textAlign="center">
-                By doing so you agree to our terms of service and privacy policy
-              </Text>
-            </Flex>
-          </Card>
-        </Flex>
-      </MainLayout>
-    </main>
+          {description}
+        </Text>
+        <Card>
+          <Flex direction="column" alignItems="center">
+            <Suspense fallback={<Box minHeight="100px" width="200px" />}>
+              <LoginSignupButton
+                navigateTo={loginSignupNavigateTo(navigateTo)}
+              />
+            </Suspense>
+            <Text variant="disclaimer" width="60%" textAlign="center">
+              By doing so you agree to our terms of service and privacy policy
+            </Text>
+          </Flex>
+        </Card>
+      </Flex>
+    </MainLayout>
   );
 };
 

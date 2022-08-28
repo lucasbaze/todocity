@@ -29,7 +29,7 @@ export function Toolbar() {
 
   const handleLogout = async () => {
     await logout();
-    router.push('/');
+    router.push('/logout');
   };
 
   // TODO: Theme and use Leva for controls. Removing for now as there aren't enough controls yet.

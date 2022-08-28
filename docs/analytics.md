@@ -10,9 +10,12 @@ https://samuelschmitt.medium.com/how-to-setup-google-tag-manager-like-a-pro-and-
 
 ## Adding New Analytics
 
-Create a new event within `analytics/events` and then use where you need it. Navigate to Google Tag Manager and open the preview tab. Connect to localhost:3000. After pushing to the dataLayer with your new event, you should see it in the preview mode.
-
-Once that works, you'll need to create a new tag / trigger combo to send the event specifically to GA4.
+1. Create a new trigger or button name for the track event
+2. Create a new event within `analytics/events/track` and then use where you need it.
+3. Navigate to Google Tag Manager and open the preview tab.
+4. Connect to localhost:3000.
+5. After pushing to the dataLayer with your new event, you should see it in the preview mode.
+6. Once that works, you'll need to create a new tag / trigger combo to send the event specifically to GA4.
 
 ## Identifying users
 
