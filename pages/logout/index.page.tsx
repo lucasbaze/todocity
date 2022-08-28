@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import { AnalButton } from '@todocity/components/anal-button/anal-button';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
-import { ButtonGroup, Flex, Heading, Text } from '@todocity/ui/core';
+import { Flex, Heading, Text } from '@todocity/ui/core';
 
 const Logout: NextPage = () => {
   const { sizes } = useTheme();
@@ -21,10 +21,15 @@ const Logout: NextPage = () => {
         >
           <Heading>Good Bye</Heading>
           <Text mb={6}>Hope to see you soon :)</Text>
-          <ButtonGroup spacing={6}>
+          <Flex
+            flexDirection={{ base: 'column', md: 'row' }}
+            alignItems="center"
+            gap={3}
+          >
             <Link href="/signup">
               <AnalButton
                 size="md"
+                variant="outline"
                 width="150px"
                 analytics={{ buttonName: 'logout-back' }}
               >
@@ -38,13 +43,14 @@ const Logout: NextPage = () => {
             >
               <AnalButton
                 size="md"
+                variant="outline"
                 width="150px"
                 analytics={{ buttonName: 'logout-mystery' }}
               >
                 Random Fact
               </AnalButton>
             </a>
-          </ButtonGroup>
+          </Flex>
         </Flex>
       </MainLayout>
     </AnimatePresence>
