@@ -1,5 +1,10 @@
 import { useColorModeValue, useDisclosure, useTheme } from '@chakra-ui/react';
-import { IconBox, IconBuildingCommunity, IconFence } from '@tabler/icons';
+import {
+  IconBox,
+  IconBuildingCommunity,
+  IconFence,
+  IconListCheck,
+} from '@tabler/icons';
 import { useRouter } from 'next/router';
 
 import { eventTriggers } from '@todocity/analytics/events/constants';
@@ -48,7 +53,7 @@ export function Toolbar() {
         zIndex={zIndices.overlay}
         backgroundColor={backgroundColor}
       >
-        <Flex position="relative" minWidth="500px" alignItems="center">
+        <Flex position="relative" minWidth="550px" alignItems="center">
           <Box
             position="absolute"
             left="-25px"
@@ -85,13 +90,44 @@ export function Toolbar() {
                       </Badge>
                     </Flex>
                     <Box mt="1">
+                      Manage all your projects and todos from the game and
+                      toolbar
+                    </Box>
+                  </Flex>
+                }
+                hasArrow
+                offset={[0, 20]}
+              >
+                <AnalIconButton
+                  size="sm"
+                  icon={<IconListCheck />}
+                  aria-label="Check list"
+                  isRound
+                  variant="ghost"
+                  analytics={{ buttonName: eventTriggers.TOOlBAR_TODOS }}
+                />
+              </Tooltip>
+              <Text variant="body" ml="1">
+                10
+              </Text>
+            </Flex>
+            <Flex alignItems="center">
+              <Tooltip
+                label={
+                  <Flex direction="column" mt="1">
+                    <Flex gap="2">
+                      <Badge colorScheme="purple" fontSize="0.8em" size="sm">
+                        Coming Soon
+                      </Badge>
+                    </Flex>
+                    <Box mt="1">
                       Components are the building blocks of your city including
                       buildings, trees, and more...
                     </Box>
                   </Flex>
                 }
                 hasArrow
-                offset={[20, 20]}
+                offset={[0, 20]}
               >
                 <AnalIconButton
                   size="sm"
@@ -122,7 +158,7 @@ export function Toolbar() {
                   </Flex>
                 }
                 hasArrow
-                offset={[20, 20]}
+                offset={[0, 20]}
               >
                 <AnalIconButton
                   size="sm"
@@ -172,8 +208,16 @@ export function Toolbar() {
             </Flex>
           </Flex>
           <Flex flex={1} alignItems="center" justifyContent="flex-end">
-            <LightDarkButton size="sm" variant="ghost" isRound={true} />
-            <SceneSettings />
+            <Tooltip label={'Toggle Day / Night'} hasArrow offset={[0, 20]}>
+              <span>
+                <LightDarkButton size="sm" variant="ghost" isRound={true} />
+              </span>
+            </Tooltip>
+            <Tooltip label={'Toggle Edit Mode'} hasArrow offset={[0, 20]}>
+              <span>
+                <SceneSettings />
+              </span>
+            </Tooltip>
           </Flex>
         </Flex>
       </Flex>
