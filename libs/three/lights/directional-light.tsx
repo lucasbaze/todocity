@@ -41,8 +41,6 @@ TDirectionalLightProps) {
     }
   }, [scene, lightRef]);
 
-  console.log('Directional Light Rendered');
-
   return (
     <>
       <directionalLight
@@ -51,10 +49,10 @@ TDirectionalLightProps) {
         {...threeProps}
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
-        shadow-camera-left={-100}
-        shadow-camera-right={100}
-        shadow-camera-top={100}
-        shadow-camera-bottom={-100}
+        shadow-camera-left={-20}
+        shadow-camera-right={20}
+        shadow-camera-top={20}
+        shadow-camera-bottom={-20}
       >
         <object3D ref={objRef} position={targetPosition} />
       </directionalLight>

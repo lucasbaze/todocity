@@ -1,10 +1,14 @@
-import { Leva, levaStore, useStoreContext } from 'leva';
+import { LevaPanel, levaStore } from 'leva';
 
-import { useLevaStore } from '@todocity/stores/displayStore';
+import { useEditModeStore } from '@todocity/stores/editModeStore';
 
 export function LevaContext() {
-  const levaHidden = useLevaStore((state) => state.hidden);
-  const store = useStoreContext();
-  console.log('Leva Store: ', store, levaStore.getData());
-  return <Leva hidden={levaHidden} />;
+  const showing = useEditModeStore((state) => state.displayControls);
+  const store = useEditModeStore((state) => state.levaStoreToDisplay);
+  return (
+    <LevaPanel
+      hidden={!showing}
+      store={store?.getVisiblePaths !== undefined ? store : levaStore}
+    />
+  );
 }

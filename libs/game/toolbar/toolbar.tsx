@@ -34,22 +34,6 @@ export function Toolbar() {
     router.push('/logout');
   };
 
-  // TODO: Theme and use Leva for controls. Removing for now as there aren't enough controls yet.
-  // const { hidden, setHidden } = useLevaStore(
-  //   (state) => ({
-  //     hidden: state.hidden,
-  //     setHidden: state.setHidden,
-  //   }),
-  //   shallow
-  // );
-  // useControls({
-  //   theme: {
-  //     value: colorMode,
-  //     options: ['light', 'dark'],
-  //     onChange: (value) => setColorMode(value),
-  //   },
-  // });
-
   return (
     <>
       <Flex

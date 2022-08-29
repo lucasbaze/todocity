@@ -2,165 +2,87 @@ import { Suspense, useContext, useEffect, useRef } from 'react';
 
 import { ColorModeContext } from '@chakra-ui/react';
 import {
-  ContactShadows,
   Html,
   OrbitControls,
-  PresentationControls,
   Sky,
   Stars,
   useContextBridge,
-  useGLTF,
 } from '@react-three/drei';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useControls } from 'leva';
-import { Group } from 'three';
+import { Canvas } from '@react-three/fiber';
+import { levaStore as defaultLevaStore, useControls } from 'leva';
 
 import { ThreeDLoader } from '@todocity/components/three-d-loader/three-d-loader';
+import { useEditModeStore } from '@todocity/stores/editModeStore';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
-import { RectAreaLight } from '@todocity/three/lights/rect-area-light';
 
-import { FloatingRockModel } from './models/floating-rock';
-
-export function NightLights() {
-  return (
-    <>
-      <directionalLight
-        rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
-        position={[0, 10, 0]}
-        intensity={0.5}
-      />
-      <ambientLight intensity={0.05} />
-      <group>
-        <RectAreaLight
-          threeProps={{
-            args: ['orange', 1, 2.5, 1.2],
-            position: [0, 0, 1.5],
-            rotation: [Math.PI / 4, 0, 0],
-          }}
-        />
-        <RectAreaLight
-          threeProps={{
-            args: ['orange', 1, 2.5, 1.2],
-            position: [0, 0, -1.5],
-            rotation: [(3 * Math.PI) / 4, 0, 0],
-          }}
-        />
-      </group>
-      <group rotation={[0, Math.PI / 2, 0]}>
-        <RectAreaLight
-          threeProps={{
-            args: ['orange', 1, 2.5, 1.2],
-            position: [0, 0, 1.5],
-            rotation: [Math.PI / 4, 0, 0],
-          }}
-        />
-        <RectAreaLight
-          threeProps={{
-            args: ['orange', 1, 2.5, 1.2],
-            position: [0, 0, -1.5],
-            rotation: [(3 * Math.PI) / 4, 0, 0],
-          }}
-        />
-      </group>
-    </>
-  );
-}
-
-export function DayLights() {
-  return (
-    <>
-      <AmbientLight threeProps={{ args: ['white', 0.6] }} />
-      <DirectionalLight
-        threeProps={{
-          args: ['white', 1],
-          position: [7, 10, 0],
-        }}
-      />
-      <PointLight
-        threeProps={{ args: ['white', 3, 0.5, 1], position: [2, 2, 2] }}
-      />
-    </>
-  );
-}
-
-export function HomePageModel(props: any) {
-  const { camera } = useThree();
-  const ref = useRef<Group>(null!);
-  const { colorMode } = useContext(ColorModeContext);
-  const { area } = useControls('grid', {
-    area: {
-      value: 10,
-      step: 1,
-    },
-  });
-  const { scale, position } = useControls('house', {
-    scale: {
-      value: 0.4,
-      step: 0.05,
-    },
-    position: {
-      value: [0, 0, 0],
-      joystick: false,
-    },
-  });
-  console.log('Area: ', area);
-  const gltf = useGLTF('./static/models/main_house.glb');
-  useFrame((state, delta) => ref.current.rotateY(delta / 4));
-
-  useEffect(() => {
-    // Bad practice, but I just wanted to get this to work
-    // This "positions" the object down as the camera looks slightly up
-    camera.lookAt(0, 1, 0);
-  }, []);
-
-  return (
-    <>
-      <PresentationControls
-        config={{ mass: 10, tension: 0, friction: 1 }}
-        rotation={[0, 0, 0]}
-        polar={[0, 0]}
-        cursor
-        speed={2}
-      >
-        <group ref={ref} {...props} dispose={null} position={position}>
-          <group rotation={[0, 0, 0]} scale={scale}>
-            <primitive object={gltf.scene} />
-          </group>
-        </group>
-      </PresentationControls>
-      {colorMode === 'light' ? <DayLights /> : <NightLights />}
-      <gridHelper args={[area, 20]} />
-      <ContactShadows
-        position={[0, 0, 0]}
-        opacity={0.75}
-        scale={10}
-        blur={2.5}
-        far={4}
-      />
-    </>
-  );
-}
+import { BaseModel } from './models/base-model';
 
 function Scene() {
   const { colorMode } = useContext(ColorModeContext);
-  const { showGrid } = useControls('Scene', {
-    showGrid: false,
-  });
+  const levaStore = useEditModeStore((state) => state.levaStoreToDisplay);
+  const { showGrid, showLights } = useControls(
+    'Scene',
+    {
+      showGrid: false,
+      showLights: false,
+    },
+    {
+      store:
+        levaStore?.getVisiblePaths !== undefined ? levaStore : defaultLevaStore,
+    }
+  );
   return (
     <>
       {showGrid && <gridHelper />}
-      <FloatingRockModel />
+      <BaseModel
+        modelName="Floating Rock"
+        url="./static/models/floating_mountain.glb"
+        scale={3.2}
+        castShadow={false}
+      />
+      <BaseModel
+        modelName="Boring House"
+        url="./static/models/house_boring.glb"
+        position={[-1, 0, 1.3]}
+        scale={0.27}
+        receiveShadow={false}
+      />
+      <BaseModel
+        modelName="Modern House"
+        url="./static/models/main_house.glb"
+        position={[2, 0, 0.3]}
+        scale={0.26}
+        receiveShadow={false}
+      />
       <OrbitControls />
-      <AmbientLight threeProps={{ args: [] }} />
+      <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
-        <Sky
-          distance={450000}
-          sunPosition={[0, 1, 0]}
-          inclination={0}
-          azimuth={0.25}
-        />
+        <>
+          <DirectionalLight
+            threeProps={{
+              args: ['yellow', 0.3],
+              position: [4, 5, 4],
+              castShadow: true,
+            }}
+            useHelper={showLights}
+          />
+          <PointLight
+            threeProps={{ args: ['white', 3, 0.5, 1], position: [-1, 2, 4] }}
+            useHelper={showLights}
+          />
+          <PointLight
+            threeProps={{ args: ['white', 3, 0.5, 1], position: [-2, 2, -2] }}
+            useHelper={showLights}
+          />
+          <Sky
+            distance={450}
+            sunPosition={[0, 1, 0]}
+            inclination={0}
+            azimuth={0.25}
+          />
+        </>
       ) : (
         <Stars
           radius={10}
@@ -177,13 +99,14 @@ function Scene() {
 }
 
 export function CityScene() {
+  // https://github.com/pmndrs/drei#usecontextbridge
   const ContextBridge = useContextBridge(ColorModeContext);
 
-  useEffect(() => {
-    document.querySelector('canvas')?.setAttribute('touch-action', 'none');
-  }, []);
   return (
-    <Canvas camera={{ position: [7, 10, 10], fov: 30 }}>
+    <Canvas
+      camera={{ position: [7, 6, 10], fov: 30, castShadow: true }}
+      shadows
+    >
       <ContextBridge>
         <Suspense
           fallback={

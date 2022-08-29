@@ -3,16 +3,16 @@ import shallow from 'zustand/shallow';
 
 import { eventTriggers } from '@todocity/analytics/events/constants';
 import { AnalIconButton } from '@todocity/components/anal-icon-button/anal-icon-button';
-import { useLevaStore } from '@todocity/stores/displayStore';
+import { useEditModeStore } from '@todocity/stores/editModeStore';
 
 // TODO: Use chakra cli to generate usable types
 interface ISceneSettingsProps {}
 
 export function SceneSettings({}: ISceneSettingsProps) {
-  const { hidden, setHidden } = useLevaStore(
+  const { displayControls, setDisplayControls } = useEditModeStore(
     (state) => ({
-      hidden: state.hidden,
-      setHidden: state.setHidden,
+      displayControls: state.displayControls,
+      setDisplayControls: state.setDisplayControls,
     }),
     shallow
   );
@@ -21,7 +21,7 @@ export function SceneSettings({}: ISceneSettingsProps) {
     <AnalIconButton
       icon={<IconTools />}
       variant="ghost"
-      onClick={() => setHidden(!hidden)}
+      onClick={() => setDisplayControls(!displayControls)}
       aria-label="scene settings button"
       size="sm"
       isRound
