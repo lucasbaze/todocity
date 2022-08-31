@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "ts-lint": "tsc --noEmit --incremental",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.2.4",
