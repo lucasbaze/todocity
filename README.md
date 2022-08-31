@@ -1,11 +1,13 @@
 ## Overview
+
 This is a yarn workspace monorepo
 
 ### Structure
-| Codebase    | Description    |
-| ----------- | -----------    |
-| Starlord    | Next.js App    |
-| Flash       | Firebase functions |
+
+| Codebase | Description        |
+| -------- | ------------------ |
+| Starlord | Next.js App        |
+| Flash    | Firebase functions |
 
 ## Getting Started
 
@@ -14,6 +16,10 @@ Run the next.js server:
 ```bash
 # install dependencies
 > yarn
+
+# build firebase functions library
+> cd ./flash
+> yarn build
 
 # start "server" emulators
 # You may need to install the latest java runtime

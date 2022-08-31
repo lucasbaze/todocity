@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 // import { getAnalytics } from 'firebase/analytics';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
 
 const firebaseProdConfig = {
   apiKey: 'AIzaSyAyHecyXFvLh6Yhi6mwaeKPSZBLQWeB0Ac',
@@ -36,6 +37,7 @@ const clientCredentials =
     : firebaseDevConfig;
 
 export const app = initializeApp(clientCredentials);
+export const functions = getFunctions(app);
 // export const analytics = getAnalytics(app);
 
 export const db = getFirestore();
@@ -44,4 +46,5 @@ export const auth = getAuth();
 if (process.env.NEXT_PUBLIC_FIREBASE_EMULATE === 'true') {
   connectFirestoreEmulator(db, 'localhost', 8080);
   connectAuthEmulator(auth, 'http://localhost:9099');
+  connectFunctionsEmulator(functions, 'localhost', 5001);
 }
