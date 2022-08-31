@@ -1,0 +1,36 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": ["simple-import-sort"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          2,
+          {
+            "groups": [
+              // Side effect imports.
+              // Imports without declaration are prepended with null char.
+              ["^\\u0000"],
+              // React imports.
+              ["^react$"],
+              // Packages.
+              ["^@?\\w"],
+              // @r-client paths
+              ["^@todocity\\/"],
+              // Absolute imports.
+              ["^\\/"],
+              // Relative imports.
+              ["^\\."],
+              // Style imports
+              // anything that ends in css and has a declaration
+              ["^[^\\u0000].*css$"],
+              // Anything not matched in another group.
+              ["^"]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

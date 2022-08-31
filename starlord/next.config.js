@@ -11,6 +11,9 @@ const nextConfig = {
   // Off because StylesFirebaseAuth throws warnings everywhere otherwise
   reactStrictMode: false,
   swcMinify: true,
+  experimental: {
+    externalDir: true,
+  },
 
   // Only compile pages that end in .page.tsx
   pageExtensions:
