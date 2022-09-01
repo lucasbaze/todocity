@@ -21,6 +21,7 @@ export interface PricingCardData {
   features: { text: string; tooltipText?: string }[];
   discount?: ReactNode;
   name: string;
+  denomination?: string;
   price: string;
 }
 
@@ -38,7 +39,7 @@ export const PricingCard = ({
   button,
   disclaimer,
 }: PricingCardProps) => {
-  const { features, price, name, discount } = data;
+  const { features, price, name, discount, denomination = 'yr' } = data;
   const accentColor = useColorModeValue('purple.600', 'blue.200');
 
   return (
@@ -67,7 +68,7 @@ export const PricingCard = ({
             {price}
           </Heading>
           <Text fontWeight="inherit" fontSize="2xl">
-            / yr
+            / {denomination}
           </Text>
         </Flex>
         {discount && (

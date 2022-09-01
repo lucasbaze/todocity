@@ -35,22 +35,27 @@ const Home: NextPage = () => {
             <Text as="h1" variant="hero">
               Your New Favorite Todo App
             </Text>
-            <Text as="h2" variant="h2" color="gray.600" pb={24}>
-              Complete your Todos. Get points. Build your city.
+            <Text as="h2" variant="h2" color="gray.600" pb={20}>
+              Complete your Todos. Get lot bucks. Build your city.
             </Text>
             <Box width="max-content">
               <Suspense
                 fallback={
                   <Button variant="primary" size="xl" mb="2">
-                    Create your city
+                    Get Early Access
                   </Button>
                 }
               >
-                <CreateAccountButton />
+                <CreateAccountButton ctaText="Get Early Access" />
               </Suspense>
               <Link href="/pricing">
-                <Text textAlign="center" color="gray.600">
-                  Your todo city is free forever
+                <Text
+                  textAlign="center"
+                  color="gray.600"
+                  maxWidth="250px"
+                  margin="0 auto"
+                >
+                  The first 500 people will get premium for 1 year.
                 </Text>
               </Link>
             </Box>

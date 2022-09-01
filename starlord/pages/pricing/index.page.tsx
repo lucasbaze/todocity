@@ -60,7 +60,7 @@ function PricingPage() {
                 Fun for all
               </Text>
               <Text as="h2" variant="h2" color="gray.600" pb={0}>
-                Get started for free, or pre-order for an entire year!
+                Get early access or pre-order for LIFE! Extremely limited offer.
               </Text>
             </Box>
             <Box flex={{ md: 3 }} width="100%">
@@ -104,7 +104,12 @@ function PricingPage() {
                         },
                       ],
                     }}
-                    button={<CreateAccountButton size="lg" />}
+                    button={
+                      <CreateAccountButton
+                        size="lg"
+                        ctaText="Get Early Access"
+                      />
+                    }
                   />
                 </Box>
                 <Box flex={1}>
@@ -118,6 +123,7 @@ function PricingPage() {
                   <PricingCard
                     data={{
                       price: '$25',
+                      denomination: 'life',
                       name: 'Metropolis',
                       discount: (
                         <Badge

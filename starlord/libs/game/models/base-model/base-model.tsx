@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useMemo } from 'react';
 
 import { useCursor, useGLTF } from '@react-three/drei';
@@ -9,40 +9,27 @@ import { GLTF } from 'three-stdlib';
 
 import { useEditModeStore } from '@todocity/stores/editModeStore';
 
-interface IBaseModelProps extends GroupProps {
-  /**
-   * url to gltf model
-   */
-  url: string;
+export interface IBaseModelProps extends GroupProps {
   /**
    * used for displaying within the leva controls folder
    */
   modelName: string;
+  /**
+   * A model type that this base model is extending
+   */
+  children: ReactNode;
 }
 
 export function BaseModel({
-  url,
   modelName,
   castShadow = true,
   receiveShadow = true,
+  children,
   ...props
 }: IBaseModelProps) {
   // Creates a local leva store to be passed globally through editModeStore
   const baseModelControlsStore = useCreateStore();
   const [hovering, setHovering] = useState(false);
-
-  // loads the model
-  const gltf = useGLTF(url) as GLTF;
-
-  // Ensures that multiple instances are renderable in a scene
-  const copiedScene = useMemo(() => gltf.scene.clone(), [gltf.scene]);
-
-  copiedScene.traverse((node) => {
-    if (node && castShadow) node.castShadow = true;
-    if (node && receiveShadow) node.receiveShadow = true;
-  });
-  copiedScene.castShadow = true;
-  copiedScene.receiveShadow = true;
 
   useCursor(hovering);
 
@@ -91,7 +78,7 @@ export function BaseModel({
           position={new Vector3(cartX, cartY, cartZ)}
           castShadow
         >
-          <primitive object={copiedScene} />
+          {children}
         </group>
       </group>
     </>

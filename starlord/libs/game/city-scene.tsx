@@ -17,7 +17,9 @@ import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
 
-import { BaseModel } from './models/base-model';
+import { ProjectModel } from './components/project-model/project-model';
+import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
+import { NotificationPin } from './models/notification-pin/notification-pin';
 
 function Scene() {
   const { colorMode } = useContext(ColorModeContext);
@@ -36,25 +38,35 @@ function Scene() {
   return (
     <>
       {showGrid && <gridHelper />}
-      <BaseModel
+      <BasePrimitiveModel
         modelName="Floating Rock"
         url="./static/models/floating_mountain.glb"
         scale={3.2}
         castShadow={false}
       />
-      <BaseModel
-        modelName="Boring House"
-        url="./static/models/house_boring.glb"
+      <ProjectModel
+        count={0}
+        objectModel={
+          <BasePrimitiveModel
+            modelName="Boring House"
+            url="./static/models/house_boring.glb"
+            scale={0.27}
+            receiveShadow={false}
+          />
+        }
         position={[-1, 0, 1.3]}
-        scale={0.27}
-        receiveShadow={false}
       />
-      <BaseModel
-        modelName="Modern House"
-        url="./static/models/main_house.glb"
+      <ProjectModel
+        count={0}
+        objectModel={
+          <BasePrimitiveModel
+            modelName="Modern House"
+            url="./static/models/main_house.glb"
+            scale={0.26}
+            receiveShadow={false}
+          />
+        }
         position={[2, 0, 0.3]}
-        scale={0.26}
-        receiveShadow={false}
       />
       <OrbitControls />
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />

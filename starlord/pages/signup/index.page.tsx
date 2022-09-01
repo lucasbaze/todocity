@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { Card } from '@todocity/ui/components/card/card';
+import { Link } from '@todocity/ui/core';
 import { Box, Flex, Text } from '@todocity/ui/core';
 const LoginSignupButton = dynamic(
   () => import('../../libs/components/login-signup-button/login-signup-button'),
@@ -18,14 +19,13 @@ const textCopy = (navigateTo: string | undefined) => {
     case 'checkout':
       return {
         title: "Let's construct your Metropolis!",
-        description:
-          'In order to pre-order, please create your TodoCity account.',
+        description: 'Please first create an account to pre-order.',
       };
     default:
       return {
-        title: 'Create your new TodoCity!',
+        title: 'Get Early Access Today!',
         description:
-          "As the new city planner, you are in charge of your TodoCity's future success.",
+          'Create an account and find out if you get premium for a year.',
       };
   }
 };
@@ -68,7 +68,7 @@ const Signup: NextPage = () => {
         >
           {description}
         </Text>
-        <Card>
+        <Card boxProps={{ boxShadow: 'none' }}>
           <Flex direction="column" alignItems="center">
             <Suspense fallback={<Box minHeight="100px" width="200px" />}>
               <LoginSignupButton
@@ -76,7 +76,14 @@ const Signup: NextPage = () => {
               />
             </Suspense>
             <Text variant="disclaimer" width="60%" textAlign="center">
-              By doing so you agree to our terms of service and privacy policy
+              By doing so you agree to our{' '}
+              <Link textDecoration="underline" href="/terms">
+                terms of service
+              </Link>{' '}
+              and{' '}
+              <Link textDecoration="underline" href="/privacy">
+                privacy policy
+              </Link>
             </Text>
           </Flex>
         </Card>

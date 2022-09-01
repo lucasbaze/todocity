@@ -8,10 +8,12 @@ import { AnalButton } from '../anal-button/anal-button';
 
 interface ICreateAccountButtonProps {
   size?: 'lg' | 'xl';
+  ctaText?: string;
 }
 
 export const CreateAccountButton = ({
   size = 'xl',
+  ctaText,
 }: ICreateAccountButtonProps) => {
   const { user, loading } = useAuth();
 
@@ -30,7 +32,7 @@ export const CreateAccountButton = ({
               Go to Your City <IconArrowRight />
             </>
           ) : (
-            'Create your city'
+            ctaText || 'Create your city'
           )}
         </AnalButton>
       </Link>

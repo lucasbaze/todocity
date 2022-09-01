@@ -28,7 +28,7 @@ export function PreOrderButton() {
       analytics={{ buttonName: 'buy-now' }}
       onClick={handlePreorder}
     >
-      Pre-order today
+      Pre-order Today
     </AnalButton>
   );
 }
