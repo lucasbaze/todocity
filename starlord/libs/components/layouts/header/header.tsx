@@ -1,7 +1,15 @@
+import { Suspense } from 'react';
+
+import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 
 import { LightDarkButton } from '@todocity/components/light-dark-button/light-dark-button';
-import { Box, Container, Flex, Link, Text } from '@todocity/ui/core';
+import { Box, Button, Container, Flex, Link, Text } from '@todocity/ui/core';
+
+const HeaderLoginButton = dynamic(() => import('./header-login-button'), {
+  ssr: false,
+  suspense: true,
+});
 
 export function Header() {
   return (
@@ -13,11 +21,20 @@ export function Header() {
           </Text>
         </NextLink>
       </Box>
-      <Flex alignItems="center" gap="12">
+      <Flex alignItems="center" gap="4">
         <Link variant="headerNav" href="/pricing">
           Early Pricing
         </Link>
         <LightDarkButton variant="ghost" />
+        <Suspense
+          fallback={
+            <Button isLoading={true} variant="outline" size="md">
+              Login
+            </Button>
+          }
+        >
+          <HeaderLoginButton />
+        </Suspense>
       </Flex>
     </Container>
   );

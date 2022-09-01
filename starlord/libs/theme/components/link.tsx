@@ -10,6 +10,7 @@ export const Link: ComponentStyleConfig = {
   sizes: {},
   variants: {
     headerNav: {
+      fontSize: '18px',
       _hover: {
         textDecorationColor: 'gray.900',
       },

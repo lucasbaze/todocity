@@ -4,17 +4,17 @@ import type { ComponentStyleConfig } from '@chakra-ui/theme';
 import { mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 export const Button: ComponentStyleConfig = {
-  baseStyle: {
-    fontWeight: 'bold',
-  },
+  baseStyle: {},
   sizes: {
     xl: {
       p: '22px 62px',
       fontSize: '24',
+      fontWeight: 'bold',
     },
     lg: {
       p: '32px 48px',
       fontSize: '20',
+      fontWeight: 'bold',
     },
   },
   variants: {
@@ -40,6 +40,11 @@ export const Button: ComponentStyleConfig = {
     }),
     // 4. We can override existing variants
     solid: (props: StyleFunctionProps) => ({
+      // bg: props.colorMode === 'dark' ? 'white' : 'gray.900',
+    }),
+    outline: (props: StyleFunctionProps) => ({
+      borderWidth: '1px',
+      borderColor: '#000000',
       // bg: props.colorMode === 'dark' ? 'white' : 'gray.900',
     }),
     // 5. We can add responsive variants

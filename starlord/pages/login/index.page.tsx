@@ -14,22 +14,6 @@ const LoginSignupButton = dynamic(
   { ssr: false, suspense: true }
 );
 
-const textCopy = (navigateTo: string | undefined) => {
-  switch (navigateTo) {
-    case 'checkout':
-      return {
-        title: "Let's construct your Metropolis!",
-        description: 'Please first create an account to pre-order.',
-      };
-    default:
-      return {
-        title: 'Get Early Access Today!',
-        description:
-          'Create an account and find out if you get premium for a year.',
-      };
-  }
-};
-
 const loginSignupNavigateTo = (navigateTo: string | undefined) => {
   switch (navigateTo) {
     case 'checkout':
@@ -45,7 +29,6 @@ const Signup: NextPage = () => {
 
   const { navigate_to } = router.query;
   const navigateTo = Array.isArray(navigate_to) ? navigate_to[0] : navigate_to;
-  const { title, description } = textCopy(navigateTo);
 
   return (
     <MainLayout>
@@ -56,7 +39,7 @@ const Signup: NextPage = () => {
         pt="24"
       >
         <Text as="h1" variant="h1" pb="2">
-          {title}
+          Welcome Back!
         </Text>
         <Text
           as="h2"
@@ -66,32 +49,22 @@ const Signup: NextPage = () => {
           width={{ base: '80%', md: '60%' }}
           textAlign="center"
         >
-          {description}
+          Let&apos;s see what your city looks like today.
         </Text>
-        <Card boxProps={{ boxShadow: 'none', mb: 4 }}>
+        <Card boxProps={{ boxShadow: 'none' }}>
           <Flex direction="column" alignItems="center">
             <Suspense fallback={<Box minHeight="100px" width="200px" />}>
               <LoginSignupButton
                 navigateTo={loginSignupNavigateTo(navigateTo)}
               />
             </Suspense>
-            <Text variant="disclaimer" width="60%" textAlign="center">
-              By doing so you agree to our{' '}
-              <Link textDecoration="underline" href="/terms">
-                terms of service
-              </Link>{' '}
-              and{' '}
-              <Link textDecoration="underline" href="/privacy">
-                privacy policy
-              </Link>
-            </Text>
+            <Link href="/signup">
+              <Text variant="disclaimer" textAlign="center">
+                Don&apos;t have an account yet? Sign up.
+              </Text>
+            </Link>
           </Flex>
         </Card>
-        <Link href="/login">
-          <Text variant="disclaimer" textAlign="center">
-            Already have an account? Login.
-          </Text>
-        </Link>
       </Flex>
     </MainLayout>
   );
