@@ -3,6 +3,7 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { GroupProps } from '@react-three/fiber';
 import { Box3, Group } from 'three';
 
+import { useNonDragClick } from '../../hooks/useNonDragClick';
 import {
   INotificationPinProps,
   NotificationPin,
@@ -21,10 +22,9 @@ export function ProjectModel({
   const groupRef = useRef<Group>(null);
   const [maxY, setMaxY] = useState(0);
   const [notificationCount, setNotificationCount] = useState(count);
-
-  const handleUpdateNotificationCount = () => {
+  const { handleMouseDown, handleMouseUp } = useNonDragClick(() => {
     setNotificationCount(notificationCount + 1);
-  };
+  });
 
   useEffect(() => {
     if (notificationCount % 5 === 0) {
@@ -43,7 +43,12 @@ export function ProjectModel({
   }, [groupRef]);
 
   return (
-    <group ref={groupRef} {...props} onClick={handleUpdateNotificationCount}>
+    <group
+      ref={groupRef}
+      {...props}
+      onPointerDown={handleMouseDown}
+      onPointerUp={handleMouseUp}
+    >
       <NotificationPin
         fixed={fixed}
         count={notificationCount}

@@ -1,4 +1,4 @@
-import { Suspense, useContext, useEffect, useRef } from 'react';
+import { Suspense, useContext } from 'react';
 
 import { ColorModeContext } from '@chakra-ui/react';
 import {
@@ -19,11 +19,9 @@ import { PointLight } from '@todocity/three/lights/point-light';
 
 import { ProjectModel } from './components/project-model/project-model';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
-import { NotificationPin } from './models/notification-pin/notification-pin';
 
 function Scene() {
   const { colorMode } = useContext(ColorModeContext);
-  const levaStore = useEditModeStore((state) => state.levaStoreToDisplay);
   const { showGrid, showLights } = useControls(
     'Scene',
     {
@@ -31,13 +29,14 @@ function Scene() {
       showLights: false,
     },
     {
-      store:
-        levaStore?.getVisiblePaths !== undefined ? levaStore : defaultLevaStore,
+      store: defaultLevaStore,
     }
   );
+
   return (
     <>
       {showGrid && <gridHelper />}
+      <OrbitControls />
       <BasePrimitiveModel
         modelName="Floating Rock"
         url="./static/models/floating_mountain.glb"
@@ -68,7 +67,6 @@ function Scene() {
         }
         position={[2, 0, 0.3]}
       />
-      <OrbitControls />
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
         <>
@@ -114,10 +112,21 @@ export function CityScene() {
   // https://github.com/pmndrs/drei#usecontextbridge
   const ContextBridge = useContextBridge(ColorModeContext);
 
+  const setLevaStoreToDisplay = useEditModeStore(
+    (state) => state.setLevaStoreToDisplay
+  );
+
+  // Resets the store to be the scene store
+  // Like "deselecting an object basically"
+  const handleMissed = (e) => {
+    setLevaStoreToDisplay(defaultLevaStore);
+  };
+
   return (
     <Canvas
       camera={{ position: [7, 6, 10], fov: 30, castShadow: true }}
       shadows
+      onPointerMissed={handleMissed}
     >
       <ContextBridge>
         <Suspense

@@ -34,7 +34,6 @@ export const actions = (set: any, get: any) => {
     setLevaStoreToDisplay: (levaStore: typeof defaultLevaStore) => {
       set((state: IEditModeStore) => ({
         ...state,
-        displayControls: true,
         levaStoreToDisplay: levaStore,
       }));
     },

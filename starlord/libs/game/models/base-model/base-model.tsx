@@ -1,13 +1,13 @@
 import { ReactNode, useState } from 'react';
-import { useMemo } from 'react';
 
-import { useCursor, useGLTF } from '@react-three/drei';
+import { useCursor } from '@react-three/drei';
 import { GroupProps } from '@react-three/fiber';
 import { folder, useControls, useCreateStore } from 'leva';
 import { Euler, Vector3 } from 'three';
-import { GLTF } from 'three-stdlib';
 
 import { useEditModeStore } from '@todocity/stores/editModeStore';
+
+import { useNonDragClick } from '../../hooks/useNonDragClick';
 
 export interface IBaseModelProps extends GroupProps {
   /**
@@ -36,6 +36,9 @@ export function BaseModel({
   const setLevaStoreToDisplay = useEditModeStore(
     (state) => state.setLevaStoreToDisplay
   );
+  const { handleMouseDown, handleMouseUp } = useNonDragClick(() => {
+    setLevaStoreToDisplay(baseModelControlsStore);
+  });
 
   const { polarX, polarY, polarZ, scale, cartX, cartY, cartZ } = useControls(
     modelName,
@@ -70,7 +73,8 @@ export function BaseModel({
           setHovering(true);
         }}
         onPointerOut={(e) => setHovering(false)}
-        onClick={() => setLevaStoreToDisplay(baseModelControlsStore)}
+        onPointerDown={handleMouseDown}
+        onPointerUp={handleMouseUp}
       >
         <group
           rotation={new Euler(polarX, polarY, polarZ)}
