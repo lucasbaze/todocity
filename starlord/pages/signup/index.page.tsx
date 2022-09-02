@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
+import { PageSEOMeta } from '@todocity/seo/page-seo/page-seo';
 import { Card } from '@todocity/ui/components/card/card';
 import { Link } from '@todocity/ui/core';
 import { Box, Flex, Text } from '@todocity/ui/core';
@@ -47,52 +48,55 @@ const Signup: NextPage = () => {
   const { title, description } = textCopy(navigateTo);
 
   return (
-    <MainLayout>
-      <Flex
-        direction="column"
-        alignItems="center"
-        minHeight={`calc(100vh - ${sizes.header})`}
-        pt="24"
-      >
-        <Text as="h1" variant="h1" pb="2">
-          {title}
-        </Text>
-        <Text
-          as="h2"
-          variant="h3"
-          color="gray.600"
-          pb={12}
-          width={{ base: '80%', md: '60%' }}
-          textAlign="center"
+    <>
+      <PageSEOMeta title="Signup" metaTitle="Signup" />
+      <MainLayout>
+        <Flex
+          direction="column"
+          alignItems="center"
+          minHeight={`calc(100vh - ${sizes.header})`}
+          pt="24"
         >
-          {description}
-        </Text>
-        <Card boxProps={{ boxShadow: 'none', mb: 4 }}>
-          <Flex direction="column" alignItems="center">
-            <Suspense fallback={<Box minHeight="100px" width="200px" />}>
-              <LoginSignupButton
-                navigateTo={loginSignupNavigateTo(navigateTo)}
-              />
-            </Suspense>
-            <Text variant="disclaimer" width="60%" textAlign="center">
-              By doing so you agree to our{' '}
-              <Link textDecoration="underline" href="/terms">
-                terms of service
-              </Link>{' '}
-              and{' '}
-              <Link textDecoration="underline" href="/privacy">
-                privacy policy
-              </Link>
-            </Text>
-          </Flex>
-        </Card>
-        <Link href="/login">
-          <Text variant="disclaimer" textAlign="center">
-            Already have an account? Login.
+          <Text as="h1" variant="h1" pb="2">
+            {title}
           </Text>
-        </Link>
-      </Flex>
-    </MainLayout>
+          <Text
+            as="h2"
+            variant="h3"
+            color="gray.600"
+            pb={12}
+            width={{ base: '80%', md: '60%' }}
+            textAlign="center"
+          >
+            {description}
+          </Text>
+          <Card boxProps={{ boxShadow: 'none', mb: 4 }}>
+            <Flex direction="column" alignItems="center">
+              <Suspense fallback={<Box minHeight="100px" width="200px" />}>
+                <LoginSignupButton
+                  navigateTo={loginSignupNavigateTo(navigateTo)}
+                />
+              </Suspense>
+              <Text variant="disclaimer" width="60%" textAlign="center">
+                By doing so you agree to our{' '}
+                <Link textDecoration="underline" href="/terms">
+                  terms of service
+                </Link>{' '}
+                and{' '}
+                <Link textDecoration="underline" href="/privacy">
+                  privacy policy
+                </Link>
+              </Text>
+            </Flex>
+          </Card>
+          <Link href="/login">
+            <Text variant="disclaimer" textAlign="center">
+              Already have an account? Login.
+            </Text>
+          </Link>
+        </Flex>
+      </MainLayout>
+    </>
   );
 };
 

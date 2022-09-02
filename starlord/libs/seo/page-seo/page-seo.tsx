@@ -21,7 +21,7 @@ type IPageSEOMetaProps = Partial<
 };
 
 export const DEFAULT_URL = 'todocity.app';
-export const DEFAULT_TITLE = 'TodoCity - A Gamified Todo App';
+export const DEFAULT_TITLE = 'A Gamified Todo App';
 export const DEFAULT_DESCRIPTION =
   'A new style todo app to boost productivity and have fun building your city!';
 export const DEFAULT_IMAGE = 'https://todocity.app/static/image/todocity.png';
@@ -39,8 +39,8 @@ export const PageSEOMeta = ({
 }: IPageSEOMetaProps) => {
   return (
     <NextSEOMetaTags
-      title={title}
-      metaTitle={metaTitle}
+      title={`TodoCity - ${title}`}
+      metaTitle={`TodoCity - ${metaTitle}`}
       description={description}
       image={image}
       openGraph={
@@ -49,7 +49,7 @@ export const PageSEOMeta = ({
           image,
           description,
           type: 'website',
-          title: metaTitle,
+          title: `TodoCity - ${metaTitle}`,
           locale: 'en_US',
         }
       }
@@ -60,7 +60,7 @@ export const PageSEOMeta = ({
           description,
           card: 'summary_large_image',
           site: '@todocity',
-          title: metaTitle,
+          title: `TodoCity - ${metaTitle}`,
           creator: '@todocity',
         },
       }}

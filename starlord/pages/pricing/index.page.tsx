@@ -4,6 +4,7 @@ import { useTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
+import { PageSEOMeta } from '@todocity/seo/page-seo/page-seo';
 import { Badge, Box, Container, Flex, Text } from '@todocity/ui/core';
 
 import { PricingCard } from './components/pricing-card/pricing-card';
@@ -40,6 +41,7 @@ function PricingPage() {
 
   return (
     <>
+      <PageSEOMeta title="Pricing" metaTitle="Pricing" />
       <MainLayout>
         <Container
           display="grid"
