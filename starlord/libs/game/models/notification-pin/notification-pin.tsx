@@ -72,7 +72,7 @@ export function NotificationPin({
         />
         <Billboard follow lockX={fixed} lockY={fixed} lockZ={fixed}>
           <Text
-            fontSize={0.3}
+            fontSize={1}
             color="#000000"
             outlineWidth={'4%'}
             outlineColor="#000000"
@@ -85,7 +85,6 @@ export function NotificationPin({
               geometry={gltf.nodes.Circle.geometry}
               material={materialRef.current}
               rotation={[Math.PI / 2, 0, 0]}
-              scale={[0.25, 0.25, 0.25]}
             />
           </BaseModel>
         </Billboard>

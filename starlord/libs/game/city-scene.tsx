@@ -4,6 +4,7 @@ import { ColorModeContext } from '@chakra-ui/react';
 import {
   Html,
   OrbitControls,
+  PerspectiveCamera,
   Sky,
   Stars,
   useContextBridge,
@@ -36,11 +37,17 @@ function Scene() {
   return (
     <>
       {showGrid && <gridHelper />}
-      <OrbitControls />
+      <OrbitControls
+        maxPolarAngle={Math.PI / 2}
+        minPolarAngle={0}
+        enablePan={false}
+        maxDistance={35}
+        minDistance={15}
+      />
       <BasePrimitiveModel
         modelName="Floating Rock"
         url="./static/models/floating_mountain.glb"
-        scale={3.2}
+        scale={13}
         castShadow={false}
       />
       <ProjectModel
@@ -49,11 +56,9 @@ function Scene() {
           <BasePrimitiveModel
             modelName="Boring House"
             url="./static/models/house_boring.glb"
-            scale={0.27}
-            receiveShadow={false}
           />
         }
-        position={[-1, 0, 1.3]}
+        position={[-5, 0, 6]}
       />
       <ProjectModel
         count={0}
@@ -61,11 +66,9 @@ function Scene() {
           <BasePrimitiveModel
             modelName="Modern House"
             url="./static/models/main_house.glb"
-            scale={0.26}
-            receiveShadow={false}
           />
         }
-        position={[2, 0, 0.3]}
+        position={[7, 0, 2]}
       />
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
@@ -123,11 +126,8 @@ export function CityScene() {
   };
 
   return (
-    <Canvas
-      camera={{ position: [7, 6, 10], fov: 30, castShadow: true }}
-      shadows
-      onPointerMissed={handleMissed}
-    >
+    <Canvas shadows onPointerMissed={handleMissed}>
+      <PerspectiveCamera makeDefault position={[12, 12, 20]} fov={60} />
       <ContextBridge>
         <Suspense
           fallback={

@@ -37,7 +37,7 @@ export function ProjectModel({
       // TODO: Possibly inefficient
       // https://stackoverflow.com/a/26189021
       const bbox = new Box3().setFromObject(groupRef.current);
-      const floatDistance = 0.6;
+      const floatDistance = 1.6;
       setMaxY(bbox.max.y + floatDistance);
     }
   }, [groupRef]);
