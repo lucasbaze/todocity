@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useAuth } from '@todocity/auth';
 import { Button } from '@todocity/ui/core';
 
-interface ICreateAccountButtonProps {}
+interface ICreateAccountButtonProps {
+  mobile?: boolean;
+}
 
-export const HeaderLoginButton = ({}: ICreateAccountButtonProps) => {
+export const HeaderLoginButton = ({ mobile }: ICreateAccountButtonProps) => {
   const { user, loading } = useAuth();
 
   return (
@@ -22,6 +24,13 @@ export const HeaderLoginButton = ({}: ICreateAccountButtonProps) => {
           )}
         </Button>
       </Link>
+      {mobile && !user && (
+        <Link href="/signup">
+          <Button variant="outline" size="md" ml="4">
+            Signup
+          </Button>
+        </Link>
+      )}
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
-import { IconBrandDiscord } from '@tabler/icons';
+import { useDisclosure } from '@chakra-ui/react';
+import { IconBrandDiscord, IconMenu2 } from '@tabler/icons';
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
 
@@ -9,7 +10,15 @@ import {
   Box,
   Button,
   Container,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
+  Heading,
   IconButton,
   Link,
   Text,
@@ -21,39 +30,106 @@ const HeaderLoginButton = dynamic(() => import('./header-login-button'), {
 });
 
 export function Header() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Container display="flex" alignItems="center" height="header">
-      <Box flex="1">
-        <NextLink href="/">
-          <Text variant="h1" cursor="pointer">
-            TODOCITY
-          </Text>
-        </NextLink>
-      </Box>
-      <Flex alignItems="center" gap="4">
-        <Link variant="headerNav" href="/pricing" mr="4">
-          Early Pricing
-        </Link>
-        <Flex alignItems="center">
-          <Link href="https://discord.gg/DffHpt54dZ" isExternal>
-            <IconButton
-              variant="ghost"
-              icon={<IconBrandDiscord />}
-              aria-label="discord icon"
-            />
-          </Link>
-          <LightDarkButton variant="ghost" />
-        </Flex>
-        <Suspense
-          fallback={
-            <Button isLoading={true} variant="outline" size="md">
-              Login
-            </Button>
-          }
+    <>
+      <Container display="flex" alignItems="center" height="header">
+        <Box>
+          <NextLink href="/">
+            <Text variant="h1" cursor="pointer">
+              TODOCITY
+            </Text>
+          </NextLink>
+        </Box>
+        <Box
+          flex="1"
+          display={{ base: 'none', md: 'flex' }}
+          alignItems="center"
+          gap="4"
+          justifyContent="flex-end"
         >
-          <HeaderLoginButton />
-        </Suspense>
-      </Flex>
-    </Container>
+          <Link variant="headerNav" href="/pricing" mr="4">
+            Early Pricing
+          </Link>
+          <Flex alignItems="center">
+            <Link href="https://discord.gg/DffHpt54dZ" isExternal>
+              <IconButton
+                variant="ghost"
+                icon={<IconBrandDiscord />}
+                aria-label="discord icon"
+              />
+            </Link>
+            <LightDarkButton variant="ghost" />
+          </Flex>
+          <Suspense
+            fallback={
+              <Button isLoading={true} variant="outline" size="md">
+                Login
+              </Button>
+            }
+          >
+            <HeaderLoginButton />
+          </Suspense>
+        </Box>
+        {/* Mobile Hamburger*/}
+        <Box
+          flex="1"
+          display={{ base: 'flex', md: 'none' }}
+          alignItems="center"
+          gap="4"
+          justifyContent="flex-end"
+        >
+          <IconButton
+            variant="outline"
+            size="md"
+            icon={<IconMenu2 />}
+            aria-label="hamburger menu"
+            onClick={onOpen}
+          />
+        </Box>
+      </Container>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>
+            <Heading>TodoCity</Heading>
+          </DrawerHeader>
+
+          <DrawerBody>
+            <Flex direction="column">
+              <Box mb="8">
+                <Suspense
+                  fallback={
+                    <Button variant="outline" size="md">
+                      Login
+                    </Button>
+                  }
+                >
+                  <HeaderLoginButton mobile />
+                </Suspense>
+              </Box>
+              <Box>
+                <Link variant="headerNav" href="/pricing" mr="4">
+                  Early Bird Pricing
+                </Link>
+              </Box>
+            </Flex>
+          </DrawerBody>
+          <DrawerFooter>
+            <Flex alignItems="center">
+              <LightDarkButton variant="ghost" />
+              <Link href="https://discord.gg/DffHpt54dZ" isExternal>
+                <IconButton
+                  variant="ghost"
+                  icon={<IconBrandDiscord />}
+                  aria-label="discord icon"
+                />
+              </Link>
+            </Flex>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 }
