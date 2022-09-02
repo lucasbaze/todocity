@@ -24,6 +24,7 @@
     "@tabler/icons": "^1.79.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "firebase": "^9.9.1",
+    "formik": "^2.2.9",
     "framer-motion": "^6.5.1",
     "leva": "^0.9.30",
     "next": "12.2.3",

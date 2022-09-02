@@ -44,8 +44,7 @@ export const Button: ComponentStyleConfig = {
     }),
     outline: (props: StyleFunctionProps) => ({
       borderWidth: '1px',
-      borderColor: '#000000',
-      // bg: props.colorMode === 'dark' ? 'white' : 'gray.900',
+      borderColor: mode('#000000', '#ffffff')(props),
     }),
     // 5. We can add responsive variants
     sm: {

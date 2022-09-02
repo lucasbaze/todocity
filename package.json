@@ -13,5 +13,8 @@
     "nohoist": [
       "**"
     ]
+  },
+  "scripts": {
+    "emulators:start": "firebase emulators:start --project demo-todocity"
   }
 }

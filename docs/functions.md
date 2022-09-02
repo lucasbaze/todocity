@@ -12,9 +12,26 @@
 Use the firebase shell after building your functions to ensure they're working as expected locally.
 MAKE SURE THE EMULATOR IS RUNNING
 
+## Environment Variables
+
+[They're loaded automatically](https://firebase.google.com/docs/functions/config-env). Just add them to .env.local
+
 ## Deploying functions ( TBD )
 
+```sh
+# Switch to the right project first
+> firebase use todocity-dev
+
+# deploy the function
+> firebase deploy --only functions
+```
+
+You'll get a feedback response that looks something like the following:
+<image src>
+
 ## Troubleshooting
+
+### Throwing an error saying something about INTERNAL and the manifest not being read
 
 I kept getting an issue aftering building the functions and then running the `firebase functions:shell` command.
 
@@ -73,6 +90,11 @@ admin.initializeApp({
 ```
 
 And that also seemed to work.
+
+### Cors Error being thrown
+
+1. Is the app running in emulator mode?
+2. Are you using the right function name?
 
 ### Helpful Link
 

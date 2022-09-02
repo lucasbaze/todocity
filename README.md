@@ -11,20 +11,23 @@ This is a yarn workspace monorepo
 
 ## Getting Started
 
-Run the next.js server:
+Start with getting access to the right key / value for all .env files.
+
+Then run the next.js server:
 
 ```bash
 # install dependencies
 > yarn
 
 # build firebase functions library
+# This will ensure that functions are usable within the emulator
 > cd ./flash
 > yarn build
 
 # start "server" emulators
 # You may need to install the latest java runtime
 # https://www.oracle.com/java/technologies/downloads/
-> firebase emulators:start --project demo-todocity
+> yarn emulators:start
 
 # set env vars correct ( in .env.local file)
 > NEXT_PUBLIC_FIREBASE_EMULATE=true

@@ -24,8 +24,7 @@ const textCopy = (navigateTo: string | undefined) => {
     default:
       return {
         title: 'Get Early Access Today!',
-        description:
-          'Create an account and find out if you get premium for a year.',
+        description: 'Create an account and see if you get Premium for a year.',
       };
   }
 };
