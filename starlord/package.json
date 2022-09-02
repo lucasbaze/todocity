@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_PUBLIC_FIREBASE_EMULATE=true next dev",
     "build": "next build",
     "build:test": "NEXT_PUBLIC_WEB_APP_ENV=test next build",
     "build:analyze": "ANALYZE=true NEXT_PUBLIC_WEB_APP_ENV=test next build",
