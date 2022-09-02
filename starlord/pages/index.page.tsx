@@ -36,7 +36,7 @@ const Home: NextPage = () => {
               Your New Favorite Todo App
             </Text>
             <Text as="h2" variant="h2" color="gray.600" pb={20}>
-              Complete your Todos. Get lot bucks. Build your city.
+              Complete your Todos. Unlock assets. Build your city.
             </Text>
             <Box width="max-content">
               <Suspense

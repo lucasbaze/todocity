@@ -38,7 +38,6 @@ interface ISettingsMenuProps {
 }
 
 function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
-  const data = {};
   const router = useRouter();
   const { logout } = useAuth();
   const sidebarBackgroundColor = useColorModeValue('gray.100', 'gray.700');
@@ -55,6 +54,7 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
 
   return (
     <Flex
+      flex={2}
       direction="column"
       p={{ base: '3em 1em 1em', md: '1em' }}
       minHeight={{ md: '300px' }}
@@ -123,6 +123,7 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
             <Box
               onClick={handleLogout}
               cursor="pointer"
+              color="red.400"
               _hover={{ textDecoration: 'underline' }}
             >
               Logout
@@ -189,7 +190,7 @@ export function SettingsModal({ isOpen, onClose }: ISettingsModalProps) {
             setSelected={setSelectedSection}
           />
           <Flex
-            flex={1}
+            flex={7}
             py="0.5em"
             px="1em"
             overflowY="auto"

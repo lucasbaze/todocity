@@ -130,11 +130,11 @@ export function Toolbar() {
                   analytics={{ buttonName: eventTriggers.TOOlBAR_TODOS }}
                 />
               </Tooltip>
-              {isLargerThan615 && (
+              {/* {isLargerThan615 && (
                 <Text variant="body" ml="1">
                   10
                 </Text>
-              )}
+              )} */}
             </Flex>
             {isLargerThan615 ? (
               <>
@@ -171,9 +171,9 @@ export function Toolbar() {
                       }}
                     />
                   </Tooltip>
-                  <Text variant="body" ml="1">
+                  {/* <Text variant="body" ml="1">
                     12
-                  </Text>
+                  </Text> */}
                 </Flex>
                 <Flex alignItems="center">
                   <Tooltip
@@ -209,9 +209,9 @@ export function Toolbar() {
                       }}
                     />
                   </Tooltip>
-                  <Text variant="body" ml="1">
+                  {/* <Text variant="body" ml="1">
                     12
-                  </Text>
+                  </Text> */}
                 </Flex>
                 <Flex alignItems="center">
                   <Tooltip
@@ -247,9 +247,9 @@ export function Toolbar() {
                       }}
                     />
                   </Tooltip>
-                  <Text variant="body" ml="1">
+                  {/* <Text variant="body" ml="1">
                     12
-                  </Text>
+                  </Text> */}
                 </Flex>
               </>
             ) : (
