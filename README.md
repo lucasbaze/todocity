@@ -29,15 +29,13 @@ Then run the next.js server:
 # https://www.oracle.com/java/technologies/downloads/
 > yarn emulators:start
 
-# set env vars correct ( in .env.local file)
-> NEXT_PUBLIC_FIREBASE_EMULATE=true
-
 # start next.js project
 > cd ./starlord
 > yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you do not see "Running in emulator mode" at the bottom, you're missing something.
 
 ## Firebase
 
