@@ -1,36 +1,17 @@
-import { ChangeEventHandler, Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-import {
-  useColorModeValue,
-  useDisclosure,
-  useMediaQuery,
-  useTheme,
-} from '@chakra-ui/react';
-import {
-  IconBox,
-  IconBuildingCommunity,
-  IconFence,
-  IconListCheck,
-} from '@tabler/icons';
+import { useColorModeValue, useMediaQuery } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import { eventTriggers } from '@todocity/analytics/events/constants';
 import { useAuth } from '@todocity/auth';
-import { AnalIconButton } from '@todocity/components/anal-icon-button/anal-icon-button';
-import { LightDarkButton } from '@todocity/components/light-dark-button/light-dark-button';
 import {
-  Avatar,
-  Badge,
   Box,
   Flex,
-  Grid,
-  Heading,
   Modal,
   ModalCloseButton,
   ModalContent,
   Select,
-  Text,
-  Tooltip,
+  Stack,
 } from '@todocity/ui/core';
 
 import { AccountSettings } from './account-settings/account-settings';
@@ -61,7 +42,7 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
   const router = useRouter();
   const { logout } = useAuth();
   const sidebarBackgroundColor = useColorModeValue('gray.100', 'gray.700');
-  const [isLargerThan500] = useMediaQuery('(min-width: 500px)');
+  const [isLargerThan500] = useMediaQuery('(min-width: 767px)');
 
   const handleLogout = async () => {
     await logout();
@@ -82,25 +63,62 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
     >
       {isLargerThan500 ? (
         <>
-          <Box onClick={() => handleChange(ESettingsMenuItems.Account)}>
-            Account
-          </Box>
-          <Box onClick={() => handleChange(ESettingsMenuItems.Referrals)}>
-            Referrals
-          </Box>
-          <Box onClick={() => handleChange(ESettingsMenuItems.Billing)}>
-            Billing
-          </Box>
-          <Box onClick={() => handleChange(ESettingsMenuItems.Reminders)}>
-            Reminders
-          </Box>
-          <Box onClick={() => handleChange(ESettingsMenuItems.Notifications)}>
-            Notifications
-          </Box>
-          <Box onClick={() => handleChange(ESettingsMenuItems.Feedback)}>
-            Feedback
-          </Box>
-          <Box onClick={() => handleChange(ESettingsMenuItems.Help)}>Help</Box>
+          <Stack spacing="2">
+            <Box
+              cursor="pointer"
+              textDecoration={
+                selected === ESettingsMenuItems.Account && 'underline'
+              }
+              onClick={() => handleChange(ESettingsMenuItems.Account)}
+            >
+              Account
+            </Box>
+            <Box
+              cursor="pointer"
+              textDecoration={
+                selected === ESettingsMenuItems.Referrals && 'underline'
+              }
+              onClick={() => handleChange(ESettingsMenuItems.Referrals)}
+            >
+              Referrals
+            </Box>
+            <Box
+              cursor="pointer"
+              textDecoration={
+                selected === ESettingsMenuItems.Billing && 'underline'
+              }
+              onClick={() => handleChange(ESettingsMenuItems.Billing)}
+            >
+              Billing
+            </Box>
+            <Box
+              cursor="pointer"
+              textDecoration={
+                selected === ESettingsMenuItems.Reminders && 'underline'
+              }
+              onClick={() => handleChange(ESettingsMenuItems.Reminders)}
+            >
+              Reminders
+            </Box>
+            <Box
+              cursor="pointer"
+              textDecoration={
+                selected === ESettingsMenuItems.Notifications && 'underline'
+              }
+              onClick={() => handleChange(ESettingsMenuItems.Notifications)}
+            >
+              Notifications
+            </Box>
+            <Box
+              cursor="pointer"
+              textDecoration={
+                selected === ESettingsMenuItems.Feedback && 'underline'
+              }
+              onClick={() => handleChange(ESettingsMenuItems.Feedback)}
+            >
+              Feedback
+            </Box>
+          </Stack>
           <Flex flex={1} direction="column" justifyContent="flex-end">
             <Box
               onClick={handleLogout}
@@ -146,19 +164,21 @@ function settingsContent(section: ESettingsMenuItems) {
     case ESettingsMenuItems.Help:
       return <Help />;
     case ESettingsMenuItems.Account:
+    default:
       return <AccountSettings />;
   }
 }
 
 export function SettingsModal({ isOpen, onClose }: ISettingsModalProps) {
-  const [selectedSection, setSelectedSection] =
-    useState<ESettingsMenuItems>(null);
+  const [selectedSection, setSelectedSection] = useState<ESettingsMenuItems>(
+    ESettingsMenuItems.Account
+  );
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      size={{ base: 'full', md: 'xl' }}
+      size={{ base: 'full', md: '2xl' }}
       closeOnOverlayClick={false}
     >
       <ModalContent position="absolute" bottom={{ md: '10vh' }}>
@@ -173,7 +193,7 @@ export function SettingsModal({ isOpen, onClose }: ISettingsModalProps) {
             py="0.5em"
             px="1em"
             overflowY="auto"
-            maxHeight={{ md: '400px' }}
+            height={{ md: '60vh' }}
           >
             {settingsContent(selectedSection)}
           </Flex>

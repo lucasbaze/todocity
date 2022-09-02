@@ -26,10 +26,11 @@ export function Toolbar() {
   const { zIndices } = useTheme();
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isLargerThan500] = useMediaQuery('(min-width: 500px)');
+  // 615px is a magic number on what looks good for current toolbar size
+  const [isLargerThan615] = useMediaQuery('(min-width: 615px)');
 
   const toolbarContainerStyles = () => {
-    if (isLargerThan500) {
+    if (isLargerThan615) {
       return {
         left: '50%',
         bottom: '10',
@@ -58,10 +59,10 @@ export function Toolbar() {
       >
         <Flex
           position="relative"
-          minWidth={isLargerThan500 ? '550px' : '100%'}
+          minWidth={isLargerThan615 ? '550px' : '100%'}
           alignItems="center"
         >
-          {isLargerThan500 ? (
+          {isLargerThan615 ? (
             <Box
               position="absolute"
               left="-25px"
@@ -89,7 +90,7 @@ export function Toolbar() {
               />
             </Flex>
           )}
-          {isLargerThan500 && (
+          {isLargerThan615 && (
             <Flex flex={1} ml="10">
               <Box>
                 <Text variant="body">
@@ -129,13 +130,13 @@ export function Toolbar() {
                   analytics={{ buttonName: eventTriggers.TOOlBAR_TODOS }}
                 />
               </Tooltip>
-              {isLargerThan500 && (
+              {isLargerThan615 && (
                 <Text variant="body" ml="1">
                   10
                 </Text>
               )}
             </Flex>
-            {isLargerThan500 ? (
+            {isLargerThan615 ? (
               <>
                 <Flex alignItems="center">
                   <Tooltip
