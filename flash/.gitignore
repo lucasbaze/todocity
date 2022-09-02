@@ -11,3 +11,6 @@ node_modules/
 # service account
 service-account.json
 staging-email-service-account.json
+
+# env
+.env

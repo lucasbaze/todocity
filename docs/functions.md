@@ -27,7 +27,9 @@ MAKE SURE THE EMULATOR IS RUNNING
 ```
 
 You'll get a feedback response that looks something like the following:
-<image src>
+![Deploy Example](/docs/images/functions-deploy.png)
+
+Gotta make sure the `Loaded environment variables from .env` is shown
 
 ## Troubleshooting
 
