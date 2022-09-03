@@ -21,6 +21,7 @@ import {
   Heading,
   IconButton,
   Link,
+  Stack,
   Text,
 } from '@todocity/ui/core';
 
@@ -93,7 +94,7 @@ export function Header() {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>
-            <Heading>TodoCity</Heading>
+            <Heading>TODOCITY</Heading>
           </DrawerHeader>
 
           <DrawerBody>
@@ -109,11 +110,14 @@ export function Header() {
                   <HeaderLoginButton mobile />
                 </Suspense>
               </Box>
-              <Box>
+              <Stack spacing="4">
+                <Link variant="headerNav" href="/" mr="4">
+                  Home
+                </Link>
                 <Link variant="headerNav" href="/pricing" mr="4">
                   Early Bird Pricing
                 </Link>
-              </Box>
+              </Stack>
             </Flex>
           </DrawerBody>
           <DrawerFooter>

@@ -5,7 +5,19 @@ import dynamic from 'next/dynamic';
 
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { PageSEOMeta } from '@todocity/seo/page-seo/page-seo';
-import { Badge, Box, Container, Flex, Text } from '@todocity/ui/core';
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Badge,
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Text,
+} from '@todocity/ui/core';
 
 import { PricingCard } from './components/pricing-card/pricing-card';
 
@@ -34,6 +46,36 @@ const CreateAccountButton = dynamic(
   }
 );
 
+const faqs = [
+  {
+    question: 'When will the early bird offer expire?',
+    answer:
+      "Could be tomorrow. Could be next week. We're playing it by ear. You should go ahead and pre-order today just in case.",
+  },
+  {
+    question: 'Will I be charged today for pre-ordering?',
+    answer: 'Yes.',
+  },
+  {
+    question: 'What will the official price be after the early specials?',
+    answer:
+      "At the moment, we're not sure. But there will always be a free tier and a priced tier.",
+  },
+  {
+    question: 'Is there a student or education discount?',
+    answer:
+      "Please send an email to support@todocity.app with your request. We're more than happy to assist as needed.",
+  },
+  {
+    question: 'Can I get a refund?',
+    answer: "Yes, but it'll hurt our feelings.",
+  },
+  {
+    question: 'Can I get a discount?',
+    answer: 'Maybe. If you ask really nicely. ',
+  },
+];
+
 function PricingPage() {
   const { sizes } = useTheme();
   const view1Ref = useRef<HTMLDivElement>(null);
@@ -56,13 +98,13 @@ function PricingPage() {
           >
             <Box flex={{ md: 2 }}>
               <Badge fontSize="md" size="md">
-                Pricing
+                Limited Offer
               </Badge>
               <Text as="h1" variant="hero">
-                Fun for all
+                Early Pricing
               </Text>
               <Text as="h2" variant="h2" color="gray.600" pb={0}>
-                Get early access or pre-order for LIFE! Extremely limited offer.
+                Pre-order for life! Offer may expire randomly.
               </Text>
             </Box>
             <Box flex={{ md: 3 }} width="100%">
@@ -94,6 +136,7 @@ function PricingPage() {
                         </Badge>
                       ),
                       features: [
+                        { text: '1 yr of Metropolis' },
                         { text: 'Unlimited todos & projects' },
                         {
                           text: 'Earn unlimited points',
@@ -168,6 +211,30 @@ function PricingPage() {
               </Flex>
             </Box>
           </Flex>
+        </Container>
+        <Container mb="24">
+          <Heading mb="10">Frequently asked questions</Heading>
+          <Box maxWidth={{ md: '70%' }}>
+            <Accordion allowToggle>
+              {faqs.map((faq) => (
+                <AccordionItem key={faq.question}>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      <Text variant="bodyBig" fontWeight="bold">
+                        {faq.question}
+                      </Text>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    <Box maxWidth={{ base: '100%', md: '70%' }}>
+                      {faq.answer}
+                    </Box>
+                  </AccordionPanel>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </Box>
         </Container>
       </MainLayout>
       <Suspense fallback={null}>

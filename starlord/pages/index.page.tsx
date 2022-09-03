@@ -50,12 +50,12 @@ const Home: NextPage = () => {
               </Suspense>
               <Link href="/pricing">
                 <Text
+                  variant="disclaimer"
                   textAlign="center"
-                  color="gray.600"
                   maxWidth="250px"
                   margin="0 auto"
                 >
-                  The first 500 people will get premium for 1 year.
+                  Offer expires randomly.
                 </Text>
               </Link>
             </Box>
