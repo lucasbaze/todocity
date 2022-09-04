@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 import { GoogleAuthProvider } from 'firebase/auth';
 import firebaseui from 'firebaseui';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
@@ -9,29 +7,38 @@ import { signInSuccessWithAuthResult } from '@todocity/firebase/users';
 import { Box } from '@todocity/ui/core';
 
 // Configure FirebaseUI.
-const uiConfig = (navigateTo?: string): firebaseui.auth.Config => ({
+const uiConfig = (
+  labelType: 'signup' | 'login',
+  navigateTo?: string
+): firebaseui.auth.Config => ({
   signInFlow: 'popup',
-  signInOptions: [GoogleAuthProvider.PROVIDER_ID],
+  signInOptions: [
+    {
+      provider: GoogleAuthProvider.PROVIDER_ID,
+      fullLabel:
+        labelType === 'signup' ? 'Sign up with Google' : 'Sign in with Google',
+    },
+  ],
   callbacks: {
     signInSuccessWithAuthResult: signInSuccessWithAuthResult(navigateTo),
   },
 });
 
 interface ILoginSignupProps {
+  labelType?: 'signup' | 'login';
   navigateTo?: string;
 }
 
-export function LoginSignup({ navigateTo }: ILoginSignupProps) {
-  // TODO: This is stupid
-  useEffect(() => {
-    if (document) {
-      const buttonText = document.querySelector('.firebaseui-idp-text-long');
-      if (buttonText) buttonText.textContent = 'Continue with Google';
-    }
-  }, []);
+export function LoginSignup({
+  labelType = 'signup',
+  navigateTo,
+}: ILoginSignupProps) {
   return (
     <Box minHeight="100px">
-      <StyledFirebaseAuth uiConfig={uiConfig(navigateTo)} firebaseAuth={auth} />
+      <StyledFirebaseAuth
+        uiConfig={uiConfig(labelType, navigateTo)}
+        firebaseAuth={auth}
+      />
     </Box>
   );
 }

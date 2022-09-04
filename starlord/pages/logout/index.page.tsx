@@ -6,9 +6,8 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 
 import { useAuth } from '@todocity/auth';
-import { AnalButton } from '@todocity/components/anal-button/anal-button';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
-import { Flex, Heading, Text } from '@todocity/ui/core';
+import { Button, Flex, Heading, Text } from '@todocity/ui/core';
 
 const Logout: NextPage = () => {
   const { sizes } = useTheme();
@@ -25,49 +24,39 @@ const Logout: NextPage = () => {
   }, [logout]);
 
   return (
-    <AnimatePresence initial={true}>
-      <MainLayout>
+    <MainLayout>
+      <Flex
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        height={`calc(100vh - ${sizes.header})`}
+      >
+        <Heading mb="2">Good Bye</Heading>
+        <Text mb={6} variant="bodyBig">
+          Hope to see you soon :)
+        </Text>
         <Flex
-          direction="column"
+          flexDirection={{ base: 'column', md: 'row' }}
           alignItems="center"
-          justifyContent="center"
-          height={`calc(100vh - ${sizes.header})`}
+          gap={3}
         >
-          <Heading>Good Bye</Heading>
-          <Text mb={6}>Hope to see you soon :)</Text>
-          <Flex
-            flexDirection={{ base: 'column', md: 'row' }}
-            alignItems="center"
-            gap={3}
+          <Link href="/login">
+            <Button size="md" variant="outline" width="150px">
+              Back to city
+            </Button>
+          </Link>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://www.mentalfloss.com/amazingfactgenerator"
           >
-            <Link href="/login">
-              <AnalButton
-                size="md"
-                variant="outline"
-                width="150px"
-                analytics={{ buttonName: 'logout-back' }}
-              >
-                Back to city
-              </AnalButton>
-            </Link>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://www.mentalfloss.com/amazingfactgenerator"
-            >
-              <AnalButton
-                size="md"
-                variant="outline"
-                width="150px"
-                analytics={{ buttonName: 'logout-mystery' }}
-              >
-                Random Fact
-              </AnalButton>
-            </a>
-          </Flex>
+            <Button size="md" variant="outline" width="150px">
+              Random Fact
+            </Button>
+          </a>
         </Flex>
-      </MainLayout>
-    </AnimatePresence>
+      </Flex>
+    </MainLayout>
   );
 };
 

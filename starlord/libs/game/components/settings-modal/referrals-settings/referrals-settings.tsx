@@ -45,7 +45,7 @@ export function ReferralsSettings() {
       // Can put serializers and shit here if needed
       select(data) {
         return {
-          code: `https://todocity.app/refer/${data.referralCode}`,
+          code: `https://todocity.app/referrals/${data.referralCode}`,
           inviteCount: data.referrals?.length || 0,
         };
       },

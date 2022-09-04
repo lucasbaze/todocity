@@ -24,18 +24,16 @@ const textCopy = (navigateTo: string | undefined) => {
       };
     default:
       return {
-        title: 'Get Early Access Today!',
-        description: 'Create an account and get free premium for a year!',
+        title: 'Welcome to TodoCity!',
+        description: (
+          <>
+            You came from a referral! By signing up today,{' '}
+            <b>
+              <u>you and the referrer will get 1 mo free!</u>
+            </b>
+          </>
+        ),
       };
-  }
-};
-
-const loginSignupNavigateTo = (navigateTo: string | undefined) => {
-  switch (navigateTo) {
-    case 'checkout':
-      return '/api/stripe/create-checkout-session';
-    default:
-      return undefined;
   }
 };
 
@@ -73,9 +71,7 @@ const Signup: NextPage = () => {
           <Card boxProps={{ boxShadow: 'none', mb: 4 }}>
             <Flex direction="column" alignItems="center">
               <Suspense fallback={<Box minHeight="100px" width="200px" />}>
-                <LoginSignupButton
-                  navigateTo={loginSignupNavigateTo(navigateTo)}
-                />
+                <LoginSignupButton />
               </Suspense>
               <Text variant="disclaimer" width="60%" textAlign="center">
                 By doing so you agree to our{' '}
@@ -89,9 +85,9 @@ const Signup: NextPage = () => {
               </Text>
             </Flex>
           </Card>
-          <Link href="/login">
+          <Link href="/">
             <Text variant="disclaimer" textAlign="center">
-              Already have an account? Login.
+              Not ready yet? Learn more.
             </Text>
           </Link>
         </Flex>
@@ -101,3 +97,47 @@ const Signup: NextPage = () => {
 };
 
 export default Signup;
+
+{
+  /* <Container
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        height={`calc(100vh - ${sizes.header})`}
+      >
+        <Heading mb="2">Welcome to TodoCity!</Heading>
+        <Text
+          variant="bodyBig"
+          mb={12}
+          maxWidth={{ md: '500px' }}
+          textAlign="center"
+        >
+          Looks like you came from a referral! By signing up today,{' '}
+          <b>
+            <u>you and the referrer will get 1 mo free!</u>
+          </b>
+        </Text>
+        <Flex flexDirection={{ base: 'column' }} alignItems="center" gap={3}>
+          <Link href="/signup">
+            <AnalButton
+              size="lg"
+              variant="primary"
+              analytics={{ buttonName: 'referrals-sign-up' }}
+            >
+              Get 1 mo free now!
+            </AnalButton>
+          </Link>
+          <Link href="/">
+            <AnalButton
+              size="md"
+              variant="link"
+              width="150px"
+              analytics={{ buttonName: 'referrals-learn-more' }}
+            >
+              Learn More
+            </AnalButton>
+          </Link>
+        </Flex>
+      </Container> */
+}

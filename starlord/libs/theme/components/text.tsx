@@ -34,8 +34,8 @@ export const Text: ComponentStyleConfig = {
     },
     bodyBig: {
       fontWeight: '400',
-      fontSize: '18',
-      lineHeight: '120%',
+      fontSize: '20',
+      lineHeight: '150%',
     },
     body: {
       fontWeight: '400',

@@ -72,7 +72,7 @@ const faqs = [
   },
   {
     question: 'Can I get a discount?',
-    answer: 'Maybe. If you ask really nicely. ',
+    answer: 'Maybe if you ask really nicely. ',
   },
 ];
 
@@ -182,14 +182,7 @@ function PricingPage() {
                       ),
                       features: [
                         { text: 'Everything in Basics' },
-                        {
-                          text: 'Integrated timers',
-                          tooltipText:
-                            'Time blocking tasks has proven productivity enhancements',
-                        },
-                        {
-                          text: 'Recurring reminders',
-                        },
+                        { text: 'Recurring reminders' },
                         { text: 'Premium object access' },
                         { text: '10x starting points' },
                         { text: '...much more to come' },

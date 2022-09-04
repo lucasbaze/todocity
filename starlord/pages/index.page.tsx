@@ -42,11 +42,11 @@ const Home: NextPage = () => {
               <Suspense
                 fallback={
                   <Button variant="primary" size="xl" mb="2">
-                    Get Early Access
+                    Get Early Access*
                   </Button>
                 }
               >
-                <CreateAccountButton ctaText="Get Early Access" />
+                <CreateAccountButton ctaText="Get Early Access*" />
               </Suspense>
               <Link href="/pricing">
                 <Text
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
                   maxWidth="250px"
                   margin="0 auto"
                 >
-                  Offer expires randomly.
+                  *Offer may expire randomly.
                 </Text>
               </Link>
             </Box>

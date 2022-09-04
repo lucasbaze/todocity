@@ -46,6 +46,12 @@ export const Button: ComponentStyleConfig = {
       borderWidth: '1px',
       borderColor: mode('#000000', '#ffffff')(props),
     }),
+    link: (props: StyleFunctionProps) => ({
+      color: mode('#000000', '#ffffff')(props),
+      _hover: {
+        textDecorationColor: mode('#000000', '#fffffff')(props),
+      },
+    }),
     // 5. We can add responsive variants
     sm: {
       bg: 'teal.500',

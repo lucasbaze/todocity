@@ -58,6 +58,7 @@ const Signup: NextPage = () => {
             <Flex direction="column" alignItems="center">
               <Suspense fallback={<Box minHeight="100px" width="200px" />}>
                 <LoginSignupButton
+                  labelType="login"
                   navigateTo={loginSignupNavigateTo(navigateTo)}
                 />
               </Suspense>
