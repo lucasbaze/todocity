@@ -61,13 +61,13 @@ const Signup: NextPage = () => {
                   navigateTo={loginSignupNavigateTo(navigateTo)}
                 />
               </Suspense>
-              <Link href="/signup">
-                <Text variant="disclaimer" textAlign="center">
-                  Don&apos;t have an account yet? Sign up.
-                </Text>
-              </Link>
             </Flex>
           </Card>
+          <Link href="/signup">
+            <Text variant="disclaimer" textAlign="center">
+              Don&apos;t have an account yet? Sign up.
+            </Text>
+          </Link>
         </Flex>
       </MainLayout>
     </>
