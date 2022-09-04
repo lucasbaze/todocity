@@ -1,9 +1,11 @@
-import { User, UserCredential } from 'firebase/auth';
+import { getAuth, User, UserCredential } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import kebabCase from 'lodash/kebabCase';
 import router from 'next/router';
 
 import * as track from '@todocity/analytics/events/track';
 
+import { generate } from '../../utils/referral-codes/referral-codes';
 import { db } from '../client-app';
 
 export async function addNewUserToFireStore(user: User) {
@@ -12,9 +14,13 @@ export async function addNewUserToFireStore(user: User) {
     email: user.email,
     phoneNumber: user.phoneNumber,
     photoUrl: user.photoURL,
-    unlockedLots: 3,
-    cityPoints: 15,
     createdAt: new Date(),
+    referralCode: generate({
+      prefix: kebabCase(user.displayName),
+      charset: 'alphabetic',
+      length: 6,
+      count: 1,
+    })[0],
   };
   try {
     await setDoc(doc(db, 'users', user.uid), details);

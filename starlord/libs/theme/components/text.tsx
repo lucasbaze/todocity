@@ -4,7 +4,6 @@ import { mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 export const Text: ComponentStyleConfig = {
   baseStyle: (props: StyleFunctionProps) => ({
-    fontFamily: 'Helvetica',
     color: mode('gray.900', 'white')(props),
   }),
   sizes: {},
@@ -40,13 +39,13 @@ export const Text: ComponentStyleConfig = {
     },
     body: {
       fontWeight: '400',
-      fontSize: 'lg',
+      fontSize: '16',
       lineHeight: '150%',
     },
     inverseBody: (props: StyleFunctionProps) => ({
       color: 'white',
       fontWeight: '400',
-      fontSize: 'lg',
+      fontSize: '16',
       lineHeight: '150%',
     }),
     disclaimer: {

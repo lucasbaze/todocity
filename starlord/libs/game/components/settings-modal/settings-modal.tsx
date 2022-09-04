@@ -3,7 +3,6 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { useColorModeValue, useMediaQuery } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import { useAuth } from '@todocity/auth';
 import {
   Box,
   Flex,
@@ -39,12 +38,10 @@ interface ISettingsMenuProps {
 
 function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
   const router = useRouter();
-  const { logout } = useAuth();
   const sidebarBackgroundColor = useColorModeValue('gray.100', 'gray.700');
   const [isLargerThan500] = useMediaQuery('(min-width: 767px)');
 
   const handleLogout = async () => {
-    await logout();
     router.push('/logout');
   };
 

@@ -12,6 +12,7 @@ export {
   AccordionIcon,
   ButtonGroup,
   Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -48,6 +49,7 @@ export {
   FormErrorMessage,
   FormHelperText,
   Select,
+  Spinner,
   Stack,
 } from '@chakra-ui/react';
 export type { ButtonProps, IconButtonProps, BoxProps } from '@chakra-ui/react';
