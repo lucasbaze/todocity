@@ -8,9 +8,9 @@ typings/
 # Node.js dependency directory
 node_modules/
 
-# service account
-service-account.json
-staging-email-service-account.json
+# service accounts
+secrets/
 
 # env
 .env
+.env.*
