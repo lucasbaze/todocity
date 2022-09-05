@@ -92,5 +92,3 @@ export function NotificationPin({
     </group>
   );
 }
-
-useGLTF.preload('./static/models/notification_pin.glb');

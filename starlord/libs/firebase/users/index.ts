@@ -1,28 +1,35 @@
-import { getAuth, User, UserCredential } from 'firebase/auth';
+import { User, UserCredential } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import kebabCase from 'lodash/kebabCase';
 import router from 'next/router';
 
 import * as track from '@todocity/analytics/events/track';
 
+import { getLocalStorage } from '../../utils/global/get-local-storage';
 import { generate } from '../../utils/referral-codes/referral-codes';
 import { db } from '../client-app';
 
-export async function addNewUserToFireStore(user: User) {
+async function addNewUserToFireStore(user: User) {
+  const referralCode = getLocalStorage()?.getItem('@todocity:referral-code');
   const details = {
     displayName: user.displayName,
     email: user.email,
     phoneNumber: user.phoneNumber,
     photoUrl: user.photoURL,
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
     referralCode: generate({
-      prefix: kebabCase(user.displayName),
+      prefix: `${kebabCase(user.displayName)}-`,
       charset: 'alphabetic',
       length: 6,
       count: 1,
     })[0],
+    referrals: [],
+    ...(referralCode ? { referredBy: referralCode } : {}),
   };
   try {
+    if (referralCode) {
+      getLocalStorage()?.removeItem('@todocity:referral-code');
+    }
     await setDoc(doc(db, 'users', user.uid), details);
     console.log('New user Created');
   } catch (e) {
@@ -30,7 +37,7 @@ export async function addNewUserToFireStore(user: User) {
   }
 }
 
-export async function updateUserLastLoginDate(user: User) {
+async function updateUserLastLoginDate(user: User) {
   const details = {
     lastLoginAt: new Date(),
   };

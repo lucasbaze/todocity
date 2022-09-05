@@ -64,15 +64,6 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
             <Box
               cursor="pointer"
               textDecoration={
-                selected === ESettingsMenuItems.Account && 'underline'
-              }
-              onClick={() => handleChange(ESettingsMenuItems.Account)}
-            >
-              Account
-            </Box>
-            <Box
-              cursor="pointer"
-              textDecoration={
                 selected === ESettingsMenuItems.Referrals && 'underline'
               }
               onClick={() => handleChange(ESettingsMenuItems.Referrals)}
@@ -117,25 +108,35 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
             </Box>
           </Stack>
           <Flex flex={1} direction="column" justifyContent="flex-end">
-            <Box
-              onClick={handleLogout}
-              cursor="pointer"
-              color="red.400"
-              _hover={{ textDecoration: 'underline' }}
-            >
-              Logout
-            </Box>
+            <Stack spacing="2">
+              <Box
+                cursor="pointer"
+                textDecoration={
+                  selected === ESettingsMenuItems.Account && 'underline'
+                }
+                onClick={() => handleChange(ESettingsMenuItems.Account)}
+              >
+                Account
+              </Box>
+              <Box
+                onClick={handleLogout}
+                cursor="pointer"
+                color="red.400"
+                _hover={{ textDecoration: 'underline' }}
+              >
+                Logout
+              </Box>
+            </Stack>
           </Flex>
         </>
       ) : (
         <Select size="md" onChange={(e) => handleChange(e.target.value)}>
-          <option value="account">Account</option>
           <option value="referrals">Referrals</option>
           <option value="billing">Billing</option>
           <option value="reminders">Reminders</option>
           <option value="notifications">Notifications</option>
           <option value="feedback">Feedback</option>
-          <option value="help">Help</option>
+          <option value="account">Account</option>
         </Select>
       )}
     </Flex>
@@ -155,21 +156,21 @@ function settingsContent(section: ESettingsMenuItems) {
       return <NotificationSettings />;
     case ESettingsMenuItems.Reminders:
       return <ReminderSettings />;
-    case ESettingsMenuItems.Referrals:
-      return <ReferralsSettings />;
+    case ESettingsMenuItems.Account:
+      return <AccountSettings />;
     case ESettingsMenuItems.Feedback:
       return <Feedback />;
     case ESettingsMenuItems.Help:
       return <Help />;
-    case ESettingsMenuItems.Account:
+    case ESettingsMenuItems.Referrals:
     default:
-      return <AccountSettings />;
+      return <ReferralsSettings />;
   }
 }
 
 export function SettingsModal({ isOpen, onClose }: ISettingsModalProps) {
   const [selectedSection, setSelectedSection] = useState<ESettingsMenuItems>(
-    ESettingsMenuItems.Account
+    ESettingsMenuItems.Referrals
   );
 
   return (

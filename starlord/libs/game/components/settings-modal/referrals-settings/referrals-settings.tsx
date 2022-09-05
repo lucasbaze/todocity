@@ -23,6 +23,7 @@ import {
 import { Box, Button, Heading, Text } from '@todocity/ui/core';
 
 import { db } from '../../../../firebase/client-app';
+import { getAppUrl } from '../../../../utils/global/get-app-url';
 
 export function ReferralsSettings() {
   const [referralLink, setReferralLink] = useState<string | null>(null);
@@ -45,7 +46,7 @@ export function ReferralsSettings() {
       // Can put serializers and shit here if needed
       select(data) {
         return {
-          code: `https://todocity.app/referrals/${data.referralCode}`,
+          code: `${getAppUrl()}/referrals/${data.referralCode}`,
           inviteCount: data.referrals?.length || 0,
         };
       },
@@ -113,9 +114,9 @@ export function ReferralsSettings() {
             </Flex>
           </Box>
           <Divider my="4" />
-          <Box>
+          <Box pb="8">
             <Text fontWeight="semibold" mb="4">
-              TodoCity shares:
+              TodoCity referral count:
             </Text>
             <Text>
               Total referral signups: <b>{referralCode.data.inviteCount}</b>

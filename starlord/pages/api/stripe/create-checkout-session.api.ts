@@ -1,13 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { getAppUrl } from '../../../libs/utils/global/get-app-url';
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const PRICE_ID = process.env.PRE_ORDER_PRICE_ID;
-const ROOT_URL =
-  process.env.VERCEL_ENV === 'production'
-    ? 'https://todocity.app'
-    : process.env.VERCEL_ENV === 'preview'
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
+const ROOT_URL = getAppUrl();
 
 const SUCCESS_URL = `${ROOT_URL}/pricing/upgrade/success?session_id={CHECKOUT_SESSION_ID}`;
 const CANCEL_URL = `${ROOT_URL}/pricing/upgrade/cancel`;

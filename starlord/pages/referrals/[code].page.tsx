@@ -1,6 +1,7 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { useTheme } from '@chakra-ui/react';
+import { getLocalStorage } from 'libs/utils/global/get-local-storage';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -15,35 +16,16 @@ const LoginSignupButton = dynamic(
   { ssr: false, suspense: true }
 );
 
-const textCopy = (navigateTo: string | undefined) => {
-  switch (navigateTo) {
-    case 'checkout':
-      return {
-        title: "Let's construct your Metropolis!",
-        description: 'Please first create an account to pre-order.',
-      };
-    default:
-      return {
-        title: 'Welcome to TodoCity!',
-        description: (
-          <>
-            You came from a referral! By signing up today,{' '}
-            <b>
-              <u>you and the referrer will get 1 mo free!</u>
-            </b>
-          </>
-        ),
-      };
-  }
-};
-
-const Signup: NextPage = () => {
+const ReferralSignupPage: NextPage = () => {
   const router = useRouter();
   const { sizes } = useTheme();
 
-  const { navigate_to } = router.query;
-  const navigateTo = Array.isArray(navigate_to) ? navigate_to[0] : navigate_to;
-  const { title, description } = textCopy(navigateTo);
+  const { code } = router.query;
+  const referralCode = Array.isArray(code) ? code[0] : code;
+
+  useEffect(() => {
+    getLocalStorage()?.setItem('@todocity:referral-code', referralCode);
+  }, [referralCode]);
 
   return (
     <>
@@ -56,7 +38,7 @@ const Signup: NextPage = () => {
           pt="24"
         >
           <Text as="h1" variant="h1" pb="2">
-            {title}
+            Welcome to TodoCity!
           </Text>
           <Text
             as="h2"
@@ -66,7 +48,10 @@ const Signup: NextPage = () => {
             width={{ base: '80%', md: '60%' }}
             textAlign="center"
           >
-            {description}
+            You came from a referral! By signing up today,{' '}
+            <b>
+              <u>you and the referrer will get 1 mo free!</u>
+            </b>
           </Text>
           <Card boxProps={{ boxShadow: 'none', mb: 4 }}>
             <Flex direction="column" alignItems="center">
@@ -96,48 +81,4 @@ const Signup: NextPage = () => {
   );
 };
 
-export default Signup;
-
-{
-  /* <Container
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        height={`calc(100vh - ${sizes.header})`}
-      >
-        <Heading mb="2">Welcome to TodoCity!</Heading>
-        <Text
-          variant="bodyBig"
-          mb={12}
-          maxWidth={{ md: '500px' }}
-          textAlign="center"
-        >
-          Looks like you came from a referral! By signing up today,{' '}
-          <b>
-            <u>you and the referrer will get 1 mo free!</u>
-          </b>
-        </Text>
-        <Flex flexDirection={{ base: 'column' }} alignItems="center" gap={3}>
-          <Link href="/signup">
-            <AnalButton
-              size="lg"
-              variant="primary"
-              analytics={{ buttonName: 'referrals-sign-up' }}
-            >
-              Get 1 mo free now!
-            </AnalButton>
-          </Link>
-          <Link href="/">
-            <AnalButton
-              size="md"
-              variant="link"
-              width="150px"
-              analytics={{ buttonName: 'referrals-learn-more' }}
-            >
-              Learn More
-            </AnalButton>
-          </Link>
-        </Flex>
-      </Container> */
-}
+export default ReferralSignupPage;

@@ -24,7 +24,7 @@ const loginSignupNavigateTo = (navigateTo: string | undefined) => {
   }
 };
 
-const Signup: NextPage = () => {
+const LoginPage: NextPage = () => {
   const router = useRouter();
   const { sizes } = useTheme();
 
@@ -75,4 +75,4 @@ const Signup: NextPage = () => {
   );
 };
 
-export default Signup;
+export default LoginPage;
