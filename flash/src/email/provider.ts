@@ -6,7 +6,7 @@ const privateKey = JSON.parse(
 );
 
 export const transporter =
-  process.env.APP_ENV === 'development'
+  process.env.APP_ENV !== 'production'
     ? createTransport({
         host: 'smtp.ethereal.email',
         port: 587,

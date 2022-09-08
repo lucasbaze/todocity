@@ -16,6 +16,6 @@
   },
   "scripts": {
     "emulators:start": "firebase emulators:start --project demo-todocity",
-    "deploy:functions": "cd ./flash && yarn build && firebase deploy --only functions"
+    "deploy:functions": "firebase deploy --only functions"
   }
 }
