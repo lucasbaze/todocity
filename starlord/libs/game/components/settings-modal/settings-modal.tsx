@@ -9,6 +9,7 @@ import {
   Modal,
   ModalCloseButton,
   ModalContent,
+  ModalOverlay,
   Select,
   Stack,
 } from '@todocity/ui/core';
@@ -17,14 +18,12 @@ import { AccountSettings } from './account-settings/account-settings';
 import { BillingSettings } from './billing-settings/billing-settings';
 import { Feedback } from './feedback/feedback';
 import { Help } from './help/help';
-import { NotificationSettings } from './notification-settings/notification-settings';
 import { ReferralsSettings } from './referrals-settings/referrals-settings';
 import { ReminderSettings } from './reminder-settings/reminder-settings';
 
 enum ESettingsMenuItems {
   Account = 'account',
   Billing = 'billing',
-  Notifications = 'notifications',
   Referrals = 'referrals',
   Reminders = 'reminders',
   Feedback = 'feedback',
@@ -91,15 +90,6 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
             <Box
               cursor="pointer"
               textDecoration={
-                selected === ESettingsMenuItems.Notifications && 'underline'
-              }
-              onClick={() => handleChange(ESettingsMenuItems.Notifications)}
-            >
-              Notifications
-            </Box>
-            <Box
-              cursor="pointer"
-              textDecoration={
                 selected === ESettingsMenuItems.Feedback && 'underline'
               }
               onClick={() => handleChange(ESettingsMenuItems.Feedback)}
@@ -152,8 +142,6 @@ function settingsContent(section: ESettingsMenuItems) {
   switch (section) {
     case ESettingsMenuItems.Billing:
       return <BillingSettings />;
-    case ESettingsMenuItems.Notifications:
-      return <NotificationSettings />;
     case ESettingsMenuItems.Reminders:
       return <ReminderSettings />;
     case ESettingsMenuItems.Account:
@@ -180,6 +168,7 @@ export function SettingsModal({ isOpen, onClose }: ISettingsModalProps) {
       size={{ base: 'full', md: '2xl' }}
       closeOnOverlayClick={false}
     >
+      <ModalOverlay />
       <ModalContent position="absolute" bottom={{ md: '10vh' }}>
         <ModalCloseButton />
         <Flex direction={{ base: 'column', md: 'row' }}>

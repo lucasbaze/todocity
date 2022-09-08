@@ -58,7 +58,9 @@ export function ReferralsSettings() {
 
   return (
     <Box>
-      <Text pb="6">Referrals</Text>
+      <Text pb="6" variant="h3" fontWeight="bold">
+        Referrals
+      </Text>
       {referralCode.isLoading && <Spinner />}
       {!referralCode.isLoading && !referralCode.error && (
         <Box>
@@ -77,7 +79,7 @@ export function ReferralsSettings() {
             <FormLabel>Your referral link:</FormLabel>
             <Flex gap="2">
               <Input value={referralLink} contentEditable={false} />
-              <Button variant="solid" size="md" onClick={onCopy}>
+              <Button variant="solid" size="sm" onClick={onCopy}>
                 {hasCopied ? 'Copied' : 'Copy'}
               </Button>
             </Flex>

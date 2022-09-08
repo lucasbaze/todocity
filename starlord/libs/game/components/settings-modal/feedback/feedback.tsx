@@ -85,7 +85,9 @@ export function Feedback() {
 
   return (
     <Box width="100%">
-      <Text>Feedback</Text>
+      <Text variant="h3" fontWeight="bold">
+        Feedback
+      </Text>
       <Formik initialValues={{}} onSubmit={onSubmit}>
         {(props) => (
           <Form>
@@ -124,7 +126,7 @@ export function Feedback() {
               isLoading={props.isSubmitting}
               type="submit"
               variant="outline"
-              size="md"
+              size="sm"
             >
               Submit
             </Button>

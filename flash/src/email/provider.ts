@@ -5,14 +5,24 @@ const privateKey = JSON.parse(
   process.env.EMAIL_SERVICE_ACCOUNT_PRIVATE_KEY || '{}'
 );
 
-export const transporter = createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    type: 'OAuth2',
-    user: 'admin@todocity.app',
-    serviceClient: clientId,
-    privateKey: privateKey,
-  },
-});
+export const transporter =
+  process.env.APP_ENV === 'development'
+    ? createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+          user: 'santiago56@ethereal.email',
+          pass: 'PPNXStGSNAJWMyrYDA',
+        },
+      })
+    : createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          type: 'OAuth2',
+          user: 'admin@todocity.app',
+          serviceClient: clientId,
+          privateKey: privateKey,
+        },
+      });
