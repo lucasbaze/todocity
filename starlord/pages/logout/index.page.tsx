@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 
 import { useTheme } from '@chakra-ui/react';
-import { AnimatePresence } from 'framer-motion';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 
 import { useAuth } from '@todocity/auth';
 import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
-import { Button, Flex, Heading, Text } from '@todocity/ui/core';
+import { Button, Container, Flex, Text } from '@todocity/ui/core';
 
 const Logout: NextPage = () => {
   const { sizes } = useTheme();
@@ -25,37 +24,41 @@ const Logout: NextPage = () => {
 
   return (
     <MainLayout>
-      <Flex
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        height={`calc(100vh - ${sizes.header})`}
-      >
-        <Heading mb="2">Good Bye</Heading>
-        <Text mb={6} variant="bodyBig">
-          Hope to see you soon :)
-        </Text>
+      <Container>
         <Flex
-          flexDirection={{ base: 'column', md: 'row' }}
+          direction="column"
           alignItems="center"
-          gap={3}
+          justifyContent="center"
+          height={`calc(100vh - ${sizes.header})`}
         >
-          <Link href="/login">
-            <Button size="md" variant="outline" width="150px">
-              Back to city
-            </Button>
-          </Link>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://www.mentalfloss.com/amazingfactgenerator"
+          <Text mb="2" variant="h2" fontWeight="bold">
+            Good Bye
+          </Text>
+          <Text mb={6} variant="bodyBig">
+            Hope to see you soon :)
+          </Text>
+          <Flex
+            flexDirection={{ base: 'column', md: 'row' }}
+            alignItems="center"
+            gap={3}
           >
-            <Button size="md" variant="outline" width="150px">
-              Random Fact
-            </Button>
-          </a>
+            <Link href="/login">
+              <Button size="sm" variant="outline">
+                Back to city
+              </Button>
+            </Link>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.mentalfloss.com/amazingfactgenerator"
+            >
+              <Button size="sm" variant="outline">
+                Random Fact
+              </Button>
+            </a>
+          </Flex>
         </Flex>
-      </Flex>
+      </Container>
     </MainLayout>
   );
 };

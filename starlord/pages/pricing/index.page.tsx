@@ -95,16 +95,21 @@ function PricingPage() {
           <Flex
             direction={{ base: 'column', lg: 'row' }}
             alignItems={{ md: 'center' }}
+            justifyContent={{ base: 'center' }}
           >
-            <Box flex={{ md: 2 }}>
-              <Badge fontSize="md" size="md">
+            <Box
+              flex={{ md: 2 }}
+              textAlign={{ base: 'center', lg: 'start' }}
+              mt={{ base: '16', lg: 0 }}
+            >
+              <Badge fontSize="md" size={{ base: 'sm', md: 'md' }}>
                 Limited Offer
               </Badge>
-              <Text as="h1" variant="hero">
+              <Text as="h1" variant="h1">
                 Early Pricing
               </Text>
-              <Text as="h2" variant="h2" color="gray.600" pb={0}>
-                Pre-order for life! Offer may expire randomly.
+              <Text as="h2" variant="h3" color="gray.600" pb={0}>
+                Pre-order for life! <br /> Offer may expire randomly.
               </Text>
             </Box>
             <Box flex={{ md: 3 }} width="100%">
@@ -125,6 +130,7 @@ function PricingPage() {
                     data={{
                       price: '$0',
                       name: 'City Basics',
+                      denomination: 'mo',
                       discount: (
                         <Badge
                           mt="4"
@@ -132,7 +138,7 @@ function PricingPage() {
                           fontSize="0.8em"
                           size="sm"
                         >
-                          Free
+                          Free Forever
                         </Badge>
                       ),
                       features: [
@@ -206,7 +212,14 @@ function PricingPage() {
           </Flex>
         </Container>
         <Container mb="24">
-          <Heading mb="10">Frequently asked questions</Heading>
+          <Text
+            as="h2"
+            variant="h2"
+            fontWeight="bold"
+            mb={{ base: '2', md: '10' }}
+          >
+            Frequently asked questions
+          </Text>
           <Box maxWidth={{ md: '70%' }}>
             <Accordion allowToggle>
               {faqs.map((faq) => (

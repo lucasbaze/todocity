@@ -32,8 +32,8 @@ export function BaseModel({ url, ...props }: any) {
       <OrbitControls
         enablePan={false}
         enableZoom={false}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 4}
+        minPolarAngle={Math.PI / 3}
+        maxPolarAngle={Math.PI / 3}
       />
       <ambientLight intensity={1} />
       {/* <gridHelper /> */}
@@ -68,13 +68,7 @@ export function PricingPageScene({
       className={styles.canvas}
     >
       <ContextBridge>
-        <Suspense
-          fallback={
-            <Html>
-              <ThreeDLoader />
-            </Html>
-          }
-        >
+        <Suspense fallback={null}>
           {/* @ts-ignore */}
           <View track={view1Ref} index={1}>
             <BaseModel url="./static/models/house_boring.glb" />

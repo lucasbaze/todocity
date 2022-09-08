@@ -16,8 +16,11 @@ export function NotFound() {
         alignItems="center"
         minHeight={`calc(100vh - ${sizes.header})`}
         zIndex="15"
+        textAlign="center"
       >
-        <Heading>404 | Page Not Found</Heading>
+        <Text variant="h3" pb={4} fontWeight="bold">
+          404 | Page Not Found
+        </Text>
         <Box>
           <Text>The slothians may have deleted this page.</Text>
         </Box>

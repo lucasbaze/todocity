@@ -8,7 +8,7 @@ export function TermsPage() {
     <>
       <PageSEOMeta title="Terms" metaTitle="Terms" />
       <MainLayout>
-        <Container pb={24}>
+        <Container mb={24}>
           <>
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <title>Terms of Service</title>

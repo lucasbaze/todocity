@@ -3,7 +3,7 @@ import { Box, Heading, Text } from '@todocity/ui/core';
 export function BillingSettings() {
   return (
     <Box>
-      <Heading>Billing</Heading>
+      <Text>Billing</Text>
       <Text>Content</Text>
     </Box>
   );

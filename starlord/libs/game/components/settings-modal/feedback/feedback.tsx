@@ -85,7 +85,7 @@ export function Feedback() {
 
   return (
     <Box width="100%">
-      <Heading>Feedback</Heading>
+      <Text>Feedback</Text>
       <Formik initialValues={{}} onSubmit={onSubmit}>
         {(props) => (
           <Form>

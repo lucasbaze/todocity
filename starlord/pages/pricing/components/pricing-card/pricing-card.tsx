@@ -40,7 +40,7 @@ export const PricingCard = ({
   disclaimer,
 }: PricingCardProps) => {
   const { features, price, name, discount, denomination = 'yr' } = data;
-  const accentColor = useColorModeValue('purple.600', 'blue.200');
+  const accentColor = useColorModeValue('purple.600', 'purple.200');
 
   return (
     <Box position="relative">
@@ -48,14 +48,12 @@ export const PricingCard = ({
         boxProps={{
           margin: { base: '0 auto' },
           pt: 16,
-          width: { base: '95%' },
+          width: { base: '95%', sm: '70%', md: '95%' },
           position: 'relative',
         }}
       >
         <VStack spacing={6}>
-          <Heading size="md" fontWeight="medium">
-            {name}
-          </Heading>
+          <Text variant="h3">{name}</Text>
         </VStack>
         <Flex
           align="flex-end"
@@ -64,9 +62,15 @@ export const PricingCard = ({
           color={accentColor}
           pt="8"
         >
-          <Heading size="3xl" fontWeight="inherit" lineHeight="0.9em">
+          <Text
+            variant="h1"
+            py="0"
+            pr="2"
+            fontWeight="inherit"
+            lineHeight="0.9em"
+          >
             {price}
-          </Heading>
+          </Text>
           <Text fontWeight="inherit" fontSize="2xl">
             / {denomination}
           </Text>

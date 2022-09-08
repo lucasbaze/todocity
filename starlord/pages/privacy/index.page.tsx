@@ -7,7 +7,7 @@ export function PrivacyPage() {
     <>
       <PageSEOMeta title="Privay" metaTitle="Privacy" />
       <MainLayout>
-        <Container pb={24}>
+        <Container mb={24}>
           <>
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <title>Privacy Policy</title>

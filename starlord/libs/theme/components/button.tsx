@@ -13,8 +13,17 @@ export const Button: ComponentStyleConfig = {
     },
     lg: {
       p: '32px 48px',
-      fontSize: '20',
+      fontSize: '22',
       fontWeight: 'bold',
+    },
+    md: {
+      p: '28px 32px',
+      fontSize: '20',
+    },
+    sm: {
+      p: '8px 16px',
+      height: 'auto',
+      fontSize: '16',
     },
   },
   variants: {
@@ -52,11 +61,6 @@ export const Button: ComponentStyleConfig = {
         textDecorationColor: mode('#000000', '#fffffff')(props),
       },
     }),
-    // 5. We can add responsive variants
-    sm: {
-      bg: 'teal.500',
-      fontSize: 'md',
-    },
   },
   defaultProps: {
     size: 'lg',

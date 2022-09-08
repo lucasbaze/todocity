@@ -49,12 +49,14 @@ const LoginPage: NextPage = () => {
             variant="h3"
             color="gray.600"
             pb={12}
-            width={{ base: '80%', md: '60%' }}
+            width={{ base: '60%', sm: '40%', lg: '25%' }}
             textAlign="center"
           >
             Let&apos;s see what your city looks like today.
           </Text>
-          <Card boxProps={{ boxShadow: 'none' }}>
+          <Card
+            boxProps={{ boxShadow: 'none', mb: 4, minWidth: { sm: '415px' } }}
+          >
             <Flex direction="column" alignItems="center">
               <Suspense fallback={<Box minHeight="100px" width="200px" />}>
                 <LoginSignupButton

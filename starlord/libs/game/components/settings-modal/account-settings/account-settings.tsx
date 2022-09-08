@@ -7,7 +7,7 @@ export function AccountSettings() {
 
   return (
     <Box>
-      <Heading pb="4">Account</Heading>
+      <Text pb="4">Account</Text>
       <Flex alignItems="center">
         <UserAvatar size="md" />
         <Flex direction="column" ml="4">

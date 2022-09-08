@@ -26,7 +26,7 @@ export const MainLayout = ({ children }: IMainLayoutProps) => {
     <>
       {showStars}
       <Box zIndex="docked" position="relative">
-        <Grid gridTemplateColumns="repeat(1fr, 12)" gridTemplateRows="auto">
+        <Grid gridTemplateColumns="repeat(12, 1fr)" gridTemplateRows="auto">
           <Box gridColumn="1 / span 12">
             <Header />
           </Box>

@@ -1,9 +1,9 @@
-import { Badge, Box, Heading } from '@todocity/ui/core';
+import { Badge, Box, Text } from '@todocity/ui/core';
 
 export function NotificationSettings() {
   return (
     <Box>
-      <Heading>Notifications</Heading>
+      <Text>Notifications</Text>
       <Badge colorScheme="purple" fontSize="0.8em" size="sm">
         Coming Soon
       </Badge>

@@ -58,7 +58,7 @@ export function ReferralsSettings() {
 
   return (
     <Box>
-      <Heading pb="6">Referrals</Heading>
+      <Text pb="6">Referrals</Text>
       {referralCode.isLoading && <Spinner />}
       {!referralCode.isLoading && !referralCode.error && (
         <Box>

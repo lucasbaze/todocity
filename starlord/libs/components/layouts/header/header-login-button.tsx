@@ -14,7 +14,7 @@ export const HeaderLoginButton = ({ mobile }: ICreateAccountButtonProps) => {
   return (
     <>
       <Link href={user ? '/city' : '/login'}>
-        <Button variant="outline" size="md" isLoading={loading}>
+        <Button variant="outline" size="sm" isLoading={loading}>
           {user ? (
             <>
               To City <IconArrowRight />
@@ -26,7 +26,7 @@ export const HeaderLoginButton = ({ mobile }: ICreateAccountButtonProps) => {
       </Link>
       {mobile && !user && (
         <Link href="/signup">
-          <Button variant="outline" size="md" ml="4">
+          <Button variant="outline" size="sm" ml="4">
             Signup
           </Button>
         </Link>

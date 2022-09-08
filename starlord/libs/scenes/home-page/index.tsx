@@ -1,27 +1,32 @@
-import { Suspense, useContext, useEffect, useRef } from 'react';
+import {
+  MutableRefObject,
+  Suspense,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 
-import { ColorModeContext } from '@chakra-ui/react';
+import { ColorModeContext, useBreakpointValue } from '@chakra-ui/react';
 import {
   ContactShadows,
   Html,
   OrbitControls,
-  OrthographicCamera,
   PerspectiveCamera,
-  PresentationControls,
   useContextBridge,
-  useGLTF,
+  View,
 } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useControls } from 'leva';
 import { ProjectModel } from 'libs/game/components/project-model/project-model';
 import { BasePrimitiveModel } from 'libs/game/models/base-primitive-model/base-primitive-model';
-import { Group } from 'three';
+import { Group, Vector3 } from 'three';
 
 import { ThreeDLoader } from '@todocity/components/three-d-loader/three-d-loader';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
 import { RectAreaLight } from '@todocity/three/lights/rect-area-light';
+
+import styles from './home-page.module.css';
 
 export function NightLights() {
   return (
@@ -35,15 +40,15 @@ export function NightLights() {
       <group>
         <RectAreaLight
           threeProps={{
-            args: ['orange', 1, 2.5, 1.2],
-            position: [0, 0, 1.5],
+            args: ['#ffd09e', 1.5, 5, 2],
+            position: [0, 0, 6],
             rotation: [Math.PI / 4, 0, 0],
           }}
         />
         <RectAreaLight
           threeProps={{
-            args: ['orange', 1, 2.5, 1.2],
-            position: [0, 0, -1.5],
+            args: ['#ffd09e', 1.5, 5, 2],
+            position: [0, 0, -6],
             rotation: [(3 * Math.PI) / 4, 0, 0],
           }}
         />
@@ -51,15 +56,15 @@ export function NightLights() {
       <group rotation={[0, Math.PI / 2, 0]}>
         <RectAreaLight
           threeProps={{
-            args: ['orange', 1, 2.5, 1.2],
-            position: [0, 0, 1.5],
+            args: ['#ffd09e', 1.5, 5, 2],
+            position: [0, 0, 6],
             rotation: [Math.PI / 4, 0, 0],
           }}
         />
         <RectAreaLight
           threeProps={{
-            args: ['orange', 1, 2.5, 1.2],
-            position: [0, 0, -1.5],
+            args: ['#ffd09e', 1.5, 5, 2],
+            position: [0, 0, -6],
             rotation: [(3 * Math.PI) / 4, 0, 0],
           }}
         />
@@ -85,7 +90,7 @@ export function DayLights() {
   );
 }
 
-export function HomePageModel(props: any) {
+export function HomePageModel({ target }) {
   const { camera } = useThree();
   const orbitControlsRef = useRef(null);
   const ref = useRef<Group>(null!);
@@ -95,77 +100,83 @@ export function HomePageModel(props: any) {
   });
 
   useEffect(() => {
-    // Bad practice, but I just wanted to get this to work
-    camera.lookAt(-0.03, 0.16, -0.088);
+    orbitControlsRef.current.target = new Vector3(target.x, target.y, target.z);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [camera]);
-
-  const getCamera = () => {
-    console.log('position: ', camera.position);
-    console.log('target: ', orbitControlsRef.current.target);
-  };
 
   return (
     <>
-      <group ref={ref} {...props} dispose={null}>
-        {/* <Html>
-          <button onClick={getCamera}>getCamera</button>
-        </Html> */}
-        <PresentationControls
-          config={{ mass: 10, tension: 0, friction: 1 }}
-          rotation={[0, 0, 0]}
-          polar={[0, 0]}
-          cursor
-          speed={2}
-        >
-          <group rotation={[0, 0, 0]} scale={0.4}>
-            <ProjectModel
-              count={0}
-              fixed
-              objectModel={
-                <BasePrimitiveModel
-                  modelName="Home Page Model"
-                  url="./static/models/main_house.glb"
-                  scale={0.2}
-                />
-              }
-            />
-          </group>
-        </PresentationControls>
+      <group ref={ref} dispose={null}>
+        <BasePrimitiveModel
+          modelName="Home Page Model"
+          url="./static/models/main_house.glb"
+        />
       </group>
       {colorMode === 'light' ? <DayLights /> : <NightLights />}
-      {/* <gridHelper /> */}
       <ContactShadows
         position={[0, 0, 0]}
-        opacity={0.75}
-        scale={2}
-        blur={2.5}
-        far={4}
+        opacity={0.5}
+        scale={15}
+        blur={5}
+        far={3}
       />
-      {/* <OrbitControls ref={orbitControlsRef} target={[-0.03, 0.16, -0.088]} /> */}
+      <OrbitControls
+        ref={orbitControlsRef}
+        enablePan={false}
+        enableZoom={false}
+        minPolarAngle={Math.PI / 3}
+        maxPolarAngle={Math.PI / 3}
+      />
     </>
   );
 }
 
-export function HomeScene() {
-  const frustrum = 500;
+interface IHomeSceneProps {
+  viewRef: MutableRefObject<HTMLDivElement | null>;
+  zoom?: number;
+}
+
+export function HomeScene({ viewRef }: IHomeSceneProps) {
   const ContextBridge = useContextBridge(ColorModeContext);
+  const variant = useBreakpointValue({
+    base: {
+      position: new Vector3(9.6, 8.9, 10.3),
+      zoom: 0.9,
+      target: {
+        x: 0.35,
+        y: 1.27,
+        z: 0.69,
+      },
+    },
+    md: {
+      position: new Vector3(9.6, 8.9, 10.3),
+      zoom: 0.8,
+      target: {
+        x: 0.35,
+        y: 1.27,
+        z: 0.69,
+      },
+    },
+    lg: {
+      position: new Vector3(13.11, 9.9, -1.98),
+      zoom: 0.6,
+      target: {
+        x: 0.01,
+        y: 2.21,
+        z: 0.2,
+      },
+    },
+  });
+
   useEffect(() => {
     document.querySelector('canvas')?.setAttribute('touch-action', 'none');
   }, []);
 
   return (
-    <Canvas>
-      <OrthographicCamera
-        makeDefault
-        left={(frustrum * 1.6) / -2}
-        right={(frustrum * 1.6) / 2}
-        top={frustrum / 2}
-        bottom={frustrum / -2}
-        near={1}
-        far={1000}
-        zoom={270}
-        position={[3, 2.3, 2.8]}
-      />
+    <Canvas
+      camera={{ position: variant.position, fov: 50, zoom: variant.zoom }}
+      className={styles.canvas}
+    >
       <ContextBridge>
         <Suspense
           fallback={
@@ -174,7 +185,10 @@ export function HomeScene() {
             </Html>
           }
         >
-          <HomePageModel />
+          {/* @ts-ignore */}
+          <View track={viewRef} index={1}>
+            <HomePageModel target={variant.target} />
+          </View>
         </Suspense>
       </ContextBridge>
     </Canvas>

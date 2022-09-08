@@ -37,7 +37,7 @@ export function Header() {
       <Container display="flex" alignItems="center" height="header">
         <Box>
           <NextLink href="/">
-            <Text variant="h1" cursor="pointer">
+            <Text fontSize="40" fontWeight="bold" cursor="pointer">
               TODOCITY
             </Text>
           </NextLink>
@@ -94,7 +94,9 @@ export function Header() {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>
-            <Heading>TODOCITY</Heading>
+            <Text fontSize="2xl" fontWeight="bold">
+              TODOCITY
+            </Text>
           </DrawerHeader>
 
           <DrawerBody>

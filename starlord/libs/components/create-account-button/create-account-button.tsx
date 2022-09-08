@@ -1,3 +1,4 @@
+import { ButtonProps } from '@chakra-ui/react';
 import { IconArrowRight } from '@tabler/icons';
 import Link from 'next/link';
 
@@ -6,8 +7,9 @@ import { useAuth } from '@todocity/auth';
 
 import { AnalButton } from '../anal-button/anal-button';
 
+// TODO: use Chakra ui typescript
 interface ICreateAccountButtonProps {
-  size?: 'lg' | 'xl';
+  size: ButtonProps['size'];
   ctaText?: string;
 }
 
