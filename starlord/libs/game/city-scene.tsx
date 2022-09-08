@@ -51,7 +51,7 @@ function Scene() {
         castShadow={false}
       />
       <ProjectModel
-        count={0}
+        count={1}
         objectModel={
           <BasePrimitiveModel
             modelName="Boring House"
@@ -61,7 +61,7 @@ function Scene() {
         position={[-5, 0, 6]}
       />
       <ProjectModel
-        count={0}
+        count={1}
         objectModel={
           <BasePrimitiveModel
             modelName="Modern House"
@@ -69,6 +69,16 @@ function Scene() {
           />
         }
         position={[7, 0, 2]}
+      />
+      <ProjectModel
+        count={2}
+        objectModel={
+          <BasePrimitiveModel
+            modelName="Office Building"
+            url="./static/models/office_building_4x12_trees.glb"
+          />
+        }
+        position={[-3, 0, -3]}
       />
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
