@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useClipboard } from '@chakra-ui/react';
 import {
   IconBrandFacebook,
@@ -20,18 +18,28 @@ import {
   Spinner,
   Tooltip,
 } from '@todocity/ui/core';
-import { Box, Button, Heading, Text } from '@todocity/ui/core';
+import { Box, Button, Text } from '@todocity/ui/core';
 
 import { db } from '../../../../firebase/client-app';
 import { getAppUrl } from '../../../../utils/global/get-app-url';
 
+function ReferralLinkInput({ code }) {
+  const { hasCopied, onCopy } = useClipboard(code);
+  return (
+    <Flex gap="2">
+      <Input value={code} contentEditable={false} />
+      <Button variant="solid" size="sm" onClick={onCopy}>
+        {hasCopied ? 'Copied' : 'Copy'}
+      </Button>
+    </Flex>
+  );
+}
+
 export function ReferralsSettings() {
-  const [referralLink, setReferralLink] = useState<string | null>(null);
-  const { hasCopied, onCopy } = useClipboard(referralLink);
   const currentUser = getAuth().currentUser;
   const userRef = doc(db, 'users', currentUser.uid);
 
-  const referralCode = useQuery(
+  const referralCodeQuery = useQuery(
     'userReferral',
     () => {
       return getDoc(userRef).then((snap) => {
@@ -50,9 +58,6 @@ export function ReferralsSettings() {
           inviteCount: data.referrals?.length || 0,
         };
       },
-      onSuccess(data) {
-        setReferralLink(data.code);
-      },
     }
   );
 
@@ -61,8 +66,8 @@ export function ReferralsSettings() {
       <Text pb="6" variant="h3" fontWeight="bold">
         Referrals
       </Text>
-      {referralCode.isLoading && <Spinner />}
-      {!referralCode.isLoading && !referralCode.error && (
+      {referralCodeQuery.isLoading && <Spinner />}
+      {!referralCodeQuery.isLoading && !referralCodeQuery.error && (
         <Box>
           <Text>
             <b>
@@ -77,12 +82,7 @@ export function ReferralsSettings() {
           <Divider my="4" />
           <FormControl>
             <FormLabel>Your referral link:</FormLabel>
-            <Flex gap="2">
-              <Input value={referralLink} contentEditable={false} />
-              <Button variant="solid" size="sm" onClick={onCopy}>
-                {hasCopied ? 'Copied' : 'Copy'}
-              </Button>
-            </Flex>
+            <ReferralLinkInput code={referralCodeQuery.data.code} />
           </FormControl>
           <Box my="4">
             <Flex gap="2">
@@ -121,10 +121,11 @@ export function ReferralsSettings() {
               TodoCity referral count:
             </Text>
             <Text>
-              Total referral signups: <b>{referralCode.data.inviteCount}</b>
+              Total referral signups:{' '}
+              <b>{referralCodeQuery.data.inviteCount}</b>
             </Text>
             <Text>
-              Free months accrued: <b>{referralCode.data.inviteCount}</b>
+              Free months accrued: <b>{referralCodeQuery.data.inviteCount}</b>
             </Text>
           </Box>
         </Box>

@@ -124,7 +124,6 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
           <option value="referrals">Referrals</option>
           <option value="billing">Billing</option>
           <option value="reminders">Reminders</option>
-          <option value="notifications">Notifications</option>
           <option value="feedback">Feedback</option>
           <option value="account">Account</option>
         </Select>
