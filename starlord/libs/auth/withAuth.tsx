@@ -41,7 +41,7 @@ export function WithAuth<TProps, TInjectedKeys extends keyof TProps>(
         justifyContent="center"
         alignItems="center"
       >
-        {options.use3Dloader ? <ThreeDLoader /> : <Spinner />}
+        {options?.use3Dloader ? <ThreeDLoader /> : <Spinner />}
       </Flex>
     );
   };

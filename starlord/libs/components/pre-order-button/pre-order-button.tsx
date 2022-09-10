@@ -5,7 +5,11 @@ import { useRouter } from 'next/router';
 import { useAuth } from '@todocity/auth';
 import { AnalButton } from '@todocity/components/anal-button/anal-button';
 
-export function PreOrderButton() {
+export function PreOrderButton({
+  variant = 'primary',
+  size = 'lg',
+  ctaText = 'Pre-order Today',
+}) {
   const router = useRouter();
   const { user } = useAuth();
   const [loadingCheckoutSession, setLoadingCheckoutSession] =
@@ -22,13 +26,13 @@ export function PreOrderButton() {
 
   return (
     <AnalButton
-      variant="primary"
-      size="lg"
+      variant={variant}
+      size={size}
       isLoading={loadingCheckoutSession}
       analytics={{ buttonName: 'buy-now' }}
       onClick={handlePreorder}
     >
-      Pre-order Today
+      {ctaText}
     </AnalButton>
   );
 }

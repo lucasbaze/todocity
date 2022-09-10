@@ -19,8 +19,8 @@ const textCopy = (navigateTo: string | undefined) => {
   switch (navigateTo) {
     case 'checkout':
       return {
-        title: "Let's construct your Metropolis!",
-        description: 'Please first create an account to pre-order.',
+        title: "Let's create your Metropolis!",
+        description: 'Create an account first to pre-order.',
       };
     default:
       return {

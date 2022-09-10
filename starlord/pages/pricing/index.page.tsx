@@ -30,7 +30,7 @@ const PricingPageScene = dynamic(
 );
 
 const PreOrderButton = dynamic(
-  () => import('./components/pre-order-button/pre-order-button'),
+  () => import('../../libs/components/pre-order-button/pre-order-button'),
   {
     ssr: false,
     suspense: true,
@@ -68,11 +68,13 @@ const faqs = [
   },
   {
     question: 'Can I get a refund?',
-    answer: "Yes, but it'll hurt our feelings.",
+    answer:
+      "Yes, but it'll hurt our feelings. Please email support@todocity.app with your email to request a refund.",
   },
   {
     question: 'Can I get a discount?',
-    answer: 'Maybe if you ask really nicely. ',
+    answer:
+      'Maybe if you ask really nicely. Please email support@todocity.app with your email and why you would like a discount.',
   },
 ];
 
