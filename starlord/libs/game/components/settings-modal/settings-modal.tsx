@@ -40,10 +40,6 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
   const sidebarBackgroundColor = useColorModeValue('gray.100', 'gray.700');
   const [isLargerThan500] = useMediaQuery('(min-width: 767px)');
 
-  const handleLogout = async () => {
-    router.push('/logout');
-  };
-
   const handleChange = (value) => {
     setSelected(value);
   };
@@ -107,14 +103,6 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
                 onClick={() => handleChange(ESettingsMenuItems.Account)}
               >
                 Account
-              </Box>
-              <Box
-                onClick={handleLogout}
-                cursor="pointer"
-                color="red.400"
-                _hover={{ textDecoration: 'underline' }}
-              >
-                Logout
               </Box>
             </Stack>
           </Flex>

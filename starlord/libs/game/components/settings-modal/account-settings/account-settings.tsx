@@ -1,9 +1,16 @@
+import { useRouter } from 'next/router';
+
 import { useAuth } from '@todocity/auth';
 import { UserAvatar } from '@todocity/components/user-avatar/user-avatar';
-import { Box, Flex, Heading, Text } from '@todocity/ui/core';
+import { Box, Button, Flex, Text } from '@todocity/ui/core';
 
 export function AccountSettings() {
   const { user } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    router.push('/logout');
+  };
 
   return (
     <Box>
@@ -23,6 +30,16 @@ export function AccountSettings() {
           </Text>
         </Flex>
       </Flex>
+      <Box pt="4">
+        <Button
+          size="sm"
+          onClick={handleLogout}
+          variant="outline"
+          colorScheme="red"
+        >
+          Logout
+        </Button>
+      </Box>
     </Box>
   );
 }

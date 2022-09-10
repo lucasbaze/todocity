@@ -51,10 +51,6 @@ export const Button: ComponentStyleConfig = {
     solid: (props: StyleFunctionProps) => ({
       // bg: props.colorMode === 'dark' ? 'white' : 'gray.900',
     }),
-    outline: (props: StyleFunctionProps) => ({
-      borderWidth: '1px',
-      borderColor: mode('#000000', '#ffffff')(props),
-    }),
     link: (props: StyleFunctionProps) => ({
       color: mode('#000000', '#ffffff')(props),
       _hover: {
