@@ -4,7 +4,6 @@ import { useMediaQuery, useTheme } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import {
   Box,
   Button,
@@ -14,13 +13,19 @@ import {
   Show,
   Text,
 } from '@todocity/ui/core';
-const HomeScene = dynamic(() => import('../libs/scenes/home-page/index'), {
-  ssr: false,
-  suspense: true,
-});
+import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
+const HomeScene = dynamic(
+  () => import('../libs/features/scenes/home-page/index'),
+  {
+    ssr: false,
+    suspense: true,
+  }
+);
 const CreateAccountButton = dynamic(
   () =>
-    import('../libs/components/create-account-button/create-account-button'),
+    import(
+      '../libs/data/auth/components/create-account-button/create-account-button'
+    ),
   { ssr: false, suspense: true }
 );
 

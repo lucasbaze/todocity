@@ -1,8 +1,8 @@
 import { useTheme } from '@chakra-ui/react';
 
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { Container } from '@todocity/ui/core';
 import { Box, Heading, Text } from '@todocity/ui/core';
+import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
 
 export function NotFound() {
   const { sizes } = useTheme();

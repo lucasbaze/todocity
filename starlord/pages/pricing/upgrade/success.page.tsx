@@ -7,8 +7,8 @@ import Stripe from 'stripe';
 
 import * as track from '@todocity/analytics/events/track';
 import { useAuth } from '@todocity/auth';
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { Container } from '@todocity/ui/core';
+import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
 
 async function getOrderData(url = '') {
   const response = await fetch(url);

@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import { getFunctions, httpsCallable } from 'firebase/functions';
 
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { Button, Container } from '@todocity/ui/core';
+import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
 
 export function FunctionsTest() {
   const handleTrigger = async () => {

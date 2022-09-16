@@ -9,10 +9,13 @@ import { GoogleTagManager } from '@todocity/analytics/google-scripts/google-tag-
 import { PageSEOMeta } from '@todocity/seo/page-seo/page-seo';
 import { theme } from '@todocity/theme';
 
-const AuthListener = dynamic(() => import('../libs/auth/authListener'), {
-  ssr: false,
-  suspense: true,
-});
+const AuthListener = dynamic(
+  () => import('../libs/data/auth/components/auth-listener'),
+  {
+    ssr: false,
+    suspense: true,
+  }
+);
 
 const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
 const queryClient = new QueryClient({

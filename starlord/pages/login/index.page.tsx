@@ -5,13 +5,16 @@ import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { PageSEOMeta } from '@todocity/seo/page-seo/page-seo';
 import { Card } from '@todocity/ui/components/card/card';
 import { Link } from '@todocity/ui/core';
 import { Box, Flex, Text } from '@todocity/ui/core';
+import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
 const LoginSignupButton = dynamic(
-  () => import('../../libs/components/login-signup-button/login-signup-button'),
+  () =>
+    import(
+      '../../libs/data/auth/components/login-signup-button/login-signup-button'
+    ),
   { ssr: false, suspense: true }
 );
 

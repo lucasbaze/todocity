@@ -2,9 +2,9 @@ import { useTheme } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
 import { WithAuth } from '@todocity/auth';
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
-import { PreOrderButton } from '@todocity/components/pre-order-button/pre-order-button';
-import { Button, Container, Flex, Link, Text } from '@todocity/ui/core';
+import { PreOrderButton } from '@todocity/features/pre-order-button/pre-order-button';
+import { Container, Flex, Text } from '@todocity/ui/core';
+import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
 
 const UpgradeCancelPage: NextPage = () => {
   const { sizes } = useTheme();

@@ -8,6 +8,7 @@ import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 
+import { db } from '@todocity/data/db';
 import {
   Divider,
   Flex,
@@ -19,9 +20,7 @@ import {
   Tooltip,
 } from '@todocity/ui/core';
 import { Box, Button, Text } from '@todocity/ui/core';
-
-import { db } from '../../../../firebase/client-app';
-import { getAppUrl } from '../../../../utils/global/get-app-url';
+import { getAppUrl } from '@todocity/utils/global/get-app-url';
 
 function ReferralLinkInput({ code }) {
   const { hasCopied, onCopy } = useClipboard(code);

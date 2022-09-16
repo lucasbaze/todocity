@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import { useAuth } from '@todocity/auth';
-import { UserAvatar } from '@todocity/components/user-avatar/user-avatar';
+import { UserAvatar } from '@todocity/features/user-avatar/user-avatar';
 import { Box, Button, Flex, Text } from '@todocity/ui/core';
 
 export function AccountSettings() {

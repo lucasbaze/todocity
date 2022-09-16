@@ -12,10 +12,10 @@ import {
   IconListCheck,
 } from '@tabler/icons';
 
+import { AnalIconButton } from '@todocity/analytics/components/anal-icon-button/anal-icon-button';
 import { eventTriggers } from '@todocity/analytics/events/constants';
 import { useAuth } from '@todocity/auth';
-import { AnalIconButton } from '@todocity/components/anal-icon-button/anal-icon-button';
-import { LightDarkButton } from '@todocity/components/light-dark-button/light-dark-button';
+import { LightDarkButton } from '@todocity/features/light-dark-button/light-dark-button';
 import { Avatar, Badge, Box, Flex, Text, Tooltip } from '@todocity/ui/core';
 
 import { SettingsModal } from '../components/settings-modal/settings-modal';

@@ -3,8 +3,8 @@ import { Suspense, useRef } from 'react';
 import { useTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { PageSEOMeta } from '@todocity/seo/page-seo/page-seo';
+import { PricingCard } from '@todocity/ui/components/pricing-card/pricing-card';
 import {
   Accordion,
   AccordionButton,
@@ -15,14 +15,12 @@ import {
   Box,
   Container,
   Flex,
-  Heading,
   Text,
 } from '@todocity/ui/core';
-
-import { PricingCard } from './components/pricing-card/pricing-card';
+import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
 
 const PricingPageScene = dynamic(
-  () => import('../../libs/scenes/pricing-page/index'),
+  () => import('../../libs/features/scenes/pricing-page/index'),
   {
     ssr: false,
     suspense: true,
@@ -30,7 +28,7 @@ const PricingPageScene = dynamic(
 );
 
 const PreOrderButton = dynamic(
-  () => import('../../libs/components/pre-order-button/pre-order-button'),
+  () => import('../../libs/features/pre-order-button/pre-order-button'),
   {
     ssr: false,
     suspense: true,
@@ -39,7 +37,9 @@ const PreOrderButton = dynamic(
 
 const CreateAccountButton = dynamic(
   () =>
-    import('../../libs/components/create-account-button/create-account-button'),
+    import(
+      '../../libs/data/auth/components/create-account-button/create-account-button'
+    ),
   {
     ssr: false,
     suspense: true,

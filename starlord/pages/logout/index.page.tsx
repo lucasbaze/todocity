@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
 import { useTheme } from '@chakra-ui/react';
+import { MainLayout } from 'libs/ui/layout/main-layout/main-layout';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 
 import { useAuth } from '@todocity/auth';
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { Button, Container, Flex, Text } from '@todocity/ui/core';
 
 const Logout: NextPage = () => {

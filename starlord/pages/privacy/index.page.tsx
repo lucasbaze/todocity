@@ -1,6 +1,6 @@
-import { MainLayout } from '@todocity/components/layouts/main-layout/main-layout';
 import { PageSEOMeta } from '@todocity/seo/page-seo/page-seo';
 import { Container } from '@todocity/ui/core';
+import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
 
 export function PrivacyPage() {
   return (

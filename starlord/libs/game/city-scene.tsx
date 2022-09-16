@@ -12,11 +12,11 @@ import {
 import { Canvas } from '@react-three/fiber';
 import { levaStore as defaultLevaStore, useControls } from 'leva';
 
-import { ThreeDLoader } from '@todocity/components/three-d-loader/three-d-loader';
 import { useEditModeStore } from '@todocity/stores/editModeStore';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
+import { ThreeDLoader } from '@todocity/ui/components/three-d-loader/three-d-loader';
 
 import { ProjectModel } from './components/project-model/project-model';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
