@@ -12,7 +12,8 @@
     "ts-lint": "tsc --noEmit --incremental",
     "prepare": "cd .. && husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=149a48c2d8e9"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.2.4",
@@ -62,6 +63,7 @@
     "@types/react-dom": "18.0.6",
     "@types/three": "^0.143.0",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.9.0",
     "eslint": "8.21.0",
     "eslint-config-next": "12.2.3",
     "eslint-plugin-storybook": "^0.6.4",

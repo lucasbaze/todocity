@@ -1,4 +1,4 @@
-import { theme } from '../libs/theme';
+import { theme } from '../libs/ui/theme';
 
 export const parameters = {
   chakra: {

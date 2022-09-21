@@ -39,3 +39,6 @@ ui-debug.log*
 
 # Sentry
 .sentryclirc
+
+# storybook
+build-storybook.log
