@@ -46,6 +46,11 @@ export const Text: ComponentStyleConfig = {
       fontSize: '14',
       lineHeight: '150%',
     },
+    description: (props: StyleFunctionProps) => ({
+      color: mode('gray.700', 'gray.300')(props),
+      lineHeight: '120%',
+      fontSize: '14',
+    }),
   },
   // The default size and variant values
   defaultProps: {

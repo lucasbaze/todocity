@@ -1,11 +1,11 @@
 import { Meta, Story } from '@storybook/react';
 
 import { createMockTodoItem } from '../mocks';
-import { ITodoListProps, TodoList } from './todo-list';
+import { IProjectListProps, ProjectList } from './project-list';
 
 export default {
-  component: TodoList,
-  title: 'Components/TodoList',
+  component: ProjectList,
+  title: 'Components/ProjectList',
   parameters: {
     docs: {
       description: {
@@ -15,9 +15,9 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ITodoListProps> = (args) => <TodoList {...args} />;
+const Template: Story<IProjectListProps> = (args) => <ProjectList {...args} />;
 
 export const Playground = Template.bind({});
 Playground.args = {
-  todos: [...Array(10)].map(() => createMockTodoItem()),
+  todos: [...Array(7)].map(() => createMockTodoItem()),
 };

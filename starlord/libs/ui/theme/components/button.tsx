@@ -25,6 +25,11 @@ export const Button: ComponentStyleConfig = {
       height: 'auto',
       fontSize: '16',
     },
+    xs: {
+      p: '6px 12px',
+      height: 'auto',
+      fontSize: '14',
+    },
   },
   variants: {
     primary: (props: StyleFunctionProps) => ({
