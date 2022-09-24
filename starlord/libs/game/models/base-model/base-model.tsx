@@ -69,7 +69,6 @@ export function BaseModel({
         {...props}
         dispose={null}
         onPointerEnter={(e) => {
-          e.stopPropagation();
           setHovering(true);
         }}
         onPointerOut={(e) => setHovering(false)}

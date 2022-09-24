@@ -18,8 +18,81 @@ import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
 import { ThreeDLoader } from '@todocity/ui/components/three-d-loader/three-d-loader';
 
-import { ProjectModel } from './components/project-model/project-model';
+import { Lot } from './components/lot/lot';
+// import { ProjectModel } from './components/project-model/project-model';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
+
+const lots = [
+  {
+    id: '1',
+    position: [0, 0, 0],
+    land: {
+      size: [10, 10],
+      name: 'lot 420',
+      description: 'You could have smelly neighbors',
+      locked: true,
+      cost: 24,
+    },
+    structures: [
+      {
+        id: 'structure-id',
+        name: 'Boring House',
+        type: 'BUILDING',
+        src: './static/models/main_house.glb',
+        relativePosition: [0, 0, 0],
+        projectListId: 'my-first-project',
+      },
+    ],
+  },
+  {
+    id: '2',
+    position: [10, 0, 0],
+    land: {
+      size: [8, 8],
+      name: 'lot 420',
+      description: 'You could have smelly neighbors',
+      locked: true,
+      cost: 24,
+    },
+    structures: [],
+  },
+  {
+    id: '3',
+    position: [-10, 0, 0],
+    land: {
+      size: [8, 8],
+      name: 'lot 420',
+      description: 'You could have smelly neighbors',
+      locked: true,
+      cost: 24,
+    },
+    structures: [],
+  },
+  {
+    id: '4',
+    position: [0, 0, 10],
+    land: {
+      size: [8, 8],
+      name: 'lot 420',
+      description: 'You could have smelly neighbors',
+      locked: true,
+      cost: 24,
+    },
+    structures: [],
+  },
+  {
+    id: '5',
+    position: [0, 0, -10],
+    land: {
+      size: [8, 8],
+      name: 'lot 420',
+      description: 'You could have smelly neighbors',
+      locked: false,
+      cost: 24,
+    },
+    structures: [],
+  },
+];
 
 function Scene() {
   const { colorMode } = useContext(ColorModeContext);
@@ -47,10 +120,13 @@ function Scene() {
       <BasePrimitiveModel
         modelName="Floating Rock"
         url="./static/models/floating_mountain.glb"
-        scale={13}
+        scale={16}
         castShadow={false}
       />
-      <ProjectModel
+      {lots.map((lot) => (
+        <Lot key={lot.id} {...lot} />
+      ))}
+      {/* <ProjectModel
         count={1}
         objectModel={
           <BasePrimitiveModel
@@ -79,7 +155,7 @@ function Scene() {
           />
         }
         position={[-3, 0, -3]}
-      />
+      /> */}
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
         <>

@@ -32,6 +32,9 @@ export function ProjectModel({
     }
   }, [notificationCount]);
 
+  /**
+   * Set the max float height of the notification pin using the bounding box of the object
+   */
   useEffect(() => {
     if (groupRef.current) {
       // TODO: Possibly inefficient
