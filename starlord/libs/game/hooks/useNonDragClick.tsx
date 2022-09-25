@@ -1,4 +1,4 @@
-export function useNonDragClick(callback: () => void) {
+export function useNonDragClick(callback: (any) => void) {
   let clientClickX = null;
   let clientClickY = null;
 
@@ -9,7 +9,7 @@ export function useNonDragClick(callback: () => void) {
 
   const handleMouseUp = (e) => {
     if (clientClickY === e.y && clientClickX === e.x) {
-      callback();
+      callback(e);
     }
   };
 

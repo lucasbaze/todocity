@@ -5,7 +5,7 @@ import { GroupProps } from '@react-three/fiber';
 import { folder, useControls, useCreateStore } from 'leva';
 import { Euler, Vector3 } from 'three';
 
-import { useEditModeStore } from '@todocity/stores/editModeStore';
+import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 
 import { useNonDragClick } from '../../hooks/useNonDragClick';
 

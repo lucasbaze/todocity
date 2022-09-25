@@ -3,6 +3,8 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { GroupProps } from '@react-three/fiber';
 import { Box3, Group } from 'three';
 
+import { useMenuManagerStore } from '@todocity/stores/menu-manager-store';
+
 import { useNonDragClick } from '../../hooks/useNonDragClick';
 import {
   INotificationPinProps,
@@ -21,16 +23,12 @@ export function ProjectModel({
 }: IProjectModelProps) {
   const groupRef = useRef<Group>(null);
   const [maxY, setMaxY] = useState(0);
-  const [notificationCount, setNotificationCount] = useState(count);
+  const createMenu = useMenuManagerStore((state) => state.createMenu);
   const { handleMouseDown, handleMouseUp } = useNonDragClick(() => {
-    setNotificationCount(notificationCount + 1);
+    createMenu({
+      type: 'project',
+    });
   });
-
-  useEffect(() => {
-    if (notificationCount % 5 === 0) {
-      // Spin the house and jump
-    }
-  }, [notificationCount]);
 
   /**
    * Set the max float height of the notification pin using the bounding box of the object
@@ -52,11 +50,7 @@ export function ProjectModel({
       onPointerDown={handleMouseDown}
       onPointerUp={handleMouseUp}
     >
-      <NotificationPin
-        fixed={fixed}
-        count={notificationCount}
-        position={[0, maxY, 0]}
-      />
+      <NotificationPin fixed={fixed} count={2} position={[0, maxY, 0]} />
       {objectModel}
     </group>
   );

@@ -3,7 +3,7 @@ import shallow from 'zustand/shallow';
 
 import { AnalIconButton } from '@todocity/analytics/components/anal-icon-button/anal-icon-button';
 import { eventTriggers } from '@todocity/analytics/events/constants';
-import { useEditModeStore } from '@todocity/stores/editModeStore';
+import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 
 // TODO: Use chakra cli to generate usable types
 interface ISceneSettingsProps {}

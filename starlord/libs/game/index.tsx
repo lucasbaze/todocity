@@ -1,3 +1,4 @@
+import { MenuManager } from '@todocity/features/menu-manager/menu-manager';
 import { Box } from '@todocity/ui/core';
 
 import { CityScene } from './city-scene';
@@ -11,6 +12,7 @@ export const Game = () => {
       <Box height="100vh" width="100vw">
         {/* Game Overlay */}
         <Toolbar />
+        <MenuManager />
         {/* Game */}
         <CityScene />
       </Box>

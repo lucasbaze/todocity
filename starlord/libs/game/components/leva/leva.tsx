@@ -1,6 +1,6 @@
 import { LevaPanel, levaStore } from 'leva';
 
-import { useEditModeStore } from '@todocity/stores/editModeStore';
+import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 
 export function LevaContext() {
   const showing = useEditModeStore((state) => state.displayControls);

@@ -12,7 +12,7 @@ import {
 import { Canvas } from '@react-three/fiber';
 import { levaStore as defaultLevaStore, useControls } from 'leva';
 
-import { useEditModeStore } from '@todocity/stores/editModeStore';
+import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
@@ -28,7 +28,7 @@ const lots = [
     position: [0, 0, 0],
     land: {
       size: [10, 10],
-      name: 'lot 420',
+      name: 'Lot 420',
       description: 'You could have smelly neighbors',
       locked: true,
       cost: 24,
@@ -49,10 +49,10 @@ const lots = [
     position: [10, 0, 0],
     land: {
       size: [8, 8],
-      name: 'lot 420',
-      description: 'You could have smelly neighbors',
+      name: 'Lot 420',
+      description: 'You could have smelly neighbors...',
       locked: true,
-      cost: 24,
+      cost: 3,
     },
     structures: [],
   },
@@ -61,10 +61,10 @@ const lots = [
     position: [-10, 0, 0],
     land: {
       size: [8, 8],
-      name: 'lot 420',
-      description: 'You could have smelly neighbors',
+      name: 'Lot 314',
+      description: 'A lot with several strange crop circles',
       locked: true,
-      cost: 24,
+      cost: 5,
     },
     structures: [],
   },
@@ -73,10 +73,11 @@ const lots = [
     position: [0, 0, 10],
     land: {
       size: [8, 8],
-      name: 'lot 420',
-      description: 'You could have smelly neighbors',
+      name: 'Lot 662',
+      description:
+        "We're never quite certain of the size or the position of this lot",
       locked: true,
-      cost: 24,
+      cost: 10,
     },
     structures: [],
   },
@@ -85,10 +86,10 @@ const lots = [
     position: [0, 0, -10],
     land: {
       size: [8, 8],
-      name: 'lot 420',
-      description: 'You could have smelly neighbors',
+      name: 'Lot 667',
+      description: 'This lot has quite the attraction to the nearby folks',
       locked: false,
-      cost: 24,
+      cost: 15,
     },
     structures: [],
   },

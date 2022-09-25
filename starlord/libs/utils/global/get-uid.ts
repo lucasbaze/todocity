@@ -1,0 +1,2 @@
+// from https://gist.github.com/gordonbrander/2230317
+export const getUid = () => '_' + Math.random().toString(36).substr(2, 9);
