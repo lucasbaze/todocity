@@ -16,7 +16,7 @@ export const initialLots = [
         type: 'BUILDING',
         src: './static/models/main_house.glb',
         relativePosition: [0, 0, 0],
-        projectListId: 'my-first-project',
+        projectId: 'my-first-project',
       },
     ],
   },

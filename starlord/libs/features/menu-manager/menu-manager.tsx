@@ -1,4 +1,6 @@
 import type { TMenu } from '@todocity/data/types';
+import { LibraryMenu } from '@todocity/features/menu-manager/library-menu/library-menu';
+import { ProjectMenu } from '@todocity/features/menu-manager/project-menu/project-menu';
 import { useMenuManagerStore } from '@todocity/stores/menu-manager-store';
 import { Box } from '@todocity/ui/core';
 
@@ -12,31 +14,9 @@ function MenuPresenter(props: TMenu) {
     case 'lot':
       return <LotMenu {...props} onClose={(id) => closeMenu(id)} />;
     case 'project':
-      return (
-        <DraggableMenu
-          position={props.cssPosition}
-          header="Project Menu"
-          body={
-            <Box>
-              <div>All of the todos will go here</div>
-            </Box>
-          }
-          onClose={() => closeMenu(props.id)}
-        />
-      );
+      return <ProjectMenu {...props} onClose={(id) => closeMenu(id)} />;
     case 'library':
-      return (
-        <DraggableMenu
-          position={props.cssPosition}
-          header="Library Menu"
-          body={
-            <Box>
-              <div>Gonna look at those sweet sweet objects</div>
-            </Box>
-          }
-          onClose={() => closeMenu(props.id)}
-        />
-      );
+      return <LibraryMenu {...props} onClose={(id) => closeMenu(id)} />;
   }
 }
 

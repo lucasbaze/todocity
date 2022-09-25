@@ -21,7 +21,7 @@ export function ProjectListHeader({
   description,
 }: IProjectListHeaderProps) {
   return (
-    <Box>
+    <Box pl="2" py="1">
       <Flex justifyContent="space-between">
         <Box>
           <Text fontSize="20px">{title}</Text>

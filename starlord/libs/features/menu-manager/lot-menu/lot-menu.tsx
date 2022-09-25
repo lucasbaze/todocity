@@ -35,7 +35,7 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
         </Box>
       }
       body={
-        <>
+        <Box px="4">
           <Flex alignItems="center">
             <Text display="flex" variant="description" alignItems="center">
               Price:
@@ -71,7 +71,7 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
               </Tooltip>
             </Flex>
           </Box>
-        </>
+        </Box>
       }
       onClose={() => onClose(id)}
     />

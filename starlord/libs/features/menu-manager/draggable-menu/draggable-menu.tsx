@@ -12,6 +12,7 @@ export interface IDraggableMenuProps {
   header: React.ReactNode;
   body: React.ReactNode;
   onClose: () => void;
+  footer?: React.ReactNode;
   width?: string;
 }
 
@@ -23,6 +24,7 @@ export function DraggableMenu({
   position,
   header,
   body,
+  footer,
   onClose,
   width = '250px',
 }: IDraggableMenuProps) {
@@ -138,6 +140,7 @@ export function DraggableMenu({
             <Divider />
             <Box
               as={motion.section}
+              position="relative"
               bg={backgroundColor}
               borderBottomRadius="20px"
               initial="collapsed"
@@ -148,13 +151,13 @@ export function DraggableMenu({
                 collapsed: { opacity: 0, height: 0 },
               }}
               overflow="hidden"
+              transform="height"
               transitionDuration="0.5"
               transitionTimingFunction="linear"
             >
               {/* Padding here ensures animation isn't jumpy */}
-              <Box px="4" py="3">
-                {body}
-              </Box>
+              <Box py="4">{body}</Box>
+              {footer}
             </Box>
           </>
         )}

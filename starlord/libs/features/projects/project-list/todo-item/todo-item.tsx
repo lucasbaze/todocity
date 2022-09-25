@@ -4,6 +4,7 @@ import { useColorModeValue } from '@chakra-ui/react';
 import { IconCircle, IconCircleCheck } from '@tabler/icons';
 import { useFormik } from 'formik';
 
+import { TTodoItem } from '@todocity/data/types';
 import {
   Box,
   Button,
@@ -14,8 +15,6 @@ import {
   Text,
   Textarea,
 } from '@todocity/ui/core';
-
-import { TTodoItem } from '../../types';
 
 interface ICheckBox {
   completed?: boolean;
@@ -87,6 +86,7 @@ export function TodoItem({ title, description, completed }: ITodoItemProps) {
           cursor="pointer"
           onClick={handleClick}
           py="3"
+          pr="4"
         >
           <form onSubmit={formik.handleSubmit}>
             <Flex direction="column">

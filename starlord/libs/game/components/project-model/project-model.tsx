@@ -12,12 +12,25 @@ import {
 } from '../../models/notification-pin/notification-pin';
 
 interface IProjectModelProps extends GroupProps, INotificationPinProps {
+  /**
+   * The rendered object using react composition
+   */
   objectModel: ReactNode;
+  /**
+   * The id from the db of the project (todo) list this object is associated with
+   */
+  projectId: string;
+  /**
+   * The id from the db of the lot this object is associated with
+   */
+  lotId?: string;
 }
 
 export function ProjectModel({
   objectModel,
   count,
+  projectId,
+  lotId,
   fixed,
   ...props
 }: IProjectModelProps) {
@@ -26,7 +39,17 @@ export function ProjectModel({
   const createMenu = useMenuManagerStore((state) => state.createMenu);
   const { handleMouseDown, handleMouseUp } = useNonDragClick(() => {
     createMenu({
+      id: projectId,
       type: 'project',
+      // TODO: reduce this to what is required
+      content: {
+        projectId,
+        name: 'project',
+        cost: 24,
+        description: 'something',
+        locked: false,
+        lotId: lotId,
+      },
     });
   });
 
@@ -47,8 +70,14 @@ export function ProjectModel({
     <group
       ref={groupRef}
       {...props}
-      onPointerDown={handleMouseDown}
-      onPointerUp={handleMouseUp}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+        handleMouseDown(e);
+      }}
+      onPointerUp={(e) => {
+        e.stopPropagation();
+        handleMouseUp(e);
+      }}
     >
       <NotificationPin fixed={fixed} count={2} position={[0, maxY, 0]} />
       {objectModel}

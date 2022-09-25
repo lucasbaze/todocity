@@ -1,6 +1,5 @@
+import type { TTodoItem } from '@todocity/data/types';
 import { faker } from '@todocity/utils/faker';
-
-import type { TTodoItem } from './types';
 faker.seed(69);
 
 export const createMockTodoItem = (overrides?: TTodoItem) => ({

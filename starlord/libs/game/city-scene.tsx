@@ -20,7 +20,6 @@ import { PointLight } from '@todocity/three/lights/point-light';
 import { ThreeDLoader } from '@todocity/ui/components/three-d-loader/three-d-loader';
 
 import { Lot } from './components/lot/lot';
-// import { ProjectModel } from './components/project-model/project-model';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
 
 function Scene() {
@@ -44,7 +43,7 @@ function Scene() {
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={0}
         enablePan={false}
-        maxDistance={35}
+        maxDistance={45}
         minDistance={15}
       />
       <BasePrimitiveModel
@@ -56,36 +55,6 @@ function Scene() {
       {lots.map((lot) => (
         <Lot key={lot.id} {...lot} />
       ))}
-      {/* <ProjectModel
-        count={1}
-        objectModel={
-          <BasePrimitiveModel
-            modelName="Boring House"
-            url="./static/models/house_boring.glb"
-          />
-        }
-        position={[-5, 0, 6]}
-      />
-      <ProjectModel
-        count={1}
-        objectModel={
-          <BasePrimitiveModel
-            modelName="Modern House"
-            url="./static/models/main_house.glb"
-          />
-        }
-        position={[7, 0, 2]}
-      />
-      <ProjectModel
-        count={2}
-        objectModel={
-          <BasePrimitiveModel
-            modelName="Office Building"
-            url="./static/models/office_building_4x12_trees.glb"
-          />
-        }
-        position={[-3, 0, -3]}
-      /> */}
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
         <>

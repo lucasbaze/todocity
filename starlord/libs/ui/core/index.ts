@@ -22,6 +22,7 @@ export {
   DrawerCloseButton,
   Icon,
   Input,
+  Image,
   IconButton,
   List,
   Badge,

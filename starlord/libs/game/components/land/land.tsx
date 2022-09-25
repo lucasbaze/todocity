@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Line, Plane, useCursor } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
 import { useNonDragClick } from 'libs/game/hooks/useNonDragClick';
-import { MeshBasicMaterial } from 'three';
+import { MeshBasicMaterial, MeshStandardMaterial } from 'three';
 
 import type { TLand } from '@todocity/data/types';
 import { useMenuManagerStore } from '@todocity/stores/menu-manager-store';
@@ -29,6 +29,7 @@ export function Land({
   size,
 }: ILandProps) {
   const createMenu = useMenuManagerStore((state) => state.createMenu);
+
   const [hovering, setHovering] = useState(false);
   const [ephemeralLandId] = useState(getUid());
   const { handleMouseDown, handleMouseUp } = useNonDragClick(
@@ -49,8 +50,16 @@ export function Land({
           },
         });
       } else {
+        // TODO: fix these typings... they're not very good :(
         createMenu({
           type: 'library',
+          content: {
+            lotId,
+            name,
+            description,
+            cost,
+            locked,
+          },
         });
       }
     }
@@ -136,8 +145,11 @@ export function Land({
           args={size}
           rotation={[-Math.PI / 2, 0, 0]}
           position={[0, 0.1, 0]}
+          receiveShadow
           material={
-            new MeshBasicMaterial({ color: hovering ? 'pink' : 'lightgreen' })
+            new MeshStandardMaterial({
+              color: hovering ? 'pink' : 'lightgreen',
+            })
           }
         />
       )}

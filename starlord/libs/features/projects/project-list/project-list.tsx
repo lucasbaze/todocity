@@ -3,10 +3,9 @@ import React from 'react';
 import { useColorModeValue } from '@chakra-ui/react';
 import { IconPlus } from '@tabler/icons';
 
+import { TTodoItem } from '@todocity/data/types';
 import { Box, Button } from '@todocity/ui/core';
 
-import { TTodoItem } from '../types';
-import { ProjectListHeader } from './project-list-header/project-list-header';
 import { TodoItem } from './todo-item/todo-item';
 
 export interface IProjectListProps {
@@ -17,9 +16,6 @@ export function ProjectList({ todos }: IProjectListProps) {
   const borderColor = useColorModeValue('gray.250', 'gray.600');
   return (
     <Box>
-      <Box pl="6" pb="4" borderBottom="1px" borderColor={borderColor}>
-        <ProjectListHeader title="Header" description="Description" />
-      </Box>
       <Box
         mb="4"
         maxHeight="400px"

@@ -71,9 +71,15 @@ export function BaseModel({
         onPointerEnter={(e) => {
           setHovering(true);
         }}
-        onPointerOut={(e) => setHovering(false)}
-        onPointerDown={handleMouseDown}
-        onPointerUp={handleMouseUp}
+        onPointerOut={(e) => {
+          setHovering(false);
+        }}
+        onPointerDown={(e) => {
+          handleMouseDown(e);
+        }}
+        onPointerUp={(e) => {
+          handleMouseUp(e);
+        }}
       >
         <group
           rotation={new Euler(polarX, polarY, polarZ)}

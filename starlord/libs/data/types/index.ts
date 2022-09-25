@@ -13,7 +13,10 @@ export type TLand = {
   cost: number;
 };
 
-export type TLandInformation = Omit<TLand, 'size'> & { lotId: string };
+export type TLandInformation = Omit<TLand, 'size'> & {
+  lotId: string;
+  projectId?: string;
+};
 export type TLibraryInformation = 'marketplace';
 
 export type TMenu = {
@@ -29,7 +32,7 @@ export type TStructure = {
   type: string;
   src: string;
   relativePosition: number[];
-  projectListId: string;
+  projectId: string;
 };
 
 export type TLot = {
@@ -37,4 +40,21 @@ export type TLot = {
   position: [x: number, y: number, z: number];
   land: TLand;
   structures: TStructure[];
+  preview?: {
+    src: string;
+  };
+};
+
+export type TTodoItem = {
+  id: string;
+  title: string;
+  description?: string;
+  completed?: boolean;
+};
+
+export type TProject = {
+  id: string;
+  title: string;
+  description: string;
+  todos: TTodoItem[];
 };

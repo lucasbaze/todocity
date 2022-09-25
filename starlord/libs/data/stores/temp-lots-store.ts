@@ -1,21 +1,28 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import type { TLot } from '@todocity/data/types';
+import type { TLot, TProject } from '@todocity/data/types';
 
+import { initialProjects } from './initial-projects';
+import { structures } from './initial-structures';
 import { initialLots } from './intial-lots';
 
 interface ILotsStore {
   lots: TLot[];
+  projects: TProject[];
   completedTodos: number;
   lotPoints: number;
   cityPoints: number;
   completeTodo: () => void;
   unlockLot: (lotId: string) => void;
+  setPreviewModel: (lotId: string, modelId: string) => void;
+  removePreviewModel: () => void;
+  placeModel: (lotId: string, modelId: string) => void;
 }
 
 export const initialLotsStore = {
   lots: initialLots,
+  projects: initialProjects,
   completedTodos: 0,
   lotPoints: 18,
   // lotPoints: 7,
@@ -40,6 +47,44 @@ export const actions = (set: any, get: any) => {
           ...state,
           lots: lots,
           lotPoints: state.lotPoints - lot.land.cost,
+        };
+      });
+    },
+    setPreviewModel: (lotId: string, modelId: string) => {
+      set((state: ILotsStore) => {
+        const lots = [...state.lots];
+        const lot = lots.find((lot) => lot.id === lotId);
+        lot.preview = {
+          src: structures.find((struct) => struct.id === modelId).src,
+        };
+
+        return {
+          ...state,
+          lots: lots,
+        };
+      });
+    },
+    removePreviewModel: () => {
+      set((state: ILotsStore) => {
+        const lots = [...state.lots];
+        lots.forEach((lot) => (lot.preview = null));
+        return {
+          ...state,
+          lots: lots,
+        };
+      });
+    },
+    placeModel: (lotId: string, modelId: string) => {
+      set((state: ILotsStore) => {
+        const lots = [...state.lots];
+        const lot = lots.find((lot) => lot.id === lotId);
+        lot.preview = null;
+        lot.structures.push(structures.find((struct) => struct.id === modelId));
+
+        return {
+          ...state,
+          lots: lots,
+          cityPoints: state.cityPoints + 5,
         };
       });
     },
