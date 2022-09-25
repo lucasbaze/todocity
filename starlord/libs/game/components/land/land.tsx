@@ -16,9 +16,18 @@ const transparentPlaneMaterial = new MeshBasicMaterial({
   opacity: 0,
 });
 
-interface ILandProps extends TLand {}
+interface ILandProps extends TLand {
+  lotId: string;
+}
 
-export function Land({ cost, description, locked, name, size }: ILandProps) {
+export function Land({
+  lotId,
+  cost,
+  description,
+  locked,
+  name,
+  size,
+}: ILandProps) {
   const createMenu = useMenuManagerStore((state) => state.createMenu);
   const [hovering, setHovering] = useState(false);
   const [ephemeralLandId] = useState(getUid());
@@ -32,6 +41,7 @@ export function Land({ cost, description, locked, name, size }: ILandProps) {
           // TODO: Figure out why clientX & clientY are not showing as possible types;
           cssPosition: { left: event.clientX, top: event.clientY },
           content: {
+            lotId,
             name,
             description,
             cost,

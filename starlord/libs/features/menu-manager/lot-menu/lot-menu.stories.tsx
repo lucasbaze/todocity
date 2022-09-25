@@ -23,6 +23,7 @@ Playground.args = {
   onClose: () => alert('closing'),
   cssPosition: { top: 5, left: 5 },
   content: {
+    lotId: '1',
     name: 'Lot 420',
     description: 'Your neighbors might smell funny...',
     cost: 34,

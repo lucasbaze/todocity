@@ -18,7 +18,7 @@ import { useAuth } from '@todocity/auth';
 import { LightDarkButton } from '@todocity/features/light-dark-button/light-dark-button';
 import { Avatar, Badge, Box, Flex, Text, Tooltip } from '@todocity/ui/core';
 
-import { SettingsModal } from '../components/settings-modal/settings-modal';
+import { SettingsModal } from '../settings/settings-modal';
 import { SceneSettings } from './scene-settings/scene-settings';
 
 export function Toolbar() {

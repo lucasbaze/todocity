@@ -13,6 +13,7 @@ import { Canvas } from '@react-three/fiber';
 import { levaStore as defaultLevaStore, useControls } from 'leva';
 
 import { useEditModeStore } from '@todocity/stores/edit-mode-store';
+import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
@@ -22,80 +23,8 @@ import { Lot } from './components/lot/lot';
 // import { ProjectModel } from './components/project-model/project-model';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
 
-const lots = [
-  {
-    id: '1',
-    position: [0, 0, 0],
-    land: {
-      size: [10, 10],
-      name: 'Lot 420',
-      description: 'You could have smelly neighbors',
-      locked: true,
-      cost: 24,
-    },
-    structures: [
-      {
-        id: 'structure-id',
-        name: 'Boring House',
-        type: 'BUILDING',
-        src: './static/models/main_house.glb',
-        relativePosition: [0, 0, 0],
-        projectListId: 'my-first-project',
-      },
-    ],
-  },
-  {
-    id: '2',
-    position: [10, 0, 0],
-    land: {
-      size: [8, 8],
-      name: 'Lot 420',
-      description: 'You could have smelly neighbors...',
-      locked: true,
-      cost: 3,
-    },
-    structures: [],
-  },
-  {
-    id: '3',
-    position: [-10, 0, 0],
-    land: {
-      size: [8, 8],
-      name: 'Lot 314',
-      description: 'A lot with several strange crop circles',
-      locked: true,
-      cost: 5,
-    },
-    structures: [],
-  },
-  {
-    id: '4',
-    position: [0, 0, 10],
-    land: {
-      size: [8, 8],
-      name: 'Lot 662',
-      description:
-        "We're never quite certain of the size or the position of this lot",
-      locked: true,
-      cost: 10,
-    },
-    structures: [],
-  },
-  {
-    id: '5',
-    position: [0, 0, -10],
-    land: {
-      size: [8, 8],
-      name: 'Lot 667',
-      description: 'This lot has quite the attraction to the nearby folks',
-      locked: false,
-      cost: 15,
-    },
-    structures: [],
-  },
-];
-
 function Scene() {
+  const lots = useLotsManagerStore((state) => state.lots);
   const { colorMode } = useContext(ColorModeContext);
   const { showGrid, showLights } = useControls(
     'Scene',

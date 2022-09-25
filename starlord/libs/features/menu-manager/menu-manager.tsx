@@ -1,6 +1,6 @@
 import type { TMenu } from '@todocity/data/types';
 import { useMenuManagerStore } from '@todocity/stores/menu-manager-store';
-import { Box, Text } from '@todocity/ui/core';
+import { Box } from '@todocity/ui/core';
 
 import { DraggableMenu } from './draggable-menu/draggable-menu';
 import { LotMenu } from './lot-menu/lot-menu';

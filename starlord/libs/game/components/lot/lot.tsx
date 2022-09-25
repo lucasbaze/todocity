@@ -2,11 +2,13 @@
 // Read more here: TODO:
 import React, { useMemo } from 'react';
 
+import type { TLot } from '@todocity/data/types';
+
 import { BasePrimitiveModel } from '../../models/base-primitive-model/base-primitive-model';
 import { Land } from '../land/land';
 import { ProjectModel } from '../project-model/project-model';
 
-export function Lot({ position, land, structures }) {
+export function Lot({ position, land, structures, id }: TLot) {
   const hasStructures = !!structures.length;
 
   // I think that there are some memory leaks here or handlers being recreated.
@@ -31,7 +33,7 @@ export function Lot({ position, land, structures }) {
 
   return (
     <group position={position}>
-      {hasStructures ? <>{memodStructures}</> : <Land {...land} />}
+      {hasStructures ? <>{memodStructures}</> : <Land {...land} lotId={id} />}
     </group>
   );
 }
