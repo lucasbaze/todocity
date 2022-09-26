@@ -22,6 +22,7 @@ export function Lot({ position, land, structures, id, preview }: TLot) {
                 count={1}
                 lotId={id}
                 projectId={structure.projectId}
+                structureThumbnailUrl={structure.thumbnailSrc}
                 objectModel={
                   <BasePrimitiveModel
                     modelName={structure.name}

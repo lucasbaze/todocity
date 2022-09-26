@@ -1,7 +1,8 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import type { TLot, TProject } from '@todocity/data/types';
+import type { TLot, TNewTodo, TProject } from '@todocity/data/types';
+import { getUid } from '@todocity/utils/global/get-uid';
 
 import { initialProjects } from './initial-projects';
 import { structures } from './initial-structures';
@@ -18,6 +19,7 @@ interface ILotsStore {
   setPreviewModel: (lotId: string, modelId: string) => void;
   removePreviewModel: () => void;
   placeModel: (lotId: string, modelId: string) => void;
+  createTodoInProject: (projectId: string, todo) => void;
 }
 
 export const initialLotsStore = {
@@ -85,6 +87,20 @@ export const actions = (set: any, get: any) => {
           ...state,
           lots: lots,
           cityPoints: state.cityPoints + 5,
+        };
+      });
+    },
+    createTodoInProject: (projectId: string, todo: TNewTodo) => {
+      set((state: ILotsStore) => {
+        const projects = [...state.projects];
+        const project = projects.find((project) => project.id === projectId);
+        project.todos = [
+          ...project.todos,
+          { ...todo, id: getUid(), completed: false },
+        ];
+        return {
+          ...state,
+          projects: projects,
         };
       });
     },

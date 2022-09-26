@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { IconCircle, IconCircleCheck } from '@tabler/icons';
@@ -17,12 +17,11 @@ import {
 } from '@todocity/ui/core';
 
 interface ICheckBox {
-  completed?: boolean;
+  checked: boolean;
+  setChecked: Dispatch<SetStateAction<boolean>>;
 }
 
-function CheckBox({ completed }: ICheckBox) {
-  const [checked, setChecked] = useState<boolean>(completed);
-
+function CheckBox({ checked, setChecked }: ICheckBox) {
   const handleClickComplete = (e) => {
     e.stopPropagation();
     setChecked((checked) => !checked);
@@ -49,6 +48,7 @@ export interface ITodoItemProps extends TTodoItem {}
 
 export function TodoItem({ title, description, completed }: ITodoItemProps) {
   const [edit, setEdit] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(completed);
   const borderColor = useColorModeValue('gray.250', 'gray.600');
 
   const handleClick = () => {
@@ -58,6 +58,8 @@ export function TodoItem({ title, description, completed }: ITodoItemProps) {
   const handleCancel = () => {
     setEdit(false);
   };
+
+  const handleMarkComplete = () => {};
 
   /*
 	 TODO: Move to separate component
@@ -151,14 +153,24 @@ export function TodoItem({ title, description, completed }: ITodoItemProps) {
         >
           <Flex px="4" pt="3" pb="4">
             <Box mr="2">
-              <CheckBox completed={completed} />
+              <CheckBox checked={checked} setChecked={setChecked} />
             </Box>
             <Box>
-              <Text fontWeight="semibold" lineHeight={1.1} noOfLines={2}>
+              <Text
+                as={checked ? 's' : undefined}
+                fontWeight="semibold"
+                lineHeight={1.1}
+                noOfLines={2}
+              >
                 {title}
               </Text>
               {description && (
-                <Text noOfLines={1} variant="description" mt="1">
+                <Text
+                  as={checked ? 's' : undefined}
+                  noOfLines={1}
+                  variant="description"
+                  mt="1"
+                >
                   {description}
                 </Text>
               )}

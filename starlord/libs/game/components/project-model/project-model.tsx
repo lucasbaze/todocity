@@ -21,6 +21,10 @@ interface IProjectModelProps extends GroupProps, INotificationPinProps {
    */
   projectId: string;
   /**
+   * The url for an thumbnail of the structure
+   */
+  structureThumbnailUrl: string;
+  /**
    * The id from the db of the lot this object is associated with
    */
   lotId?: string;
@@ -30,6 +34,7 @@ export function ProjectModel({
   objectModel,
   count,
   projectId,
+  structureThumbnailUrl,
   lotId,
   fixed,
   ...props
@@ -37,6 +42,9 @@ export function ProjectModel({
   const groupRef = useRef<Group>(null);
   const [maxY, setMaxY] = useState(0);
   const createMenu = useMenuManagerStore((state) => state.createMenu);
+
+  console.log('structureThumbnailUrl: ', structureThumbnailUrl);
+
   const { handleMouseDown, handleMouseUp } = useNonDragClick(() => {
     createMenu({
       id: projectId,
@@ -47,6 +55,7 @@ export function ProjectModel({
         name: 'project',
         cost: 24,
         description: 'something',
+        structureThumbnailUrl,
         locked: false,
         lotId: lotId,
       },

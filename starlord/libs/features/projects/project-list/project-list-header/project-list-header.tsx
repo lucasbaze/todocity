@@ -33,7 +33,7 @@ export function ProjectListHeader({
               as={IconButton}
               size="md"
               aria-label="Options"
-              icon={<IconDotsVertical />}
+              icon={<IconDotsVertical height="18px" width="18px" />}
               variant="ghost"
             />
             <MenuList>

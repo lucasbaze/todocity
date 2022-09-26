@@ -47,18 +47,18 @@ export function LibraryMenu({
       header={
         <Flex justifyContent="space-between">
           <Text fontSize="20px">My Library</Text>
-          <AnalButton
+          {/* <AnalButton
             variant="outline"
             colorScheme="purple"
             size="xs"
             analytics={{ buttonName: 'experiment-marketplace' }}
           >
             Marketplace
-          </AnalButton>
+          </AnalButton> */}
         </Flex>
       }
       body={
-        <Box position="relative" px="4">
+        <Box position="relative" px="4" py="2">
           <Grid
             alignItems="center"
             templateColumns="repeat(2, 1fr)"
@@ -84,7 +84,11 @@ export function LibraryMenu({
                   boxShadow={selected === struct.id && 'lg'}
                   overflow="hidden"
                 >
-                  <Image src="https://picsum.photos/200" alt={struct.name} />
+                  <Image
+                    src={struct.thumbnailSrc}
+                    width="200px"
+                    alt={struct.name}
+                  />
                   <Box
                     position="absolute"
                     bottom={0}
@@ -92,8 +96,8 @@ export function LibraryMenu({
                     right={0}
                     bg="blackAlpha.400"
                   >
-                    <Flex alignItems="center" justifyContent="center" p="2">
-                      <Text fontWeight="bold" color="white">
+                    <Flex alignItems="center" justifyContent="center" p="1">
+                      <Text fontWeight="bold" fontSize="sm">
                         {struct.name}
                       </Text>
                     </Flex>

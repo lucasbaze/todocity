@@ -35,7 +35,7 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
         </Box>
       }
       body={
-        <Box px="4">
+        <Box p="4">
           <Flex alignItems="center">
             <Text display="flex" variant="description" alignItems="center">
               Price:

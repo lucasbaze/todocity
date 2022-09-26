@@ -32,13 +32,36 @@ export function ProjectMenu({
     <DraggableMenu
       position={cssPosition}
       width="400px"
+      headerAccent={
+        <Box
+          position="absolute"
+          top="-10"
+          left="-10"
+          borderRadius="99em"
+          overflow="hidden"
+        >
+          <Image
+            src={content.structureThumbnailUrl}
+            width="80px"
+            height="80px"
+            alt="image"
+          />
+        </Box>
+      }
       header={
         <ProjectListHeader
           title={selectedProject.title}
           description={selectedProject.description}
         />
       }
-      body={<ProjectList todos={selectedProject.todos} />}
+      body={
+        <Box pb="4">
+          <ProjectList
+            projectId={content.projectId}
+            todos={selectedProject.todos}
+          />
+        </Box>
+      }
       onClose={handleClose}
     />
   );

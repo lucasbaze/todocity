@@ -16,6 +16,7 @@ export type TLand = {
 export type TLandInformation = Omit<TLand, 'size'> & {
   lotId: string;
   projectId?: string;
+  structureThumbnailUrl?: string;
 };
 export type TLibraryInformation = 'marketplace';
 
@@ -31,6 +32,7 @@ export type TStructure = {
   name: string;
   type: string;
   src: string;
+  thumbnailSrc: string;
   relativePosition: number[];
   projectId: string;
 };
@@ -43,6 +45,11 @@ export type TLot = {
   preview?: {
     src: string;
   };
+};
+
+export type TNewTodo = {
+  title: string;
+  description: string;
 };
 
 export type TTodoItem = {

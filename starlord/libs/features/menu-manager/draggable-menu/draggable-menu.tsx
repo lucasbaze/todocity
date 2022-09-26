@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { useColorMode, useColorModeValue, useTheme } from '@chakra-ui/react';
 import { IconCaretDown, IconDots, IconX } from '@tabler/icons';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 
 import { CSSPositionOffsets } from '@todocity/data/types';
-import { Box, Divider, Flex, Icon } from '@todocity/ui/core';
+import { Box, Divider, Flex, Icon, Image } from '@todocity/ui/core';
 
 export interface IDraggableMenuProps {
   position: CSSPositionOffsets;
   header: React.ReactNode;
   body: React.ReactNode;
   onClose: () => void;
+  headerAccent?: React.ReactNode;
   footer?: React.ReactNode;
   width?: string;
 }
@@ -22,6 +23,7 @@ export interface IDraggableMenuProps {
  */
 export function DraggableMenu({
   position,
+  headerAccent,
   header,
   body,
   footer,
@@ -75,11 +77,13 @@ export function DraggableMenu({
       borderRadius="20px"
       boxShadow="xl"
     >
+      {headerAccent}
       <Box>
         <Flex
           bg={headerBackgroundColor}
           py="1"
-          px="4"
+          pl={headerAccent ? '10' : '4'}
+          pr="4"
           borderTopRadius="20px"
           alignItems="center"
         >
@@ -156,7 +160,9 @@ export function DraggableMenu({
               transitionTimingFunction="linear"
             >
               {/* Padding here ensures animation isn't jumpy */}
-              <Box py="4">{body}</Box>
+              <Box maxHeight="600px" overflowY="auto">
+                {body}
+              </Box>
               {footer}
             </Box>
           </>

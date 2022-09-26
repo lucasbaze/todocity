@@ -31,12 +31,10 @@ export const actions = (set: any, get: any) => {
             (menu) => menu.id === createMenuArgs.id
           ) === -1
         ) {
-          console.log('Active Menus: ', state.activeMenus);
           const newMenu = buildMenu({
             ...createMenuArgs,
             activeMenus: state.activeMenus,
           });
-
           return {
             ...state,
             activeMenus: [...state.activeMenus, newMenu],
@@ -97,8 +95,8 @@ function buildMenu({
       return {
         id,
         cssPosition: {
-          left: 2 + projectPositionOffset * 4,
-          top: 2 + projectPositionOffset * 4,
+          left: 12 + projectPositionOffset * 4,
+          top: 12 + projectPositionOffset * 4,
         },
         type,
         content,
