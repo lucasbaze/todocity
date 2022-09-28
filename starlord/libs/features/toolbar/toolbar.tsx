@@ -19,7 +19,7 @@ import { LightDarkButton } from '@todocity/features/light-dark-button/light-dark
 import { Avatar, Badge, Box, Flex, Text, Tooltip } from '@todocity/ui/core';
 
 import { SettingsModal } from '../settings/settings-modal';
-import { SceneSettings } from './scene-settings/scene-settings';
+// import { SceneSettings } from './scene-settings/scene-settings';
 
 export function Toolbar() {
   const { user } = useAuth();
@@ -290,11 +290,11 @@ export function Toolbar() {
                 <LightDarkButton size="sm" variant="ghost" isRound={true} />
               </span>
             </Tooltip>
-            <Tooltip label={'Toggle Edit Mode'} hasArrow offset={[0, 20]}>
+            {/* <Tooltip label={'Toggle Edit Mode'} hasArrow offset={[0, 20]}>
               <span>
                 <SceneSettings />
               </span>
-            </Tooltip>
+            </Tooltip> */}
           </Flex>
         </Flex>
       </Flex>
