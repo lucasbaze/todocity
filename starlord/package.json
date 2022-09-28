@@ -37,6 +37,7 @@
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.0.3",
     "react-firebaseui": "^6.0.0",
+    "react-hotkeys-hook": "^3.4.7",
     "react-query": "^3.39.2",
     "schema-dts": "^1.1.0",
     "stripe": "^10.2.0",

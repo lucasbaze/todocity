@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useColorModeValue } from '@chakra-ui/react';
 import { IconPlus } from '@tabler/icons';
 import { useFormik } from 'formik';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import { TTodoItem } from '@todocity/data/types';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -41,6 +42,18 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
     },
   });
 
+  const handleSubmit = () => {
+    formik.submitForm();
+  };
+
+  const ref = useHotkeys(
+    'cmd+return',
+    (e, handler) => {
+      handleSubmit();
+    },
+    { enableOnTags: ['TEXTAREA', 'INPUT'] }
+  );
+
   return (
     <Box>
       <Box
@@ -56,7 +69,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
       </Box>
       <Box px="6">
         {edit ? (
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <Flex direction="column">
               <Box mb="3" border="1px" borderColor="gray.300" borderRadius="5">
                 <FormControl>
@@ -72,6 +85,9 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
                 </FormControl>
                 <FormControl>
                   <Textarea
+                    // TODO: Figure out this type properly
+                    // @ts-ignore
+                    ref={ref}
                     id="description"
                     name="description"
                     placeholder="description"
@@ -96,7 +112,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
                 <Box alignSelf="flex-end">
                   <Button
                     size="xs"
-                    type="submit"
+                    onClick={handleSubmit}
                     colorScheme="purple"
                     variant="solid"
                   >

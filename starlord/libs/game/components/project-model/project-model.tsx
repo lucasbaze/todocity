@@ -43,8 +43,6 @@ export function ProjectModel({
   const [maxY, setMaxY] = useState(0);
   const createMenu = useMenuManagerStore((state) => state.createMenu);
 
-  console.log('structureThumbnailUrl: ', structureThumbnailUrl);
-
   const { handleMouseDown, handleMouseUp } = useNonDragClick(() => {
     createMenu({
       id: projectId,
