@@ -1,7 +1,7 @@
 export const initialLots = [
   {
     id: '1',
-    position: [0, 0, 0] as [x: number, y: number, z: number],
+    position: [-5, 0, 6] as [x: number, y: number, z: number],
     land: {
       size: [10, 10] as [number, number],
       name: 'Lot 420',
@@ -23,7 +23,7 @@ export const initialLots = [
   },
   {
     id: '2',
-    position: [10, 0, 0] as [x: number, y: number, z: number],
+    position: [9, 0, -3] as [x: number, y: number, z: number],
     land: {
       size: [8, 8] as [number, number],
       name: 'Lot 420',
@@ -35,7 +35,7 @@ export const initialLots = [
   },
   {
     id: '3',
-    position: [-10, 0, 0] as [x: number, y: number, z: number],
+    position: [-4, 0, -7] as [x: number, y: number, z: number],
     land: {
       size: [8, 8] as [number, number],
       name: 'Lot 314',
@@ -47,7 +47,7 @@ export const initialLots = [
   },
   {
     id: '4',
-    position: [0, 0, 10] as [x: number, y: number, z: number],
+    position: [5, 0, 8] as [x: number, y: number, z: number],
     land: {
       size: [8, 8] as [number, number],
       name: 'Lot 662',
@@ -58,16 +58,16 @@ export const initialLots = [
     },
     structures: [],
   },
-  {
-    id: '5',
-    position: [0, 0, -10] as [x: number, y: number, z: number],
-    land: {
-      size: [8, 8] as [number, number],
-      name: 'Lot 667',
-      description: 'This lot has quite the attraction to the nearby folks',
-      locked: false,
-      cost: 15,
-    },
-    structures: [],
-  },
+  // {
+  //   id: '5',
+  //   position: [0, 0, -10] as [x: number, y: number, z: number],
+  //   land: {
+  //     size: [8, 8] as [number, number],
+  //     name: 'Lot 667',
+  //     description: 'This lot has quite the attraction to the nearby folks',
+  //     locked: false,
+  //     cost: 15,
+  //   },
+  //   structures: [],
+  // },
 ];

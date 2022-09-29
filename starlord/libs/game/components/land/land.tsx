@@ -86,7 +86,7 @@ export function Land({
       onPointerUp={handleMouseUp}
     >
       {locked ? (
-        <>
+        <group rotation={[0, Math.PI / 3, 0]}>
           <Plane
             args={size}
             rotation={[-Math.PI / 2, 0, 0]}
@@ -139,7 +139,7 @@ export function Land({
             dashed={true}
             dashScale={5}
           />
-        </>
+        </group>
       ) : (
         <Plane
           args={size}

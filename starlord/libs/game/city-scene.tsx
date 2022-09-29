@@ -7,10 +7,12 @@ import {
   PerspectiveCamera,
   Sky,
   Stars,
+  Stats,
   useContextBridge,
 } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { levaStore as defaultLevaStore, useControls } from 'leva';
+import { ScaleAnimation } from 'libs/game/hocs/scale-animation';
 
 import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -38,6 +40,7 @@ function Scene() {
 
   return (
     <>
+      <Stats />
       {showGrid && <gridHelper />}
       <OrbitControls
         maxPolarAngle={Math.PI / 2}
@@ -55,6 +58,39 @@ function Scene() {
       {lots.map((lot) => (
         <Lot key={lot.id} {...lot} />
       ))}
+      <ScaleAnimation>
+        <BasePrimitiveModel
+          modelName="Tree Curve"
+          url="./static/models/tree_curve.glb"
+          position={[0, 0, -14]}
+          rotation={[0, 0.1, 0]}
+        />
+      </ScaleAnimation>
+      <ScaleAnimation>
+        <BasePrimitiveModel
+          modelName="Tree Curve"
+          url="./static/models/egg.glb"
+          position={[0, 0, 0]}
+          rotation={[0, 0.0, 0]}
+          scale={0.01}
+        />
+      </ScaleAnimation>
+      <ScaleAnimation>
+        <BasePrimitiveModel
+          modelName="Tree Curve"
+          url="./static/models/tree_curve.glb"
+          position={[-12, 0, -8]}
+          rotation={[0, 1, 0]}
+        />
+      </ScaleAnimation>
+      <ScaleAnimation>
+        <BasePrimitiveModel
+          modelName="Tree Curve"
+          url="./static/models/tree_curve.glb"
+          position={[-13, 0, 6]}
+          rotation={[0, Math.PI / 1.5, 0]}
+        />
+      </ScaleAnimation>
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
         <>
@@ -112,7 +148,7 @@ export function CityScene() {
 
   return (
     <Canvas shadows onPointerMissed={handleMissed}>
-      <PerspectiveCamera makeDefault position={[12, 12, 20]} fov={60} />
+      <PerspectiveCamera makeDefault position={[20, 20, 20]} fov={60} />
       <ContextBridge>
         <Suspense
           fallback={
