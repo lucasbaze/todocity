@@ -14,18 +14,24 @@ export const initialProjects: TProject[] = [
       },
       {
         id: '1',
+        title: 'Complete this todo!',
+        description: 'Every todo completed is worth 2 lot points',
+        completed: false,
+      },
+      {
+        id: '2',
         title: 'Unlock a new lot',
         description: 'Click on one of the lots next to the house',
         completed: false,
       },
       {
-        id: '2',
+        id: '3',
         title: 'Construct a new building',
         description: 'Place a building in the unlocked lot',
         completed: false,
       },
       {
-        id: '3',
+        id: '4',
         title: 'Create a new todo',
         description: 'Literally anything. Go wild!',
         completed: false,
@@ -34,20 +40,7 @@ export const initialProjects: TProject[] = [
   },
   {
     id: 'my-second-project',
-    title: 'My Second Project',
-    description: 'You created another list!',
-    todos: [
-      {
-        id: '1',
-        title: 'Complete me just for fun!',
-        description: 'Every todo completed is worth 2 lot points',
-        completed: false,
-      },
-    ],
-  },
-  {
-    id: 'my-third-project',
-    title: 'My Third Project',
+    title: 'My second Project',
     description: 'You are getting good at this!',
     todos: [
       {

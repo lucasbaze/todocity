@@ -96,7 +96,7 @@ export function Onboarding() {
                     <FormLabel>City Name</FormLabel>
                     <Input
                       name="name"
-                      placeholder="New Hershey, Porkland, Shoeston"
+                      placeholder="Hershey City, Porkland, Shoeston"
                       onChange={formik.handleChange}
                       value={formik.values.name}
                     />

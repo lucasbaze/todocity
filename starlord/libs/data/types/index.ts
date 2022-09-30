@@ -34,7 +34,7 @@ export type TStructure = {
   src: string;
   thumbnailSrc: string;
   relativePosition: number[];
-  projectId: string;
+  projectId?: string;
 };
 
 export type TLot = {

@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { IconCircle, IconCircleCheck } from '@tabler/icons';
 import { useFormik } from 'formik';
 
 import { TTodoItem } from '@todocity/data/types';
+import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import {
   Box,
   Button,
@@ -17,19 +18,19 @@ import {
 } from '@todocity/ui/core';
 
 interface ICheckBox {
-  checked: boolean;
-  setChecked: Dispatch<SetStateAction<boolean>>;
+  completed: boolean;
+  setCompleted: () => void;
 }
 
-function CheckBox({ checked, setChecked }: ICheckBox) {
+function CheckBox({ completed, setCompleted }: ICheckBox) {
   const handleClickComplete = (e) => {
     e.stopPropagation();
-    setChecked((checked) => !checked);
+    setCompleted();
   };
 
   return (
     <Box cursor="pointer" onClick={handleClickComplete}>
-      {checked ? (
+      {completed ? (
         <Icon as={IconCircleCheck} h="5" w="5" />
       ) : (
         <Icon
@@ -44,22 +45,54 @@ function CheckBox({ checked, setChecked }: ICheckBox) {
   );
 }
 
-export interface ITodoItemProps extends TTodoItem {}
+export interface ITodoItemProps extends TTodoItem {
+  projectId: string;
+}
 
-export function TodoItem({ title, description, completed }: ITodoItemProps) {
+export function TodoItem({
+  projectId,
+  title,
+  description,
+  completed,
+  id: todoId,
+}: ITodoItemProps) {
+  const todoContainerRef = useRef<HTMLDivElement>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(completed);
+  const { completeTodo, unCompleteTodo } = useLotsManagerStore((state) => ({
+    completeTodo: state.completeTodo,
+    unCompleteTodo: state.unCompleteTodo,
+  }));
   const borderColor = useColorModeValue('gray.250', 'gray.600');
 
   const handleClick = () => {
     if (!edit) setEdit((edit) => !edit);
+
+    // Wait for div to open before scrolling into view
+    // Allows container to resize
+    setTimeout(() => {
+      todoContainerRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }, 0);
   };
 
   const handleCancel = () => {
     setEdit(false);
   };
 
-  const handleMarkComplete = () => {};
+  const handleMarkComplete = () => {
+    setChecked((checked) => {
+      if (checked) {
+        unCompleteTodo(projectId, todoId);
+      } else {
+        completeTodo(projectId, todoId);
+      }
+
+      return !checked;
+    });
+  };
 
   /*
 	 TODO: Move to separate component
@@ -79,17 +112,15 @@ export function TodoItem({ title, description, completed }: ITodoItemProps) {
   });
 
   return (
-    <>
+    <Box
+      ref={todoContainerRef}
+      _last={{ borderBottom: 'none' }}
+      borderBottom="1px"
+      borderColor={borderColor}
+      cursor="pointer"
+    >
       {edit ? (
-        <Box
-          _last={{ borderBottom: 'none' }}
-          borderBottom="1px"
-          borderColor={borderColor}
-          cursor="pointer"
-          onClick={handleClick}
-          py="3"
-          pr="4"
-        >
+        <Box py="3" pr="4">
           <form onSubmit={formik.handleSubmit}>
             <Flex direction="column">
               <Box pb="3">
@@ -144,16 +175,10 @@ export function TodoItem({ title, description, completed }: ITodoItemProps) {
           </form>
         </Box>
       ) : (
-        <Box
-          _last={{ borderBottom: 'none' }}
-          borderBottom="1px"
-          borderColor={borderColor}
-          cursor="pointer"
-          onClick={handleClick}
-        >
+        <Box onClick={handleClick}>
           <Flex px="4" pt="3" pb="4">
             <Box mr="2">
-              <CheckBox checked={checked} setChecked={setChecked} />
+              <CheckBox completed={checked} setCompleted={handleMarkComplete} />
             </Box>
             <Box>
               <Text
@@ -178,6 +203,6 @@ export function TodoItem({ title, description, completed }: ITodoItemProps) {
           </Flex>
         </Box>
       )}
-    </>
+    </Box>
   );
 }

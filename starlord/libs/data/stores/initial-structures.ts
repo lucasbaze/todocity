@@ -25,6 +25,5 @@ export const structures = [
     src: './static/models/office_building_4x12_trees.glb',
     thumbnailSrc: './static/images/office-building.png',
     relativePosition: [0, 0, 0],
-    projectId: 'my-third-project',
   },
 ];

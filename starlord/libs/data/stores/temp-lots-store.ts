@@ -17,7 +17,8 @@ interface ILotsStore {
   completedTodos: number;
   lotPoints: number;
   cityPoints: number;
-  completeTodo: () => void;
+  completeTodo: (projectId: string, todoId: string) => void;
+  unCompleteTodo: (projectId: string, todoId: string) => void;
   unlockLot: (lotId: string) => void;
   setPreviewModel: (lotId: string, modelId: string) => void;
   removePreviewModel: () => void;
@@ -30,7 +31,7 @@ export const initialLotsStore = {
   lots: initialLots,
   projects: initialProjects,
   completedTodos: 0,
-  lotPoints: 18,
+  lotPoints: 5,
   cityPoints: 3,
 };
 
@@ -44,11 +45,38 @@ export const actions = (set: any, get: any) => {
         cityName,
       }));
     },
-    completeTodo: (): void => {
-      set((state: ILotsStore) => ({
-        ...state,
-        lotPoints: state.lotPoints + 2,
-      }));
+    completeTodo: (projectId: string, todoId: string): void => {
+      set((state: ILotsStore) => {
+        const projects = [...state.projects];
+        const project = projects.find((project) => project.id === projectId);
+        const todo = project.todos.find((todo) => todo.id === todoId);
+        todo.completed = true;
+
+        project.todos = [...project.todos];
+
+        return {
+          ...state,
+          projects: projects,
+          lotPoints: state.lotPoints + 2,
+        };
+      });
+    },
+    // This is a duplicate of complete Todo... no bueno
+    unCompleteTodo: (projectId: string, todoId: string): void => {
+      set((state: ILotsStore) => {
+        const projects = [...state.projects];
+        const project = projects.find((project) => project.id === projectId);
+        const todo = project.todos.find((todo) => todo.id === todoId);
+        todo.completed = false;
+
+        project.todos = [...project.todos];
+
+        return {
+          ...state,
+          projects: projects,
+          lotPoints: state.lotPoints - 2,
+        };
+      });
     },
     unlockLot: (lotId: string): void => {
       set((state: ILotsStore) => {
@@ -88,14 +116,40 @@ export const actions = (set: any, get: any) => {
     },
     placeModel: (lotId: string, modelId: string) => {
       set((state: ILotsStore) => {
+        // Get the lot to update
         const lots = [...state.lots];
         const lot = lots.find((lot) => lot.id === lotId);
+
+        // Remove the lot preview
         lot.preview = null;
-        lot.structures.push(structures.find((struct) => struct.id === modelId));
+
+        // Grab structure
+        const newStructure = {
+          ...structures.find((struct) => struct.id === modelId),
+        };
+
+        // Create a new project
+        const newProject: TProject = {
+          id: getUid(),
+          description: 'Project Description',
+          title: 'New Project',
+          todos: [],
+        };
+
+        // Attach the project to the structure
+        newStructure.projectId = newProject.id;
+
+        // push project to projects
+        const projects = [...state.projects];
+        projects.push(newProject);
+
+        // Push a new structure onto the lot
+        lot.structures.push(newStructure);
 
         return {
           ...state,
           lots: lots,
+          projects: projects,
           cityPoints: state.cityPoints + 5,
         };
       });

@@ -86,7 +86,7 @@ export function ProjectModel({
         handleMouseUp(e);
       }}
     >
-      <NotificationPin fixed={fixed} count={2} position={[0, maxY, 0]} />
+      <NotificationPin fixed={fixed} count={count} position={[0, maxY, 0]} />
       {objectModel}
     </group>
   );
