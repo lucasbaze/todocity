@@ -8,7 +8,14 @@ export function useNonDragClick(callback: (any) => void) {
   };
 
   const handleMouseUp = (e) => {
-    if (clientClickY === e.y && clientClickX === e.x) {
+    // 2 is a magic number to give a little wiggle room on drag
+    // When clicking quickly, I've needed to click multiple times sometimes
+    if (
+      clientClickY < e.y + 2 &&
+      clientClickY > e.y - 2 &&
+      clientClickX < e.x + 2 &&
+      clientClickX > e.x - 2
+    ) {
       callback(e);
     }
   };
