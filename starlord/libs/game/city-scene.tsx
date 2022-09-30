@@ -27,21 +27,21 @@ import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive
 function Scene() {
   const lots = useLotsManagerStore((state) => state.lots);
   const { colorMode } = useContext(ColorModeContext);
-  const { showGrid, showLights } = useControls(
-    'Scene',
-    {
-      showGrid: false,
-      showLights: false,
-    },
-    {
-      store: defaultLevaStore,
-    }
-  );
+  // const { showGrid, showLights } = useControls(
+  //   'Scene',
+  //   {
+  //     showGrid: false,
+  //     showLights: false,
+  //   },
+  //   {
+  //     store: defaultLevaStore,
+  //   }
+  // );
 
   return (
     <>
-      <Stats />
-      {showGrid && <gridHelper />}
+      {/* <Stats /> */}
+      {/* {showGrid && <gridHelper />} */}
       <OrbitControls
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={0}
@@ -100,15 +100,15 @@ function Scene() {
               position: [4, 5, 4],
               castShadow: true,
             }}
-            useHelper={showLights}
+            // useHelper={showLights}
           />
           <PointLight
             threeProps={{ args: ['white', 3, 0.5, 1], position: [-1, 2, 4] }}
-            useHelper={showLights}
+            // useHelper={showLights}
           />
           <PointLight
             threeProps={{ args: ['white', 3, 0.5, 1], position: [-2, 2, -2] }}
-            useHelper={showLights}
+            // useHelper={showLights}
           />
           <Sky
             distance={450}

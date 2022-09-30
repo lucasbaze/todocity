@@ -4,18 +4,16 @@ import { IconBuildingCommunity, IconFence, IconListCheck } from '@tabler/icons';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Badge, Box, Flex, Icon, Text, Tooltip } from '@todocity/ui/core';
 
-export interface ITopBarProps {
-  cityName: string;
-}
+export interface ITopBarProps {}
 
-export function TopBar({ cityName }: ITopBarProps) {
-  const { completedTodos, lotPoints, cityPoints } = useLotsManagerStore(
-    (state) => ({
+export function TopBar({}: ITopBarProps) {
+  const { cityName, completedTodos, lotPoints, cityPoints } =
+    useLotsManagerStore((state) => ({
+      cityName: state.cityName,
       completedTodos: state.completedTodos,
       lotPoints: state.lotPoints,
       cityPoints: state.cityPoints,
-    })
-  );
+    }));
   const { zIndices } = useTheme();
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
 
@@ -36,7 +34,7 @@ export function TopBar({ cityName }: ITopBarProps) {
       backgroundColor={backgroundColor}
     >
       <Box flex={1} alignItems="center">
-        <Text fontWeight="bold">{cityName}</Text>
+        <Text fontWeight="bold">{cityName || 'Demo City'}</Text>
       </Box>
       <Flex fontWeight="bold" flex={1} justifyContent="flex-end" gap={3}>
         <Box>

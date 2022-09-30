@@ -2,6 +2,7 @@ import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 import type { TLot, TNewTodo, TProject } from '@todocity/data/types';
+import { getLocalStorage } from '@todocity/utils/global/get-local-storage';
 import { getUid } from '@todocity/utils/global/get-uid';
 
 import { initialProjects } from './initial-projects';
@@ -9,6 +10,8 @@ import { structures } from './initial-structures';
 import { initialLots } from './intial-lots';
 
 interface ILotsStore {
+  cityName?: string;
+  setCityName: (name: string) => void;
   lots: TLot[];
   projects: TProject[];
   completedTodos: number;
@@ -23,17 +26,24 @@ interface ILotsStore {
 }
 
 export const initialLotsStore = {
+  cityName: getLocalStorage()?.getItem('@todocity:city-name'),
   lots: initialLots,
   projects: initialProjects,
   completedTodos: 0,
   lotPoints: 18,
-  // lotPoints: 7,
   cityPoints: 3,
 };
 
 // TODO: figure out the right type here
 export const actions = (set: any, get: any) => {
   return {
+    setCityName: (cityName: string): void => {
+      getLocalStorage()?.setItem('@todocity:city-name', cityName);
+      set((state: ILotsStore) => ({
+        ...state,
+        cityName,
+      }));
+    },
     completeTodo: (): void => {
       set((state: ILotsStore) => ({
         ...state,

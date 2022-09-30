@@ -43,6 +43,7 @@
     "schema-dts": "^1.1.0",
     "stripe": "^10.2.0",
     "three": "^0.143.0",
+    "yup": "^0.32.11",
     "zustand": "^4.0.0"
   },
   "devDependencies": {
