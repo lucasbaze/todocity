@@ -27,16 +27,6 @@ import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive
 function Scene() {
   const lots = useLotsManagerStore((state) => state.lots);
   const { colorMode } = useContext(ColorModeContext);
-  // const { showGrid, showLights } = useControls(
-  //   'Scene',
-  //   {
-  //     showGrid: false,
-  //     showLights: false,
-  //   },
-  //   {
-  //     store: defaultLevaStore,
-  //   }
-  // );
 
   return (
     <>
@@ -49,15 +39,29 @@ function Scene() {
         maxDistance={45}
         minDistance={15}
       />
+
+      {/* Ground */}
       <BasePrimitiveModel
         modelName="Floating Rock"
         url="./static/models/floating_mountain.glb"
         scale={16}
         castShadow={false}
       />
+
+      {/* Lots */}
       {lots.map((lot) => (
         <Lot key={lot.id} {...lot} />
       ))}
+
+      {/* <ScaleAnimation>
+					<BasePrimitiveModel
+						modelName="Tree Curve"
+						url="./static/models/egg.glb"
+						position={[0, 0, 0]}
+						rotation={[0, 0.0, 0]}
+						scale={0.01}
+					/>
+				</ScaleAnimation> */}
       <ScaleAnimation>
         <BasePrimitiveModel
           modelName="Tree Curve"
@@ -69,10 +73,9 @@ function Scene() {
       <ScaleAnimation>
         <BasePrimitiveModel
           modelName="Tree Curve"
-          url="./static/models/egg.glb"
-          position={[0, 0, 0]}
-          rotation={[0, 0.0, 0]}
-          scale={0.01}
+          url="./static/models/tree_curve.glb"
+          position={[12, 0, -8]}
+          rotation={[0, -1, 0]}
         />
       </ScaleAnimation>
       <ScaleAnimation>
@@ -91,14 +94,34 @@ function Scene() {
           rotation={[0, Math.PI / 1.5, 0]}
         />
       </ScaleAnimation>
+
+      {/* Fences */}
       <ScaleAnimation>
         <BasePrimitiveModel
           modelName="Fence"
-          url="./static/models/single_fence.glb"
-          position={[13, 0, 6]}
-          rotation={[0, 0, 0]}
+          url="./static/models/long_fence.glb"
+          position={[-3.6, 0, 14.8]}
+          rotation={[0, -0.2, 0]}
         />
       </ScaleAnimation>
+      <ScaleAnimation>
+        <BasePrimitiveModel
+          modelName="Fence"
+          url="./static/models/long_fence.glb"
+          position={[6.4, 0, 14]}
+          rotation={[0, 0.5, 0]}
+        />
+      </ScaleAnimation>
+      <ScaleAnimation>
+        <BasePrimitiveModel
+          modelName="Fence"
+          url="./static/models/long_fence.glb"
+          position={[-13.2, 0, 7.6]}
+          rotation={[0, -1, 0]}
+        />
+      </ScaleAnimation>
+
+      {/* Lighting */}
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
         <>
