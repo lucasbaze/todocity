@@ -9,14 +9,21 @@ import { BasePrimitiveModel } from '../../models/base-primitive-model/base-primi
 import { Land } from '../land/land';
 import { ProjectModel } from '../project-model/project-model';
 
-export function Lot({ position, land, structures, id, preview }: TLot) {
+export function Lot({
+  position,
+  rotation,
+  land,
+  structures,
+  id,
+  preview,
+}: TLot) {
   // TODO: This is NOT good, definitely needs to be re-thought on how to pass the todo's the entirety of the model
   // Not just the project-list
   const projects = useLotsManagerStore((state) => state.projects);
   const hasStructures = !!structures.length;
 
   return (
-    <group position={position}>
+    <group position={position} rotation={rotation}>
       {hasStructures ? (
         <>
           {structures.map((structure) => {

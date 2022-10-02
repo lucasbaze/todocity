@@ -40,6 +40,7 @@ export type TStructure = {
 export type TLot = {
   id: string;
   position: [x: number, y: number, z: number];
+  rotation?: [x: number, y: number, z: number];
   land: TLand;
   structures: TStructure[];
   preview?: {

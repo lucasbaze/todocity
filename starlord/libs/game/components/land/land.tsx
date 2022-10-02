@@ -75,6 +75,8 @@ export function Land({
     setHovering(false);
   };
 
+  // Create the boundaries for the lines
+  // created with 4 separate lines touching to create the illusion of a square
   const xBounds = size[0] / 2;
   const yBounds = size[1] / 2;
 
@@ -86,7 +88,7 @@ export function Land({
       onPointerUp={handleMouseUp}
     >
       {locked ? (
-        <group rotation={[0, Math.PI / 3, 0]}>
+        <group>
           <Plane
             args={size}
             rotation={[-Math.PI / 2, 0, 0]}
