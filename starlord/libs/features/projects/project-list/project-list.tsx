@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { IconPlus } from '@tabler/icons';
@@ -31,6 +31,7 @@ export interface IProjectListProps {
 }
 
 export function ProjectList({ projectId, todos }: IProjectListProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const createTodoInProject = useLotsManagerStore(
     (state) => state.createTodoInProject
@@ -47,6 +48,11 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
       createTodoInProject(projectId, values);
       formikHelpers.resetForm();
       setEdit(false);
+      setTimeout(() => {
+        containerRef?.current?.scrollTo({
+          top: containerRef?.current.scrollHeight,
+        });
+      }, 10);
     },
   });
 
@@ -69,6 +75,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
   return (
     <Box>
       <Box
+        ref={containerRef}
         mb="4"
         maxHeight="400px"
         overflowY="auto"
