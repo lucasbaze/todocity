@@ -17,6 +17,10 @@ export interface IDraggableMenuProps {
   width?: string;
 }
 
+function template({ x, y }) {
+  return `translateX(${x}) translateY(${y}) translateZ(0)`;
+}
+
 /**
  * Generic wrapper component used to create draggable menus for
  * lot menus, todo menus, etc...
@@ -66,6 +70,7 @@ export function DraggableMenu({
       dragListener={false}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
+      transformTemplate={template}
       position="fixed"
       left={position.left}
       right={position.right}
@@ -142,28 +147,32 @@ export function DraggableMenu({
         {isOpen && (
           <>
             <Divider />
+            {/* 
+								TODO: Overflow hidden causes blurriness in Chrome: 
+								https://bugs.chromium.org/p/chromium/issues/detail?id=997322 
+							*/}
             <Box
-              as={motion.section}
-              position="relative"
+              // as={motion.div}
+              // position="absolute"
               bg={backgroundColor}
               borderBottomRadius="20px"
-              initial="collapsed"
-              animate="open"
-              exit="collapsed"
-              variants={{
-                open: { opacity: 1, height: 'auto' },
-                collapsed: { opacity: 0, height: 0 },
-              }}
-              overflow="hidden"
-              transform="height"
-              transitionDuration="0.5"
-              transitionTimingFunction="linear"
+              // initial="collapsed"
+              // animate="open"
+              // exit="collapsed"
+              // variants={{
+              //   open: { opacity: 1, height: 'auto' },
+              //   collapsed: { opacity: 0, height: 0 },
+              // }}
+              // transform="height"
+              // transitionDuration="0.5"
+              // transitionTimingFunction="linear"
             >
-              {/* Padding here ensures animation isn't jumpy */}
               <Box maxHeight="600px" overflowY="auto">
                 {body}
               </Box>
-              {footer}
+              <Box overflowY="hidden" borderBottomRadius="20px">
+                {footer}
+              </Box>
             </Box>
           </>
         )}

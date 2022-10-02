@@ -10,7 +10,7 @@ export const initialProjects: TProject[] = [
         id: '0',
         title: 'Open this menu',
         description: 'You are so good at this game!',
-        completed: true,
+        completed: false,
       },
       {
         id: '1',
@@ -58,7 +58,7 @@ export const initialProjects: TProject[] = [
         description: 'Complete all other todos first!',
         completed: false,
         criteria: {
-          value: 4,
+          value: 5,
           target: 'todo',
           state: 'completed',
         },

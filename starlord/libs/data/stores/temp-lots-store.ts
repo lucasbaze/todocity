@@ -39,7 +39,7 @@ export const initialLotsStore = {
   unlockedLots: 1,
   completedTodos: 0,
   structuresPlaced: 1,
-  lotPoints: 18,
+  lotPoints: 5,
   cityPoints: 3,
   demoCompleted: false,
 };
