@@ -52,6 +52,17 @@ export const initialProjects: TProject[] = [
           state: 'created',
         },
       },
+      {
+        id: '5',
+        title: 'Complete Demo',
+        description: 'The last todo!',
+        completed: false,
+        criteria: {
+          value: 4,
+          target: 'todo',
+          state: 'completed',
+        },
+      },
     ],
   },
   {

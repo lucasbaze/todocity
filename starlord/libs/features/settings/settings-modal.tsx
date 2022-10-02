@@ -21,7 +21,7 @@ import { Help } from './help/help';
 import { ReferralsSettings } from './referrals-settings/referrals-settings';
 import { ReminderSettings } from './reminder-settings/reminder-settings';
 
-enum ESettingsMenuItems {
+export enum ESettingsMenuItems {
   Account = 'account',
   Billing = 'billing',
   Referrals = 'referrals',
@@ -123,6 +123,7 @@ function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
 interface ISettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialState?: ESettingsMenuItems;
 }
 
 function settingsContent(section: ESettingsMenuItems) {
@@ -143,9 +144,13 @@ function settingsContent(section: ESettingsMenuItems) {
   }
 }
 
-export function SettingsModal({ isOpen, onClose }: ISettingsModalProps) {
+export function SettingsModal({
+  isOpen,
+  onClose,
+  initialState,
+}: ISettingsModalProps) {
   const [selectedSection, setSelectedSection] = useState<ESettingsMenuItems>(
-    ESettingsMenuItems.Referrals
+    initialState || ESettingsMenuItems.Referrals
   );
 
   return (

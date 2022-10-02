@@ -51,7 +51,12 @@ function CheckBox({ completed, setCompleted }: ICheckBox) {
   );
 }
 
-function checkCriteria(criteria?: TCriteria): boolean {
+// TODO: extract this into a separate function
+// TODO: Remove the "completeDemo", Hacky
+function checkCriteria(
+  criteria?: TCriteria,
+  completeDemo?: () => void
+): boolean {
   if (!criteria) {
     return true;
   }
@@ -63,9 +68,21 @@ function checkCriteria(criteria?: TCriteria): boolean {
       }
       return false;
     case 'todo':
-      const createdTodos = useLotsManagerStore.getState().createdTodos;
-      if (createdTodos >= criteria.value) {
-        return true;
+      if (criteria.state === 'created') {
+        const createdTodos = useLotsManagerStore.getState().createdTodos;
+        if (createdTodos >= criteria.value) {
+          return true;
+        }
+      }
+      if (criteria.state === 'completed') {
+        const completedTodos = useLotsManagerStore.getState().completedTodos;
+        if (completedTodos >= criteria.value) {
+          // TODO: Definitely a hack, only for demo purposes
+          // Core concept: Completing actions triggers other actions
+          // Needs to be extracted if the functionality will be used
+          completeDemo && completeDemo();
+          return true;
+        }
       }
       return false;
     case 'structure':
@@ -95,10 +112,13 @@ export function TodoItem({
   const todoContainerRef = useRef<HTMLDivElement>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(completed);
-  const { completeTodo, unCompleteTodo } = useLotsManagerStore((state) => ({
-    completeTodo: state.completeTodo,
-    unCompleteTodo: state.unCompleteTodo,
-  }));
+  const { completeTodo, unCompleteTodo, completeDemo } = useLotsManagerStore(
+    (state) => ({
+      completeTodo: state.completeTodo,
+      unCompleteTodo: state.unCompleteTodo,
+      completeDemo: state.completeDemo,
+    })
+  );
   const borderColor = useColorModeValue('gray.250', 'gray.600');
 
   const handleClick = () => {
@@ -119,7 +139,7 @@ export function TodoItem({
   };
 
   const handleMarkComplete = () => {
-    if (checkCriteria(criteria)) {
+    if (checkCriteria(criteria, completeDemo)) {
       setChecked((checked) => {
         if (checked) {
           unCompleteTodo(projectId, todoId);

@@ -27,6 +27,8 @@ interface ILotsStore {
   placeStructure: (lotId: string, modelId: string) => void;
   structuresPlaced: number;
   createTodoInProject: (projectId: string, todo) => void;
+  demoCompleted: boolean;
+  completeDemo: () => void;
 }
 
 export const initialLotsStore = {
@@ -39,6 +41,7 @@ export const initialLotsStore = {
   structuresPlaced: 1,
   lotPoints: 18,
   cityPoints: 3,
+  demoCompleted: false,
 };
 
 // TODO: figure out the right type here
@@ -63,6 +66,7 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           projects: projects,
+          completedTodos: state.completedTodos + 1,
           lotPoints: state.lotPoints + 2,
         };
       });
@@ -80,6 +84,7 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           projects: projects,
+          completedTodos: state.completedTodos - 1,
           lotPoints: state.lotPoints - 2,
         };
       });
@@ -174,6 +179,14 @@ export const actions = (set: any, get: any) => {
           ...state,
           createdTodos: state.createdTodos + 1,
           projects: projects,
+        };
+      });
+    },
+    completeDemo: () => {
+      set((state: ILotsStore) => {
+        return {
+          ...state,
+          demoCompleted: true,
         };
       });
     },
