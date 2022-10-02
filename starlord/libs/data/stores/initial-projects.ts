@@ -55,7 +55,7 @@ export const initialProjects: TProject[] = [
       {
         id: '5',
         title: 'Complete Demo',
-        description: 'The last todo!',
+        description: 'Complete all other todos first!',
         completed: false,
         criteria: {
           value: 4,

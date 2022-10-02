@@ -26,7 +26,7 @@ export const initialLots: TLot[] = [
   },
   {
     id: '2',
-    position: [9, 0, -3] as [x: number, y: number, z: number],
+    position: [7.5, 0, -3] as [x: number, y: number, z: number],
     rotation: [0, -Math.PI / 6, 0] as [x: number, y: number, z: number],
     land: {
       size: [8, 8] as [number, number],

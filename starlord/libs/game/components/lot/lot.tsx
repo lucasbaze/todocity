@@ -1,6 +1,6 @@
 // The Lot is a core concept
 // Read more here: TODO:
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import type { TLot } from '@todocity/data/types';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -55,11 +55,13 @@ export function Lot({
       ) : (
         <>
           {preview && (
-            <BasePrimitiveModel
-              modelName="Change Me"
-              url={preview.src}
-              preview
-            />
+            <Suspense fallback={null}>
+              <BasePrimitiveModel
+                modelName="Change Me"
+                url={preview.src}
+                preview
+              />
+            </Suspense>
           )}
           <Land {...land} lotId={id} />
         </>
