@@ -24,6 +24,7 @@
       "@todocity/data/config/*": ["libs/data/config/*"],
       "@todocity/data/db": ["libs/data/db/services/index.ts"],
       "@todocity/data/types": ["libs/data/types/index.ts"],
+      "@todocity/data/flags": ["libs/data/flags/index.ts"],
       "@todocity/firebase/*": ["libs/firebase/*"],
       "@todocity/game": ["libs/game"],
       "@todocity/features/*": ["libs/features/*"],

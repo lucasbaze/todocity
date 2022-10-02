@@ -2,12 +2,13 @@ import { ReactNode, useState } from 'react';
 
 import { useCursor } from '@react-three/drei';
 import { GroupProps } from '@react-three/fiber';
-// import { folder, useControls, useCreateStore } from 'leva';
-// import { Euler, Vector3 } from 'three';
+import { folder, useControls, useCreateStore } from 'leva';
+import { Euler, Vector3 } from 'three';
 
-// import { useEditModeStore } from '@todocity/stores/edit-mode-store';
+import { isGameDevToolsEnabled } from '@todocity/data/flags';
+import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 
-// import { useNonDragClick } from '../../hooks/useNonDragClick';
+import { useNonDragClick } from '../../hooks/useNonDragClick';
 
 export interface IBaseModelProps extends GroupProps {
   /**
@@ -28,40 +29,45 @@ export function BaseModel({
   ...props
 }: IBaseModelProps) {
   // Creates a local leva store to be passed globally through editModeStore
-  // const baseModelControlsStore = useCreateStore();
+  const baseModelControlsStore = useCreateStore();
   const [hovering, setHovering] = useState(false);
 
   useCursor(hovering);
 
-  // const setLevaStoreToDisplay = useEditModeStore(
-  //   (state) => state.setLevaStoreToDisplay
-  // );
-  // const { handleMouseDown, handleMouseUp } = useNonDragClick(() => {
-  //   setLevaStoreToDisplay(baseModelControlsStore);
-  // });
+  const setLevaStoreToDisplay = useEditModeStore(
+    (state) => state.setLevaStoreToDisplay
+  );
+  const { handleMouseDown, handleMouseUp } = useNonDragClick(() => {
+    // TODO: This is an admin only feature and probably needs to be cleaned up
+    // Ideally dev tools aren't shipped with the product into production
+    console.log(isGameDevToolsEnabled());
+    if (isGameDevToolsEnabled()) {
+      setLevaStoreToDisplay(baseModelControlsStore);
+    }
+  });
 
-  // const { polarX, polarY, polarZ, scale, cartX, cartY, cartZ } = useControls(
-  //   modelName,
-  //   {
-  //     rotation: folder({
-  //       polarX: { value: 0, min: -2 * Math.PI, max: 2 * Math.PI },
-  //       polarY: { value: 0, min: -2 * Math.PI, max: 2 * Math.PI },
-  //       polarZ: { value: 0, min: -2 * Math.PI, max: 2 * Math.PI },
-  //     }),
-  //     position: folder({
-  //       cartX: {
-  //         value: 0,
-  //         min: -10,
-  //         max: 10,
-  //       },
-  //       cartY: { value: 0, min: -10, max: 10 },
-  //       cartZ: { value: 0, min: -10, max: 10 },
-  //     }),
-  //     scale: { value: 1, min: 0.1, max: 5, step: 0.1 },
-  //   },
-  //   // Stores the controls in the above created leva store
-  //   { store: baseModelControlsStore }
-  // );
+  const { polarX, polarY, polarZ, scale, cartX, cartY, cartZ } = useControls(
+    modelName,
+    {
+      rotation: folder({
+        polarX: { value: 0, min: -2 * Math.PI, max: 2 * Math.PI },
+        polarY: { value: 0, min: -2 * Math.PI, max: 2 * Math.PI },
+        polarZ: { value: 0, min: -2 * Math.PI, max: 2 * Math.PI },
+      }),
+      position: folder({
+        cartX: {
+          value: 0,
+          min: -20,
+          max: 20,
+        },
+        cartY: { value: 0, min: -20, max: 20 },
+        cartZ: { value: 0, min: -20, max: 20 },
+      }),
+      scale: { value: 1, min: -5, max: 5, step: 0.05 },
+    },
+    // Stores the controls in the above created leva store
+    { store: baseModelControlsStore }
+  );
 
   return (
     <>
@@ -74,17 +80,17 @@ export function BaseModel({
         onPointerOut={(e) => {
           setHovering(false);
         }}
-        // onPointerDown={(e) => {
-        //   handleMouseDown(e);
-        // }}
-        // onPointerUp={(e) => {
-        //   handleMouseUp(e);
-        // }}
+        onPointerDown={(e) => {
+          handleMouseDown(e);
+        }}
+        onPointerUp={(e) => {
+          handleMouseUp(e);
+        }}
       >
         <group
-          // rotation={new Euler(polarX, polarY, polarZ)}
-          // scale={scale}
-          // position={new Vector3(cartX, cartY, cartZ)}
+          rotation={new Euler(polarX, polarY, polarZ)}
+          scale={scale}
+          position={new Vector3(cartX, cartY, cartZ)}
           castShadow
         >
           {children}
