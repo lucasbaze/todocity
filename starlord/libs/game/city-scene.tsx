@@ -91,6 +91,14 @@ function Scene() {
           rotation={[0, Math.PI / 1.5, 0]}
         />
       </ScaleAnimation>
+      <ScaleAnimation>
+        <BasePrimitiveModel
+          modelName="Fence"
+          url="./static/models/single_fence.glb"
+          position={[13, 0, 6]}
+          rotation={[0, 0, 0]}
+        />
+      </ScaleAnimation>
       <AmbientLight threeProps={{ args: ['white', 0.5] }} />
       {colorMode === 'light' ? (
         <>
