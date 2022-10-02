@@ -52,11 +52,18 @@ export type TNewTodo = {
   description: string;
 };
 
+export type TCriteria = {
+  value: number;
+  target: string; // TODO: Update to ENUM
+  state: string; // TODO: Update to ENUM
+};
+
 export type TTodoItem = {
   id: string;
   title: string;
   description?: string;
   completed?: boolean;
+  criteria?: TCriteria;
 };
 
 export type TProject = {

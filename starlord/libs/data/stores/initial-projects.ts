@@ -24,18 +24,33 @@ export const initialProjects: TProject[] = [
         title: 'Unlock a new lot',
         description: 'Click on one of the lots next to the house',
         completed: false,
+        criteria: {
+          value: 2,
+          target: 'lot',
+          state: 'unlocked',
+        },
       },
       {
         id: '3',
         title: 'Construct a new building',
         description: 'Place a building in the unlocked lot',
         completed: false,
+        criteria: {
+          value: 2,
+          target: 'structure',
+          state: 'placed',
+        },
       },
       {
         id: '4',
         title: 'Create a new todo',
         description: 'Literally anything. Go wild!',
         completed: false,
+        criteria: {
+          value: 1,
+          target: 'todo',
+          state: 'created',
+        },
       },
     ],
   },

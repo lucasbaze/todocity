@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { IconFence } from '@tabler/icons';

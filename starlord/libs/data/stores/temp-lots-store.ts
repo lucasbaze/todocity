@@ -15,14 +15,17 @@ interface ILotsStore {
   lots: TLot[];
   projects: TProject[];
   completedTodos: number;
+  createdTodos: number;
   lotPoints: number;
+  unlockedLots: number;
   cityPoints: number;
   completeTodo: (projectId: string, todoId: string) => void;
   unCompleteTodo: (projectId: string, todoId: string) => void;
   unlockLot: (lotId: string) => void;
   setPreviewModel: (lotId: string, modelId: string) => void;
   removePreviewModel: () => void;
-  placeModel: (lotId: string, modelId: string) => void;
+  placeStructure: (lotId: string, modelId: string) => void;
+  structuresPlaced: number;
   createTodoInProject: (projectId: string, todo) => void;
 }
 
@@ -30,7 +33,10 @@ export const initialLotsStore = {
   cityName: getLocalStorage()?.getItem('@todocity:city-name'),
   lots: initialLots,
   projects: initialProjects,
+  createdTodos: 0,
+  unlockedLots: 1,
   completedTodos: 0,
+  structuresPlaced: 1,
   lotPoints: 5,
   cityPoints: 3,
 };
@@ -86,6 +92,7 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           lots: lots,
+          unlockedLots: state.unlockedLots + 1,
           lotPoints: state.lotPoints - lot.land.cost,
         };
       });
@@ -114,7 +121,7 @@ export const actions = (set: any, get: any) => {
         };
       });
     },
-    placeModel: (lotId: string, modelId: string) => {
+    placeStructure: (lotId: string, modelId: string) => {
       set((state: ILotsStore) => {
         // Get the lot to update
         const lots = [...state.lots];
@@ -150,6 +157,7 @@ export const actions = (set: any, get: any) => {
           ...state,
           lots: lots,
           projects: projects,
+          structuresPlaced: state.structuresPlaced + 1,
           cityPoints: state.cityPoints + 5,
         };
       });
@@ -164,6 +172,7 @@ export const actions = (set: any, get: any) => {
         ];
         return {
           ...state,
+          createdTodos: state.createdTodos + 1,
           projects: projects,
         };
       });

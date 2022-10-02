@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
 import { IconCircle, IconCircleCheck } from '@tabler/icons';
 import { useFormik } from 'formik';
-import { AnimatePresence, motion } from 'framer-motion';
 
-import { TTodoItem } from '@todocity/data/types';
+import { TCriteria, TTodoItem } from '@todocity/data/types';
 import {
   AnimatedPointsAdd,
   AnimatedPointsSubtract,
@@ -51,6 +51,34 @@ function CheckBox({ completed, setCompleted }: ICheckBox) {
   );
 }
 
+function checkCriteria(criteria?: TCriteria): boolean {
+  if (!criteria) {
+    return true;
+  }
+  switch (criteria.target) {
+    case 'lot':
+      const unlockedLots = useLotsManagerStore.getState().unlockedLots;
+      if (unlockedLots >= criteria.value) {
+        return true;
+      }
+      return false;
+    case 'todo':
+      const createdTodos = useLotsManagerStore.getState().createdTodos;
+      if (createdTodos >= criteria.value) {
+        return true;
+      }
+      return false;
+    case 'structure':
+      const placedStructures = useLotsManagerStore.getState().structuresPlaced;
+      if (placedStructures >= criteria.value) {
+        return true;
+      }
+      return false;
+    default:
+      return true;
+  }
+}
+
 export interface ITodoItemProps extends TTodoItem {
   projectId: string;
 }
@@ -60,8 +88,10 @@ export function TodoItem({
   title,
   description,
   completed,
+  criteria,
   id: todoId,
 }: ITodoItemProps) {
+  const toast = useToast();
   const todoContainerRef = useRef<HTMLDivElement>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(completed);
@@ -89,15 +119,26 @@ export function TodoItem({
   };
 
   const handleMarkComplete = () => {
-    setChecked((checked) => {
-      if (checked) {
-        unCompleteTodo(projectId, todoId);
-      } else {
-        completeTodo(projectId, todoId);
-      }
+    if (checkCriteria(criteria)) {
+      setChecked((checked) => {
+        if (checked) {
+          unCompleteTodo(projectId, todoId);
+        } else {
+          completeTodo(projectId, todoId);
+        }
 
-      return !checked;
-    });
+        return !checked;
+      });
+    } else {
+      toast({
+        title: 'Not yet!',
+        description: 'You must do the action first!',
+        status: 'error',
+        position: 'top',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
 
   /*

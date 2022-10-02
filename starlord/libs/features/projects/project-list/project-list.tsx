@@ -66,8 +66,6 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
     { enableOnTags: ['TEXTAREA', 'INPUT'] }
   );
 
-  console.log('Form Errors: ', formik.errors);
-
   return (
     <Box>
       <Box

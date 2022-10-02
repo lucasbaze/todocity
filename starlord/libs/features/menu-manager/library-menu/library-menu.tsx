@@ -18,11 +18,11 @@ export function LibraryMenu({
   content,
 }: ILibraryMenuProps) {
   const [selected, setSelected] = useState<string | null>(null);
-  const { setPreviewModel, removePreviewModel, placeModel } =
+  const { setPreviewModel, removePreviewModel, placeStructure } =
     useLotsManagerStore((state) => ({
       setPreviewModel: state.setPreviewModel,
       removePreviewModel: state.removePreviewModel,
-      placeModel: state.placeModel,
+      placeStructure: state.placeStructure,
     }));
 
   const handleSelect = (modelId: string) => {
@@ -36,7 +36,7 @@ export function LibraryMenu({
   };
 
   const handlePlace = () => {
-    placeModel(content.lotId, selected);
+    placeStructure(content.lotId, selected);
     onClose(id);
   };
 
