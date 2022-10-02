@@ -3,13 +3,14 @@ import {
   useDisclosure,
   useMediaQuery,
   useTheme,
+  useToast,
 } from '@chakra-ui/react';
 import {
   Icon3dCubeSphere,
-  IconBox,
   IconBuildingCommunity,
   IconFence,
   IconListCheck,
+  IconStars,
 } from '@tabler/icons';
 
 import { AnalIconButton } from '@todocity/analytics/components/anal-icon-button/anal-icon-button';
@@ -24,6 +25,7 @@ import { SettingsModal } from '../settings/settings-modal';
 export function Toolbar() {
   const { user } = useAuth();
   const { zIndices } = useTheme();
+  const toast = useToast();
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
   const { isOpen, onOpen, onClose } = useDisclosure();
   // 615px is a magic number on what looks good for current toolbar size
@@ -49,6 +51,16 @@ export function Toolbar() {
     }
   };
 
+  const handleToolbarClick = () => {
+    toast({
+      title: 'Coming Soon!',
+      status: 'info',
+      position: 'bottom-left',
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
   return (
     <>
       <Flex
@@ -59,7 +71,7 @@ export function Toolbar() {
       >
         <Flex
           position="relative"
-          minWidth={isLargerThan615 ? '550px' : '100%'}
+          minWidth={isLargerThan615 ? '450px' : '100%'}
           alignItems="center"
         >
           {isLargerThan615 ? (
@@ -109,13 +121,10 @@ export function Toolbar() {
                   <Flex direction="column" mt="1">
                     <Flex gap="2">
                       <Badge colorScheme="purple" fontSize="0.8em" size="sm">
-                        Coming Soon
+                        Today&apos;s Todos
                       </Badge>
                     </Flex>
-                    <Box mt="1">
-                      Manage all your projects and todos from the game and
-                      toolbar
-                    </Box>
+                    <Box mt="1">See and manage the Todo&apos;s for today</Box>
                   </Flex>
                 }
                 hasArrow
@@ -127,6 +136,7 @@ export function Toolbar() {
                   aria-label="Check list"
                   isRound
                   variant="ghost"
+                  onClick={handleToolbarClick}
                   analytics={{ buttonName: eventTriggers.TOOlBAR_TODOS }}
                 />
               </Tooltip>
@@ -148,12 +158,12 @@ export function Toolbar() {
                             fontSize="0.8em"
                             size="sm"
                           >
-                            Coming Soon
+                            Marketplace
                           </Badge>
                         </Flex>
                         <Box mt="1">
-                          Components are the building blocks of your city
-                          including buildings, trees, and more...
+                          Collect structures to build your city like buildings,
+                          trees, and more...
                         </Box>
                       </Flex>
                     }
@@ -162,10 +172,11 @@ export function Toolbar() {
                   >
                     <AnalIconButton
                       size="sm"
-                      icon={<IconBox />}
+                      icon={<Icon3dCubeSphere />}
                       aria-label="3d cube sphere icon"
                       isRound
                       variant="ghost"
+                      onClick={handleToolbarClick}
                       analytics={{
                         buttonName: eventTriggers.TOOlBAR_COMPONENTS,
                       }}
@@ -185,12 +196,12 @@ export function Toolbar() {
                             fontSize="0.8em"
                             size="sm"
                           >
-                            Coming Soon
+                            Today&apos;s Challenges
                           </Badge>
                         </Flex>
                         <Box mt="1">
-                          City points let you buy more buildings, trees, etc...
-                          to build your city
+                          Complete Challenges for extra lot points and city
+                          points
                         </Box>
                       </Flex>
                     }
@@ -199,11 +210,12 @@ export function Toolbar() {
                   >
                     <AnalIconButton
                       size="sm"
-                      icon={<IconBuildingCommunity />}
-                      aria-label="house and building icon"
+                      icon={<IconStars />}
+                      aria-label="stars"
                       isRound
                       variant="ghost"
                       ml="1"
+                      onClick={handleToolbarClick}
                       analytics={{
                         buttonName: eventTriggers.TOOlBAR_CITY_POINTS,
                       }}
@@ -213,7 +225,7 @@ export function Toolbar() {
                     12
                   </Text> */}
                 </Flex>
-                <Flex alignItems="center">
+                {/* <Flex alignItems="center">
                   <Tooltip
                     label={
                       <Flex direction="column" mt="1">
@@ -247,10 +259,10 @@ export function Toolbar() {
                       }}
                     />
                   </Tooltip>
-                  {/* <Text variant="body" ml="1">
+                  <Text variant="body" ml="1">
                     12
-                  </Text> */}
-                </Flex>
+                  </Text>
+                </Flex> */}
               </>
             ) : (
               <Flex alignItems="center">

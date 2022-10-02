@@ -60,7 +60,7 @@ export function Feedback() {
         title: 'Feedback Sent',
         description: 'Lucas will respond back ASAP',
         status: 'success',
-        position: 'top',
+        position: 'bottom-left',
         duration: 5000,
         isClosable: true,
       });
@@ -76,7 +76,7 @@ export function Feedback() {
         title: 'Feedback Failed to send',
         description: 'You can send feedback directly to lucas@todocity.app too',
         status: 'error',
-        position: 'top',
+        position: 'bottom-left',
         duration: 9000,
         isClosable: true,
       });

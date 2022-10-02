@@ -134,7 +134,7 @@ export function TodoItem({
         title: 'Not yet!',
         description: 'You must do the action first!',
         status: 'error',
-        position: 'top',
+        position: 'bottom-left',
         duration: 2000,
         isClosable: true,
       });

@@ -43,7 +43,7 @@ export function TopBar({}: ITopBarProps) {
               <Flex direction="column" mt="1">
                 <Flex gap="2">
                   <Badge colorScheme="purple" fontSize="0.8em" size="sm">
-                    Completed
+                    Completed Todos
                   </Badge>
                 </Flex>
                 <Box mt="1">Total todos completed today</Box>
