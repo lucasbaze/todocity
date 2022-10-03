@@ -9,14 +9,7 @@ export const initialProjects: TProject[] = [
       {
         id: '0',
         title: 'Open this menu',
-        description: 'You are so good at this game!',
-        completed: false,
-      },
-      {
-        id: '1',
-        title: 'Complete this todo!',
-        description:
-          'Every todo completed is worth 2 lot points and will bleed over a smidge',
+        description: 'Every todo completed is worth 2 lot points',
         completed: false,
       },
       {

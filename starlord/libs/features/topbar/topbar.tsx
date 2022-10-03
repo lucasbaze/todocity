@@ -16,6 +16,7 @@ export function TopBar({}: ITopBarProps) {
     }));
   const { zIndices } = useTheme();
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
+  const demoNotifBgColor = useColorModeValue('purple.300', 'purple.600');
 
   return (
     <Flex
@@ -101,6 +102,28 @@ export function TopBar({}: ITopBarProps) {
           </Tooltip>
         </Box>
       </Flex>
+      {/* Demo Disclaimer */}
+      <Box
+        position="absolute"
+        left="50%"
+        transform="translateX(-50%)"
+        borderBottomRadius="20px"
+        width="200px"
+        top="44px"
+        boxShadow="xl"
+        textAlign="center"
+        bg={demoNotifBgColor}
+      >
+        <Tooltip
+          label="TodoCity is currently under construction. You will be notified about your early access!"
+          hasArrow
+          offset={[0, 10]}
+        >
+          <Text fontWeight="semibold" variant="body" cursor="pointer">
+            Demo City
+          </Text>
+        </Tooltip>
+      </Box>
     </Flex>
   );
 }
