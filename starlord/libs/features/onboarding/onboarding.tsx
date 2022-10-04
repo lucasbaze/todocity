@@ -5,10 +5,8 @@ import JSConfetti from 'js-confetti';
 import Link from 'next/link';
 
 import { isGameDevToolsEnabled } from '@todocity/data/flags';
-import {
-  ESettingsMenuItems,
-  SettingsModal,
-} from '@todocity/features/settings/settings-modal';
+import { ESettingsMenuItems } from '@todocity/features/settings/settings-menu/settings-menu';
+import { SettingsModal } from '@todocity/features/settings/settings-modal';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Card } from '@todocity/ui/components/card/card';
 import {
