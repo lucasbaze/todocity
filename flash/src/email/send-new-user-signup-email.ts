@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
 admin.initializeApp();
 
-import { transporter } from './provider';
+import { sendEmail } from './services/send-email';
 import { newUserSignupTemplate } from './templates/new-user-signup';
 import { newUserReferralTemplate } from './templates/new-user-referral';
 
@@ -32,7 +32,7 @@ export const sendNewUserSignupEmail = functions.firestore
       html: newUserSignupTemplate({ name, isReferral: !!referredBy }),
     };
 
-    transporter.sendMail(mailOptions, (err, data) => {
+    sendEmail(mailOptions, (err, data) => {
       if (err) {
         // TODO: configure sentry error to send here
         console.error('Error: ', err);
@@ -91,7 +91,7 @@ export const sendNewUserSignupEmail = functions.firestore
                 html: newUserReferralTemplate(),
               };
 
-              transporter.sendMail(mailOptions, (err, data) => {
+              sendEmail(mailOptions, (err, data) => {
                 if (err) {
                   // TODO: configure sentry error to send here
                   console.error('Error: ', err);
@@ -102,6 +102,7 @@ export const sendNewUserSignupEmail = functions.firestore
                     err
                   );
                 } else {
+                  console.log('Sent Data: ', data);
                   return { data };
                 }
               });

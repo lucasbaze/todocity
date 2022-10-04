@@ -2,13 +2,19 @@
 
 ### Development Emails
 
-Using a free service baked into nodemailer called [ethereal.email](https://ethereal.email/) that allows for sending mock emails.
-You can login with the credentials with the following credentials:
+We are using a free service baked into nodemailer called [ethereal.email](https://ethereal.email/) that allows for sending mock emails.
+Whenever an email is sent in development, like the new user signup, a test email account is created and the username and password will be shown within the firebase logs and look like:
 
-user: santiago56@ethereal.email
-pass: PPNXStGSNAJWMyrYDA
-
-And when you sign up with a new account, you'll see the email sent there.
+```sh
+>  Email account credentials for https://ethereal.email/:  {
+>    user: 'generated-username@ethereal.email',
+>    pass: 'generated-password',
+>    smtp: { host: 'smtp.ethereal.email', port: 587, secure: false },
+>    imap: { host: 'imap.ethereal.email', port: 993, secure: true },
+>    pop3: { host: 'pop3.ethereal.email', port: 995, secure: true },
+>    web: 'https://ethereal.email'
+>  }
+```
 
 ### Sign up emails
 

@@ -50,11 +50,12 @@ async function updateUserLastLoginDate(user: User) {
 }
 
 export const signInSuccessWithAuthResult =
-  (navigateTo = '/city') =>
+  (navigateTo: string = '/city', setLoading: () => void) =>
   (authResult: UserCredential) => {
     const userDocRef = doc(db, 'users', authResult.user.uid);
     getDoc(userDocRef)
       .then((doc) => {
+        // TODO: (non-urgent) Push this stuff to some background job or task queue if possible
         if (doc.exists()) {
           track.login();
           updateUserLastLoginDate(authResult.user);
@@ -69,6 +70,8 @@ export const signInSuccessWithAuthResult =
         console.error('Checking if user exists failed" ' + error);
       });
 
-    // Required do not remove
+    // Because button disappears while document is being fetched and handled there is no loading indicator
+    setLoading();
+    // Required for loading to stay on same page. Do not remove
     return false;
   };

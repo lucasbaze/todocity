@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 
-import { transporter } from './provider';
+import { sendEmail } from './services/send-email';
 import { userFeedbackTemplate } from './templates/user-feedback';
 
 export const sendUserFeedbackEmail = functions.https.onCall((data, context) => {
@@ -43,7 +43,7 @@ export const sendUserFeedbackEmail = functions.https.onCall((data, context) => {
     html: userFeedbackTemplate({ uid, email, submittedBody }),
   };
 
-  transporter.sendMail(mailOptions, (err, data) => {
+  sendEmail(mailOptions, (err, data) => {
     if (err) {
       // TODO: configure sentry error to send here
       console.error('Error: ', err);
