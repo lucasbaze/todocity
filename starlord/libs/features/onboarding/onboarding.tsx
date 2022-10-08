@@ -49,15 +49,9 @@ export function Onboarding() {
   useEffect(() => {
     if (demoCompleted) {
       setDemoCompletedModalOpen(true);
-      jsConfetti
-        ?.addConfetti({
-          emojis: ['🔥', '🎇', '🎆', '🤘', '🤩', '🎯'],
-        })
-        .then(() => {
-          jsConfetti?.addConfetti({
-            emojis: ['🔥', '🎇', '🎆', '🤘', '🤩', '🎯'],
-          });
-        });
+      jsConfetti?.addConfetti({
+        emojis: ['🔥', '🎇', '🎆', '🤘', '🤩', '🎯'],
+      });
     }
   }, [demoCompleted, jsConfetti]);
 
@@ -167,7 +161,7 @@ export function Onboarding() {
           <Modal
             isOpen={demoCompletedModalOpen}
             onClose={() => setDemoCompletedModalOpen(false)}
-            size={{ base: 'full', md: 'xl' }}
+            size={{ base: 'full', md: 'lg' }}
             isCentered
             closeOnOverlayClick={false}
             closeOnEsc={false}
@@ -175,7 +169,7 @@ export function Onboarding() {
             <ModalOverlay />
             <ModalContent>
               <ModalCloseButton />
-              <Flex direction="column" p="8">
+              <Flex direction="column" py="8">
                 <Text variant="h2" fontWeight="bold" mb="1" textAlign="center">
                   Thanks for playing!
                 </Text>
@@ -190,8 +184,8 @@ export function Onboarding() {
                   construction, but we will notify you as soon as we’re ready
                   for you!
                 </Text>
-                <Flex width="100%" gap={4}>
-                  <Card
+                {/* <Flex width="100%" gap={4}> */}
+                {/* <Card
                     boxProps={{
                       flex: 1,
                       textAlign: 'center',
@@ -214,32 +208,35 @@ export function Onboarding() {
                     >
                       Share TodoCity
                     </Button>
-                  </Card>
-                  <Card
-                    boxProps={{
-                      flex: 1,
-                      textAlign: 'center',
-                      paddingTop: 4,
-                      paddingX: 2,
-                    }}
-                  >
-                    <Text variant="bodyBig" fontWeight="bold">
-                      Want Premium?
-                    </Text>
-                    <Text variant="body" paddingBottom="6">
-                      Notifications, Reminders, Rare Structures, and more...
-                    </Text>
-                    <Link href="/pricing">
-                      <Button variant="primary" size="sm" boxShadow="none">
-                        Pre-order TodoCity
-                      </Button>
-                    </Link>
-                  </Card>
-                </Flex>
+                  </Card> */}
+                <Card
+                  boxProps={{
+                    flex: 1,
+                    textAlign: 'center',
+                    paddingTop: 4,
+                    paddingX: 2,
+                    maxWidth: '60%',
+                    margin: '0 auto 8px',
+                  }}
+                >
+                  <Text variant="h3" fontWeight="bold" pb="2">
+                    Get Premium for life!
+                  </Text>
+                  <Text variant="body" paddingBottom="8">
+                    Notifications, Reminders, Rare Structures, and more...
+                  </Text>
+                  <Link href="/pricing">
+                    <Button variant="primary" size="sm" boxShadow="none">
+                      Pre-order TodoCity!
+                    </Button>
+                  </Link>
+                </Card>
+                {/* </Flex> */}
                 <TodoCityLink
                   onClick={() => setDemoCompletedModalOpen(false)}
                   textAlign="center"
                   mt="4"
+                  fontSize="12px"
                 >
                   Continue doing
                 </TodoCityLink>

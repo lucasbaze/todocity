@@ -1,7 +1,12 @@
+import { useToast } from '@chakra-ui/react';
 import { IconDotsVertical, IconPencil, IconTrash } from '@tabler/icons';
 
+import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import {
   Box,
+  Editable,
+  EditableInput,
+  EditablePreview,
   Flex,
   IconButton,
   Menu,
@@ -12,19 +17,43 @@ import {
 } from '@todocity/ui/core';
 
 export interface IProjectListHeaderProps {
+  id: string;
   title: string;
   description: string;
 }
 
 export function ProjectListHeader({
+  id,
   title,
   description,
 }: IProjectListHeaderProps) {
+  const toast = useToast();
+  const updateProjectTitle = useLotsManagerStore(
+    (state) => state.updateProjectTitle
+  );
+
+  const handleClick = () => {
+    toast({
+      title: 'Coming Soon!',
+      status: 'info',
+      position: 'top',
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
+  const handleUpdateTitle = (e) => {
+    updateProjectTitle(id, e.target.value);
+  };
+
   return (
     <Box pl="2" py="1">
       <Flex justifyContent="space-between">
         <Box>
-          <Text fontSize="20px">{title}</Text>
+          <Editable defaultValue={title}>
+            <EditablePreview fontSize="20px" />
+            <EditableInput fontSize="20px" onBlur={handleUpdateTitle} />
+          </Editable>
           <Text variant="description">{description}</Text>
         </Box>
         <Box cursor="pointer">
@@ -37,8 +66,14 @@ export function ProjectListHeader({
               variant="ghost"
             />
             <MenuList>
-              <MenuItem icon={<IconPencil />}>Edit Project</MenuItem>
-              <MenuItem icon={<IconTrash />} color="red.600">
+              <MenuItem icon={<IconPencil />} onClick={handleClick}>
+                Edit Project
+              </MenuItem>
+              <MenuItem
+                icon={<IconTrash />}
+                color="red.600"
+                onClick={handleClick}
+              >
                 Delete
               </MenuItem>
             </MenuList>

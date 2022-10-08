@@ -34,6 +34,11 @@ interface ILotsStore {
   structuresPlaced: number;
   unlockStructure: (lotId: string) => void;
   createTodoInProject: (projectId: string, todo) => void;
+  updateProjectTitle: (projectId: string, projectTitle: string) => void;
+  updateProjectDescription: (
+    projectId: string,
+    projectDescription: string
+  ) => void;
   demoCompleted: boolean;
   completeDemo: () => void;
 }
@@ -201,6 +206,35 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           createdTodos: state.createdTodos + 1,
+          projects: projects,
+        };
+      });
+    },
+    updateProjectTitle: (projectId: string, projectTitle: string) => {
+      set((state: ILotsStore) => {
+        const projects = [...state.projects];
+        const project = projects.find((project) => project.id === projectId);
+
+        project.title = projectTitle;
+
+        return {
+          ...state,
+          projects: projects,
+        };
+      });
+    },
+    updateProjectDescription: (
+      projectId: string,
+      projectDescription: string
+    ) => {
+      set((state: ILotsStore) => {
+        const projects = [...state.projects];
+        const project = projects.find((project) => project.id === projectId);
+
+        project.description = projectDescription;
+
+        return {
+          ...state,
           projects: projects,
         };
       });

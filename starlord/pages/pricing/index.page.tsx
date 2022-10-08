@@ -175,7 +175,7 @@ function PricingPage() {
                   />
                   <PricingCard
                     data={{
-                      price: '$25',
+                      price: '$19',
                       denomination: 'life',
                       name: 'Metropolis',
                       discount: (

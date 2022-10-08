@@ -33,7 +33,7 @@ function Scene() {
       {/* <Stats /> */}
       {/* {showGrid && <gridHelper />} */}
       <OrbitControls
-        maxPolarAngle={Math.PI / 2}
+        maxPolarAngle={Math.PI / 2.5}
         minPolarAngle={0}
         enablePan={false}
         maxDistance={45}

@@ -51,6 +51,7 @@ export function ProjectMenu({
       }
       header={
         <ProjectListHeader
+          id={id}
           title={selectedProject.title}
           description={selectedProject.description}
         />
