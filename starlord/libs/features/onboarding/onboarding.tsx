@@ -120,12 +120,12 @@ export function Onboarding() {
             <ModalContent>
               <form onSubmit={formik.handleSubmit}>
                 <Flex direction="column" p="8">
-                  <Text variant="h2" fontWeight="bold" mb="1">
-                    Welcome to TodoCity!
+                  <Text variant="h3" fontWeight="bold" mb="1">
+                    Welcome to the demo city!
                   </Text>
                   <Text mb="8">
-                    In order to finalize your city charter, we need a name for
-                    this new city of productvity!
+                    TodoCity is a simple todo list app with city building at its
+                    core. Get started and name your demo city!
                   </Text>
                   <FormControl
                     isInvalid={formik.errors.name && formik.touched.name}

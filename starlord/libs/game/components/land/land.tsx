@@ -9,7 +9,6 @@ import { MeshBasicMaterial, MeshStandardMaterial } from 'three';
 
 import type { TLand } from '@todocity/data/types';
 import { useMenuManagerStore } from '@todocity/stores/menu-manager-store';
-import { getUid } from '@todocity/utils/global/get-uid';
 
 const transparentPlaneMaterial = new MeshBasicMaterial({
   transparent: true,
@@ -31,12 +30,11 @@ export function Land({
   const createMenu = useMenuManagerStore((state) => state.createMenu);
 
   const [hovering, setHovering] = useState(false);
-  const [ephemeralLandId] = useState(getUid());
   const { handleMouseDown, handleMouseUp } = useNonDragClick(
     (event: ThreeEvent<MouseEvent>) => {
       if (locked) {
         createMenu({
-          id: ephemeralLandId,
+          id: lotId,
           type: 'lot',
           // @ts-ignore
           // TODO: Figure out why clientX & clientY are not showing as possible types;
@@ -52,6 +50,7 @@ export function Land({
       } else {
         // TODO: fix these typings... they're not very good :(
         createMenu({
+          id: 'library',
           type: 'library',
           content: {
             lotId,

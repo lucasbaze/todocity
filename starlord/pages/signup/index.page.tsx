@@ -28,7 +28,7 @@ const textCopy = (navigateTo: string | undefined) => {
     default:
       return {
         title: 'Get Early Access Today!',
-        description: 'Create an account and get free premium for a year!',
+        description: 'Create an account and try out the demo city now!',
       };
   }
 };

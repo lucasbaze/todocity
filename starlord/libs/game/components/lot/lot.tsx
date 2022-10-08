@@ -43,7 +43,7 @@ export function Lot({
                   structureThumbnailUrl={structure.thumbnailSrc}
                   objectModel={
                     <BasePrimitiveModel
-                      modelName={structure.name}
+                      modelName={structure.details.name}
                       url={structure.src}
                     />
                   }

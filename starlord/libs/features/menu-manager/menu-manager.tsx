@@ -2,9 +2,7 @@ import type { TMenu } from '@todocity/data/types';
 import { LibraryMenu } from '@todocity/features/menu-manager/library-menu/library-menu';
 import { ProjectMenu } from '@todocity/features/menu-manager/project-menu/project-menu';
 import { useMenuManagerStore } from '@todocity/stores/menu-manager-store';
-import { Box } from '@todocity/ui/core';
 
-import { DraggableMenu } from './draggable-menu/draggable-menu';
 import { LotMenu } from './lot-menu/lot-menu';
 
 function MenuPresenter(props: TMenu) {
@@ -21,13 +19,10 @@ function MenuPresenter(props: TMenu) {
 }
 
 export function MenuManager() {
-  const store = useMenuManagerStore();
-  console.log('Store: ', store);
-  // const activeMenus = useMenuManagerStore((state) => state.activeMenus);
-  // console.log('Active Menus: ', activeMenus);
+  const activeMenus = useMenuManagerStore((state) => state.activeMenus);
   return (
     <>
-      {store.activeMenus?.map((menu) => (
+      {activeMenus?.map((menu) => (
         <MenuPresenter key={menu.id} {...menu} />
       ))}
     </>

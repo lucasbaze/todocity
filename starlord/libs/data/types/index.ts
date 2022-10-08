@@ -29,12 +29,16 @@ export type TMenu = {
 
 export type TStructure = {
   id: string;
-  name: string;
   type: string;
   src: string;
   thumbnailSrc: string;
   relativePosition: number[];
   projectId?: string;
+  details?: {
+    name?: string;
+    description?: string;
+    cost?: number;
+  };
 };
 
 export type TLot = {

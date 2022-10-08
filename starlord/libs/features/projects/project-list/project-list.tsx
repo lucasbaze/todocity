@@ -103,7 +103,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
                     id="title"
                     name="title"
                     variant="filled"
-                    placeholder="My Todo"
+                    placeholder="Todo title..."
                     fontWeight="semibold"
                     onChange={formik.handleChange}
                     value={formik.values.title}
@@ -115,7 +115,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
                     ref={ref}
                     id="description"
                     name="description"
-                    placeholder="description"
+                    placeholder="Todo description..."
                     variant="filled"
                     onChange={formik.handleChange}
                     value={formik.values.description}

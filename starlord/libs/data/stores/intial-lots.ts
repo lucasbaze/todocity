@@ -15,12 +15,14 @@ export const initialLots: TLot[] = [
     structures: [
       {
         id: 'structure-id',
-        name: 'Boring House',
         type: 'BUILDING',
         src: './static/models/main_house.glb',
         thumbnailSrc: './static/images/main-house.png',
         relativePosition: [0, 0, 0],
         projectId: 'my-first-project',
+        details: {
+          name: 'Boring House',
+        },
       },
     ],
   },

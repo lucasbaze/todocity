@@ -30,6 +30,7 @@ export function ProjectMenu({
 
   return (
     <DraggableMenu
+      id={id}
       position={cssPosition}
       width="400px"
       headerAccent={

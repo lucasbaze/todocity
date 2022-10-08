@@ -55,7 +55,7 @@ export function Toolbar() {
     toast({
       title: 'Coming Soon!',
       status: 'info',
-      position: 'bottom-left',
+      position: 'top',
       duration: 2000,
       isClosable: true,
     });

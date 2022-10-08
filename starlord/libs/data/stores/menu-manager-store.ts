@@ -40,6 +40,13 @@ export const actions = (set: any, get: any) => {
             activeMenus: [...state.activeMenus, newMenu],
           };
         } else {
+          // TODO: refactor this into its own module
+          const shakeEvent = new CustomEvent('shake-menu', {
+            detail: {
+              id: createMenuArgs.id,
+            },
+          });
+          document.dispatchEvent(shakeEvent);
           return { ...state };
         }
       });

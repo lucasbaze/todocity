@@ -26,6 +26,7 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
 
   return (
     <DraggableMenu
+      id={id}
       position={cssPosition}
       width="300px"
       header={

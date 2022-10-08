@@ -1,11 +1,18 @@
 import { useState } from 'react';
 
-import { AnalButton } from '@todocity/analytics/components/anal-button/anal-button';
 import type { TMenu } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { structures } from '@todocity/stores/initial-structures';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
-import { Box, Button, Flex, Grid, Image, Text } from '@todocity/ui/core';
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Image,
+  Text,
+  Tooltip,
+} from '@todocity/ui/core';
 
 export interface ILibraryMenuProps extends TMenu {
   onClose: (id: string) => void;
@@ -40,13 +47,20 @@ export function LibraryMenu({
     onClose(id);
   };
 
+  // const stru
+
   return (
     <DraggableMenu
+      id={id}
       position={cssPosition}
-      width="300px"
+      width="320px"
       header={
-        <Flex justifyContent="space-between">
+        <Box>
           <Text fontSize="20px">My Library</Text>
+          <Text variant="description">
+            Your library holds the buildings you can use to create new todo
+            lists
+          </Text>
           {/* <AnalButton
             variant="outline"
             colorScheme="purple"
@@ -55,55 +69,53 @@ export function LibraryMenu({
           >
             Marketplace
           </AnalButton> */}
-        </Flex>
+        </Box>
       }
       body={
-        <Box position="relative" px="4" py="2">
+        <Box position="relative" mx="4" py="2">
           <Grid
             alignItems="center"
             templateColumns="repeat(2, 1fr)"
             gap={4}
             my="2"
           >
-            {structures.map((struct) => (
-              <Box
+            {structures.map((struct, i) => (
+              <Tooltip
                 key={struct.id}
-                onClick={() => handleSelect(struct.id)}
-                cursor="pointer"
+                sx={{
+                  borderWidth: '2px',
+                  borderColor: 'purple.600',
+                  borderRadius: '10',
+                }}
+                label={
+                  <Box width="120px" height="120px">
+                    <Text fontWeight="bold">{struct.details.name}</Text>
+                    <Text lineHeight="1.2">{struct.details.description}</Text>
+                  </Box>
+                }
+                placement={i % 2 !== 0 ? 'left' : 'right'}
               >
-                <Box
-                  position="relative"
-                  borderRadius={10}
-                  height="120px"
-                  width="120px"
-                  border="2px"
-                  margin="0 auto"
-                  borderColor={
-                    selected === struct.id ? 'purple.600' : 'gray.300'
-                  }
-                  boxShadow={selected === struct.id && 'lg'}
-                  overflow="hidden"
-                >
-                  <Image
-                    src={struct.thumbnailSrc}
-                    width="200px"
-                    alt={struct.name}
-                  />
+                <Box onClick={() => handleSelect(struct.id)} cursor="pointer">
                   <Box
-                    position="absolute"
-                    bottom={0}
-                    left={0}
-                    right={0}
-                    bg="blackAlpha.400"
+                    position="relative"
+                    borderRadius={10}
+                    height="135px"
+                    width="135px"
+                    border="2px"
+                    borderColor={
+                      selected === struct.id ? 'purple.600' : 'gray.300'
+                    }
+                    boxShadow={selected === struct.id && 'lg'}
+                    overflow="hidden"
                   >
-                    <Flex alignItems="center" justifyContent="center" p="1">
-                      <Text fontWeight="bold" fontSize="sm">
-                        {struct.name}
-                      </Text>
-                    </Flex>
+                    <Image
+                      src={struct.thumbnailSrc}
+                      width="200px"
+                      alt={struct.details.name}
+                    />
                   </Box>
                 </Box>
-              </Box>
+              </Tooltip>
             ))}
           </Grid>
         </Box>

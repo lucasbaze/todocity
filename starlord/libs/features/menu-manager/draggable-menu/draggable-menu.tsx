@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useColorMode, useColorModeValue, useTheme } from '@chakra-ui/react';
+import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import { IconCaretDown, IconDots, IconX } from '@tabler/icons';
-import { AnimatePresence, motion, useDragControls } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useAnimation,
+  useDragControls,
+  Variants,
+} from 'framer-motion';
 
 import { CSSPositionOffsets } from '@todocity/data/types';
-import { Box, Divider, Flex, Icon, Image } from '@todocity/ui/core';
+import { Box, Divider, Flex, Icon } from '@todocity/ui/core';
 
 export interface IDraggableMenuProps {
+  id: string;
   position: CSSPositionOffsets;
   header: React.ReactNode;
   body: React.ReactNode;
@@ -17,15 +24,12 @@ export interface IDraggableMenuProps {
   width?: string;
 }
 
-function template({ x, y }) {
-  return `translateX(${x}) translateY(${y}) translateZ(0)`;
-}
-
 /**
  * Generic wrapper component used to create draggable menus for
  * lot menus, todo menus, etc...
  */
 export function DraggableMenu({
+  id,
   position,
   headerAccent,
   header,
@@ -43,6 +47,33 @@ export function DraggableMenu({
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
 
   const dragControls = useDragControls();
+  const shakeControls = useAnimation();
+
+  const shakeVariants: Variants = {
+    shake: {
+      translateX: [-2, 2, -2, 2, 0],
+      transition: {
+        duration: 0.3,
+        repeat: 0,
+      },
+    },
+  };
+
+  function handleWiggle(e: CustomEvent) {
+    const { detail } = e;
+    console.log('id: ', id, 'detail.id: ', detail.id);
+    if (id === detail.id) {
+      shakeControls.start('shake');
+      setTimeout(() => {
+        shakeControls.stop();
+      }, 1000);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('shake-menu', handleWiggle);
+    return () => document.removeEventListener('shake-menu', handleWiggle);
+  }, []);
 
   const startDrag = (e) => {
     dragControls.start(e);
@@ -70,7 +101,8 @@ export function DraggableMenu({
       dragListener={false}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
-      transformTemplate={template}
+      variants={shakeVariants}
+      animate={shakeControls}
       position="fixed"
       left={position.left}
       right={position.right}

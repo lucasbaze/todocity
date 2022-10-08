@@ -4,7 +4,7 @@ export const initialProjects: TProject[] = [
   {
     id: 'my-first-project',
     title: 'My First Project',
-    description: 'This todo list is for your things',
+    description: 'Projects are your todo lists for any area of life',
     todos: [
       {
         id: '0',
@@ -51,7 +51,7 @@ export const initialProjects: TProject[] = [
         description: 'Complete all other todos first!',
         completed: false,
         criteria: {
-          value: 5,
+          value: 4,
           target: 'todo',
           state: 'completed',
         },
