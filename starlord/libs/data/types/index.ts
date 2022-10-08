@@ -38,6 +38,7 @@ export type TStructure = {
     name?: string;
     description?: string;
     cost?: number;
+    locked?: boolean;
   };
 };
 

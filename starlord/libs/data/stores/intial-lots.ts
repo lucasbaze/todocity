@@ -31,7 +31,7 @@ export const initialLots: TLot[] = [
     position: [7.5, 0, -3] as [x: number, y: number, z: number],
     rotation: [0, -Math.PI / 6, 0] as [x: number, y: number, z: number],
     land: {
-      size: [8, 8] as [number, number],
+      size: [10, 8] as [number, number],
       name: 'Lot 420',
       description: 'You could have smelly neighbors...',
       locked: true,

@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
+import { IconBuildingCommunity } from '@tabler/icons';
+
 import type { TMenu } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
-import { structures } from '@todocity/stores/initial-structures';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import {
   Box,
   Button,
   Flex,
   Grid,
+  Icon,
   Image,
   Text,
   Tooltip,
@@ -25,12 +27,21 @@ export function LibraryMenu({
   content,
 }: ILibraryMenuProps) {
   const [selected, setSelected] = useState<string | null>(null);
-  const { setPreviewModel, removePreviewModel, placeStructure } =
-    useLotsManagerStore((state) => ({
-      setPreviewModel: state.setPreviewModel,
-      removePreviewModel: state.removePreviewModel,
-      placeStructure: state.placeStructure,
-    }));
+  const {
+    allStructures,
+    cityPoints,
+    unlockStructure,
+    setPreviewModel,
+    removePreviewModel,
+    placeStructure,
+  } = useLotsManagerStore((state) => ({
+    allStructures: state.structures,
+    cityPoints: state.cityPoints,
+    unlockStructure: state.unlockStructure,
+    setPreviewModel: state.setPreviewModel,
+    removePreviewModel: state.removePreviewModel,
+    placeStructure: state.placeStructure,
+  }));
 
   const handleSelect = (modelId: string) => {
     setPreviewModel(content.lotId, modelId);
@@ -47,7 +58,9 @@ export function LibraryMenu({
     onClose(id);
   };
 
-  // const stru
+  const handleUnlockBuilding = (structId) => {
+    unlockStructure(structId);
+  };
 
   return (
     <DraggableMenu
@@ -61,14 +74,6 @@ export function LibraryMenu({
             Your library holds the buildings you can use to create new todo
             lists
           </Text>
-          {/* <AnalButton
-            variant="outline"
-            colorScheme="purple"
-            size="xs"
-            analytics={{ buttonName: 'experiment-marketplace' }}
-          >
-            Marketplace
-          </AnalButton> */}
         </Box>
       }
       body={
@@ -79,7 +84,7 @@ export function LibraryMenu({
             gap={4}
             my="2"
           >
-            {structures.map((struct, i) => (
+            {allStructures.map((struct, i) => (
               <Tooltip
                 key={struct.id}
                 sx={{
@@ -95,26 +100,90 @@ export function LibraryMenu({
                 }
                 placement={i % 2 !== 0 ? 'left' : 'right'}
               >
-                <Box onClick={() => handleSelect(struct.id)} cursor="pointer">
+                {struct.details.locked ? (
                   <Box
                     position="relative"
                     borderRadius={10}
-                    height="135px"
-                    width="135px"
-                    border="2px"
-                    borderColor={
-                      selected === struct.id ? 'purple.600' : 'gray.300'
-                    }
-                    boxShadow={selected === struct.id && 'lg'}
                     overflow="hidden"
+                    _hover={{
+                      '> .locked-cover': {
+                        visibility: 'visible',
+                      },
+                    }}
                   >
-                    <Image
-                      src={struct.thumbnailSrc}
-                      width="200px"
-                      alt={struct.details.name}
-                    />
+                    <Box cursor="pointer">
+                      <Box
+                        position="relative"
+                        borderRadius={10}
+                        height="135px"
+                        width="135px"
+                        border="2px"
+                        borderColor={
+                          selected === struct.id ? 'purple.600' : 'gray.300'
+                        }
+                        boxShadow={selected === struct.id && 'lg'}
+                        overflow="hidden"
+                      >
+                        <Image
+                          src={struct.thumbnailSrc}
+                          filter="grayscale(100%)"
+                          width="200px"
+                          alt={struct.details.name}
+                        />
+                      </Box>
+                    </Box>
+                    <Box
+                      className="locked-cover"
+                      visibility="hidden"
+                      display="flex"
+                      position="absolute"
+                      justifyContent="center"
+                      alignItems="center"
+                      top={0}
+                      right={0}
+                      left={0}
+                      bottom={0}
+                      bg="blackAlpha.300"
+                    >
+                      <Button
+                        variant="solid"
+                        size="xs"
+                        colorScheme="purple"
+                        onClick={() => handleUnlockBuilding(struct.id)}
+                        _disabled={{
+                          colorScheme: 'purple',
+                          opacity: 0.8,
+                          cursor: 'not-allowed',
+                        }}
+                        disabled={cityPoints < struct.details.cost}
+                      >
+                        Unlock: {struct.details.cost}{' '}
+                        <Icon as={IconBuildingCommunity} />
+                      </Button>
+                    </Box>
                   </Box>
-                </Box>
+                ) : (
+                  <Box onClick={() => handleSelect(struct.id)} cursor="pointer">
+                    <Box
+                      position="relative"
+                      borderRadius={10}
+                      height="135px"
+                      width="135px"
+                      border="2px"
+                      borderColor={
+                        selected === struct.id ? 'purple.600' : 'gray.300'
+                      }
+                      boxShadow={selected === struct.id && 'lg'}
+                      overflow="hidden"
+                    >
+                      <Image
+                        src={struct.thumbnailSrc}
+                        width="200px"
+                        alt={struct.details.name}
+                      />
+                    </Box>
+                  </Box>
+                )}
               </Tooltip>
             ))}
           </Grid>

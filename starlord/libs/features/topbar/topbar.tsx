@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import { IconBuildingCommunity, IconFence, IconListCheck } from '@tabler/icons';
 
@@ -89,7 +91,7 @@ export function TopBar({}: ITopBarProps) {
                     City Points
                   </Badge>
                 </Flex>
-                <Box mt="1">Used to grow your city</Box>
+                <Box mt="1">Used to buy structures and grow your city</Box>
               </Flex>
             }
             hasArrow

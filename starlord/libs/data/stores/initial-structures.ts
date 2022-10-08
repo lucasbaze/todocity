@@ -39,13 +39,14 @@ export const structures = [
   {
     id: 'retaurant-building',
     type: 'BUILDING',
-    src: './static/models/office_building_4x12_trees.glb',
-    thumbnailSrc: './static/images/office-building.png',
+    src: './static/models/restaurant.glb',
+    thumbnailSrc: './static/images/restaurant.png',
     relativePosition: [0, 0, 0],
     details: {
       name: 'Restuarant',
-      description: 'A building to work. Provides 1 extra city point per hour.',
-      cost: 10,
+      description: 'Time to eat! Provides 2 extra city points per hour.',
+      cost: 3,
+      locked: true,
     },
   },
 ];

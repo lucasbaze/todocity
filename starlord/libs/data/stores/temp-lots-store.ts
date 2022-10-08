@@ -1,7 +1,12 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import type { TLot, TNewTodo, TProject } from '@todocity/data/types';
+import type {
+  TLot,
+  TNewTodo,
+  TProject,
+  TStructure,
+} from '@todocity/data/types';
 import { getLocalStorage } from '@todocity/utils/global/get-local-storage';
 import { getUid } from '@todocity/utils/global/get-uid';
 
@@ -25,7 +30,9 @@ interface ILotsStore {
   setPreviewModel: (lotId: string, modelId: string) => void;
   removePreviewModel: () => void;
   placeStructure: (lotId: string, modelId: string) => void;
+  structures: TStructure[];
   structuresPlaced: number;
+  unlockStructure: (lotId: string) => void;
   createTodoInProject: (projectId: string, todo) => void;
   demoCompleted: boolean;
   completeDemo: () => void;
@@ -35,12 +42,13 @@ export const initialLotsStore = {
   cityName: getLocalStorage()?.getItem('@todocity:city-name'),
   lots: initialLots,
   projects: initialProjects,
+  structures: structures,
   createdTodos: 0,
   unlockedLots: 1,
   completedTodos: 0,
   structuresPlaced: 1,
   lotPoints: 5,
-  cityPoints: 3,
+  cityPoints: 1,
   demoCompleted: false,
 };
 
@@ -164,6 +172,21 @@ export const actions = (set: any, get: any) => {
           projects: projects,
           structuresPlaced: state.structuresPlaced + 1,
           cityPoints: state.cityPoints + 5,
+        };
+      });
+    },
+    unlockStructure: (lotId: string) => {
+      set((state: ILotsStore) => {
+        const updatedStructures = [...structures];
+        const structureToUnlock = updatedStructures.find(
+          (struct) => struct.id === lotId
+        );
+        structureToUnlock.details.locked = false;
+
+        return {
+          ...state,
+          cityPoints: state.cityPoints - structureToUnlock.details.cost,
+          structures: updatedStructures,
         };
       });
     },
