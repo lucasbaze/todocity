@@ -1,4 +1,4 @@
-import { Suspense, useContext } from 'react';
+import { Suspense, useContext, useEffect } from 'react';
 
 import { ColorModeContext } from '@chakra-ui/react';
 import {
@@ -10,9 +10,11 @@ import {
   Stats,
   useContextBridge,
 } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { levaStore as defaultLevaStore, useControls } from 'leva';
 import { ScaleAnimation } from 'libs/game/hocs/scale-animation';
+import { Toast } from 'libs/game/hocs/toast';
+import { Color, Fog, FogExp2 } from 'three';
 
 import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -25,8 +27,18 @@ import { Lot } from './components/lot/lot';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
 
 function Scene() {
+  const { scene } = useThree();
   const lots = useLotsManagerStore((state) => state.lots);
   const { colorMode } = useContext(ColorModeContext);
+
+  useEffect(() => {
+    // Attach Fog
+    if (colorMode === 'light') {
+      scene.fog = new FogExp2(0xdfe9f3, 0.002);
+    } else {
+      scene.fog = null;
+    }
+  }, [colorMode]);
 
   return (
     <>
@@ -48,20 +60,94 @@ function Scene() {
         castShadow={false}
       />
 
+      {/* Far away ground */}
+      <Toast>
+        <BasePrimitiveModel
+          modelName="Floating Rock"
+          url="./static/models/floating_mountain.glb"
+          scale={16}
+          castShadow={false}
+          position={[0, -20, -500]}
+        />
+      </Toast>
+      <Toast>
+        <BasePrimitiveModel
+          modelName="Floating Rock"
+          url="./static/models/floating_mountain.glb"
+          scale={16}
+          castShadow={false}
+          position={[500, 0, -500]}
+        />
+      </Toast>
+      <Toast>
+        <BasePrimitiveModel
+          modelName="Floating Rock"
+          url="./static/models/floating_mountain.glb"
+          scale={16}
+          castShadow={false}
+          position={[500, -20, 0]}
+        />
+      </Toast>
+      <Toast>
+        <BasePrimitiveModel
+          modelName="Floating Rock"
+          url="./static/models/floating_mountain.glb"
+          scale={16}
+          castShadow={false}
+          position={[500, 0, 500]}
+        />
+      </Toast>
+      <Toast>
+        <BasePrimitiveModel
+          modelName="Floating Rock"
+          url="./static/models/floating_mountain.glb"
+          scale={16}
+          castShadow={false}
+          position={[0, 10, 500]}
+        />
+      </Toast>
+      <Toast>
+        <BasePrimitiveModel
+          modelName="Floating Rock"
+          url="./static/models/floating_mountain.glb"
+          scale={16}
+          castShadow={false}
+          position={[-500, 5, 500]}
+        />
+      </Toast>
+      <Toast>
+        <BasePrimitiveModel
+          modelName="Floating Rock"
+          url="./static/models/floating_mountain.glb"
+          scale={16}
+          castShadow={false}
+          position={[-500, 0, -500]}
+        />
+      </Toast>
+      <Toast>
+        <BasePrimitiveModel
+          modelName="Floating Rock"
+          url="./static/models/floating_mountain.glb"
+          scale={16}
+          castShadow={false}
+          position={[-500, -20, 0]}
+        />
+      </Toast>
+
       {/* Lots */}
       {lots.map((lot) => (
         <Lot key={lot.id} {...lot} />
       ))}
 
       {/* <ScaleAnimation>
-					<BasePrimitiveModel
-						modelName="Tree Curve"
-						url="./static/models/egg.glb"
-						position={[0, 0, 0]}
-						rotation={[0, 0.0, 0]}
-						scale={0.01}
-					/>
-				</ScaleAnimation> */}
+        <BasePrimitiveModel
+          modelName="Tree Curve"
+          url="./static/models/egg.glb"
+          position={[0, 0, 0]}
+          rotation={[0, 0.0, 0]}
+          scale={0.01}
+        />
+      </ScaleAnimation> */}
       <ScaleAnimation>
         <BasePrimitiveModel
           modelName="Tree Curve"
@@ -179,7 +265,7 @@ export function CityScene() {
 
   return (
     <Canvas shadows onPointerMissed={handleMissed}>
-      <PerspectiveCamera makeDefault position={[20, 20, 20]} fov={60} />
+      <PerspectiveCamera makeDefault position={[25, 10, 25]} fov={60} />
       <ContextBridge>
         <Suspense
           fallback={

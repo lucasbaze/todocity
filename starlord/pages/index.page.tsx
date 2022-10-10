@@ -60,7 +60,7 @@ const Home: NextPage = () => {
                 pt={{ base: '8', sm: '12', md: '16' }}
                 pb={{ base: '4', sm: '4' }}
               >
-                Your New Favorite Todo App
+                Your New Favorite Todo List App.
               </Text>
               <Text
                 as="h2"
@@ -70,10 +70,10 @@ const Home: NextPage = () => {
                 textAlign={{ base: 'center', lg: 'initial' }}
               >
                 <Show below="lg">
-                  Complete your Todos. <br /> Unlock assets. Build your city.
+                  Complete your todos. <br /> Unlock assets. Build your city.
                 </Show>
                 <Show above="lg">
-                  Complete your Todos. Unlock assets. <br /> Build your city.
+                  Complete your todos. Unlock assets. <br /> Build your city.
                 </Show>
               </Text>
               <Box width="max-content">

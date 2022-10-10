@@ -23,7 +23,7 @@ type IPageSEOMetaProps = Partial<
 export const DEFAULT_URL = 'todocity.app';
 export const DEFAULT_TITLE = 'A Gamified Todo App';
 export const DEFAULT_DESCRIPTION =
-  'A new style todo app to boost productivity and have fun building your city!';
+  'TodoCity is a gamified todo app that combines productivity and city building to help you get more things done throughout the day.';
 export const DEFAULT_IMAGE = 'https://todocity.app/static/image/todocity.png';
 export const DEFAULT_IMAGE_ALT = 'TodoCity';
 

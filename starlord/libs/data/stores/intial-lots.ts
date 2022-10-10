@@ -3,7 +3,7 @@ import type { TLot } from '@todocity/data/types';
 export const initialLots: TLot[] = [
   {
     id: '1',
-    position: [-5, 0, 6] as [x: number, y: number, z: number],
+    position: [-7, 0, 5] as [x: number, y: number, z: number],
     rotation: [0, 0, 0] as [x: number, y: number, z: number],
     land: {
       size: [10, 10] as [number, number],
@@ -28,7 +28,7 @@ export const initialLots: TLot[] = [
   },
   {
     id: '2',
-    position: [7.5, 0, -3] as [x: number, y: number, z: number],
+    position: [5.5, 0, -5.5] as [x: number, y: number, z: number],
     rotation: [0, -Math.PI / 6, 0] as [x: number, y: number, z: number],
     land: {
       size: [10, 8] as [number, number],
@@ -41,7 +41,7 @@ export const initialLots: TLot[] = [
   },
   {
     id: '3',
-    position: [-4, 0, -7] as [x: number, y: number, z: number],
+    position: [-6, 0, -5] as [x: number, y: number, z: number],
     rotation: [0, 0, 0] as [x: number, y: number, z: number],
     land: {
       size: [8, 8] as [number, number],
@@ -54,7 +54,7 @@ export const initialLots: TLot[] = [
   },
   {
     id: '4',
-    position: [5, 0, 8] as [x: number, y: number, z: number],
+    position: [4.5, 0, 8] as [x: number, y: number, z: number],
     rotation: [0, -Math.PI / 6, 0] as [x: number, y: number, z: number],
     land: {
       size: [8, 8] as [number, number],

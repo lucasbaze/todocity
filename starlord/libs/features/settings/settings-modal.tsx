@@ -1,126 +1,26 @@
-import { Dispatch, SetStateAction, useState } from 'react';
-
-import { useColorModeValue, useMediaQuery } from '@chakra-ui/react';
+import { useState } from 'react';
 
 import {
-  Box,
   Flex,
   Modal,
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  Select,
-  Stack,
 } from '@todocity/ui/core';
 
 import { AccountSettings } from './account-settings/account-settings';
 import { BillingSettings } from './billing-settings/billing-settings';
+import { ChallengesMenu } from './challenges-menu/challenges-menu';
+import { CitySettingsMenu } from './city-settings/city-settings';
+import { CollectablesMenu } from './collectables-menu/collectables-menu';
 import { Feedback } from './feedback/feedback';
-import { Help } from './help/help';
+import { OverviewMenu } from './overview-menu/overview-menu';
 import { ReferralsSettings } from './referrals-settings/referrals-settings';
 import { ReminderSettings } from './reminder-settings/reminder-settings';
 import {
   ESettingsMenuItems,
   SettingsMenu,
 } from './settings-menu/settings-menu';
-
-// export enum ESettingsMenuItems {
-//   Account = 'account',
-//   Billing = 'billing',
-//   Referrals = 'referrals',
-//   Reminders = 'reminders',
-//   Feedback = 'feedback',
-//   Help = 'help',
-// }
-
-// interface ISettingsMenuProps {
-//   selected: ESettingsMenuItems;
-//   setSelected: Dispatch<SetStateAction<ESettingsMenuItems>>;
-// }
-
-// function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
-//   const sidebarBackgroundColor = useColorModeValue('gray.100', 'gray.700');
-//   const [isLargerThan500] = useMediaQuery('(min-width: 767px)');
-
-//   const handleChange = (value) => {
-//     setSelected(value);
-//   };
-
-//   return (
-//     <Flex
-//       flex={2}
-//       direction="column"
-//       p={{ base: '3em 1em 1em', md: '1em' }}
-//       minHeight={{ md: '300px' }}
-//       backgroundColor={sidebarBackgroundColor}
-//       borderRight="1px solid #D6D6D6"
-//     >
-//       {isLargerThan500 ? (
-//         <>
-//           <Stack spacing="2">
-//             <Box
-//               cursor="pointer"
-//               textDecoration={
-//                 selected === ESettingsMenuItems.Referrals && 'underline'
-//               }
-//               onClick={() => handleChange(ESettingsMenuItems.Referrals)}
-//             >
-//               Referrals
-//             </Box>
-//             <Box
-//               cursor="pointer"
-//               textDecoration={
-//                 selected === ESettingsMenuItems.Billing && 'underline'
-//               }
-//               onClick={() => handleChange(ESettingsMenuItems.Billing)}
-//             >
-//               Billing
-//             </Box>
-//             <Box
-//               cursor="pointer"
-//               textDecoration={
-//                 selected === ESettingsMenuItems.Reminders && 'underline'
-//               }
-//               onClick={() => handleChange(ESettingsMenuItems.Reminders)}
-//             >
-//               Reminders
-//             </Box>
-//             <Box
-//               cursor="pointer"
-//               textDecoration={
-//                 selected === ESettingsMenuItems.Feedback && 'underline'
-//               }
-//               onClick={() => handleChange(ESettingsMenuItems.Feedback)}
-//             >
-//               Feedback
-//             </Box>
-//           </Stack>
-//           <Flex flex={1} direction="column" justifyContent="flex-end">
-//             <Stack spacing="2">
-//               <Box
-//                 cursor="pointer"
-//                 textDecoration={
-//                   selected === ESettingsMenuItems.Account && 'underline'
-//                 }
-//                 onClick={() => handleChange(ESettingsMenuItems.Account)}
-//               >
-//                 Account
-//               </Box>
-//             </Stack>
-//           </Flex>
-//         </>
-//       ) : (
-//         <Select size="md" onChange={(e) => handleChange(e.target.value)}>
-//           <option value="referrals">Referrals</option>
-//           <option value="billing">Billing</option>
-//           <option value="reminders">Reminders</option>
-//           <option value="feedback">Feedback</option>
-//           <option value="account">Account</option>
-//         </Select>
-//       )}
-//     </Flex>
-//   );
-// }
 
 interface ISettingsModalProps {
   isOpen: boolean;
@@ -130,10 +30,16 @@ interface ISettingsModalProps {
 
 function settingsContent(section: ESettingsMenuItems) {
   switch (section) {
+    case ESettingsMenuItems.Overview:
+      return <OverviewMenu />;
+    case ESettingsMenuItems.Challenges:
+      return <ChallengesMenu />;
+    case ESettingsMenuItems.Collectables:
+      return <CollectablesMenu />;
+    case ESettingsMenuItems.CitySettings:
+      return <CitySettingsMenu />;
     case ESettingsMenuItems.Billing:
       return <BillingSettings />;
-    case ESettingsMenuItems.Reminders:
-      return <ReminderSettings />;
     case ESettingsMenuItems.Profile:
       return <AccountSettings />;
     case ESettingsMenuItems.Feedback:
@@ -161,20 +67,20 @@ export function SettingsModal({
       closeOnOverlayClick={false}
     >
       <ModalOverlay />
-      <ModalContent position="absolute" bottom={{ md: '10vh' }}>
+      <ModalContent
+        position="absolute"
+        bottom={{ md: '10vh' }}
+        pb="0"
+        borderRadius={15}
+        overflow="hidden"
+      >
         <ModalCloseButton />
-        <Flex direction={{ base: 'column', md: 'row' }}>
+        <Flex direction={{ base: 'column', md: 'row' }} height={{ md: '65vh' }}>
           <SettingsMenu
             selected={selectedSection}
             setSelected={setSelectedSection}
           />
-          <Flex
-            flex={7}
-            py="4"
-            px="16"
-            overflowY="auto"
-            height={{ md: '60vh' }}
-          >
+          <Flex flex={7} pt="4" px="16" overflowY="auto">
             {settingsContent(selectedSection)}
           </Flex>
         </Flex>

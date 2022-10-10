@@ -64,13 +64,6 @@ export function Feedback() {
         duration: 5000,
         isClosable: true,
       });
-      // toast({
-      //   title: 'Account created.',
-      //   description: "We've created your account for you.",
-      //   status: 'success',
-      //   duration: 1000,
-      //   isClosable: true,
-      // });
     } catch (err) {
       toast({
         title: 'Feedback Failed to send',
@@ -85,9 +78,14 @@ export function Feedback() {
 
   return (
     <Box width="100%">
-      <Text variant="h3" fontWeight="bold">
-        Feedback
-      </Text>
+      <Box mb="6">
+        <Text variant="h3" fontWeight="bold" mb="1">
+          Feedback
+        </Text>
+        <Text variant="description" mb="1">
+          Bugs, issues, questions, any and all feedback is welcome!
+        </Text>
+      </Box>
       <Formik initialValues={{}} onSubmit={onSubmit}>
         {(props) => (
           <Form>

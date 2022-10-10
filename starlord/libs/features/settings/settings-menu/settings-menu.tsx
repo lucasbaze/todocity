@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
 
 import { useAuth } from '@todocity/auth';
-import { Avatar, Box, Flex, Stack, Text } from '@todocity/ui/core';
+import { Avatar, Box, Flex, Text } from '@todocity/ui/core';
 
 export enum ESettingsMenuItems {
   Overview = 'overview',
@@ -30,10 +30,10 @@ const cityMenuItems = [
     id: ESettingsMenuItems.Collectables,
     displayTitle: 'Collectables',
   },
-  {
-    id: ESettingsMenuItems.CitySettings,
-    displayTitle: 'Settings',
-  },
+  // {
+  //   id: ESettingsMenuItems.CitySettings,
+  //   displayTitle: 'Settings',
+  // },
 ];
 
 const accountMenuItems = [
@@ -44,10 +44,6 @@ const accountMenuItems = [
   {
     id: ESettingsMenuItems.Billing,
     displayTitle: 'Billing',
-  },
-  {
-    id: ESettingsMenuItems.Reminders,
-    displayTitle: 'Reminders',
   },
   {
     id: ESettingsMenuItems.Feedback,

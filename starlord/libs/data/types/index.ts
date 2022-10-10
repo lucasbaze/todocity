@@ -78,3 +78,22 @@ export type TProject = {
   description: string;
   todos: TTodoItem[];
 };
+
+export type TChallengeCriteria = {
+  category: 'lot' | 'todo' | 'structure' | 'city-points';
+  action: 'unlocked' | 'placed' | 'completed' | 'earned';
+  value: number;
+  comparitor: 'greater_than' | 'equal';
+};
+
+export type TChallengeReward = {
+  category: 'city-points';
+  value: number;
+};
+
+export type TChallenge = {
+  id: string;
+  name: string;
+  criteria: TChallengeCriteria[];
+  reward: TChallengeReward;
+};
