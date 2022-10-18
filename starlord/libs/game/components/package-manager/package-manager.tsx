@@ -92,13 +92,6 @@ export function PackageManager() {
     const openedPackage = packages.find((pack) => pack.id === id);
     const { cityPoints, lotPoints } = openedPackage;
     toast({
-      title: (
-        <Flex alignItems="center">
-          Package contained {cityPoints > 0 ? cityPoints : lotPoints}
-          <Icon as={cityPoints > 0 ? IconBuildingCommunity : IconFence} />
-          {cityPoints > 0 ? 'city points' : 'lot points'}
-        </Flex>
-      ),
       status: 'success',
       position: 'top',
       variant: 'toast',
@@ -110,7 +103,7 @@ export function PackageManager() {
           py="2"
           px="4"
           bg="green.500"
-          top="20px"
+          top={5}
           color="white"
           minWidth="350px"
           alignItems="center"

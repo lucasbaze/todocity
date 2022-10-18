@@ -51,7 +51,7 @@ interface ILotsStore {
 
 export const initialLotsStore = {
   cityName: getLocalStorage()?.getItem('@todocity:city-name'),
-  countdownStart: Date.now() + 5000,
+  countdownStart: Date.now() + 5 * 60000,
   powerLevel: 50,
   packages: [],
   lots: initialLots,
@@ -116,7 +116,7 @@ export const actions = (set: any, get: any) => {
 
         return {
           ...state,
-          countdownStart: Date.now() + 5000,
+          countdownStart: Date.now() + 5 * 60000,
           cityPoints: (state.cityPoints += openedPackage.cityPoints),
           lotPoints: (state.lotPoints += openedPackage.lotPoints),
           packages: [],
@@ -127,8 +127,14 @@ export const actions = (set: any, get: any) => {
       set((state: ILotsStore) => {
         const projects = [...state.projects];
         const project = projects.find((project) => project.id === projectId);
-        const todo = project.todos.find((todo) => todo.id === todoId);
-        todo.completed = true;
+        const todoIndex = project.todos.findIndex((todo) => todo.id === todoId);
+        project.todos[todoIndex].completed = true;
+        // const updatedTodo = { ...project.todos[todoIndex] };
+        // updatedTodo.completed = true;
+
+        // // Sort completed todo to the bottom
+        // project.todos.splice(todoIndex, 1);
+        // project.todos.push(updatedTodo);
 
         project.todos = [...project.todos];
 
@@ -212,8 +218,8 @@ export const actions = (set: any, get: any) => {
         // Create a new project
         const newProject: TProject = {
           id: getUid(),
-          description: 'Project Description',
           title: 'New Project',
+          description: 'Project Description',
           todos: [],
         };
 

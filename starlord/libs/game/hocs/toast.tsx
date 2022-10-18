@@ -13,7 +13,7 @@ export const Toast = ({ children }: IToastProps) => {
     toast({
       title: 'Coming Soon!',
       status: 'info',
-      position: 'top',
+      position: 'top-right',
       duration: 2000,
       isClosable: true,
     });

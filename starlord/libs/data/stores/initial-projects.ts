@@ -4,7 +4,7 @@ export const initialProjects: TProject[] = [
   {
     id: 'my-first-project',
     title: 'My First Project',
-    description: 'Projects are your todo lists for any area of life',
+    description: 'Projects are your real world todo lists',
     todos: [
       {
         id: '0',
@@ -15,7 +15,7 @@ export const initialProjects: TProject[] = [
       {
         id: '2',
         title: 'Unlock a new lot',
-        description: 'Click on one of the lots next to the house',
+        description: 'Lots allow you to place new buildings',
         completed: false,
         criteria: {
           value: 2,
@@ -25,8 +25,8 @@ export const initialProjects: TProject[] = [
       },
       {
         id: '3',
-        title: 'Construct a new building',
-        description: 'Place a building in the unlocked lot',
+        title: 'Place a new building',
+        description: 'Each building can hold a new project',
         completed: false,
         criteria: {
           value: 2,
@@ -37,7 +37,7 @@ export const initialProjects: TProject[] = [
       {
         id: '4',
         title: 'Create a new todo',
-        description: 'Literally anything. Go wild!',
+        description: 'Like "Cancel unused subscriptions"',
         completed: false,
         criteria: {
           value: 1,

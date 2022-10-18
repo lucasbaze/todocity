@@ -182,8 +182,7 @@ export function TopBar({}: ITopBarProps) {
                   </Badge>
                 </Flex>
                 <Box mt="1" maxWidth="240px">
-                  Every 5 minutes a portal opens and drops off a package of
-                  points
+                  Every 5 minutes a portal opens and drops off a package
                 </Box>
               </Flex>
             }
