@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
-import { IconFence } from '@tabler/icons';
+import { IconBattery, IconBattery4 } from '@tabler/icons';
 import { animate, motion, useMotionValue } from 'framer-motion';
 
 import { Box, Icon, Text } from '@todocity/ui/core';
@@ -30,8 +30,8 @@ export const AnimatedPointsAdd = ({ completed }) => {
       display="flex"
       alignItems="center"
     >
-      <Text textColor={color}>+2</Text>
-      <Icon color={color} as={IconFence} height="5" width="5" />
+      <Text textColor={color}>+10%</Text>
+      <Icon color={color} as={IconBattery4} height="5" width="5" />
     </Box>
   );
 };
@@ -58,8 +58,8 @@ export const AnimatedPointsSubtract = ({ completed }) => {
       display="flex"
       alignItems="center"
     >
-      <Text textColor={color}>-2</Text>
-      <Icon as={IconFence} height="5" width="5" color={color} />
+      <Text textColor={color}>-10%</Text>
+      <Icon as={IconBattery} height="5" width="5" color={color} />
     </Box>
   );
 };

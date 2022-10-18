@@ -4,6 +4,7 @@ import { devtools } from 'zustand/middleware';
 import type {
   TLot,
   TNewTodo,
+  TPackage,
   TProject,
   TStructure,
 } from '@todocity/data/types';
@@ -16,7 +17,12 @@ import { initialLots } from './intial-lots';
 
 interface ILotsStore {
   cityName?: string;
+  countdownStart: number;
   setCityName: (name: string) => void;
+  packages: TPackage[];
+  createPackage: () => void;
+  openPackage: (id: string) => void;
+  powerLevel: number;
   lots: TLot[];
   projects: TProject[];
   completedTodos: number;
@@ -45,6 +51,9 @@ interface ILotsStore {
 
 export const initialLotsStore = {
   cityName: getLocalStorage()?.getItem('@todocity:city-name'),
+  countdownStart: Date.now() + 5000,
+  powerLevel: 50,
+  packages: [],
   lots: initialLots,
   projects: initialProjects,
   structures: structures,
@@ -67,6 +76,53 @@ export const actions = (set: any, get: any) => {
         cityName,
       }));
     },
+    createPackage: (): void => {
+      set((state: ILotsStore) => {
+        // Generate new package
+        let newCityPoints = 0;
+        let newLotPoints = 0;
+        if (Math.random() > 0.5) {
+          // prettier-ignore
+          newCityPoints = Math.round(state.structures.length * Math.random() * state.powerLevel / 100) + 1;
+        } else {
+          // prettier-ignore
+          newLotPoints = Math.round(state.structures.length * Math.random() + state.completedTodos / 10) + 1;
+        }
+        // prettier-ignore
+        const newPackage: TPackage = { id: getUid(), lotPoints: newLotPoints, cityPoints: newCityPoints};
+
+        const newPowerLevel = () => {
+          const powerReduction = Math.max(newCityPoints, newLotPoints);
+
+          if (state.powerLevel - powerReduction < 0) {
+            return 0;
+          } else {
+            return state.powerLevel - powerReduction;
+          }
+        };
+
+        return {
+          ...state,
+          packages: [newPackage],
+          powerLevel: newPowerLevel(),
+        };
+      });
+    },
+    openPackage: (id: string): void => {
+      set((state: ILotsStore) => {
+        const openedPackage = state.packages.find(
+          (pointPackage) => pointPackage.id === id
+        );
+
+        return {
+          ...state,
+          countdownStart: Date.now() + 5000,
+          cityPoints: (state.cityPoints += openedPackage.cityPoints),
+          lotPoints: (state.lotPoints += openedPackage.lotPoints),
+          packages: [],
+        };
+      });
+    },
     completeTodo: (projectId: string, todoId: string): void => {
       set((state: ILotsStore) => {
         const projects = [...state.projects];
@@ -79,8 +135,8 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           projects: projects,
+          powerLevel: Math.min(100, state.powerLevel + 10),
           completedTodos: state.completedTodos + 1,
-          lotPoints: state.lotPoints + 2,
         };
       });
     },
@@ -97,8 +153,8 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           projects: projects,
+          powerLevel: Math.min(100, state.powerLevel - 10),
           completedTodos: state.completedTodos - 1,
-          lotPoints: state.lotPoints - 2,
         };
       });
     },

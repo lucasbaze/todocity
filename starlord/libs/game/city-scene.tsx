@@ -7,14 +7,11 @@ import {
   PerspectiveCamera,
   Sky,
   Stars,
-  Stats,
   useContextBridge,
 } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
-import { levaStore as defaultLevaStore, useControls } from 'leva';
-import { ScaleAnimation } from 'libs/game/hocs/scale-animation';
-import { Toast } from 'libs/game/hocs/toast';
-import { Color, Fog, FogExp2 } from 'three';
+import { levaStore as defaultLevaStore } from 'leva';
+import { FogExp2 } from 'three';
 
 import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -24,6 +21,9 @@ import { PointLight } from '@todocity/three/lights/point-light';
 import { ThreeDLoader } from '@todocity/ui/components/three-d-loader/three-d-loader';
 
 import { Lot } from './components/lot/lot';
+import { PackageManager } from './components/package-manager/package-manager';
+import { ScaleAnimation } from './hocs/scale-animation';
+import { Toast } from './hocs/toast';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
 
 function Scene() {
@@ -45,12 +45,15 @@ function Scene() {
       {/* <Stats /> */}
       {/* {showGrid && <gridHelper />} */}
       <OrbitControls
-        maxPolarAngle={Math.PI / 2.5}
+        maxPolarAngle={Math.PI / 2.1}
         minPolarAngle={0}
         enablePan={false}
-        maxDistance={45}
+        maxDistance={55}
         minDistance={15}
       />
+
+      {/* Package Manager */}
+      <PackageManager />
 
       {/* Ground */}
       <BasePrimitiveModel

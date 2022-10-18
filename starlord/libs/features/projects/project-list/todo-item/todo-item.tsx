@@ -243,7 +243,7 @@ export function TodoItem({
         </Box>
       ) : (
         <Box onClick={handleClick}>
-          <Flex px="4" pt="3" pb="4" pr="12">
+          <Flex px="4" pt="3" pb="4" pr="16">
             <Box mr="2">
               <CheckBox completed={checked} setCompleted={handleMarkComplete} />
             </Box>

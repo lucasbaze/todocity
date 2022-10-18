@@ -97,3 +97,9 @@ export type TChallenge = {
   criteria: TChallengeCriteria[];
   reward: TChallengeReward;
 };
+
+export type TPackage = {
+  id: string;
+  lotPoints: number;
+  cityPoints: number;
+};

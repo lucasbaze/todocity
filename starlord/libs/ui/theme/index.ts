@@ -1,6 +1,7 @@
 import { type ThemeConfig, extendTheme } from '@chakra-ui/react';
 
 import { Accordion } from './components/accordion';
+import { Alert } from './components/alert';
 import { Avatar } from './components/avatar';
 import { Badge } from './components/badge';
 import { Button } from './components/button';
@@ -29,6 +30,7 @@ export const theme = extendTheme({
   zIndices,
   components: {
     Accordion,
+    Alert,
     Avatar,
     Badge,
     Button,

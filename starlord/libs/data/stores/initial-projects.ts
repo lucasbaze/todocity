@@ -9,7 +9,7 @@ export const initialProjects: TProject[] = [
       {
         id: '0',
         title: 'Open this menu',
-        description: 'Every todo completed is worth 2 lot points',
+        description: 'Every todo completed is +10% portal power',
         completed: false,
       },
       {
