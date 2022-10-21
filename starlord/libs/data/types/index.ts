@@ -5,6 +5,16 @@ export interface CSSPositionOffsets {
   left?: number;
 }
 
+export type TUser = {
+  displayName: string;
+  email: string;
+  phoneNumber: string;
+  photoUrl: string;
+  createdAt: string; // Date ISOString
+  referralCode: string;
+  referrals: string[]; // user strings
+};
+
 export type TLand = {
   size: [number, number];
   name: string;
@@ -76,6 +86,8 @@ export type TProject = {
   id: string;
   title: string;
   description: string;
+  ownerId?: string;
+  editorIds?: string[];
   todos: TTodoItem[];
 };
 

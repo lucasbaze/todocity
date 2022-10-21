@@ -1,5 +1,12 @@
 import { User, UserCredential } from 'firebase/auth';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import kebabCase from 'lodash/kebabCase';
 import router from 'next/router';
 
@@ -8,33 +15,29 @@ import { getLocalStorage } from '@todocity/utils/global/get-local-storage';
 import { generate } from '@todocity/utils/referral-codes/referral-codes';
 
 import { db } from '../../config/db';
+import { ProjectModel } from '../../models/project/project-model';
+import { TodoModel } from '../../models/todo/todo-model';
+import { UserModel } from '../../models/user/user-model';
 
 async function addNewUserToFireStore(user: User) {
-  const referralCode = getLocalStorage()?.getItem('@todocity:referral-code');
-  const details = {
-    displayName: user.displayName,
-    email: user.email,
-    phoneNumber: user.phoneNumber,
-    photoUrl: user.photoURL,
-    createdAt: new Date().toISOString(),
-    referralCode: generate({
-      prefix: `${kebabCase(user.displayName)}-`,
-      charset: 'alphabetic',
-      length: 6,
-      count: 1,
-    })[0],
-    referrals: [],
-    ...(referralCode ? { referredBy: referralCode } : {}),
-  };
-  try {
-    if (referralCode) {
-      getLocalStorage()?.removeItem('@todocity:referral-code');
-    }
-    await setDoc(doc(db, 'users', user.uid), details);
-    console.log('New user Created');
-  } catch (e) {
-    console.error('Error creating new user: ', e);
-  }
+  const userModel = new UserModel();
+  await userModel.createUser(user);
+
+  const projectModel = new ProjectModel();
+  await projectModel.createProject({
+    ownerId: user.uid,
+    title: 'My First Project',
+    description: 'Projects are your real world todo lists',
+  });
+
+  const todoModel = new TodoModel();
+  todoModel.createTodo(
+    {
+      title: 'Open this menu',
+      description: 'Every todo completed is +10% portal power',
+    },
+    projectModel.project.id
+  );
 }
 
 async function updateUserLastLoginDate(user: User) {
