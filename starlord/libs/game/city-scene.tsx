@@ -1,9 +1,10 @@
-import { Suspense, useContext, useEffect } from 'react';
+import { Suspense, useContext, useEffect, useState } from 'react';
 
 import { ColorModeContext } from '@chakra-ui/react';
 import {
   Html,
   OrbitControls,
+  PerformanceMonitor,
   PerspectiveCamera,
   Sky,
   Stars,
@@ -253,6 +254,7 @@ function Scene() {
 }
 
 export function CityScene() {
+  const [dpr, setDpr] = useState(1.5);
   // https://github.com/pmndrs/drei#usecontextbridge
   const ContextBridge = useContextBridge(ColorModeContext);
 
@@ -267,7 +269,11 @@ export function CityScene() {
   };
 
   return (
-    <Canvas shadows onPointerMissed={handleMissed}>
+    <Canvas shadows onPointerMissed={handleMissed} frameloop="demand" dpr={dpr}>
+      <PerformanceMonitor
+        onIncline={() => setDpr(2)}
+        onDecline={() => setDpr(1)}
+      />
       <PerspectiveCamera makeDefault position={[25, 10, 25]} fov={60} />
       <ContextBridge>
         <Suspense

@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useRef,
+  useState,
 } from 'react';
 
 import { ColorModeContext, useBreakpointValue } from '@chakra-ui/react';
@@ -11,12 +12,14 @@ import {
   ContactShadows,
   Html,
   OrbitControls,
+  PerformanceMonitor,
   useContextBridge,
   View,
 } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { BasePrimitiveModel } from 'libs/game/models/base-primitive-model/base-primitive-model';
 import { Group, Vector3 } from 'three';
+import { throttle } from 'throttle-debounce';
 
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
@@ -93,8 +96,13 @@ export function HomePageModel({ target }) {
   const orbitControlsRef = useRef(null);
   const ref = useRef<Group>(null!);
   const { colorMode } = useContext(ColorModeContext);
-  useFrame((state, delta) => {
-    ref.current.rotateY(delta / 4);
+
+  const throttledRotate = throttle(32, () => {
+    ref.current?.rotateY(0.008);
+  });
+
+  useFrame(() => {
+    throttledRotate();
   });
 
   useEffect(() => {
@@ -135,6 +143,7 @@ interface IHomeSceneProps {
 }
 
 export function HomeScene({ viewRef }: IHomeSceneProps) {
+  const [dpr, setDpr] = useState(2);
   const ContextBridge = useContextBridge(ColorModeContext);
   const variant = useBreakpointValue({
     base: {
@@ -174,7 +183,12 @@ export function HomeScene({ viewRef }: IHomeSceneProps) {
     <Canvas
       camera={{ position: variant.position, fov: 50, zoom: variant.zoom }}
       className={styles.canvas}
+      dpr={dpr}
     >
+      <PerformanceMonitor
+        onIncline={() => setDpr(2)}
+        onDecline={() => setDpr(1)}
+      />
       <ContextBridge>
         <Suspense
           fallback={
