@@ -57,38 +57,31 @@ export function NotificationPin({
   }, [groupRef, count]);
 
   return (
-    <group ref={groupRef} {...props} dispose={null}>
-      <Float
-        speed={5}
-        rotationIntensity={0.5}
-        floatIntensity={1}
-        position={position}
-      >
-        <RectAreaLight
-          threeProps={{
-            args: ['white', 7, 0.4, 0.4],
-            position: [0, 0, 1],
-          }}
-        />
-        <Billboard follow lockX={fixed} lockY={fixed} lockZ={fixed}>
-          <Text
-            fontSize={1}
-            color="#000000"
-            outlineWidth={'4%'}
-            outlineColor="#000000"
-            outlineOpacity={1}
-          >
-            {count}
-          </Text>
-          <BaseModel modelName="Notification Balloon" receiveShadow castShadow>
-            <mesh
-              geometry={gltf.nodes.Circle.geometry}
-              material={materialRef.current}
-              rotation={[Math.PI / 2, 0, 0]}
-            />
-          </BaseModel>
-        </Billboard>
-      </Float>
+    <group ref={groupRef} position={position} {...props} dispose={null}>
+      <RectAreaLight
+        threeProps={{
+          args: ['white', 7, 0.4, 0.4],
+          position: [0, 0, 1],
+        }}
+      />
+      <Billboard follow lockX={fixed} lockY={fixed} lockZ={fixed}>
+        <Text
+          fontSize={1}
+          color="#000000"
+          outlineWidth={'4%'}
+          outlineColor="#000000"
+          outlineOpacity={1}
+        >
+          {count}
+        </Text>
+        <BaseModel modelName="Notification Balloon" receiveShadow castShadow>
+          <mesh
+            geometry={gltf.nodes.Circle.geometry}
+            material={materialRef.current}
+            rotation={[Math.PI / 2, 0, 0]}
+          />
+        </BaseModel>
+      </Billboard>
     </group>
   );
 }
