@@ -28,6 +28,7 @@
     "@sentry/nextjs": "^7.10.0",
     "@stripe/react-stripe-js": "^1.10.0",
     "@tabler/icons": "^1.79.0",
+    "@types/react-query": "^1.2.9",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "firebase": "^9.9.1",
     "formik": "^2.2.9",
@@ -46,8 +47,8 @@
     "schema-dts": "^1.1.0",
     "stripe": "^10.2.0",
     "three": "^0.143.0",
-    "winston": "^3.8.2",
     "throttle-debounce": "^5.0.0",
+    "winston": "^3.8.2",
     "yup": "^0.32.11",
     "zustand": "^4.0.0"
   },

@@ -31,7 +31,7 @@ async function addNewUserToFireStore(user: User) {
   });
 
   const todoModel = new TodoModel();
-  todoModel.createTodo(
+  await todoModel.createTodo(
     {
       title: 'Open this menu',
       description: 'Every todo completed is +10% portal power',
@@ -57,7 +57,7 @@ export const signInSuccessWithAuthResult =
   (authResult: UserCredential) => {
     const userDocRef = doc(db, 'users', authResult.user.uid);
     getDoc(userDocRef)
-      .then((doc) => {
+      .then(async (doc) => {
         // TODO: (non-urgent) Push this stuff to some background job or task queue if possible
         if (doc.exists()) {
           track.login();
@@ -65,7 +65,7 @@ export const signInSuccessWithAuthResult =
           router.push(navigateTo);
         } else {
           track.signup();
-          addNewUserToFireStore(authResult.user);
+          await addNewUserToFireStore(authResult.user);
           router.push(navigateTo);
         }
       })
