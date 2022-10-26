@@ -2,9 +2,11 @@ import { useRef, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
+import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { IconCircle, IconCircleCheck } from '@tabler/icons';
 import { useFormik } from 'formik';
 
+import { projectTodoRef } from '@todocity/data/db';
 import { TCriteria, TTodoItem } from '@todocity/data/types';
 import {
   AnimatedPointsAdd,
@@ -112,6 +114,12 @@ export function TodoItem({
   const todoContainerRef = useRef<HTMLDivElement>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(completed);
+
+  const mutation = useFirestoreDocumentMutation(
+    projectTodoRef(projectId, todoId),
+    { merge: true }
+  );
+
   const { completeTodo, unCompleteTodo, completeDemo } = useLotsManagerStore(
     (state) => ({
       completeTodo: state.completeTodo,
@@ -142,9 +150,15 @@ export function TodoItem({
     if (checkCriteria(criteria, completeDemo)) {
       setChecked((checked) => {
         if (checked) {
-          unCompleteTodo(projectId, todoId);
+          // unCompleteTodo(projectId, todoId);
+          mutation.mutate({
+            completed: false,
+          });
         } else {
-          completeTodo(projectId, todoId);
+          mutation.mutate({
+            completed: true,
+          });
+          // completeTodo(projectId, todoId);
         }
 
         return !checked;
@@ -172,7 +186,10 @@ export function TodoItem({
     },
     onSubmit: (values, formikHelpers) => {
       // Saving to local state. This needs to be move to data driven state
-      console.log('Values: ', values);
+      // console.log('Values: ', values);
+      mutation.mutate({
+        ...values,
+      });
       // Close the edit mode
       setEdit(false);
     },

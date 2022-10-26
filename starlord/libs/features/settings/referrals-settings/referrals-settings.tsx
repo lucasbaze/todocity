@@ -5,10 +5,10 @@ import {
   IconBrandTwitter,
 } from '@tabler/icons';
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { getDoc } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 
-import { db } from '@todocity/data/db';
+import { userRef } from '@todocity/data/db';
 import {
   Badge,
   Box,
@@ -39,12 +39,11 @@ function ReferralLinkInput({ code }) {
 
 export function ReferralsSettings() {
   const currentUser = getAuth().currentUser;
-  const userRef = doc(db, 'users', currentUser.uid);
 
   const referralCodeQuery = useQuery(
     'userReferral',
     () => {
-      return getDoc(userRef).then((snap) => {
+      return getDoc(userRef(currentUser.uid)).then((snap) => {
         if (snap.exists()) {
           return snap.data();
         } else {

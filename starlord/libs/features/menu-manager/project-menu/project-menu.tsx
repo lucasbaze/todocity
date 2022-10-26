@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { useFirestoreQueryData } from '@react-query-firebase/firestore';
+import {
+  useFirestoreDocumentData,
+  useFirestoreQueryData,
+} from '@react-query-firebase/firestore';
 import {
   collection,
   doc,
@@ -12,6 +15,7 @@ import {
 
 import { AnalButton } from '@todocity/analytics/components/anal-button/anal-button';
 import { getUserProjects } from '@todocity/data/db';
+import { firestoreConverter } from '@todocity/data/db';
 import type { TMenu } from '@todocity/data/types';
 import { TTodoItem } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
@@ -32,40 +36,26 @@ export function ProjectMenu({
   onClose,
   content,
 }: IProjectMenuProps) {
-  const queryRef = query(
-    collection(doc(db, 'projects', 'zJggSZG1l6BOf5XRRwuB'), 'todos')
+  const projectDocRef = doc(db, 'projects', id);
+  const projectTodosQueryRef = query(
+    collection(doc(db, 'projects', id), 'todos').withConverter(
+      firestoreConverter<TTodoItem>()
+    )
   );
-  const { isLoading, isError, data } = useFirestoreQueryData(
-    ['todos', id],
-    queryRef,
-    {
-      subscribe: true,
-    }
+  const projectQuery = useFirestoreDocumentData(
+    ['project', id],
+    projectDocRef,
+    { subscribe: true }
   );
-
-  const projects = useLotsManagerStore((state) => state.projects);
-  const selectedProject = projects.find(
-    (project) => project.id === content.projectId
+  const projectTodosQuery = useFirestoreQueryData<TTodoItem>(
+    ['project-todos', id],
+    projectTodosQueryRef,
+    { subscribe: true }
   );
 
   const handleClose = () => {
     onClose(id);
   };
-  console.log('Query Data: ', isLoading, isError, data);
-
-  // useEffect(() => {
-  //   async function projects() {
-  //     const { unsubscribe, todos, error } = await getProjectTodos({
-  //       projectId: 'zJggSZG1l6BOf5XRRwuB',
-  //     });
-  //     console.log('Project Todos: ', unsubscribe, todos, error);
-  //     // const res = await getUserProjects({
-  //     //   userId: 'tucjHLGbuV79kseVuVqV2QpB94Mc',
-  //     // });
-  //     // console.log('User Projects Res: ', res);
-  //   }
-  //   projects();
-  // }, []);
 
   return (
     <DraggableMenu
@@ -91,15 +81,15 @@ export function ProjectMenu({
       header={
         <ProjectListHeader
           id={id}
-          title={selectedProject.title}
-          description={selectedProject.description}
+          title={projectQuery.data?.title}
+          description={projectQuery.data?.description}
         />
       }
       body={
         <Box pb="4">
           <ProjectList
             projectId={content.projectId}
-            todos={selectedProject.todos}
+            todos={projectTodosQuery?.data || []}
           />
         </Box>
       }
