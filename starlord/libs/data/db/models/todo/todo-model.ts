@@ -17,7 +17,11 @@ import { db } from '../../config/db';
 
 export interface ITodoModel {
   todo: Partial<TTodoItem>;
-  createTodo(newTodo: TNewTodo, projectId: string): Promise<ITodoModel>;
+  createTodo(
+    newTodo: TNewTodo,
+    projectId: string,
+    userId: string
+  ): Promise<ITodoModel>;
 }
 
 export class TodoModel implements ITodoModel {
@@ -27,11 +31,13 @@ export class TodoModel implements ITodoModel {
     this.todo = null;
   }
 
-  createTodo = async (todo: TNewTodo, projectId: string) => {
+  createTodo = async (todo: TNewTodo, projectId: string, userId: string) => {
     try {
       const projectRef = doc(db, 'projects', projectId);
       const todoRef = await addDoc(collection(projectRef, 'todos'), {
         ...todo,
+        projectId,
+        ownerId: userId,
         completed: false,
       });
 

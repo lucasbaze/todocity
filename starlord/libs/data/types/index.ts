@@ -66,6 +66,8 @@ export type TLot = {
 export type TNewTodo = {
   title: string;
   description: string;
+  projectId?: string;
+  ownerId?: string;
 };
 
 export type TCriteria = {

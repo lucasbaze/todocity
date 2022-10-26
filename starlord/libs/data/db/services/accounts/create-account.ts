@@ -36,7 +36,8 @@ async function addNewUserToFireStore(user: User) {
       title: 'Open this menu',
       description: 'Every todo completed is +10% portal power',
     },
-    projectModel.project.id
+    projectModel.project.id,
+    userModel.user.id
   );
 }
 
