@@ -7,10 +7,12 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
+import { LotModel } from 'libs/data/db/models/lot/lot-model';
 import kebabCase from 'lodash/kebabCase';
 import router from 'next/router';
 
 import * as track from '@todocity/analytics/events/track';
+import { initialDBLots } from '@todocity/stores/intial-lots';
 import { getLocalStorage } from '@todocity/utils/global/get-local-storage';
 import { generate } from '@todocity/utils/referral-codes/referral-codes';
 
@@ -29,6 +31,12 @@ async function addNewUserToFireStore(user: User) {
     title: 'My First Project',
     description: 'Projects are your real world todo lists',
   });
+
+  const lotModel = new LotModel();
+  await lotModel.createLots(
+    userModel.user.id,
+    initialDBLots(projectModel.project.id)
+  );
 
   const todoModel = new TodoModel();
   await todoModel.createTodo(

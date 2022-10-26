@@ -2,24 +2,21 @@
 // Read more here: TODO:
 import React, { Suspense } from 'react';
 
-import type { TLot } from '@todocity/data/types';
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
+import type { TLot, TProject } from '@todocity/data/types';
 
 import { BasePrimitiveModel } from '../../models/base-primitive-model/base-primitive-model';
 import { Land } from '../land/land';
 import { ProjectModel } from '../project-model/project-model';
 
+interface ILotProps {
+  lot: TLot;
+  projects: TProject[];
+}
+
 export function Lot({
-  position,
-  rotation,
-  land,
-  structures,
-  id,
-  preview,
-}: TLot) {
-  // TODO: This is NOT good, definitely needs to be re-thought on how to pass the todo's the entirety of the model
-  // Not just the project-list
-  const projects = useLotsManagerStore((state) => state.projects);
+  lot: { position, rotation, land, structures, id, preview },
+  projects,
+}: ILotProps) {
   const hasStructures = !!structures.length;
 
   return (

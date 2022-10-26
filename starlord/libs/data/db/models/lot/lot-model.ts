@@ -16,7 +16,7 @@ export class LotModel implements ILotModel {
     this.lots = null;
   }
 
-  createLots = async (userId: string, lots: Partial<TLot[]>) => {
+  createLots = async (userId: string, lots: Partial<TLot>[]) => {
     try {
       const lotPromises = lots.map(async (lot) => {
         console.log('Attempting to create lot: ', userId, lot);

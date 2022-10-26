@@ -14,12 +14,15 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { levaStore as defaultLevaStore } from 'leva';
 import { FogExp2 } from 'three';
 
+import { useAuth } from '@todocity/auth';
+import { useInitialGameData } from '@todocity/data/db';
 import { useEditModeStore } from '@todocity/stores/edit-mode-store';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
 import { ThreeDLoader } from '@todocity/ui/components/three-d-loader/three-d-loader';
+import { getWindow } from '@todocity/utils/global/get-window';
 
 import { Lot } from './components/lot/lot';
 import { PackageManager } from './components/package-manager/package-manager';
@@ -27,7 +30,7 @@ import { ScaleAnimation } from './hocs/scale-animation';
 import { Toast } from './hocs/toast';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
 
-function Scene() {
+function Scene({ initialAppData }) {
   const { scene } = useThree();
   const lots = useLotsManagerStore((state) => state.lots);
   const { colorMode } = useContext(ColorModeContext);
@@ -139,9 +142,13 @@ function Scene() {
       </Toast>
 
       {/* Lots */}
-      {lots.map((lot) => (
-        <Lot key={lot.id} {...lot} />
+
+      {initialAppData.lots.map((lot) => (
+        <Lot key={lot.id} lot={lot} projects={initialAppData.projects} />
       ))}
+      {/* {lots.map((lot) => (
+        <Lot key={lot.id} {...lot} />
+      ))} */}
 
       {/* <ScaleAnimation>
         <BasePrimitiveModel
@@ -256,20 +263,33 @@ function Scene() {
 export function CityScene() {
   const [dpr, setDpr] = useState(1.5);
   // https://github.com/pmndrs/drei#usecontextbridge
-  const ContextBridge = useContextBridge(ColorModeContext);
-
-  const setLevaStoreToDisplay = useEditModeStore(
-    (state) => state.setLevaStoreToDisplay
+  const ContextBridge = useContextBridge(
+    ColorModeContext,
+    // docs/react-query.md
+    getWindow()?.ReactQueryClientContext
   );
 
-  // Resets the store to be the scene store
-  // Like "deselecting an object basically"
-  const handleMissed = (e) => {
-    setLevaStoreToDisplay(defaultLevaStore);
-  };
+  const { user } = useAuth();
+  const { loading, data, error } = useInitialGameData(user.uid);
+  console.log('Init Game Data, ', loading, data, error);
+
+  // const setLevaStoreToDisplay = useEditModeStore(
+  //   (state) => state.setLevaStoreToDisplay
+  // );
+
+  // // Resets the store to be the scene store
+  // // Like "deselecting an object basically"
+  // const handleMissed = (e) => {
+  //   setLevaStoreToDisplay(defaultLevaStore);
+  // };
+
+  if (loading) {
+    return <ThreeDLoader />;
+  }
 
   return (
-    <Canvas shadows onPointerMissed={handleMissed} frameloop="demand" dpr={dpr}>
+    <Canvas shadows frameloop="demand" dpr={dpr}>
+      {/* <Canvas shadows onPointerMissed={handleMissed} frameloop="demand" dpr={dpr}> */}
       <PerformanceMonitor
         onIncline={() => setDpr(2)}
         onDecline={() => setDpr(1)}
@@ -283,7 +303,7 @@ export function CityScene() {
             </Html>
           }
         >
-          <Scene />
+          <Scene initialAppData={data} />
         </Suspense>
       </ContextBridge>
     </Canvas>

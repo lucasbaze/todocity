@@ -80,10 +80,9 @@ export const initialLots: TLot[] = [
   // },
 ];
 
-export const initialDBLots = (initialProjectId: string): TLot[] => {
+export const initialDBLots = (initialProjectId: string): Omit<TLot, 'id'>[] => {
   return [
     {
-      id: '1',
       position: [-7, 0, 5] as [x: number, y: number, z: number],
       rotation: [0, 0, 0] as [x: number, y: number, z: number],
       land: {
@@ -108,7 +107,6 @@ export const initialDBLots = (initialProjectId: string): TLot[] => {
       ],
     },
     {
-      id: '2',
       position: [5.5, 0, -5.5] as [x: number, y: number, z: number],
       rotation: [0, -Math.PI / 6, 0] as [x: number, y: number, z: number],
       land: {
@@ -121,7 +119,6 @@ export const initialDBLots = (initialProjectId: string): TLot[] => {
       structures: [],
     },
     {
-      id: '3',
       position: [-6, 0, -5] as [x: number, y: number, z: number],
       rotation: [0, 0, 0] as [x: number, y: number, z: number],
       land: {
@@ -134,7 +131,6 @@ export const initialDBLots = (initialProjectId: string): TLot[] => {
       structures: [],
     },
     {
-      id: '4',
       position: [4.5, 0, 8] as [x: number, y: number, z: number],
       rotation: [0, -Math.PI / 6, 0] as [x: number, y: number, z: number],
       land: {
