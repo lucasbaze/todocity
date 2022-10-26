@@ -1,6 +1,7 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
+import { placeStructure } from '@todocity/data/db';
 import type {
   TLot,
   TLotPreview,
@@ -37,7 +38,7 @@ interface ILotsStore {
   setPreviewModel: (lotId: string, modelId: string) => void;
   lotPreview: TLotPreview;
   removePreviewModel: () => void;
-  placeStructure: (lotId: string, modelId: string) => void;
+  placeStructure: (userId: string, lotId: string, modelId: string) => void;
   structures: TStructure[];
   structuresPlaced: number;
   unlockStructure: (lotId: string) => void;
@@ -201,42 +202,24 @@ export const actions = (set: any, get: any) => {
         };
       });
     },
-    placeStructure: (lotId: string, modelId: string) => {
+    placeStructure: (userId: string, lotId: string, modelId: string) => {
       set((state: ILotsStore) => {
         // Get the lot to update
-        const lots = [...state.lots];
-        const lot = lots.find((lot) => lot.id === lotId);
-
-        // Remove the lot preview
-        lot.preview = null;
+        // const lots = [...state.lots];
+        // const lot = lots.find((lot) => lot.id === lotId);
 
         // Grab structure
         const newStructure = {
           ...structures.find((struct) => struct.id === modelId),
         };
 
-        // Create a new project
-        const newProject: TProject = {
-          id: getUid(),
-          title: 'New Project',
-          description: 'Project Description',
-          todos: [],
-        };
-
-        // Attach the project to the structure
-        newStructure.projectId = newProject.id;
-
-        // push project to projects
-        const projects = [...state.projects];
-        projects.push(newProject);
-
-        // Push a new structure onto the lot
-        lot.structures.push(newStructure);
+        placeStructure(userId, lotId, newStructure);
 
         return {
           ...state,
-          lots: lots,
-          projects: projects,
+          // lots: lots,
+          lotPreview: null,
+          // projects: projects,
           structuresPlaced: state.structuresPlaced + 1,
           cityPoints: state.cityPoints + 5,
         };

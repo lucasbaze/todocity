@@ -20,12 +20,13 @@ export interface IProjectListHeaderProps {
   id: string;
   title: string;
   description: string;
+  handleUpdateProject: (value: Record<string, string>) => void;
 }
 
 export function ProjectListHeader({
-  id,
   title,
   description,
+  handleUpdateProject,
 }: IProjectListHeaderProps) {
   const toast = useToast();
   const updateProjectTitle = useLotsManagerStore(
@@ -43,7 +44,7 @@ export function ProjectListHeader({
   };
 
   const handleUpdateTitle = (e) => {
-    updateProjectTitle(id, e.target.value);
+    handleUpdateProject({ title: e.target.value });
   };
 
   return (

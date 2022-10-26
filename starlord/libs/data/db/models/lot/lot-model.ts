@@ -1,20 +1,52 @@
-import { addDoc, collection, doc } from 'firebase/firestore';
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
 
-import { TLot } from '@todocity/data/types';
+import { TLot, TStructure } from '@todocity/data/types';
 
 import { db } from '../../config/db';
+import { lotRef } from '../../refs/refs';
 
 export interface ILotModel {
-  lots: Partial<TLot>;
+  lot: Partial<TLot>;
+  lots: Partial<TLot>[];
+  getLot(userId: string, lotId: string): Promise<ILotModel>;
   createLots(mapId: string, lots: Partial<TLot[]>): Promise<ILotModel>;
 }
 
 export class LotModel implements ILotModel {
-  lots: Partial<TLot>;
+  lot: Partial<TLot>;
+  lots: Partial<TLot>[];
 
   constructor() {
     this.lots = null;
   }
+
+  getLot = async (userId: string, lotId: string) => {
+    try {
+      console.log('Attempting to get lot: ', userId, lotId);
+      const lot = await getDoc(lotRef(userId, lotId));
+      this.lot = lot;
+    } catch (error) {
+      console.log('Failed to get lot: ', lotId, error);
+    }
+    return this;
+  };
+
+  addStructure = async (
+    userId: string,
+    lotId: string,
+    structure: TStructure
+  ) => {
+    await updateDoc(lotRef(userId, lotId), {
+      structures: arrayUnion(structure),
+    });
+  };
 
   createLots = async (userId: string, lots: Partial<TLot>[]) => {
     try {

@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { IconBuildingCommunity } from '@tabler/icons';
 
+import { useAuth } from '@todocity/auth';
 import type { TMenu } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -26,6 +27,7 @@ export function LibraryMenu({
   onClose,
   content,
 }: ILibraryMenuProps) {
+  const { user } = useAuth();
   const [selected, setSelected] = useState<string | null>(null);
   const {
     allStructures,
@@ -54,7 +56,7 @@ export function LibraryMenu({
   };
 
   const handlePlace = () => {
-    placeStructure(content.lotId, selected);
+    placeStructure(user.uid, content.lotId, selected);
     onClose(id);
   };
 

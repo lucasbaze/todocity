@@ -29,7 +29,7 @@ export function Lot({
             const projectTodos = projects.find(
               (project) => project.id === structure.projectId
             );
-            const outstandingTodos = projectTodos.todos.filter(
+            const outstandingTodos = projectTodos?.todos.filter(
               (todo) => !todo.completed
             ).length;
             return (

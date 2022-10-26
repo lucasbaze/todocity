@@ -1,31 +1,16 @@
-import { useEffect, useState } from 'react';
-
 import {
   useFirestoreDocumentData,
+  useFirestoreDocumentMutation,
   useFirestoreQueryData,
 } from '@react-query-firebase/firestore';
-import {
-  collection,
-  doc,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore';
 
-import { AnalButton } from '@todocity/analytics/components/anal-button/anal-button';
-import { getUserProjects } from '@todocity/data/db';
-import { firestoreConverter } from '@todocity/data/db';
+import { projectRef, projectTodosRef } from '@todocity/data/db';
 import type { TMenu } from '@todocity/data/types';
-import { TTodoItem } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { ProjectList } from '@todocity/features/projects/project-list/project-list';
 import { ProjectListHeader } from '@todocity/features/projects/project-list/project-list-header/project-list-header';
-import { structures } from '@todocity/stores/initial-structures';
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
-import { Box, Button, Flex, Grid, Image, Text } from '@todocity/ui/core';
+import { Box, Image } from '@todocity/ui/core';
 
-import { db } from '../../../data/db/config/db';
 export interface IProjectMenuProps extends TMenu {
   onClose: (id: string) => void;
 }
@@ -36,25 +21,30 @@ export function ProjectMenu({
   onClose,
   content,
 }: IProjectMenuProps) {
-  const projectDocRef = doc(db, 'projects', id);
-  const projectTodosQueryRef = query(
-    collection(doc(db, 'projects', id), 'todos').withConverter(
-      firestoreConverter<TTodoItem>()
-    )
-  );
   const projectQuery = useFirestoreDocumentData(
     ['project', id],
-    projectDocRef,
-    { subscribe: true }
+    projectRef(id),
+    {
+      subscribe: true,
+    }
   );
-  const projectTodosQuery = useFirestoreQueryData<TTodoItem>(
+  const projectTodosQuery = useFirestoreQueryData(
     ['project-todos', id],
-    projectTodosQueryRef,
+    projectTodosRef(id),
     { subscribe: true }
   );
+  const mutation = useFirestoreDocumentMutation(projectRef(id), {
+    merge: true,
+  });
 
   const handleClose = () => {
     onClose(id);
+  };
+
+  const handleUpdateProject = (values) => {
+    mutation.mutate({
+      ...values,
+    });
   };
 
   return (
@@ -79,11 +69,16 @@ export function ProjectMenu({
         </Box>
       }
       header={
-        <ProjectListHeader
-          id={id}
-          title={projectQuery.data?.title}
-          description={projectQuery.data?.description}
-        />
+        <>
+          {projectQuery.data?.title ? (
+            <ProjectListHeader
+              id={id}
+              title={projectQuery.data?.title}
+              description={projectQuery.data?.description}
+              handleUpdateProject={handleUpdateProject}
+            />
+          ) : null}
+        </>
       }
       body={
         <Box pb="4">

@@ -83,15 +83,17 @@ export type TCriteria = {
 };
 
 export type TTodoItem = {
-  id: string;
+  id?: string;
   title: string;
   description?: string;
   completed?: boolean;
+  ownerId?: string;
+  projectId?: string;
   criteria?: TCriteria;
 };
 
 export type TProject = {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   ownerId?: string;
