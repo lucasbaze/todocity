@@ -17,6 +17,7 @@ import { FogExp2 } from 'three';
 import { useAuth } from '@todocity/auth';
 import { useInitialGameData } from '@todocity/data/db';
 import { lotsRef } from '@todocity/data/db';
+import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
@@ -32,6 +33,7 @@ import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive
 function Scene({ lots, projects }) {
   const { scene } = useThree();
   const { colorMode } = useContext(ColorModeContext);
+  const lotPreview = useLotsManagerStore((state) => state.lotPreview);
 
   useEffect(() => {
     // Attach Fog
@@ -142,7 +144,14 @@ function Scene({ lots, projects }) {
       {/* Lots */}
 
       {lots.map((lot) => (
-        <Lot key={lot.id} lot={lot} projects={projects} />
+        <Lot
+          key={lot.id}
+          lot={lot}
+          projects={projects}
+          preview={
+            lotPreview && lotPreview.lotId === lot.id ? lotPreview : null
+          }
+        />
       ))}
 
       {/* <ScaleAnimation>

@@ -53,6 +53,11 @@ export type TStructure = {
   };
 };
 
+export type TLotPreview = {
+  lotId: string;
+  src: string;
+};
+
 export type TLot = {
   id: string;
   position: [x: number, y: number, z: number];

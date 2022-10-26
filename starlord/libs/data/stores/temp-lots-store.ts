@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware';
 
 import type {
   TLot,
+  TLotPreview,
   TNewTodo,
   TPackage,
   TProject,
@@ -34,6 +35,7 @@ interface ILotsStore {
   unCompleteTodo: (projectId: string, todoId: string) => void;
   unlockLot: (lotId: string) => void;
   setPreviewModel: (lotId: string, modelId: string) => void;
+  lotPreview: TLotPreview;
   removePreviewModel: () => void;
   placeStructure: (lotId: string, modelId: string) => void;
   structures: TStructure[];
@@ -57,6 +59,7 @@ export const initialLotsStore = {
   lots: initialLots,
   projects: initialProjects,
   structures: structures,
+  lotPreview: null,
   createdTodos: 0,
   unlockedLots: 1,
   completedTodos: 0,
@@ -179,25 +182,22 @@ export const actions = (set: any, get: any) => {
     },
     setPreviewModel: (lotId: string, modelId: string) => {
       set((state: ILotsStore) => {
-        const lots = [...state.lots];
-        const lot = lots.find((lot) => lot.id === lotId);
-        lot.preview = {
+        const preview = {
+          lotId,
           src: structures.find((struct) => struct.id === modelId).src,
         };
 
         return {
           ...state,
-          lots: lots,
+          lotPreview: preview,
         };
       });
     },
     removePreviewModel: () => {
       set((state: ILotsStore) => {
-        const lots = [...state.lots];
-        lots.forEach((lot) => (lot.preview = null));
         return {
           ...state,
-          lots: lots,
+          lotPreview: null,
         };
       });
     },
