@@ -42,3 +42,6 @@ ui-debug.log*
 
 # storybook
 build-storybook.log
+
+#tsc files
+*.js
