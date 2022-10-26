@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { IconBuildingCommunity } from '@tabler/icons';
 
 import { useAuth } from '@todocity/auth';
-import type { TMenu } from '@todocity/data/types';
+import type { TMenu, TStructure } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import {
@@ -45,9 +45,9 @@ export function LibraryMenu({
     placeStructure: state.placeStructure,
   }));
 
-  const handleSelect = (modelId: string) => {
-    setPreviewModel(content.lotId, modelId);
-    setSelected(modelId);
+  const handleSelect = (struct: TStructure) => {
+    setPreviewModel(content.lotId, struct.src);
+    setSelected(struct.slug);
   };
 
   const handleClose = () => {
@@ -88,7 +88,7 @@ export function LibraryMenu({
           >
             {allStructures.map((struct, i) => (
               <Tooltip
-                key={struct.id}
+                key={struct.slug}
                 sx={{
                   borderWidth: '2px',
                   borderColor: 'purple.600',
@@ -121,9 +121,9 @@ export function LibraryMenu({
                         width="135px"
                         border="2px"
                         borderColor={
-                          selected === struct.id ? 'purple.600' : 'gray.300'
+                          selected === struct.slug ? 'purple.600' : 'gray.300'
                         }
-                        boxShadow={selected === struct.id && 'lg'}
+                        boxShadow={selected === struct.slug && 'lg'}
                         overflow="hidden"
                       >
                         <Image
@@ -151,7 +151,7 @@ export function LibraryMenu({
                         variant="solid"
                         size="xs"
                         colorScheme="purple"
-                        onClick={() => handleUnlockBuilding(struct.id)}
+                        onClick={() => handleUnlockBuilding(struct.slug)}
                         _disabled={{
                           colorScheme: 'purple',
                           opacity: 0.8,
@@ -165,7 +165,7 @@ export function LibraryMenu({
                     </Box>
                   </Box>
                 ) : (
-                  <Box onClick={() => handleSelect(struct.id)} cursor="pointer">
+                  <Box onClick={() => handleSelect(struct)} cursor="pointer">
                     <Box
                       position="relative"
                       borderRadius={10}
@@ -173,9 +173,9 @@ export function LibraryMenu({
                       width="135px"
                       border="2px"
                       borderColor={
-                        selected === struct.id ? 'purple.600' : 'gray.300'
+                        selected === struct.slug ? 'purple.600' : 'gray.300'
                       }
-                      boxShadow={selected === struct.id && 'lg'}
+                      boxShadow={selected === struct.slug && 'lg'}
                       overflow="hidden"
                     >
                       <Image

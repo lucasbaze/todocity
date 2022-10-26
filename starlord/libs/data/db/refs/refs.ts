@@ -49,3 +49,9 @@ export const lotsRef = (userId: string) =>
   );
 export const lotRef = (userId: string, lotId: string) =>
   doc(collection(doc(db, 'users', userId), 'lots'), lotId);
+
+// Structures
+export const structureRef = (userId: string, structureId: string) =>
+  doc(db, `users/${userId}/structures`, structureId);
+export const structuresRef = (userId: string) =>
+  collection(doc(db, 'users', userId), 'structures');

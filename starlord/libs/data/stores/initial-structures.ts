@@ -1,19 +1,19 @@
 export const structures = [
   {
-    id: 'main-house',
+    slug: 'main-house',
     type: 'BUILDING',
     src: './static/models/main_house.glb',
     thumbnailSrc: './static/images/main-house.png',
     relativePosition: [0, 0, 0],
-    // This is wrong as it's tightly coupling the project with the building
-    projectId: 'my-first-project',
     details: {
       name: 'Main House',
       description: 'A simple modern house. Nothing special, but its yours.',
+      cost: 0,
+      locked: false,
     },
   },
   {
-    id: 'boring-house',
+    slug: 'boring-house',
     type: 'BUILDING',
     src: './static/models/house_boring.glb',
     thumbnailSrc: './static/images/boring-house.png',
@@ -23,10 +23,12 @@ export const structures = [
       name: 'Boring House',
       description:
         'A lack luster house, but gives you 1 extra lot point per hour.',
+      cost: 0,
+      locked: false,
     },
   },
   {
-    id: 'office-building',
+    slug: 'office-building',
     type: 'BUILDING',
     src: './static/models/office_building_4x12_trees.glb',
     thumbnailSrc: './static/images/office-building.png',
@@ -34,10 +36,12 @@ export const structures = [
     details: {
       name: 'Office Building',
       description: 'A building to work. Provides 1 extra city point per hour.',
+      cost: 0,
+      locked: false,
     },
   },
   {
-    id: 'retaurant-building',
+    slug: 'retaurant-building',
     type: 'BUILDING',
     src: './static/models/restaurant.glb',
     thumbnailSrc: './static/images/restaurant.png',

@@ -41,11 +41,16 @@ export class LotModel implements ILotModel {
   addStructure = async (
     userId: string,
     lotId: string,
-    structure: TStructure
+    structure: Partial<TStructure>
   ) => {
-    await updateDoc(lotRef(userId, lotId), {
-      structures: arrayUnion(structure),
-    });
+    try {
+      console.log('Attempting to add structure: ', userId, lotId, structure);
+      await updateDoc(lotRef(userId, lotId), {
+        structures: arrayUnion(structure),
+      });
+    } catch (error) {
+      console.error('Failed to add structure: ', userId, lotId, structure);
+    }
   };
 
   createLots = async (userId: string, lots: Partial<TLot>[]) => {

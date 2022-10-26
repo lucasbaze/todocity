@@ -14,14 +14,13 @@ export const initialLots: TLot[] = [
     },
     structures: [
       {
-        id: 'structure-id',
+        slug: 'main-house',
         type: 'BUILDING',
         src: './static/models/main_house.glb',
         thumbnailSrc: './static/images/main-house.png',
         relativePosition: [0, 0, 0],
-        projectId: 'my-first-project',
         details: {
-          name: 'Boring House',
+          name: 'Main House',
         },
       },
     ],
@@ -94,7 +93,7 @@ export const initialDBLots = (initialProjectId: string): Omit<TLot, 'id'>[] => {
       },
       structures: [
         {
-          id: 'structure-id',
+          slug: 'structure-id',
           type: 'BUILDING',
           src: './static/models/main_house.glb',
           thumbnailSrc: './static/images/main-house.png',

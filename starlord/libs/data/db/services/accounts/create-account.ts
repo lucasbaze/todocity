@@ -1,23 +1,16 @@
 import { User, UserCredential } from 'firebase/auth';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { LotModel } from 'libs/data/db/models/lot/lot-model';
-import kebabCase from 'lodash/kebabCase';
 import router from 'next/router';
 
 import * as track from '@todocity/analytics/events/track';
-import { initialDBLots } from '@todocity/stores/intial-lots';
-import { getLocalStorage } from '@todocity/utils/global/get-local-storage';
-import { generate } from '@todocity/utils/referral-codes/referral-codes';
+import { initialDBLots } from '@todocity/stores/initial-lots';
+import { structures } from '@todocity/stores/initial-structures';
+import { initialTodos } from '@todocity/stores/initial-todos';
 
 import { db } from '../../config/db';
 import { ProjectModel } from '../../models/project/project-model';
+import { StructureModel } from '../../models/strucure/structure-model';
 import { TodoModel } from '../../models/todo/todo-model';
 import { UserModel } from '../../models/user/user-model';
 
@@ -27,7 +20,7 @@ async function addNewUserToFireStore(user: User) {
 
   const projectModel = new ProjectModel();
   await projectModel.createProject({
-    ownerId: user.uid,
+    ownerId: userModel.user.id,
     title: 'My First Project',
     description: 'Projects are your real world todo lists',
   });
@@ -38,14 +31,14 @@ async function addNewUserToFireStore(user: User) {
     initialDBLots(projectModel.project.id)
   );
 
+  const structureModel = new StructureModel();
+  structureModel.createStructures(userModel.user.id, structures);
+
   const todoModel = new TodoModel();
-  await todoModel.createTodo(
-    {
-      title: 'Open this menu',
-      description: 'Every todo completed is +10% portal power',
-    },
+  await todoModel.createTodos(
+    userModel.user.id,
     projectModel.project.id,
-    userModel.user.id
+    initialTodos(userModel.user.id, projectModel.project.id)
   );
 }
 

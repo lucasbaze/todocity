@@ -33,9 +33,9 @@ export function Lot({
               (todo) => !todo.completed
             ).length;
             return (
-              <React.Fragment key={structure.id}>
+              <React.Fragment key={structure.slug}>
                 <ProjectModel
-                  key={structure.id}
+                  key={structure.slug}
                   count={outstandingTodos}
                   lotId={id}
                   projectId={structure.projectId}

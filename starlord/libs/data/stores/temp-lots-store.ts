@@ -13,9 +13,9 @@ import type {
 import { getLocalStorage } from '@todocity/utils/global/get-local-storage';
 import { getUid } from '@todocity/utils/global/get-uid';
 
+import { initialLots } from './initial-lots';
 import { initialProjects } from './initial-projects';
 import { structures } from './initial-structures';
-import { initialLots } from './intial-lots';
 
 interface ILotsStore {
   cityName?: string;
@@ -43,11 +43,6 @@ interface ILotsStore {
   structuresPlaced: number;
   unlockStructure: (lotId: string) => void;
   createTodoInProject: (projectId: string, todo) => void;
-  updateProjectTitle: (projectId: string, projectTitle: string) => void;
-  updateProjectDescription: (
-    projectId: string,
-    projectDescription: string
-  ) => void;
   demoCompleted: boolean;
   completeDemo: () => void;
 }
@@ -181,11 +176,11 @@ export const actions = (set: any, get: any) => {
         };
       });
     },
-    setPreviewModel: (lotId: string, modelId: string) => {
+    setPreviewModel: (lotId: string, previewSrc: string) => {
       set((state: ILotsStore) => {
         const preview = {
           lotId,
-          src: structures.find((struct) => struct.id === modelId).src,
+          src: previewSrc,
         };
 
         return {
@@ -202,24 +197,13 @@ export const actions = (set: any, get: any) => {
         };
       });
     },
-    placeStructure: (userId: string, lotId: string, modelId: string) => {
+    placeStructure: (userId: string, lotId: string, structureId: string) => {
       set((state: ILotsStore) => {
-        // Get the lot to update
-        // const lots = [...state.lots];
-        // const lot = lots.find((lot) => lot.id === lotId);
-
-        // Grab structure
-        const newStructure = {
-          ...structures.find((struct) => struct.id === modelId),
-        };
-
-        placeStructure(userId, lotId, newStructure);
+        placeStructure(userId, lotId, structureId);
 
         return {
           ...state,
-          // lots: lots,
           lotPreview: null,
-          // projects: projects,
           structuresPlaced: state.structuresPlaced + 1,
           cityPoints: state.cityPoints + 5,
         };
@@ -229,7 +213,7 @@ export const actions = (set: any, get: any) => {
       set((state: ILotsStore) => {
         const updatedStructures = [...structures];
         const structureToUnlock = updatedStructures.find(
-          (struct) => struct.id === lotId
+          (struct) => struct.slug === lotId
         );
         structureToUnlock.details.locked = false;
 
@@ -251,35 +235,6 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           createdTodos: state.createdTodos + 1,
-          projects: projects,
-        };
-      });
-    },
-    updateProjectTitle: (projectId: string, projectTitle: string) => {
-      set((state: ILotsStore) => {
-        const projects = [...state.projects];
-        const project = projects.find((project) => project.id === projectId);
-
-        project.title = projectTitle;
-
-        return {
-          ...state,
-          projects: projects,
-        };
-      });
-    },
-    updateProjectDescription: (
-      projectId: string,
-      projectDescription: string
-    ) => {
-      set((state: ILotsStore) => {
-        const projects = [...state.projects];
-        const project = projects.find((project) => project.id === projectId);
-
-        project.description = projectDescription;
-
-        return {
-          ...state,
           projects: projects,
         };
       });

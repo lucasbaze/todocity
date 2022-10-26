@@ -29,9 +29,6 @@ export function ProjectListHeader({
   handleUpdateProject,
 }: IProjectListHeaderProps) {
   const toast = useToast();
-  const updateProjectTitle = useLotsManagerStore(
-    (state) => state.updateProjectTitle
-  );
 
   const handleClick = () => {
     toast({
