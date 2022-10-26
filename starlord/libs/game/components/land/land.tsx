@@ -15,21 +15,17 @@ const transparentPlaneMaterial = new MeshBasicMaterial({
   opacity: 0,
 });
 
-interface ILandProps extends TLand {
+interface ILandProps {
   lotId: string;
+  land: TLand;
 }
 
-export function Land({
-  lotId,
-  cost,
-  description,
-  locked,
-  name,
-  size,
-}: ILandProps) {
+export function Land({ lotId, land }: ILandProps) {
+  const [hovering, setHovering] = useState(false);
   const createMenu = useMenuManagerStore((state) => state.createMenu);
 
-  const [hovering, setHovering] = useState(false);
+  const { locked, size } = land;
+
   const { handleMouseDown, handleMouseUp } = useNonDragClick(
     (event: ThreeEvent<MouseEvent>) => {
       if (locked) {
@@ -41,10 +37,7 @@ export function Land({
           cssPosition: { left: event.clientX, top: event.clientY },
           content: {
             lotId,
-            name,
-            description,
-            cost,
-            locked,
+            land,
           },
         });
       } else {
@@ -54,10 +47,7 @@ export function Land({
           type: 'library',
           content: {
             lotId,
-            name,
-            description,
-            cost,
-            locked,
+            land,
           },
         });
       }

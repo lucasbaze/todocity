@@ -5,16 +5,7 @@ import { collection, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../../../db/config/db';
 
 async function getInitialGameData(userId: string) {
-  const lots = [];
   const projects = [];
-
-  // Get Lots
-  const userLotsQueryRef = query(collection(doc(db, 'users', userId), 'lots'));
-  const lotQuerySnap = await getDocs(userLotsQueryRef);
-
-  lotQuerySnap.forEach((lotSnap) => {
-    lots.push({ id: lotSnap.id, ...lotSnap.data() });
-  });
 
   // Get Projects
   const userProjectsQueryRef = query(
@@ -39,7 +30,7 @@ async function getInitialGameData(userId: string) {
     projects.push(projectData);
   });
 
-  return { lots, projects };
+  return { projects };
 }
 
 export function useInitialGameData(userId: string) {

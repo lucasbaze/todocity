@@ -20,10 +20,13 @@ export const Playground = Template.bind({});
 Playground.args = {
   cssPosition: { left: 5, top: 5 },
   content: {
-    name: 'something',
-    description: 'project',
-    cost: 2,
-    locked: false,
+    land: {
+      size: [5, 5],
+      name: 'something',
+      description: 'project',
+      cost: 2,
+      locked: false,
+    },
     lotId: 'lot-id-1',
     projectId: 'my-first-project',
   },

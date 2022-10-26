@@ -50,11 +50,14 @@ export function ProjectModel({
       // TODO: reduce this to what is required
       content: {
         projectId,
-        name: 'project',
-        cost: 24,
-        description: 'something',
+        land: {
+          size: [5, 5],
+          name: 'project',
+          cost: 24,
+          description: 'something',
+          locked: false,
+        },
         structureThumbnailUrl,
-        locked: false,
         lotId: lotId,
       },
     });

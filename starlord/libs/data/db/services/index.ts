@@ -8,6 +8,8 @@ import {
   SnapshotOptions,
 } from 'firebase/firestore';
 
+import { TLot } from '@todocity/data/types';
+
 import { db } from '../config/db';
 
 // https://github.com/invertase/react-query-firebase/issues/38#issuecomment-1053985222
@@ -28,11 +30,22 @@ export const firestoreConverter = <T extends Record<string, unknown>>() => ({
 });
 
 // Refs
+// User
 export const userRef = (userId: string) => doc(db, 'users', userId);
+
+// Projects
 export const projectTodosRef = (projectId: string) =>
   collection(doc(db, 'projects', projectId), 'todos');
 export const projectTodoRef = (projectId: string, todoId: string) =>
   doc(db, `projects/${projectId}/todos`, todoId);
+
+// Lots
+export const lotsRef = (userId: string) =>
+  query(collection(doc(db, 'users', userId), 'lots')).withConverter(
+    firestoreConverter<TLot>()
+  );
+export const lotRef = (userId: string, lotId: string) =>
+  doc(collection(doc(db, 'users', userId), 'lots'), lotId);
 
 // Functions
 export { signInSuccessWithAuthResult } from './accounts/create-account';

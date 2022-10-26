@@ -24,9 +24,12 @@ Playground.args = {
   cssPosition: { top: 5, left: 5 },
   content: {
     lotId: '1',
-    name: 'Lot 420',
-    description: 'Your neighbors might smell funny...',
-    cost: 34,
-    locked: false,
+    land: {
+      size: [5, 5],
+      name: 'Lot 420',
+      description: 'Your neighbors might smell funny...',
+      cost: 34,
+      locked: false,
+    },
   },
 };

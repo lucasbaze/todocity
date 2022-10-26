@@ -1,25 +1,32 @@
+import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { IconFence } from '@tabler/icons';
 
+import { useAuth } from '@todocity/auth';
+import { lotRef } from '@todocity/data/db';
 import type { TMenu } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Box, Button, Flex, Icon, Text, Tooltip } from '@todocity/ui/core';
-
 export interface ILotMenuProps extends TMenu {
   onClose: (id: string) => void;
 }
 
 export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
-  const { lotPoints, unlockLot } = useLotsManagerStore((state) => ({
+  const { user } = useAuth();
+  const { lotPoints } = useLotsManagerStore((state) => ({
     lotPoints: state.lotPoints,
-    unlockLot: state.unlockLot,
   }));
 
-  console.log('Lots Points: ', lotPoints, unlockLot);
+  const mutation = useFirestoreDocumentMutation(lotRef(user.uid, id), {
+    merge: true,
+  });
 
   const handleUnlock = () => {
-    if (lotPoints >= content.cost) {
-      unlockLot(content.lotId);
+    if (lotPoints >= content.land.cost) {
+      // unlockLot(content.lotId);
+      mutation.mutate({
+        land: { ...content.land, locked: false },
+      });
       onClose(id);
     }
   };
@@ -31,8 +38,8 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
       width="300px"
       header={
         <Box>
-          <Text fontSize="20px">{content.name}</Text>
-          <Text variant="description">{content.description}</Text>
+          <Text fontSize="20px">{content.land.name}</Text>
+          <Text variant="description">{content.land.description}</Text>
         </Box>
       }
       body={
@@ -47,7 +54,7 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
                 alignItems="center"
                 ml="1"
               >
-                {content.cost}
+                {content.land.cost}
                 <Icon as={IconFence} />
               </Text>
             </Text>
@@ -55,7 +62,7 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
           <Box>
             <Flex justifyContent="flex-end" alignItems="center">
               <Tooltip
-                isDisabled={lotPoints >= content.cost}
+                isDisabled={lotPoints >= content.land.cost}
                 label="You do not have enough lot points"
               >
                 <Box>
@@ -64,7 +71,7 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
                     variant="solid"
                     size="xs"
                     onClick={handleUnlock}
-                    disabled={lotPoints < content.cost}
+                    disabled={lotPoints < content.land.cost}
                   >
                     Unlock
                   </Button>

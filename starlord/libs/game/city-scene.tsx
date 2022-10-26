@@ -1,6 +1,7 @@
 import { Suspense, useContext, useEffect, useState } from 'react';
 
 import { ColorModeContext } from '@chakra-ui/react';
+import { useFirestoreQueryData } from '@react-query-firebase/firestore';
 import {
   Html,
   OrbitControls,
@@ -11,13 +12,11 @@ import {
   useContextBridge,
 } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
-import { levaStore as defaultLevaStore } from 'leva';
 import { FogExp2 } from 'three';
 
 import { useAuth } from '@todocity/auth';
 import { useInitialGameData } from '@todocity/data/db';
-import { useEditModeStore } from '@todocity/stores/edit-mode-store';
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
+import { lotsRef } from '@todocity/data/db';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
 import { PointLight } from '@todocity/three/lights/point-light';
@@ -30,9 +29,8 @@ import { ScaleAnimation } from './hocs/scale-animation';
 import { Toast } from './hocs/toast';
 import { BasePrimitiveModel } from './models/base-primitive-model/base-primitive-model';
 
-function Scene({ initialAppData }) {
+function Scene({ lots, projects }) {
   const { scene } = useThree();
-  const lots = useLotsManagerStore((state) => state.lots);
   const { colorMode } = useContext(ColorModeContext);
 
   useEffect(() => {
@@ -143,12 +141,9 @@ function Scene({ initialAppData }) {
 
       {/* Lots */}
 
-      {initialAppData.lots.map((lot) => (
-        <Lot key={lot.id} lot={lot} projects={initialAppData.projects} />
+      {lots.map((lot) => (
+        <Lot key={lot.id} lot={lot} projects={projects} />
       ))}
-      {/* {lots.map((lot) => (
-        <Lot key={lot.id} {...lot} />
-      ))} */}
 
       {/* <ScaleAnimation>
         <BasePrimitiveModel
@@ -270,8 +265,12 @@ export function CityScene() {
   );
 
   const { user } = useAuth();
+  const userLotsQuery = useFirestoreQueryData(
+    ['lots', user.uid],
+    lotsRef(user.uid),
+    { subscribe: true }
+  );
   const { loading, data, error } = useInitialGameData(user.uid);
-  console.log('Init Game Data, ', loading, data, error);
 
   // const setLevaStoreToDisplay = useEditModeStore(
   //   (state) => state.setLevaStoreToDisplay
@@ -303,7 +302,7 @@ export function CityScene() {
             </Html>
           }
         >
-          <Scene initialAppData={data} />
+          <Scene lots={userLotsQuery.data || []} projects={data.projects} />
         </Suspense>
       </ContextBridge>
     </Canvas>

@@ -60,7 +60,7 @@ export function Lot({
               />
             </Suspense>
           )}
-          <Land {...land} lotId={id} />
+          <Land land={land} lotId={id} />
         </>
       )}
     </group>

@@ -23,8 +23,9 @@ export type TLand = {
   cost: number;
 };
 
-export type TLandInformation = Omit<TLand, 'size'> & {
+export type TLandInformation = {
   lotId: string;
+  land: TLand;
   projectId?: string;
   structureThumbnailUrl?: string;
 };
