@@ -1,13 +1,10 @@
 import { useState } from 'react';
 
-import {
-  useFirestoreDocumentMutation,
-  useFirestoreQueryData,
-} from '@react-query-firebase/firestore';
+import { useFirestoreQueryData } from '@react-query-firebase/firestore';
 import { IconBuildingCommunity } from '@tabler/icons';
 
 import { useAuth } from '@todocity/auth';
-import { structureRef, structuresQueryRef } from '@todocity/data/db';
+import { placeStructure, structuresQueryRef } from '@todocity/data/db';
 import type { TMenu, TStructure } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -34,19 +31,13 @@ export function LibraryMenu({
 }: ILibraryMenuProps) {
   const { user } = useAuth();
   const [selected, setSelected] = useState<string | null>(null);
-  const {
-    cityPoints,
-    unlockStructure,
-    setPreviewModel,
-    removePreviewModel,
-    placeStructure,
-  } = useLotsManagerStore((state) => ({
-    cityPoints: state.cityPoints,
-    unlockStructure: state.unlockStructure,
-    setPreviewModel: state.setPreviewModel,
-    removePreviewModel: state.removePreviewModel,
-    placeStructure: state.placeStructure,
-  }));
+  const { cityPoints, unlockStructure, setPreviewModel, removePreviewModel } =
+    useLotsManagerStore((state) => ({
+      cityPoints: state.cityPoints,
+      unlockStructure: state.unlockStructure,
+      setPreviewModel: state.setPreviewModel,
+      removePreviewModel: state.removePreviewModel,
+    }));
 
   const structuresQuery = useFirestoreQueryData(
     ['structures'],
@@ -64,8 +55,8 @@ export function LibraryMenu({
     onClose(id);
   };
 
-  const handlePlace = () => {
-    placeStructure(user.uid, content.lotId, selected);
+  const handlePlace = async () => {
+    const res = await placeStructure(user.uid, content.lotId, selected);
     onClose(id);
   };
 

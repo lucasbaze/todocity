@@ -1,3 +1,5 @@
+import { increment } from 'firebase/firestore';
+import { CityModel } from 'libs/data/db/models/city/city-model';
 import { LotModel } from 'libs/data/db/models/lot/lot-model';
 import { StructureModel } from 'libs/data/db/models/strucure/structure-model';
 
@@ -26,4 +28,11 @@ export async function placeStructure(
   // Attach structure to the lot
   const lotModel = new LotModel();
   await lotModel.addStructure(userId, lotId, newStructure);
+
+  // Update structures placed & city points
+  const cityModel = new CityModel();
+  await cityModel.updateCity(userId, {
+    'stats.structuresPlaced': increment(1),
+    'stats.cityPoints': increment(5),
+  });
 }

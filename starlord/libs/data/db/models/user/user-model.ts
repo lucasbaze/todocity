@@ -42,6 +42,7 @@ export class UserModel implements IUserModel {
           lotPoints: 5,
           unlockedLots: 1,
           cityPoints: 2,
+          structuresPlaced: 1,
         },
       },
       referrals: [],
