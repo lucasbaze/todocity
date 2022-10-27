@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { useColorModeValue } from '@chakra-ui/react';
 import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
 import { IconPlus } from '@tabler/icons';
+import { serverTimestamp } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useHotkeys } from 'react-hotkeys-hook';
 import * as Yup from 'yup';
@@ -52,6 +53,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
         projectId,
         ownerId: user.uid,
         completed: false,
+        createdAt: serverTimestamp(),
       });
       formikHelpers.resetForm();
       setEdit(false);
