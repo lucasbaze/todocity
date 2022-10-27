@@ -10,7 +10,6 @@ import type {
   TProject,
   TStructure,
 } from '@todocity/data/types';
-import { getLocalStorage } from '@todocity/utils/global/get-local-storage';
 import { getUid } from '@todocity/utils/global/get-uid';
 
 import { initialLots } from './initial-lots';
@@ -18,9 +17,7 @@ import { initialProjects } from './initial-projects';
 import { structures } from './initial-structures';
 
 interface ILotsStore {
-  cityName?: string;
   countdownStart: number;
-  setCityName: (name: string) => void;
   packages: TPackage[];
   createPackage: () => void;
   openPackage: (id: string) => void;
@@ -48,7 +45,6 @@ interface ILotsStore {
 }
 
 export const initialLotsStore = {
-  cityName: getLocalStorage()?.getItem('@todocity:city-name'),
   countdownStart: Date.now() + 5 * 60000,
   powerLevel: 50,
   packages: [],
@@ -68,13 +64,6 @@ export const initialLotsStore = {
 // TODO: figure out the right type here
 export const actions = (set: any, get: any) => {
   return {
-    setCityName: (cityName: string): void => {
-      getLocalStorage()?.setItem('@todocity:city-name', cityName);
-      set((state: ILotsStore) => ({
-        ...state,
-        cityName,
-      }));
-    },
     createPackage: (): void => {
       set((state: ILotsStore) => {
         // Generate new package

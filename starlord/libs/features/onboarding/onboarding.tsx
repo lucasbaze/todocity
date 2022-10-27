@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 
+import {
+  useFirestoreDocumentData,
+  useFirestoreDocumentMutation,
+} from '@react-query-firebase/firestore';
 import { useFormik } from 'formik';
 import JSConfetti from 'js-confetti';
 import Link from 'next/link';
 
+import { useAuth } from '@todocity/auth';
+import { userRef } from '@todocity/data/db';
 import { isGameDevToolsEnabled } from '@todocity/data/flags';
 import { ESettingsMenuItems } from '@todocity/features/settings/settings-menu/settings-menu';
 import { SettingsModal } from '@todocity/features/settings/settings-modal';
@@ -27,24 +33,37 @@ import {
 import { getWindow } from '@todocity/utils/global/get-window';
 
 export function Onboarding() {
+  const { user } = useAuth();
   const confettiCanvasRef = useRef(null);
   const [jsConfetti, setJSConfetti] = useState(null);
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
   const [demoCompletedModalOpen, setDemoCompletedModalOpen] = useState(false);
   const [cityNameModalOpen, setCityNameModalOpen] = useState(false);
-  const { cityName, setCityName, demoCompleted, completeDemo } =
-    useLotsManagerStore((state) => ({
-      cityName: state.cityName,
-      setCityName: state.setCityName,
-      demoCompleted: state.demoCompleted,
-      completeDemo: state.completeDemo,
-    }));
+  const { demoCompleted, completeDemo } = useLotsManagerStore((state) => ({
+    demoCompleted: state.demoCompleted,
+    completeDemo: state.completeDemo,
+  }));
+
+  const userCityQuery = useFirestoreDocumentData(
+    ['user', user.uid],
+    userRef(user.uid),
+    { subscribe: true },
+    {
+      select: (userDoc) => userDoc.city,
+    }
+  );
+
+  const updateCityNameMutation = useFirestoreDocumentMutation(
+    userRef(user.uid),
+    { merge: true }
+  );
 
   useEffect(() => {
-    if (!cityName) {
+    console.log('userCityQuery.data', userCityQuery.data);
+    if (userCityQuery.data && !userCityQuery.data?.cityName) {
       setCityNameModalOpen(true);
     }
-  }, [cityName]);
+  }, [userCityQuery.data]);
 
   useEffect(() => {
     if (demoCompleted) {
@@ -93,7 +112,11 @@ export function Onboarding() {
       return errors;
     },
     onSubmit: (values) => {
-      setCityName(values.name);
+      updateCityNameMutation.mutate({
+        city: {
+          cityName: values.name,
+        },
+      });
       setCityNameModalOpen(false);
     },
   });
@@ -115,7 +138,7 @@ export function Onboarding() {
               <form onSubmit={formik.handleSubmit}>
                 <Flex direction="column" p="8">
                   <Text variant="h3" fontWeight="bold" mb="1">
-                    Welcome to the demo city!
+                    Welcome to the alpha city!
                   </Text>
                   <Text mb="8">
                     TodoCity is a simple todo list app with city building at its

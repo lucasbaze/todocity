@@ -34,6 +34,16 @@ export class UserModel implements IUserModel {
         length: 6,
         count: 1,
       })[0],
+      city: {
+        cityName: null,
+        stats: {
+          completedTodos: 0,
+          createdTodos: 0,
+          lotPoints: 5,
+          unlockedLots: 1,
+          cityPoints: 2,
+        },
+      },
       referrals: [],
       ...(referralCode ? { referredBy: referralCode } : {}),
     };

@@ -1,4 +1,5 @@
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
+import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import {
   IconBattery2,
   IconBuildingCommunity,
@@ -6,6 +7,8 @@ import {
   IconListCheck,
 } from '@tabler/icons';
 
+import { useAuth } from '@todocity/auth';
+import { userRef } from '@todocity/data/db';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Badge, Box, Flex, Icon, Text, Tooltip } from '@todocity/ui/core';
 
@@ -14,14 +17,15 @@ import { CountdownTimer } from './countdown/countdown';
 export interface ITopBarProps {}
 
 export function TopBar({}: ITopBarProps) {
-  const { cityName, completedTodos, lotPoints, cityPoints, powerLevel } =
-    useLotsManagerStore((state) => ({
-      cityName: state.cityName,
-      completedTodos: state.completedTodos,
-      lotPoints: state.lotPoints,
-      cityPoints: state.cityPoints,
-      powerLevel: state.powerLevel,
-    }));
+  const { powerLevel } = useLotsManagerStore((state) => ({
+    powerLevel: state.powerLevel,
+  }));
+  const { user } = useAuth();
+  const cityStatsQuery = useFirestoreDocumentData(
+    ['user', user.uid],
+    userRef(user.uid),
+    { subscribe: true }
+  );
   const { zIndices } = useTheme();
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
   const demoNotifBgColor = useColorModeValue('purple.300', 'purple.600');
@@ -45,7 +49,9 @@ export function TopBar({}: ITopBarProps) {
       >
         <Flex fontWeight="bold" gap={3}>
           <Box flex={1} alignItems="center">
-            <Text fontWeight="bold">{cityName || 'Demo City'}</Text>
+            <Text fontWeight="bold">
+              {cityStatsQuery.data?.city.cityName || 'Alpha City'}
+            </Text>
           </Box>
           <Box>
             <Tooltip
@@ -89,7 +95,7 @@ export function TopBar({}: ITopBarProps) {
             >
               <Flex alignItems="center" cursor="pointer">
                 <Icon as={IconListCheck} />
-                {completedTodos}
+                {cityStatsQuery.data?.city.stats.completedTodos}
               </Flex>
             </Tooltip>
           </Box>
@@ -110,7 +116,7 @@ export function TopBar({}: ITopBarProps) {
             >
               <Flex alignItems="center" cursor="pointer">
                 <Icon as={IconFence} />
-                {lotPoints}
+                {cityStatsQuery.data?.city.stats.lotPoints}
               </Flex>
             </Tooltip>
           </Box>
@@ -133,7 +139,7 @@ export function TopBar({}: ITopBarProps) {
             >
               <Flex alignItems="center" cursor="pointer">
                 <Icon as={IconBuildingCommunity} />
-                {cityPoints}
+                {cityStatsQuery.data?.city.stats.cityPoints}
               </Flex>
             </Tooltip>
           </Box>
