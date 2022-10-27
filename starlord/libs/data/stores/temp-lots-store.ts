@@ -28,8 +28,6 @@ interface ILotsStore {
   lotPoints: number;
   unlockedLots: number;
   cityPoints: number;
-  completeTodo: (projectId: string, todoId: string) => void;
-  unCompleteTodo: (projectId: string, todoId: string) => void;
   setPreviewModel: (lotId: string, modelId: string) => void;
   lotPreview: TLotPreview;
   removePreviewModel: () => void;
@@ -103,47 +101,6 @@ export const actions = (set: any, get: any) => {
           cityPoints: (state.cityPoints += openedPackage.cityPoints),
           lotPoints: (state.lotPoints += openedPackage.lotPoints),
           packages: [],
-        };
-      });
-    },
-    completeTodo: (projectId: string, todoId: string): void => {
-      set((state: ILotsStore) => {
-        const projects = [...state.projects];
-        const project = projects.find((project) => project.id === projectId);
-        const todoIndex = project.todos.findIndex((todo) => todo.id === todoId);
-        project.todos[todoIndex].completed = true;
-        // const updatedTodo = { ...project.todos[todoIndex] };
-        // updatedTodo.completed = true;
-
-        // // Sort completed todo to the bottom
-        // project.todos.splice(todoIndex, 1);
-        // project.todos.push(updatedTodo);
-
-        project.todos = [...project.todos];
-
-        return {
-          ...state,
-          projects: projects,
-          powerLevel: Math.min(100, state.powerLevel + 10),
-          completedTodos: state.completedTodos + 1,
-        };
-      });
-    },
-    // This is a duplicate of complete Todo... no bueno
-    unCompleteTodo: (projectId: string, todoId: string): void => {
-      set((state: ILotsStore) => {
-        const projects = [...state.projects];
-        const project = projects.find((project) => project.id === projectId);
-        const todo = project.todos.find((todo) => todo.id === todoId);
-        todo.completed = false;
-
-        project.todos = [...project.todos];
-
-        return {
-          ...state,
-          projects: projects,
-          powerLevel: Math.min(100, state.powerLevel - 10),
-          completedTodos: state.completedTodos - 1,
         };
       });
     },
