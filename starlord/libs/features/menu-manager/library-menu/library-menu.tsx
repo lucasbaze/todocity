@@ -4,7 +4,11 @@ import { useFirestoreQueryData } from '@react-query-firebase/firestore';
 import { IconBuildingCommunity } from '@tabler/icons';
 
 import { useAuth } from '@todocity/auth';
-import { placeStructure, structuresQueryRef } from '@todocity/data/db';
+import {
+  placeStructure,
+  structuresQueryRef,
+  unlockStructure,
+} from '@todocity/data/db';
 import type { TMenu, TStructure } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -31,10 +35,9 @@ export function LibraryMenu({
 }: ILibraryMenuProps) {
   const { user } = useAuth();
   const [selected, setSelected] = useState<string | null>(null);
-  const { cityPoints, unlockStructure, setPreviewModel, removePreviewModel } =
+  const { cityPoints, setPreviewModel, removePreviewModel } =
     useLotsManagerStore((state) => ({
       cityPoints: state.cityPoints,
-      unlockStructure: state.unlockStructure,
       setPreviewModel: state.setPreviewModel,
       removePreviewModel: state.removePreviewModel,
     }));
@@ -60,8 +63,11 @@ export function LibraryMenu({
     onClose(id);
   };
 
-  const handleUnlockBuilding = (structId: string) => {
-    unlockStructure(user.uid, structId);
+  const handleUnlockBuilding = async (
+    structId: string,
+    structureCost: number
+  ) => {
+    const res = await unlockStructure(user.uid, structId, structureCost);
   };
 
   return (
@@ -151,7 +157,9 @@ export function LibraryMenu({
                         variant="solid"
                         size="xs"
                         colorScheme="purple"
-                        onClick={() => handleUnlockBuilding(struct.id)}
+                        onClick={() =>
+                          handleUnlockBuilding(struct.id, struct.details.cost)
+                        }
                         _disabled={{
                           colorScheme: 'purple',
                           opacity: 0.8,

@@ -1,7 +1,6 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { unlockStructure } from '@todocity/data/db';
 import type {
   TLot,
   TLotPreview,
@@ -36,7 +35,6 @@ interface ILotsStore {
   removePreviewModel: () => void;
   structures: TStructure[];
   structuresPlaced: number;
-  unlockStructure: (userId: string, structureId: string) => void;
   createTodoInProject: (projectId: string, todo) => void;
   demoCompleted: boolean;
   completeDemo: () => void;
@@ -168,18 +166,6 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           lotPreview: null,
-        };
-      });
-    },
-    unlockStructure: (userId: string, structureId: string) => {
-      set((state: ILotsStore) => {
-        unlockStructure(userId, structureId);
-
-        return {
-          ...state,
-          // TODO: Update the cityState
-          // cityPoints: state.cityPoints - structureToUnlock.details.cost,
-          // structures: updatedStructures,
         };
       });
     },
