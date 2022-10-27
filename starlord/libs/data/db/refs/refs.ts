@@ -2,13 +2,14 @@ import {
   collection,
   doc,
   DocumentData,
+  orderBy,
   PartialWithFieldValue,
   query,
   QueryDocumentSnapshot,
   SnapshotOptions,
 } from 'firebase/firestore';
 
-import type { TLot, TTodoItem } from '@todocity/data/types';
+import type { TLot, TStructure, TTodoItem } from '@todocity/data/types';
 
 import { db } from '../config/db';
 
@@ -54,4 +55,11 @@ export const lotRef = (userId: string, lotId: string) =>
 export const structureRef = (userId: string, structureId: string) =>
   doc(db, `users/${userId}/structures`, structureId);
 export const structuresRef = (userId: string) =>
-  collection(doc(db, 'users', userId), 'structures');
+  collection(doc(db, 'users', userId), 'structures').withConverter(
+    firestoreConverter<Partial<TStructure>>()
+  );
+export const structuresQueryRef = (userId: string) =>
+  query(
+    collection(doc(db, 'users', userId), 'structures'),
+    orderBy('createdAt', 'asc')
+  ).withConverter(firestoreConverter<TStructure>());

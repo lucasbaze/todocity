@@ -18,8 +18,7 @@ export async function placeStructure(
 
   // Get structure to attach to project
   const structureModel = new StructureModel();
-  const structure = (await structureModel.getStructure(userId, structureId))
-    .structure;
+  const structure = await structureModel.getStructure(userId, structureId);
 
   // Create new structure object
   const newStructure = { ...structure, projectId: projectModel.project.id };

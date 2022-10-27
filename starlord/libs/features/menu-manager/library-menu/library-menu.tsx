@@ -1,8 +1,13 @@
 import { useState } from 'react';
 
+import {
+  useFirestoreDocumentMutation,
+  useFirestoreQueryData,
+} from '@react-query-firebase/firestore';
 import { IconBuildingCommunity } from '@tabler/icons';
 
 import { useAuth } from '@todocity/auth';
+import { structureRef, structuresQueryRef } from '@todocity/data/db';
 import type { TMenu, TStructure } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
@@ -30,14 +35,12 @@ export function LibraryMenu({
   const { user } = useAuth();
   const [selected, setSelected] = useState<string | null>(null);
   const {
-    allStructures,
     cityPoints,
     unlockStructure,
     setPreviewModel,
     removePreviewModel,
     placeStructure,
   } = useLotsManagerStore((state) => ({
-    allStructures: state.structures,
     cityPoints: state.cityPoints,
     unlockStructure: state.unlockStructure,
     setPreviewModel: state.setPreviewModel,
@@ -45,9 +48,15 @@ export function LibraryMenu({
     placeStructure: state.placeStructure,
   }));
 
+  const structuresQuery = useFirestoreQueryData(
+    ['structures'],
+    structuresQueryRef(user.uid),
+    { subscribe: true }
+  );
+
   const handleSelect = (struct: TStructure) => {
     setPreviewModel(content.lotId, struct.src);
-    setSelected(struct.slug);
+    setSelected(struct.id);
   };
 
   const handleClose = () => {
@@ -60,8 +69,8 @@ export function LibraryMenu({
     onClose(id);
   };
 
-  const handleUnlockBuilding = (structId) => {
-    unlockStructure(structId);
+  const handleUnlockBuilding = (structId: string) => {
+    unlockStructure(user.uid, structId);
   };
 
   return (
@@ -86,9 +95,9 @@ export function LibraryMenu({
             gap={4}
             my="2"
           >
-            {allStructures.map((struct, i) => (
+            {structuresQuery.data?.map((struct, i) => (
               <Tooltip
-                key={struct.slug}
+                key={struct.id}
                 sx={{
                   borderWidth: '2px',
                   borderColor: 'purple.600',
@@ -121,9 +130,9 @@ export function LibraryMenu({
                         width="135px"
                         border="2px"
                         borderColor={
-                          selected === struct.slug ? 'purple.600' : 'gray.300'
+                          selected === struct.id ? 'purple.600' : 'gray.300'
                         }
-                        boxShadow={selected === struct.slug && 'lg'}
+                        boxShadow={selected === struct.id && 'lg'}
                         overflow="hidden"
                       >
                         <Image
@@ -151,7 +160,7 @@ export function LibraryMenu({
                         variant="solid"
                         size="xs"
                         colorScheme="purple"
-                        onClick={() => handleUnlockBuilding(struct.slug)}
+                        onClick={() => handleUnlockBuilding(struct.id)}
                         _disabled={{
                           colorScheme: 'purple',
                           opacity: 0.8,
@@ -173,9 +182,9 @@ export function LibraryMenu({
                       width="135px"
                       border="2px"
                       borderColor={
-                        selected === struct.slug ? 'purple.600' : 'gray.300'
+                        selected === struct.id ? 'purple.600' : 'gray.300'
                       }
-                      boxShadow={selected === struct.slug && 'lg'}
+                      boxShadow={selected === struct.id && 'lg'}
                       overflow="hidden"
                     >
                       <Image

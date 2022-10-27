@@ -1,7 +1,8 @@
+import { string } from 'yup/lib/locale';
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { placeStructure } from '@todocity/data/db';
+import { placeStructure, unlockStructure } from '@todocity/data/db';
 import type {
   TLot,
   TLotPreview,
@@ -38,10 +39,10 @@ interface ILotsStore {
   setPreviewModel: (lotId: string, modelId: string) => void;
   lotPreview: TLotPreview;
   removePreviewModel: () => void;
-  placeStructure: (userId: string, lotId: string, modelId: string) => void;
+  placeStructure: (userId: string, lotId: string, structureId: string) => void;
   structures: TStructure[];
   structuresPlaced: number;
-  unlockStructure: (lotId: string) => void;
+  unlockStructure: (userId: string, structureId: string) => void;
   createTodoInProject: (projectId: string, todo) => void;
   demoCompleted: boolean;
   completeDemo: () => void;
@@ -209,18 +210,15 @@ export const actions = (set: any, get: any) => {
         };
       });
     },
-    unlockStructure: (lotId: string) => {
+    unlockStructure: (userId: string, structureId: string) => {
       set((state: ILotsStore) => {
-        const updatedStructures = [...structures];
-        const structureToUnlock = updatedStructures.find(
-          (struct) => struct.slug === lotId
-        );
-        structureToUnlock.details.locked = false;
+        unlockStructure(userId, structureId);
 
         return {
           ...state,
-          cityPoints: state.cityPoints - structureToUnlock.details.cost,
-          structures: updatedStructures,
+          // TODO: Update the cityState
+          // cityPoints: state.cityPoints - structureToUnlock.details.cost,
+          // structures: updatedStructures,
         };
       });
     },

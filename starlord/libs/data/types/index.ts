@@ -39,12 +39,14 @@ export type TMenu = {
 };
 
 export type TStructure = {
+  id?: string;
   slug: string;
   type: string;
   src: string;
   thumbnailSrc: string;
   relativePosition: number[];
   projectId?: string;
+  createdAt?: string;
   details?: {
     name?: string;
     description?: string;
