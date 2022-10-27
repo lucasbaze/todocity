@@ -38,7 +38,7 @@ export class UserModel implements IUserModel {
         cityName: null,
         stats: {
           completedTodos: 0,
-          createdTodos: 0,
+          createdTodos: 5,
           lotPoints: 5,
           unlockedLots: 1,
           cityPoints: 2,

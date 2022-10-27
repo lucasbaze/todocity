@@ -35,7 +35,6 @@ interface ILotsStore {
   removePreviewModel: () => void;
   structures: TStructure[];
   structuresPlaced: number;
-  createTodoInProject: (projectId: string, todo) => void;
   demoCompleted: boolean;
   completeDemo: () => void;
 }
@@ -166,21 +165,6 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           lotPreview: null,
-        };
-      });
-    },
-    createTodoInProject: (projectId: string, todo: TNewTodo) => {
-      set((state: ILotsStore) => {
-        const projects = [...state.projects];
-        const project = projects.find((project) => project.id === projectId);
-        project.todos = [
-          ...project.todos,
-          { ...todo, id: getUid(), completed: false },
-        ];
-        return {
-          ...state,
-          createdTodos: state.createdTodos + 1,
-          projects: projects,
         };
       });
     },

@@ -1,17 +1,14 @@
 import React, { useRef, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
-import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
 import { IconPlus } from '@tabler/icons';
-import { serverTimestamp } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useHotkeys } from 'react-hotkeys-hook';
 import * as Yup from 'yup';
 
 import { useAuth } from '@todocity/auth';
-import { projectTodosRef } from '@todocity/data/db';
+import { createTodo } from '@todocity/data/db';
 import { TTodoItem } from '@todocity/data/types';
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import {
   Box,
   Button,
@@ -38,7 +35,6 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
   const { user } = useAuth();
   const containerRef = useRef<HTMLDivElement>(null);
   const [edit, setEdit] = useState<boolean>(false);
-  const mutation = useFirestoreCollectionMutation(projectTodosRef(projectId));
   const borderColor = useColorModeValue('gray.250', 'gray.600');
 
   const formik = useFormik({
@@ -47,14 +43,8 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
       description: '',
     },
     validationSchema,
-    onSubmit: (values, formikHelpers) => {
-      mutation.mutate({
-        ...values,
-        projectId,
-        ownerId: user.uid,
-        completed: false,
-        createdAt: serverTimestamp(),
-      });
+    onSubmit: async (values, formikHelpers) => {
+      await createTodo(user.uid, projectId, values);
       formikHelpers.resetForm();
       setEdit(false);
       setTimeout(() => {

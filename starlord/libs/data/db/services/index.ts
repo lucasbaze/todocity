@@ -8,3 +8,4 @@ export { useInitialGameData } from './game/get-initial-game-data/get-initial-gam
 export { placeStructure } from './game/place-structure/place-structure';
 export { unlockStructure } from './game/unlock-structure/unlock-structure';
 export { unlockLot } from './game/unlock-lot/unlock-lot';
+export { createTodo } from './projects/create-todo/create-todo';

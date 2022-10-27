@@ -39,12 +39,12 @@ export class TodoModel implements ITodoModel {
 
   createTodo = async (userId: string, projectId: string, todo: TNewTodo) => {
     try {
-      const projectRef = doc(db, 'projects', projectId);
-      const todoRef = await addDoc(collection(projectRef, 'todos'), {
+      const todoRef = await addDoc(projectTodosRef(projectId), {
         ...todo,
         projectId,
         ownerId: userId,
         completed: false,
+        createdAt: serverTimestamp(),
       });
 
       this.todo = { ...todo, id: todoRef.id };
