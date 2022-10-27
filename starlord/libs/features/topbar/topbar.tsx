@@ -1,7 +1,11 @@
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import {
+  IconBattery,
+  IconBattery1,
   IconBattery2,
+  IconBattery3,
+  IconBattery4,
   IconBuildingCommunity,
   IconFence,
   IconListCheck,
@@ -9,17 +13,27 @@ import {
 
 import { useAuth } from '@todocity/auth';
 import { userRef } from '@todocity/data/db';
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Badge, Box, Flex, Icon, Text, Tooltip } from '@todocity/ui/core';
 
 import { CountdownTimer } from './countdown/countdown';
 
+function batteryIcon(level: number) {
+  if (level >= 95) {
+    return <Icon as={IconBattery4} />;
+  } else if (level < 95 && level >= 75) {
+    return <Icon as={IconBattery3} />;
+  } else if (level < 75 && level >= 50) {
+    return <Icon as={IconBattery2} />;
+  } else if (level < 50 && level >= 10) {
+    return <Icon as={IconBattery1} />;
+  } else {
+    return <Icon as={IconBattery} />;
+  }
+}
+
 export interface ITopBarProps {}
 
 export function TopBar({}: ITopBarProps) {
-  const { powerLevel } = useLotsManagerStore((state) => ({
-    powerLevel: state.powerLevel,
-  }));
   const { user } = useAuth();
   const cityStatsQuery = useFirestoreDocumentData(
     ['user', user.uid],
@@ -71,8 +85,8 @@ export function TopBar({}: ITopBarProps) {
               offset={[0, 20]}
             >
               <Flex alignItems="center" cursor="pointer">
-                <Icon as={IconBattery2} />
-                {`${powerLevel}%`}
+                {batteryIcon(cityStatsQuery.data?.city.powerLevel)}
+                {`${cityStatsQuery.data?.city.powerLevel}%`}
               </Flex>
             </Tooltip>
           </Box>

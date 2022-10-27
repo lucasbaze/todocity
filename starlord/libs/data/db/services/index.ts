@@ -9,3 +9,6 @@ export { placeStructure } from './game/place-structure/place-structure';
 export { unlockStructure } from './game/unlock-structure/unlock-structure';
 export { unlockLot } from './game/unlock-lot/unlock-lot';
 export { createTodo } from './projects/create-todo/create-todo';
+export { completeTodo } from './projects/complete-todo/complete-todo';
+export { uncompleteTodo } from './projects/uncomplete-todo/uncomplete-todo';
+export { updateTodo } from './projects/update-todo/update-todo';

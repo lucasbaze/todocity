@@ -2,11 +2,11 @@ import { useRef, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
-import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { IconCircle, IconCircleCheck } from '@tabler/icons';
 import { useFormik } from 'formik';
 
-import { projectTodoRef } from '@todocity/data/db';
+import { useAuth } from '@todocity/auth';
+import { completeTodo, uncompleteTodo, updateTodo } from '@todocity/data/db';
 import { TCriteria, TTodoItem } from '@todocity/data/types';
 import {
   AnimatedPointsAdd,
@@ -110,23 +110,15 @@ export function TodoItem({
   criteria,
   id: todoId,
 }: ITodoItemProps) {
+  const { user } = useAuth();
   const toast = useToast();
   const todoContainerRef = useRef<HTMLDivElement>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(completed);
 
-  const mutation = useFirestoreDocumentMutation(
-    projectTodoRef(projectId, todoId),
-    { merge: true }
-  );
-
-  const { completeTodo, unCompleteTodo, completeDemo } = useLotsManagerStore(
-    (state) => ({
-      completeTodo: state.completeTodo,
-      unCompleteTodo: state.unCompleteTodo,
-      completeDemo: state.completeDemo,
-    })
-  );
+  const { completeDemo } = useLotsManagerStore((state) => ({
+    completeDemo: state.completeDemo,
+  }));
   const borderColor = useColorModeValue('gray.250', 'gray.600');
 
   const handleClick = () => {
@@ -150,15 +142,9 @@ export function TodoItem({
     if (checkCriteria(criteria, completeDemo)) {
       setChecked((checked) => {
         if (checked) {
-          // unCompleteTodo(projectId, todoId);
-          mutation.mutate({
-            completed: false,
-          });
+          uncompleteTodo(user.uid, projectId, todoId);
         } else {
-          mutation.mutate({
-            completed: true,
-          });
-          // completeTodo(projectId, todoId);
+          completeTodo(user.uid, projectId, todoId);
         }
 
         return !checked;
@@ -185,12 +171,7 @@ export function TodoItem({
       description,
     },
     onSubmit: (values, formikHelpers) => {
-      // Saving to local state. This needs to be move to data driven state
-      // console.log('Values: ', values);
-      mutation.mutate({
-        ...values,
-      });
-      // Close the edit mode
+      updateTodo(projectId, todoId, values);
       setEdit(false);
     },
   });

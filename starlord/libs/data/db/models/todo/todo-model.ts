@@ -1,20 +1,7 @@
-import {
-  addDoc,
-  arrayUnion,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
-import kebabCase from 'lodash/kebabCase';
+import { addDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
-import { projectTodosRef } from '@todocity/data/db';
-import { TNewTodo, TTodoItem, TUser } from '@todocity/data/types';
-import { getLocalStorage } from '@todocity/utils/global/get-local-storage';
-import { generate } from '@todocity/utils/referral-codes/referral-codes';
-
-import { db } from '../../config/db';
+import { projectTodoRef, projectTodosRef } from '@todocity/data/db';
+import { TNewTodo, TTodoItem } from '@todocity/data/types';
 
 export interface ITodoModel {
   todo: Partial<TTodoItem>;
@@ -27,6 +14,11 @@ export interface ITodoModel {
     userId: string,
     projectId: string,
     newTodo: TNewTodo[]
+  ): Promise<ITodoModel>;
+  updateTodo(
+    projectId: string,
+    todoId: string,
+    values: Record<string, unknown>
   ): Promise<ITodoModel>;
 }
 
@@ -77,5 +69,20 @@ export class TodoModel implements ITodoModel {
       console.error('Failed to create todos: ', userId, projectId, todos);
     }
     return this;
+  };
+
+  updateTodo = async (
+    projectId: string,
+    todoId: string,
+    values: Record<string, unknown>
+  ) => {
+    try {
+      console.log('Attempting to update Todo: ', projectId, todoId, values);
+      await updateDoc(projectTodoRef(projectId, todoId), values);
+      console.log('Updated Todo: ', projectId, todoId, values);
+      return this;
+    } catch (error) {
+      console.error('Failed to update todo: ', projectId, todoId);
+    }
   };
 }
