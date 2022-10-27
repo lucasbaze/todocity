@@ -1,9 +1,9 @@
-import { User as TFirebaseUser } from 'firebase/auth';
 import {
   addDoc,
   arrayUnion,
   collection,
   doc,
+  serverTimestamp,
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
@@ -68,6 +68,7 @@ export class TodoModel implements ITodoModel {
           projectId,
           ownerId: userId,
           completed: false,
+          createdAt: serverTimestamp(),
         });
       });
       const createdTodos = await Promise.all(todoPromises);

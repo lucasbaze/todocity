@@ -4,7 +4,7 @@ import {
   useFirestoreQueryData,
 } from '@react-query-firebase/firestore';
 
-import { projectRef, projectTodosRef } from '@todocity/data/db';
+import { projectRef, projectTodosRefQuery } from '@todocity/data/db';
 import type { TMenu } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
 import { ProjectList } from '@todocity/features/projects/project-list/project-list';
@@ -30,7 +30,7 @@ export function ProjectMenu({
   );
   const projectTodosQuery = useFirestoreQueryData(
     ['project-todos', id],
-    projectTodosRef(id),
+    projectTodosRefQuery(id),
     { subscribe: true }
   );
   const mutation = useFirestoreDocumentMutation(projectRef(id), {

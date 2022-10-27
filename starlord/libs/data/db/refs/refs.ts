@@ -38,8 +38,13 @@ export const userRef = (userId: string) => doc(db, 'users', userId);
 export const projectRef = (projectId: string) => doc(db, 'projects', projectId);
 export const projectTodosRef = (projectId: string) =>
   collection(doc(db, 'projects', projectId), 'todos').withConverter(
-    firestoreConverter<TTodoItem>()
+    firestoreConverter<TTodoItem & { createdAt?: string }>()
   );
+export const projectTodosRefQuery = (projectId: string) =>
+  query(
+    collection(doc(db, 'projects', projectId), 'todos'),
+    orderBy('createdAt', 'asc')
+  ).withConverter(firestoreConverter<TTodoItem & { createdAt?: string }>());
 export const projectTodoRef = (projectId: string, todoId: string) =>
   doc(db, `projects/${projectId}/todos`, todoId);
 
