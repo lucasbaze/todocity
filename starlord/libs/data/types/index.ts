@@ -15,6 +15,17 @@ export type TUser = {
   referrals: string[]; // user strings
 };
 
+export type TCity = {
+  cityName?: string;
+  stats: {
+    completedTodos: number;
+    createdTodos: number;
+    lotPoints: number;
+    unlockedLots: number;
+    cityPoints: number;
+  };
+};
+
 export type TLand = {
   size: [number, number];
   name: string;

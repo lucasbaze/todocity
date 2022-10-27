@@ -31,7 +31,6 @@ interface ILotsStore {
   cityPoints: number;
   completeTodo: (projectId: string, todoId: string) => void;
   unCompleteTodo: (projectId: string, todoId: string) => void;
-  unlockLot: (lotId: string) => void;
   setPreviewModel: (lotId: string, modelId: string) => void;
   lotPreview: TLotPreview;
   removePreviewModel: () => void;
@@ -149,19 +148,6 @@ export const actions = (set: any, get: any) => {
           projects: projects,
           powerLevel: Math.min(100, state.powerLevel - 10),
           completedTodos: state.completedTodos - 1,
-        };
-      });
-    },
-    unlockLot: (lotId: string): void => {
-      set((state: ILotsStore) => {
-        const lots = [...state.lots];
-        const lot = lots.find((lot) => lot.id === lotId);
-        lot.land.locked = false;
-        return {
-          ...state,
-          lots: lots,
-          unlockedLots: state.unlockedLots + 1,
-          lotPoints: state.lotPoints - lot.land.cost,
         };
       });
     },

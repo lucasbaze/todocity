@@ -33,7 +33,22 @@ export class LotModel implements ILotModel {
       const lot = await getDoc(lotRef(userId, lotId));
       this.lot = lot;
     } catch (error) {
-      console.log('Failed to get lot: ', lotId, error);
+      console.error('Failed to get lot: ', lotId, error);
+    }
+    return this;
+  };
+
+  updateLot = async (
+    userId: string,
+    lotId: string,
+    values: Record<string, unknown>
+  ) => {
+    try {
+      console.log('Attempting to unlock lot: ', userId, lotId);
+      await updateDoc(lotRef(userId, lotId), values);
+      console.log('Unlocked lot: ', userId, lotId);
+    } catch (error) {
+      console.error('Failed to get lot: ', lotId, error);
     }
     return this;
   };
@@ -64,7 +79,7 @@ export class LotModel implements ILotModel {
       const createdLots = await Promise.all(lotPromises);
       console.log('Created Lots: ', createdLots);
     } catch (error) {
-      console.log('Failed to create lots: ', lots, error);
+      console.error('Failed to create lots: ', lots, error);
     }
 
     return this;

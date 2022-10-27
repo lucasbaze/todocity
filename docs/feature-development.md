@@ -14,6 +14,12 @@
 2. Use the firestore hook to fetch the data accordingly
 3. Decide if you need to refetch the data or subscribe accordingly ( there might be duplicate data reads. That's okay )
 
+**useFirestoreDocument**
+When adding a new query, make sure that you're using the same query key name as others that may have already been called to reduce the number of calls to the db and use react-query local data.
+
+i.e. if a query key already exists for `useFirestoreDocumentData(['user', user.id])`, then use that same query key `['user']` again.
+You can read https://react-query-v3.tanstack.com/guides/query-keys
+
 ### Mutations
 
 1. The client should use the correct `mutationRef` from the `data/client` folder

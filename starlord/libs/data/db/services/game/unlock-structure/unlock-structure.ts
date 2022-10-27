@@ -1,7 +1,4 @@
-import { LotModel } from 'libs/data/db/models/lot/lot-model';
 import { StructureModel } from 'libs/data/db/models/strucure/structure-model';
-
-import { ProjectModel } from '../../../models/project/project-model';
 
 export async function unlockStructure(userId: string, structureId: string) {
   try {

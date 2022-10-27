@@ -1,32 +1,32 @@
-import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
+import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import { IconFence } from '@tabler/icons';
 
 import { useAuth } from '@todocity/auth';
-import { lotRef } from '@todocity/data/db';
+import { unlockLot, userRef } from '@todocity/data/db';
 import type { TMenu } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Box, Button, Flex, Icon, Text, Tooltip } from '@todocity/ui/core';
+
 export interface ILotMenuProps extends TMenu {
   onClose: (id: string) => void;
 }
 
 export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
   const { user } = useAuth();
-  const { lotPoints } = useLotsManagerStore((state) => ({
-    lotPoints: state.lotPoints,
-  }));
+  const cityStatsQuery = useFirestoreDocumentData(
+    ['user', user.uid],
+    userRef(user.uid),
+    {
+      subscribe: true,
+    },
+    {
+      select: (data) => data.city.stats,
+    }
+  );
 
-  const mutation = useFirestoreDocumentMutation(lotRef(user.uid, id), {
-    merge: true,
-  });
-
-  const handleUnlock = () => {
-    if (lotPoints >= content.land.cost) {
-      // unlockLot(content.lotId);
-      mutation.mutate({
-        land: { ...content.land, locked: false },
-      });
+  const handleUnlock = async () => {
+    if (cityStatsQuery.data?.lotPoints >= content.land.cost) {
+      const res = await unlockLot(user.uid, id, content.land.cost);
       onClose(id);
     }
   };
@@ -62,7 +62,7 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
           <Box>
             <Flex justifyContent="flex-end" alignItems="center">
               <Tooltip
-                isDisabled={lotPoints >= content.land.cost}
+                isDisabled={cityStatsQuery.data?.lotPoints >= content.land.cost}
                 label="You do not have enough lot points"
               >
                 <Box>
@@ -71,7 +71,9 @@ export function LotMenu({ id, cssPosition, content, onClose }: ILotMenuProps) {
                     variant="solid"
                     size="xs"
                     onClick={handleUnlock}
-                    disabled={lotPoints < content.land.cost}
+                    disabled={
+                      cityStatsQuery.data?.lotPoints < content.land.cost
+                    }
                   >
                     Unlock
                   </Button>
