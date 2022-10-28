@@ -16,13 +16,16 @@ export type TUser = {
 };
 
 export type TCity = {
-  cityName?: string;
+  cityName: string | null;
+  powerLevel: number;
+  packages: TPackage[];
   stats: {
     completedTodos: number;
     createdTodos: number;
     lotPoints: number;
     unlockedLots: number;
     cityPoints: number;
+    structuresPlaced: number;
   };
 };
 

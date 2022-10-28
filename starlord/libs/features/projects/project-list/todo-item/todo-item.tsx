@@ -1,13 +1,19 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
+import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import { IconCircle, IconCircleCheck } from '@tabler/icons';
 import { useFormik } from 'formik';
 
 import { useAuth } from '@todocity/auth';
-import { completeTodo, uncompleteTodo, updateTodo } from '@todocity/data/db';
-import { TCriteria, TTodoItem } from '@todocity/data/types';
+import {
+  completeTodo,
+  uncompleteTodo,
+  updateTodo,
+  userRef,
+} from '@todocity/data/db';
+import { TCity, TCriteria, TTodoItem } from '@todocity/data/types';
 import {
   AnimatedPointsAdd,
   AnimatedPointsSubtract,
@@ -55,29 +61,36 @@ function CheckBox({ completed, setCompleted }: ICheckBox) {
 
 // TODO: extract this into a separate function
 // TODO: Remove the "completeDemo", Hacky
-function checkCriteria(
-  criteria?: TCriteria,
-  completeDemo?: () => void
-): boolean {
+interface ICheckCriteria {
+  stats: TCity['stats'];
+  criteria?: TCriteria;
+  completeDemo?: () => void;
+}
+
+function checkCriteria({
+  stats,
+  criteria,
+  completeDemo,
+}: ICheckCriteria): boolean {
   if (!criteria) {
     return true;
   }
   switch (criteria.target) {
     case 'lot':
-      const unlockedLots = useLotsManagerStore.getState().unlockedLots;
+      const unlockedLots = stats.unlockedLots;
       if (unlockedLots >= criteria.value) {
         return true;
       }
       return false;
     case 'todo':
       if (criteria.state === 'created') {
-        const createdTodos = useLotsManagerStore.getState().createdTodos;
+        const createdTodos = stats.createdTodos;
         if (createdTodos >= criteria.value) {
           return true;
         }
       }
       if (criteria.state === 'completed') {
-        const completedTodos = useLotsManagerStore.getState().completedTodos;
+        const completedTodos = stats.completedTodos;
         if (completedTodos >= criteria.value) {
           // TODO: Definitely a hack, only for demo purposes
           // Core concept: Completing actions triggers other actions
@@ -88,7 +101,7 @@ function checkCriteria(
       }
       return false;
     case 'structure':
-      const placedStructures = useLotsManagerStore.getState().structuresPlaced;
+      const placedStructures = stats.structuresPlaced;
       if (placedStructures >= criteria.value) {
         return true;
       }
@@ -116,6 +129,17 @@ export function TodoItem({
   const [edit, setEdit] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(completed);
 
+  const cityStatsQuery = useFirestoreDocumentData(
+    ['user', user.uid],
+    userRef(user.uid),
+    {
+      subscribe: true,
+    },
+    {
+      select: (data) => data.city.stats,
+    }
+  );
+
   const { completeDemo } = useLotsManagerStore((state) => ({
     completeDemo: state.completeDemo,
   }));
@@ -138,15 +162,14 @@ export function TodoItem({
     setEdit(false);
   };
 
-  const handleMarkComplete = () => {
-    if (checkCriteria(criteria, completeDemo)) {
+  const handleMarkComplete = useCallback(() => {
+    if (checkCriteria({ criteria, completeDemo, stats: cityStatsQuery.data })) {
       setChecked((checked) => {
         if (checked) {
           uncompleteTodo(user.uid, projectId, todoId);
         } else {
           completeTodo(user.uid, projectId, todoId);
         }
-
         return !checked;
       });
     } else {
@@ -159,7 +182,7 @@ export function TodoItem({
         isClosable: true,
       });
     }
-  };
+  }, [cityStatsQuery.data]);
 
   /*
 	 TODO: Move to separate component
