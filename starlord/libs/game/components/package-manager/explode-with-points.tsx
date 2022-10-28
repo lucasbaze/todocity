@@ -23,11 +23,11 @@ export function ExplodeWithPoints({ explode }: { explode: boolean }) {
       const currPositions = bufferRef.current.array;
       for (let i = 0; i < currPositions.length / 3; ) {
         // @ts-ignore
-        currPositions[i * 3] = currPositions[i * 3] * 1.06;
+        currPositions[i * 3] = currPositions[i * 3] * 1.1;
         // @ts-ignore
-        currPositions[i * 3 + 1] = currPositions[i * 3 + 1] * 1.06;
+        currPositions[i * 3 + 1] = currPositions[i * 3 + 1] * 1.1;
         // @ts-ignore
-        currPositions[i * 3 + 2] = currPositions[i * 3 + 2] * 1.06;
+        currPositions[i * 3 + 2] = currPositions[i * 3 + 2] * 1.1;
 
         i += 1;
       }
@@ -51,7 +51,7 @@ export function ExplodeWithPoints({ explode }: { explode: boolean }) {
         attach="material"
         map={imgTexture}
         color="#9F79EA"
-        size={0.3}
+        size={0.6}
         sizeAttenuation
         transparent={false}
         alphaTest={0.5}

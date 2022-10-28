@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import {
@@ -44,21 +46,40 @@ export function TopBar({}: ITopBarProps) {
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
   const demoNotifBgColor = useColorModeValue('purple.300', 'purple.600');
 
+  const countdownCopy = () => {
+    let tooltip: string = '';
+    let body: ReactNode = null;
+    if (cityStatsQuery.data?.city.packages.length > 0) {
+      tooltip = 'You have a package of points!';
+      body = <Text fontWeight="bold">Package! 📦</Text>;
+    } else if (cityStatsQuery.data?.city.powerLevel === 0) {
+      tooltip = 'No power... complete todos to bring the portal back online';
+      body = <Text fontWeight="bold">No Power 😭</Text>;
+    } else {
+      tooltip = 'Every 5 minutes a portal opens and drops off a package';
+      body = <CountdownTimer />;
+    }
+    return { tooltip, body };
+  };
+
   return (
-    <>
+    <Flex
+      position="fixed"
+      top="5"
+      width="100%"
+      gap={2}
+      zIndex={zIndices.overlay}
+    >
+      <Box flex={1} />
       <Flex
-        left="50%"
-        top="5"
-        transform="translateX(-50%)"
+        flex={3}
         boxShadow="xl"
         borderRadius={20}
         py="2"
         px="4"
-        position="fixed"
-        minWidth="350px"
+        maxWidth="350px"
         height="44px"
         alignItems="center"
-        zIndex={zIndices.overlay}
         backgroundColor={backgroundColor}
       >
         <Flex fontWeight="bold" gap={3}>
@@ -171,26 +192,33 @@ export function TopBar({}: ITopBarProps) {
           bg={demoNotifBgColor}
         >
           <Tooltip
-            label="TodoCity is currently under construction. You will be notified about your early access!"
+            label="TodoCity is currently in alpha. Your todo's will always be safe, but the city and game may change."
             hasArrow
             offset={[0, 10]}
           >
-            <Text fontWeight="semibold" variant="body" cursor="pointer">
-              Demo City
+            <Text
+              fontWeight="semibold"
+              variant="body"
+              cursor="pointer"
+              color="white"
+              fontSize={14}
+            >
+              Version: Alpha City 1.0
             </Text>
           </Tooltip>
         </Box>
+      </Flex>
+      {/* Timer */}
+      <Flex flex={1}>
         <Flex
           boxShadow="xl"
           borderRadius={20}
+          top="5"
           py="2"
           px="4"
-          position="absolute"
-          right="-100"
-          minWidth="90px"
           height="44px"
+          justifyContent="flex-start"
           alignItems="center"
-          zIndex={zIndices.overlay}
           backgroundColor={backgroundColor}
         >
           <Tooltip
@@ -202,7 +230,7 @@ export function TopBar({}: ITopBarProps) {
                   </Badge>
                 </Flex>
                 <Box mt="1" maxWidth="240px">
-                  Every 5 minutes a portal opens and drops off a package
+                  {countdownCopy().tooltip}
                 </Box>
               </Flex>
             }
@@ -210,11 +238,11 @@ export function TopBar({}: ITopBarProps) {
             offset={[0, 20]}
           >
             <Flex alignItems="center" cursor="pointer">
-              <CountdownTimer />
+              {countdownCopy().body}
             </Flex>
           </Tooltip>
         </Flex>
       </Flex>
-    </>
+    </Flex>
   );
 }

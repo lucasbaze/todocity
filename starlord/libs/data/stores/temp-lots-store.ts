@@ -4,12 +4,10 @@ import { devtools } from 'zustand/middleware';
 import type {
   TLot,
   TLotPreview,
-  TNewTodo,
   TPackage,
   TProject,
   TStructure,
 } from '@todocity/data/types';
-import { getUid } from '@todocity/utils/global/get-uid';
 
 import { initialLots } from './initial-lots';
 import { initialProjects } from './initial-projects';
@@ -18,8 +16,6 @@ import { structures } from './initial-structures';
 interface ILotsStore {
   countdownStart: number;
   packages: TPackage[];
-  createPackage: () => void;
-  openPackage: (id: string) => void;
   powerLevel: number;
   lots: TLot[];
   projects: TProject[];
@@ -57,53 +53,6 @@ export const initialLotsStore = {
 // TODO: figure out the right type here
 export const actions = (set: any, get: any) => {
   return {
-    createPackage: (): void => {
-      set((state: ILotsStore) => {
-        // Generate new package
-        let newCityPoints = 0;
-        let newLotPoints = 0;
-        if (Math.random() > 0.5) {
-          // prettier-ignore
-          newCityPoints = Math.round(state.structures.length * Math.random() * state.powerLevel / 100) + 1;
-        } else {
-          // prettier-ignore
-          newLotPoints = Math.round(state.structures.length * Math.random() + state.completedTodos / 10) + 1;
-        }
-        // prettier-ignore
-        const newPackage: TPackage = { id: getUid(), lotPoints: newLotPoints, cityPoints: newCityPoints};
-
-        const newPowerLevel = () => {
-          const powerReduction = Math.max(newCityPoints, newLotPoints);
-
-          if (state.powerLevel - powerReduction < 0) {
-            return 0;
-          } else {
-            return state.powerLevel - powerReduction;
-          }
-        };
-
-        return {
-          ...state,
-          packages: [newPackage],
-          powerLevel: newPowerLevel(),
-        };
-      });
-    },
-    openPackage: (id: string): void => {
-      set((state: ILotsStore) => {
-        const openedPackage = state.packages.find(
-          (pointPackage) => pointPackage.id === id
-        );
-
-        return {
-          ...state,
-          countdownStart: Date.now() + 5 * 60000,
-          cityPoints: (state.cityPoints += openedPackage.cityPoints),
-          lotPoints: (state.lotPoints += openedPackage.lotPoints),
-          packages: [],
-        };
-      });
-    },
     setPreviewModel: (lotId: string, previewSrc: string) => {
       set((state: ILotsStore) => {
         const preview = {

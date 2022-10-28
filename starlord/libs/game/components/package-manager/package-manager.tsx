@@ -1,12 +1,15 @@
 import { Suspense, useCallback, useState } from 'react';
 
 import { useToast } from '@chakra-ui/react';
+import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import { animated, config, useSpring } from '@react-spring/three';
 import { Physics, useBox, usePlane } from '@react-three/cannon';
 import { IconBuildingCommunity, IconFence } from '@tabler/icons';
 
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
-import { Box, Flex, Icon, Text } from '@todocity/ui/core';
+import { useAuth } from '@todocity/auth';
+import { openPackage, userRef } from '@todocity/data/db';
+import { TPackage } from '@todocity/data/types';
+import { Flex, Icon, Text } from '@todocity/ui/core';
 
 import { BasePrimitiveModel } from '../../models/base-primitive-model/base-primitive-model';
 import { ExplodeWithPoints } from './explode-with-points';
@@ -32,7 +35,11 @@ interface IPhysicsBoxProps {
 function PhysicsBox({ children }: IPhysicsBoxProps) {
   const [ref] = useBox(() => ({
     mass: 1,
-    position: [0, 15, 4],
+    position: [
+      0,
+      Math.round(15 * Math.random()),
+      Math.round(4 * Math.random()),
+    ],
     rotation: [0.4, 0.2, 0.5],
   }));
   return (
@@ -82,14 +89,21 @@ function ExplodingPackage({ children, onClick }: IExplodingPackageProps) {
 
 export function PackageManager() {
   const toast = useToast();
-  const { packages, openPackage } = useLotsManagerStore((state) => ({
-    packages: state.packages,
-    openPackage: state.openPackage,
-  }));
+  const { user } = useAuth();
+  const userPackagesQuery = useFirestoreDocumentData(
+    ['user', user.uid],
+    userRef(user.uid),
+    {
+      subscribe: true,
+    },
+    { select: (data) => data.city.packages }
+  );
 
-  const handleOpenPackage = (id: string) => {
-    openPackage(id);
-    const openedPackage = packages.find((pack) => pack.id === id);
+  const handleOpenPackage = async (packageId: string) => {
+    const openedPackage = userPackagesQuery.data.find(
+      (pack: TPackage) => pack.id === packageId
+    );
+    await openPackage(user.uid, packageId);
     const { cityPoints, lotPoints } = openedPackage;
     toast({
       status: 'success',
@@ -120,7 +134,7 @@ export function PackageManager() {
           </Text>
         </Flex>
       ),
-      duration: 5000,
+      duration: 2000,
       isClosable: true,
     });
   };
@@ -128,9 +142,9 @@ export function PackageManager() {
   return (
     <>
       <Physics>
-        {packages.map((singlePackage, i) => {
+        {userPackagesQuery.data?.map((singlePackage: TPackage, i: number) => {
           return (
-            <Suspense fallback={null} key={singlePackage.id}>
+            <Suspense fallback={null} key={i}>
               <PhysicsBox>
                 <ExplodingPackage
                   onClick={() => handleOpenPackage(singlePackage.id)}

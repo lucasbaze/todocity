@@ -1,9 +1,9 @@
 import { runTransaction } from 'firebase/firestore';
 
-import { userRef } from '@todocity/data/db';
 import { TCity } from '@todocity/data/types';
 
 import { db } from '../../config/db';
+import { userRef } from '../../refs/refs';
 
 export interface ICityModel {
   city: Partial<TCity>;
