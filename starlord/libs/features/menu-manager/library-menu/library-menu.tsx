@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-import { useFirestoreQueryData } from '@react-query-firebase/firestore';
+import {
+  useFirestoreDocumentData,
+  useFirestoreQueryData,
+} from '@react-query-firebase/firestore';
 import { IconBuildingCommunity } from '@tabler/icons';
 
 import { useAuth } from '@todocity/auth';
@@ -8,6 +11,7 @@ import {
   placeStructure,
   structuresQueryRef,
   unlockStructure,
+  userRef,
 } from '@todocity/data/db';
 import type { TMenu, TStructure } from '@todocity/data/types';
 import { DraggableMenu } from '@todocity/features/menu-manager/draggable-menu/draggable-menu';
@@ -35,12 +39,24 @@ export function LibraryMenu({
 }: ILibraryMenuProps) {
   const { user } = useAuth();
   const [selected, setSelected] = useState<string | null>(null);
-  const { cityPoints, setPreviewModel, removePreviewModel } =
-    useLotsManagerStore((state) => ({
-      cityPoints: state.cityPoints,
+
+  const cityStatsQuery = useFirestoreDocumentData(
+    ['user', user.uid],
+    userRef(user.uid),
+    {
+      subscribe: true,
+    },
+    {
+      select: (data) => data.city.stats,
+    }
+  );
+
+  const { setPreviewModel, removePreviewModel } = useLotsManagerStore(
+    (state) => ({
       setPreviewModel: state.setPreviewModel,
       removePreviewModel: state.removePreviewModel,
-    }));
+    })
+  );
 
   const structuresQuery = useFirestoreQueryData(
     ['structures'],
@@ -165,7 +181,9 @@ export function LibraryMenu({
                           opacity: 0.8,
                           cursor: 'not-allowed',
                         }}
-                        disabled={cityPoints < struct.details.cost}
+                        disabled={
+                          cityStatsQuery?.data.cityPoints < struct.details.cost
+                        }
                       >
                         Unlock: {struct.details.cost}{' '}
                         <Icon as={IconBuildingCommunity} />
