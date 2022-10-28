@@ -12,13 +12,13 @@ import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
  */
 export function PowerBall({ position }) {
   const yPosition = useRef(0);
-  const powerLevel = useLotsManagerStore((state) => state.powerLevel);
+  // const powerLevel = useLotsManagerStore((state) => state.powerLevel);
   const pointRef = useRef<Group>(null);
   const meshRef = useRef<Mesh>(null);
   const texture = useTexture('./static/textures/glow.png');
 
   useFrame(() => {
-    pointRef.current.rotation.y += powerLevel * 0.01;
+    // pointRef.current.rotation.y += powerLevel * 0.01;
     pointRef.current.position.y = Math.sin(yPosition.current);
     yPosition.current += 0.02;
   });

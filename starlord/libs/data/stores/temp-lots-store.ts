@@ -1,52 +1,20 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import type {
-  TLot,
-  TLotPreview,
-  TPackage,
-  TProject,
-  TStructure,
-} from '@todocity/data/types';
-
-import { initialLots } from './initial-lots';
-import { initialProjects } from './initial-projects';
-import { structures } from './initial-structures';
+import type { TLotPreview } from '@todocity/data/types';
 
 interface ILotsStore {
   countdownStart: number;
-  packages: TPackage[];
-  powerLevel: number;
-  lots: TLot[];
-  projects: TProject[];
-  completedTodos: number;
-  createdTodos: number;
-  lotPoints: number;
-  unlockedLots: number;
-  cityPoints: number;
-  setPreviewModel: (lotId: string, modelId: string) => void;
   lotPreview: TLotPreview;
+  setPreviewModel: (lotId: string, modelId: string) => void;
   removePreviewModel: () => void;
-  structures: TStructure[];
-  structuresPlaced: number;
   demoCompleted: boolean;
   completeDemo: () => void;
 }
 
 export const initialLotsStore = {
   countdownStart: Date.now() + 5 * 60000,
-  powerLevel: 50,
-  packages: [],
-  lots: initialLots,
-  projects: initialProjects,
-  structures: structures,
   lotPreview: null,
-  createdTodos: 0,
-  unlockedLots: 1,
-  completedTodos: 0,
-  structuresPlaced: 1,
-  lotPoints: 15,
-  cityPoints: 3,
   demoCompleted: false,
 };
 
