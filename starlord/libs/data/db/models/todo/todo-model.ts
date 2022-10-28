@@ -36,6 +36,7 @@ export class TodoModel implements ITodoModel {
         projectId,
         ownerId: userId,
         completed: false,
+        visible: true,
         createdAt: serverTimestamp(),
       });
 

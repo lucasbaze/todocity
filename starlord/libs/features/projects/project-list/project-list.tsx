@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
-import { IconPlus } from '@tabler/icons';
+import { IconEraser, IconPlus } from '@tabler/icons';
 import { useFormik } from 'formik';
 import { useHotkeys } from 'react-hotkeys-hook';
 import * as Yup from 'yup';
 
 import { useAuth } from '@todocity/auth';
-import { createTodo } from '@todocity/data/db';
+import { clearCompletedTodos, createTodo } from '@todocity/data/db';
 import { TTodoItem } from '@todocity/data/types';
 import {
   Box,
@@ -15,8 +15,10 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
+  IconButton,
   Input,
   Textarea,
+  Tooltip,
 } from '@todocity/ui/core';
 
 import { TodoItem } from './todo-item/todo-item';
@@ -63,6 +65,12 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
     formik.submitForm();
   };
 
+  const handleClearCompletedTodos = async () => {
+    if (todos.some((todo) => todo.completed)) {
+      await clearCompletedTodos(projectId);
+    }
+  };
+
   const ref = useHotkeys(
     'cmd+return',
     (e, handler) => {
@@ -85,7 +93,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
           <TodoItem key={todo.id} projectId={projectId} {...todo} />
         ))}
       </Box>
-      <Box px="6">
+      <Box px="4">
         {edit ? (
           <form onSubmit={(e) => e.preventDefault()}>
             <Flex direction="column">
@@ -151,15 +159,31 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
             </Flex>
           </form>
         ) : (
-          <Button
-            colorScheme="purple"
-            variant="solid"
-            size="sm"
-            leftIcon={<IconPlus />}
-            onClick={() => setEdit(true)}
-          >
-            New Todo
-          </Button>
+          <Flex gap={2}>
+            <Box flex={1}>
+              <Button
+                colorScheme="purple"
+                variant="solid"
+                size="sm"
+                leftIcon={<IconPlus />}
+                onClick={() => setEdit(true)}
+              >
+                New Todo
+              </Button>
+            </Box>
+            <Tooltip label="Clear all completed todos">
+              <span>
+                <IconButton
+                  aria-label="erase"
+                  variant="ghost"
+                  size="md"
+                  disabled={todos.some((todo) => !todo.completed)}
+                  icon={<IconEraser />}
+                  onClick={handleClearCompletedTodos}
+                />
+              </span>
+            </Tooltip>
+          </Flex>
         )}
       </Box>
     </Box>

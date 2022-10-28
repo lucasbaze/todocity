@@ -105,6 +105,7 @@ export type TTodoItem = {
   completed?: boolean;
   ownerId?: string;
   projectId?: string;
+  visible?: boolean;
   criteria?: TCriteria;
 };
 

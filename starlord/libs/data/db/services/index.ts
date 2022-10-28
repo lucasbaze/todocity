@@ -6,11 +6,11 @@ export * from '../refs/refs';
 export { signInSuccessWithAuthResult } from './accounts/create-account';
 
 // Projects
-export { getUserProjects } from './projects/get-user-projects/get-user-projects';
 export { createTodo } from './projects/create-todo/create-todo';
 export { completeTodo } from './projects/complete-todo/complete-todo';
 export { uncompleteTodo } from './projects/uncomplete-todo/uncomplete-todo';
 export { updateTodo } from './projects/update-todo/update-todo';
+export { clearCompletedTodos } from './projects/clear-completed-todos/clear-completed-todos';
 
 // Game
 export { useInitialGameData } from './game/get-initial-game-data/get-initial-game-data';

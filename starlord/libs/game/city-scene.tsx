@@ -279,7 +279,6 @@ export function CityScene() {
     lotsRef(user.uid),
     { subscribe: true }
   );
-  console.log('UserLotsQuery: ', userLotsQuery);
   const { loading, data, error } = useInitialGameData(user.uid);
 
   // const setLevaStoreToDisplay = useEditModeStore(

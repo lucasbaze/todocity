@@ -7,6 +7,7 @@ import {
   query,
   QueryDocumentSnapshot,
   SnapshotOptions,
+  where,
 } from 'firebase/firestore';
 
 import type { TLot, TStructure, TTodoItem } from '@todocity/data/types';
@@ -43,6 +44,8 @@ export const projectTodosRef = (projectId: string) =>
 export const projectTodosRefQuery = (projectId: string) =>
   query(
     collection(doc(db, 'projects', projectId), 'todos'),
+    where('visible', '!=', false),
+    orderBy('visible', 'desc'),
     orderBy('createdAt', 'asc')
   ).withConverter(firestoreConverter<TTodoItem & { createdAt?: string }>());
 export const projectTodoRef = (projectId: string, todoId: string) =>

@@ -1,4 +1,4 @@
-import { runTransaction } from 'firebase/firestore';
+import { runTransaction, updateDoc } from 'firebase/firestore';
 
 import { TCity } from '@todocity/data/types';
 
@@ -23,20 +23,20 @@ export class CityModel implements ICityModel {
   updateCity = async (userId: string, values: Record<string, unknown>) => {
     try {
       const newValues = { ...values };
-      await runTransaction(db, async (transaction) => {
-        const userDoc = await transaction.get(userRef(userId));
-        if (!userDoc.exists()) {
-          throw 'User does not exist!';
-        }
+      if (newValues['powerLevel']) {
+        await runTransaction(db, async (transaction) => {
+          const userDoc = await transaction.get(userRef(userId));
+          if (!userDoc.exists()) {
+            throw 'User does not exist!';
+          }
 
-        // Append `city` to all values for update
-        for (let key in newValues) {
-          newValues[`city.${key}`] = newValues[key];
-          delete newValues[key];
-        }
+          // Append `city` to all values for update
+          for (let key in newValues) {
+            newValues[`city.${key}`] = newValues[key];
+            delete newValues[key];
+          }
 
-        // Enfore rules for powerLevel to not max over 100 or under 0
-        if (newValues['city.powerLevel']) {
+          // Enfore rules for powerLevel to not max over 100 or under 0
           newValues['city.powerLevel'] = Math.min(
             100,
             Math.max(
@@ -44,11 +44,18 @@ export class CityModel implements ICityModel {
               userDoc.data().city.powerLevel + newValues['city.powerLevel']
             )
           );
-        }
 
+          console.log(
+            'Attempting to update City for user: ',
+            userId,
+            newValues
+          );
+          transaction.update(userRef(userId), newValues);
+        });
+      } else {
         console.log('Attempting to update City for user: ', userId, newValues);
-        transaction.update(userRef(userId), newValues);
-      });
+        await updateDoc(userRef(userId), newValues);
+      }
       console.log('Updated City for user: ', userId, newValues);
     } catch (error) {
       console.error('Failed to create new user: ', error);
