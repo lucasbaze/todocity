@@ -85,17 +85,20 @@ export type TLot = {
   };
 };
 
+export type TCriteria = {
+  value: number;
+  target: string; // TODO: Update to ENUM
+  state: string; // TODO: Update to ENUM
+};
+
 export type TNewTodo = {
   title: string;
   description: string;
   projectId?: string;
   ownerId?: string;
-};
-
-export type TCriteria = {
-  value: number;
-  target: string; // TODO: Update to ENUM
-  state: string; // TODO: Update to ENUM
+  visible?: boolean;
+  completed?: boolean;
+  criteria?: TCriteria;
 };
 
 export type TTodoItem = {

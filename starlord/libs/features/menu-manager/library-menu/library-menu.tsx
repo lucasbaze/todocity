@@ -163,6 +163,7 @@ export function LibraryMenu({
                       position="absolute"
                       justifyContent="center"
                       alignItems="center"
+                      cursor="pointer"
                       top={0}
                       right={0}
                       left={0}

@@ -23,17 +23,17 @@ export class CityModel implements ICityModel {
   updateCity = async (userId: string, values: Record<string, unknown>) => {
     try {
       const newValues = { ...values };
+      // Append `city` to all values for update
+      for (let key in newValues) {
+        newValues[`city.${key}`] = newValues[key];
+        delete newValues[key];
+      }
+
       if (newValues['powerLevel']) {
         await runTransaction(db, async (transaction) => {
           const userDoc = await transaction.get(userRef(userId));
           if (!userDoc.exists()) {
             throw 'User does not exist!';
-          }
-
-          // Append `city` to all values for update
-          for (let key in newValues) {
-            newValues[`city.${key}`] = newValues[key];
-            delete newValues[key];
           }
 
           // Enfore rules for powerLevel to not max over 100 or under 0

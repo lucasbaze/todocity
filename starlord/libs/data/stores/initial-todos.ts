@@ -1,9 +1,15 @@
-export const initialTodos = (ownerId: string, projectId: string) => [
+import { TNewTodo, TTodoItem } from '@todocity/data/types';
+
+export const initialTodos = (
+  ownerId: string,
+  projectId: string
+): TNewTodo[] => [
   {
     title: 'Open this menu',
     projectId,
     ownerId,
     description: 'Every todo completed is +10% portal power',
+    visible: true,
     completed: false,
   },
   {
@@ -12,6 +18,7 @@ export const initialTodos = (ownerId: string, projectId: string) => [
     ownerId,
     description: 'Lots allow you to place new buildings',
     completed: false,
+    visible: true,
     criteria: {
       value: 2,
       target: 'lot',
@@ -24,6 +31,7 @@ export const initialTodos = (ownerId: string, projectId: string) => [
     ownerId,
     description: 'Each building can hold a new project',
     completed: false,
+    visible: true,
     criteria: {
       value: 2,
       target: 'structure',
@@ -36,6 +44,7 @@ export const initialTodos = (ownerId: string, projectId: string) => [
     ownerId,
     description: 'Like "Cancel unused subscriptions"',
     completed: false,
+    visible: true,
     criteria: {
       value: 1,
       target: 'todo',
@@ -48,6 +57,7 @@ export const initialTodos = (ownerId: string, projectId: string) => [
     ownerId,
     description: 'Complete all other todos first!',
     completed: false,
+    visible: true,
     criteria: {
       value: 4,
       target: 'todo',
