@@ -1,7 +1,6 @@
 import { useToast } from '@chakra-ui/react';
 import { IconDotsVertical, IconPencil, IconTrash } from '@tabler/icons';
 
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import {
   Box,
   Editable,

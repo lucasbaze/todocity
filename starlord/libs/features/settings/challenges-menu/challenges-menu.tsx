@@ -1,7 +1,10 @@
 import { useColorModeValue } from '@chakra-ui/react';
+import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import { IconBuildingCommunity } from '@tabler/icons';
 
-import { TChallenge } from '@todocity/data/types';
+import { useAuth } from '@todocity/auth';
+import { userRef } from '@todocity/data/db';
+import { TChallenge, TCity } from '@todocity/data/types';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Badge, Box, Flex, Icon, Text } from '@todocity/ui/core';
 
@@ -218,21 +221,10 @@ const challengeData: TChallenge[] = [
 
 interface IChallengeRowProps {
   challenge: TChallenge;
-  cityPoints: number;
-  lotPoints: number;
-  completedTodos: number;
-  lotsUnlocked: number;
-  structuresPlaced: number;
+  stats: TCity['stats'];
 }
 
-function ChallengeRow({
-  challenge,
-  cityPoints,
-  lotPoints,
-  completedTodos,
-  lotsUnlocked,
-  structuresPlaced,
-}: IChallengeRowProps) {
+function ChallengeRow({ challenge, stats }: IChallengeRowProps) {
   const borderColor = useColorModeValue('gray.250', 'gray.600');
 
   // TODO: Refactor entirely. This doesn't account for multiple criteria, comparitor values, or rewards
@@ -241,25 +233,25 @@ function ChallengeRow({
       case 'lot':
         switch (challenge.criteria[0].action) {
           case 'unlocked':
-            return (lotsUnlocked / challenge.criteria[0].value) * 100;
+            return (stats.unlockedLots / challenge.criteria[0].value) * 100;
           case 'earned':
-            return (lotPoints / challenge.criteria[0].value) * 100;
+            return (stats.lotPoints / challenge.criteria[0].value) * 100;
         }
       case 'structure':
         switch (challenge.criteria[0].action) {
           case 'placed':
-            return (structuresPlaced / challenge.criteria[0].value) * 100;
+            return (stats.structuresPlaced / challenge.criteria[0].value) * 100;
         }
       case 'todo':
         switch (challenge.criteria[0].action) {
           case 'completed':
-            return (completedTodos / challenge.criteria[0].value) * 100;
+            return (stats.completedTodos / challenge.criteria[0].value) * 100;
         }
         return '10%';
       case 'city-points':
         switch (challenge.criteria[0].action) {
           case 'earned':
-            return (cityPoints / challenge.criteria[0].value) * 100;
+            return (stats.cityPoints / challenge.criteria[0].value) * 100;
         }
         return '10%';
     }
@@ -296,19 +288,17 @@ function ChallengeRow({
 }
 
 export function ChallengesMenu() {
-  const {
-    cityPoints,
-    completedTodos,
-    lotPoints,
-    lotsUnlocked,
-    structuresPlaced,
-  } = useLotsManagerStore((state) => ({
-    completedTodos: state.completedTodos,
-    cityPoints: state.cityPoints,
-    lotPoints: state.lotPoints,
-    lotsUnlocked: state.unlockedLots,
-    structuresPlaced: state.structuresPlaced,
-  }));
+  const { user } = useAuth();
+  const cityStatsQuery = useFirestoreDocumentData(
+    ['user', user.uid],
+    userRef(user.uid),
+    {
+      subscribe: true,
+    },
+    {
+      select: (data) => data.city.stats,
+    }
+  );
 
   return (
     <Box width="100%">
@@ -328,11 +318,7 @@ export function ChallengesMenu() {
           <ChallengeRow
             key={challenge.id}
             challenge={challenge}
-            cityPoints={cityPoints}
-            completedTodos={completedTodos}
-            lotPoints={lotPoints}
-            lotsUnlocked={lotsUnlocked}
-            structuresPlaced={structuresPlaced}
+            stats={cityStatsQuery.data}
           />
         ))}
       </Box>
