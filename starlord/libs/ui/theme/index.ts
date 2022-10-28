@@ -6,6 +6,7 @@ import { Avatar } from './components/avatar';
 import { Badge } from './components/badge';
 import { Button } from './components/button';
 import { Container } from './components/container';
+import { Divider } from './components/divider';
 import { Link } from './components/link';
 import { Modal } from './components/modal';
 import { Text } from './components/text';
@@ -35,6 +36,7 @@ export const theme = extendTheme({
     Badge,
     Button,
     Container,
+    Divider,
     Link,
     Modal,
     Text,

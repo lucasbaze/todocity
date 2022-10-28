@@ -4,16 +4,20 @@ import { useMediaQuery, useTheme } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
+import { FeatureSection } from '@todocity/ui/components/feature-section/feature-section';
 import {
   Box,
   Button,
   Container,
+  Divider,
   Flex,
+  Image,
   Link,
   Show,
   Text,
 } from '@todocity/ui/core';
 import { MainLayout } from '@todocity/ui/layout/main-layout/main-layout';
+
 const HomeScene = dynamic(
   () => import('../libs/features/scenes/home-page/index'),
   {
@@ -118,6 +122,36 @@ const Home: NextPage = () => {
               />
             </Box>
           </Flex>
+        </Container>
+        <Container variant="two-column-md">
+          <Box width="100px" m="0 auto">
+            <Divider borderBottomWidth="2px" borderColor="purple" />
+          </Box>
+          <FeatureSection
+            title="It's a todo list app!"
+            description="Simple, yet functional todo list app"
+          />
+          <FeatureSection
+            title="It's a game!"
+            description="Earn, unlock, spend, collect, and more! "
+            textRight={false}
+          />
+          <Box>
+            <Box>
+              <Text variant="h2" fontWeight="bold">
+                It&apos;s an adventure
+              </Text>
+              <Text variant="h3" color="gray.600">
+                TodoCity is built to help you do more by having fun!
+              </Text>
+            </Box>
+            <Box>
+              <Image
+                src="https://picsum.photos/id/123/800/400"
+                aria-label="something"
+              />
+            </Box>
+          </Box>
         </Container>
       </MainLayout>
       <Suspense fallback={null}>
