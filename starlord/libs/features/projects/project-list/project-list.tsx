@@ -71,7 +71,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
     }
   };
 
-  const ref = useHotkeys(
+  const hotKeyRef = useHotkeys(
     'cmd+return',
     (e, handler) => {
       handleSubmit();
@@ -101,6 +101,8 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
                 isInvalid={formik.errors.title && formik.touched.title}
               >
                 <Box
+                  // @ts-ignore
+                  ref={hotKeyRef}
                   mb="3"
                   border="1px"
                   borderColor="gray.300"
@@ -119,7 +121,6 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
                   <Textarea
                     // TODO: Figure out this type properly
                     // @ts-ignore
-                    ref={ref}
                     id="description"
                     name="description"
                     placeholder="Todo description..."
@@ -177,7 +178,7 @@ export function ProjectList({ projectId, todos }: IProjectListProps) {
                   aria-label="erase"
                   variant="ghost"
                   size="md"
-                  disabled={todos.some((todo) => !todo.completed)}
+                  disabled={todos.every((todo) => !todo.completed)}
                   icon={<IconEraser />}
                   onClick={handleClearCompletedTodos}
                 />
