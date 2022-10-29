@@ -1,6 +1,6 @@
 import { Suspense, useRef } from 'react';
 
-import { useTheme } from '@chakra-ui/react';
+import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 import { PageSEOMeta } from '@todocity/seo/page-seo/page-seo';
@@ -82,6 +82,7 @@ function PricingPage() {
   const { sizes } = useTheme();
   const view1Ref = useRef<HTMLDivElement>(null);
   const view2Ref = useRef<HTMLDivElement>(null);
+  const secondaryTextColor = useColorModeValue('gray.600', 'gray.300');
 
   return (
     <>
@@ -110,7 +111,7 @@ function PricingPage() {
               <Text as="h1" variant="h1">
                 Early Pricing
               </Text>
-              <Text as="h2" variant="h3" color="gray.600" pb={0}>
+              <Text as="h2" variant="h3" color={secondaryTextColor} pb={0}>
                 Pre-order for life! <br /> Offer may expire randomly.
               </Text>
             </Box>

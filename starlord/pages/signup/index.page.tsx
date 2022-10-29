@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { useTheme } from '@chakra-ui/react';
+import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -45,6 +45,7 @@ const loginSignupNavigateTo = (navigateTo: string | undefined) => {
 const Signup: NextPage = () => {
   const router = useRouter();
   const { sizes } = useTheme();
+  const secondaryTextColor = useColorModeValue('gray.600', 'gray.300');
 
   const { navigate_to } = router.query;
   const navigateTo = Array.isArray(navigate_to) ? navigate_to[0] : navigate_to;
@@ -67,7 +68,7 @@ const Signup: NextPage = () => {
             <Text
               as="h2"
               variant="h3"
-              color="gray.600"
+              color={secondaryTextColor}
               pb={12}
               width={{ base: '100%', sm: '50%', lg: '40%' }}
               textAlign="center"

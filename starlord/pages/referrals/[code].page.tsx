@@ -1,6 +1,6 @@
 import { Suspense, useEffect } from 'react';
 
-import { useTheme } from '@chakra-ui/react';
+import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import { getLocalStorage } from 'libs/utils/global/get-local-storage';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
@@ -22,6 +22,7 @@ const LoginSignupButton = dynamic(
 const ReferralSignupPage: NextPage = () => {
   const router = useRouter();
   const { sizes } = useTheme();
+  const secondaryTextColor = useColorModeValue('gray.600', 'gray.300');
 
   const { code } = router.query;
   const referralCode = Array.isArray(code) ? code[0] : code;
@@ -47,15 +48,12 @@ const ReferralSignupPage: NextPage = () => {
             <Text
               as="h2"
               variant="h3"
-              color="gray.600"
+              color={secondaryTextColor}
               pb={12}
-              width={{ base: '80%', md: '60%' }}
+              width={{ base: '80%', md: '40%' }}
               textAlign="center"
             >
-              You came from a referral! By signing up today,{' '}
-              <b>
-                <u>you and the referrer will get 1 mo free!</u>
-              </b>
+              Sign up today and you and your referral will get 1 mo free 💰!
             </Text>
             <Card boxProps={{ boxShadow: 'none', mb: 4 }}>
               <Flex direction="column" alignItems="center">
