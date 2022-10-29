@@ -3,8 +3,7 @@ import { useColorModeValue } from '@chakra-ui/react';
 import { Box, Container, Flex, Link, Text } from '@todocity/ui/core';
 
 export function Footer() {
-  const backgroundColor = useColorModeValue('gray.200', '#000000');
-  const borderTop = useColorModeValue('1px solid gray', '1px solid white');
+  const backgroundColor = useColorModeValue('gray.200', '#1a202c');
 
   return (
     <Box p={6} bg={backgroundColor}>

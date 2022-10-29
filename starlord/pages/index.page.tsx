@@ -1,6 +1,11 @@
 import { Suspense, useRef } from 'react';
 
-import { useMediaQuery, useTheme } from '@chakra-ui/react';
+import {
+  useColorMode,
+  useColorModeValue,
+  useMediaQuery,
+  useTheme,
+} from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
@@ -40,6 +45,8 @@ const Home: NextPage = () => {
     '(min-width: 768px) and (max-width: 992px)',
     '(min-width: 992px)',
   ]);
+  const { colorMode } = useColorMode();
+  const secondaryTextColor = useColorModeValue('gray.600', 'gray.300');
 
   return (
     <>
@@ -64,12 +71,12 @@ const Home: NextPage = () => {
                 pt={{ base: '8', sm: '12', md: '16' }}
                 pb={{ base: '4', sm: '4' }}
               >
-                Your New Favorite Todo List App.
+                Your New Favorite Todo List.
               </Text>
               <Text
                 as="h2"
                 variant="h3"
-                color="gray.600"
+                color={secondaryTextColor}
                 pb={{ base: '8', md: '12', lg: '16' }}
                 textAlign={{ base: 'center', lg: 'initial' }}
               >
@@ -90,7 +97,7 @@ const Home: NextPage = () => {
                 >
                   <CreateAccountButton
                     ctaText="Get Early Access*"
-                    size={{ base: 'md', md: 'md', lg: 'lg' }}
+                    size={{ base: 'md', lg: 'lg' }}
                   />
                 </Suspense>
                 <Link href="/pricing">
@@ -123,34 +130,73 @@ const Home: NextPage = () => {
             </Box>
           </Flex>
         </Container>
-        <Container variant="two-column-md">
+        <Container variant="two-column-md" mb={12}>
           <Box width="100px" m="0 auto">
             <Divider borderBottomWidth="2px" borderColor="purple" />
           </Box>
           <FeatureSection
-            title="It's a todo list app!"
-            description="Simple, yet functional todo list app"
+            title="It's a todo list"
+            description="TodoCity is an intuitive todo list app allowing you to manage multiple todo lists at a time."
+            imgSrc={
+              colorMode === 'light'
+                ? './static/images/todo-list-light.png'
+                : './static/images/todo-list-dark.png'
+            }
+            textRight
           />
+          <Box width="100px" m="0 auto">
+            <Divider borderBottomWidth="2px" borderColor="purple" />
+          </Box>
           <FeatureSection
-            title="It's a game!"
-            description="Earn, unlock, spend, collect, and more! "
-            textRight={false}
+            title="It's a game"
+            description="Earn, unlock, spend, collect, and more all from simply doing your normal todos over time."
+            imgSrc={
+              colorMode === 'light'
+                ? './static/images/library-light.png'
+                : './static/images/library-dark.png'
+            }
           />
-          <Box>
-            <Box>
+          <Box width="100px" m="0 auto">
+            <Divider borderBottomWidth="2px" borderColor="purple" />
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            py="24"
+          >
+            <Box textAlign="center" mb={8}>
               <Text variant="h2" fontWeight="bold">
-                It&apos;s an adventure
+                It&apos;s TodoCity!
               </Text>
-              <Text variant="h3" color="gray.600">
-                TodoCity is built to help you do more by having fun!
+              <Text variant="h3" color={secondaryTextColor}>
+                Your 3D world to play and be productive
               </Text>
             </Box>
-            <Box>
+            <Box mb={8}>
               <Image
-                src="https://picsum.photos/id/123/800/400"
+                src={
+                  colorMode === 'light'
+                    ? './static/images/light-city-trans.png'
+                    : './static/images/dark-city-trans.png'
+                }
+                minWidth={{ base: '200%', md: '100%' }}
+                transform={{ base: 'translateX(-25%)', md: 'none' }}
                 aria-label="something"
               />
             </Box>
+            <Suspense
+              fallback={
+                <Button variant="primary" size="xl" mb="2">
+                  Get Early Access*
+                </Button>
+              }
+            >
+              <CreateAccountButton
+                ctaText="Get Early Access*"
+                size={{ base: 'md', lg: 'lg' }}
+              />
+            </Suspense>
           </Box>
         </Container>
       </MainLayout>

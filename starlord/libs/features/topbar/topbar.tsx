@@ -192,7 +192,7 @@ export function TopBar({}: ITopBarProps) {
           bg={demoNotifBgColor}
         >
           <Tooltip
-            label="TodoCity is currently in alpha. Your todo's will always be safe, but the city and game may change."
+            label="TodoCity is currently in alpha. Your todo's will always be safe, but the city and game will change and expand."
             hasArrow
             offset={[0, 10]}
           >
@@ -203,7 +203,7 @@ export function TopBar({}: ITopBarProps) {
               color="white"
               fontSize={14}
             >
-              Version: Alpha City 1.0
+              Version 1.0: Alpha City
             </Text>
           </Tooltip>
         </Box>
