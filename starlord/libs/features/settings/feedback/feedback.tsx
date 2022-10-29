@@ -93,8 +93,11 @@ export function Feedback() {
               {({ field, form }) => (
                 <FormControl
                   isInvalid={form.errors.subject && form.touched.subject}
+                  mb="3"
                 >
-                  <FormLabel>Subject</FormLabel>
+                  <FormLabel mb="1" pb="0">
+                    Subject
+                  </FormLabel>
                   <Input {...field} placeholder="I've got feedback!" />
                   <FormErrorMessage>{form.errors.subject}</FormErrorMessage>
                 </FormControl>
@@ -102,12 +105,17 @@ export function Feedback() {
             </Field>
             <Field name="body" validate={validateBody}>
               {({ field, form }) => (
-                <FormControl isInvalid={form.errors.body && form.touched.body}>
-                  <FormLabel>Body</FormLabel>
+                <FormControl
+                  isInvalid={form.errors.body && form.touched.body}
+                  mb="3"
+                >
+                  <FormLabel mb="1" pb="0">
+                    Body
+                  </FormLabel>
                   <Textarea
                     {...field}
-                    rows="10"
-                    placeholder="This app changed my life. Hopefully"
+                    rows="8"
+                    placeholder="This app changed my life..."
                   />
                   <FormErrorMessage>{form.errors.body}</FormErrorMessage>
                   <FormHelperText>
