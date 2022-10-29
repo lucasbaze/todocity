@@ -75,21 +75,35 @@ export function Toolbar() {
           alignItems="center"
         >
           {isLargerThan615 ? (
-            <Box
-              position="absolute"
-              left="-25px"
-              top="50%"
-              transform="translateY(-50%)"
+            <Tooltip
+              label={
+                <Flex direction="column" mt="1">
+                  <Flex gap="2">
+                    <Badge colorScheme="purple" fontSize="0.8em" size="sm">
+                      Settings
+                    </Badge>
+                  </Flex>
+                  <Box mt="1">Manage your city and your account</Box>
+                </Flex>
+              }
+              hasArrow
             >
-              <Avatar
-                onClick={onOpen}
-                cursor="pointer"
-                size="lg"
-                variant="outline"
-                referrerPolicy="no-referrer"
-                src={user?.photoURL || undefined}
-              />
-            </Box>
+              <Box
+                position="absolute"
+                left="-25px"
+                top="50%"
+                transform="translateY(-50%)"
+              >
+                <Avatar
+                  onClick={onOpen}
+                  cursor="pointer"
+                  size="lg"
+                  variant="outline"
+                  referrerPolicy="no-referrer"
+                  src={user?.photoURL || undefined}
+                />
+              </Box>
+            </Tooltip>
           ) : (
             <Flex flex={1} alignItems="center" justifyContent="flex-start">
               <Avatar

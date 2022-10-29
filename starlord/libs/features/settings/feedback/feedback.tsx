@@ -3,14 +3,12 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Field, Form, Formik } from 'formik';
 
 import {
-  Badge,
   Box,
   Button,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
-  Heading,
   Input,
   Text,
   Textarea,
