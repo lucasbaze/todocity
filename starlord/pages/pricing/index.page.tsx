@@ -144,7 +144,6 @@ function PricingPage() {
                         </Badge>
                       ),
                       features: [
-                        { text: '1 yr of Metropolis' },
                         { text: 'Unlimited todos & projects' },
                         {
                           text: 'Earn unlimited points',
@@ -157,12 +156,7 @@ function PricingPage() {
                         },
                       ],
                     }}
-                    button={
-                      <CreateAccountButton
-                        size="lg"
-                        ctaText="Get Early Access"
-                      />
-                    }
+                    button={<CreateAccountButton size="md" />}
                   />
                 </Box>
                 <Box flex={1}>
@@ -191,8 +185,8 @@ function PricingPage() {
                       features: [
                         { text: 'Everything in Basics' },
                         { text: 'Recurring reminders' },
-                        { text: 'Premium object access' },
-                        { text: '10x starting points' },
+                        { text: 'Exclusive structures' },
+                        { text: 'More points' },
                         { text: '...much more to come' },
                       ],
                     }}

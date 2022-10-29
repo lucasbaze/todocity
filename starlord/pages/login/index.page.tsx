@@ -45,7 +45,7 @@ const LoginPage: NextPage = () => {
           pt="24"
         >
           <Text as="h1" variant="h1" pb="2">
-            Welcome Back!
+            Welcome back!
           </Text>
           <Text
             as="h2"
@@ -55,7 +55,7 @@ const LoginPage: NextPage = () => {
             width={{ base: '60%', sm: '40%', lg: '25%' }}
             textAlign="center"
           >
-            Let&apos;s see what your city looks like today.
+            Let&apos;s crush another todo list 🎯
           </Text>
           <Card
             boxProps={{ boxShadow: 'none', mb: 4, minWidth: { sm: '415px' } }}
@@ -67,6 +67,13 @@ const LoginPage: NextPage = () => {
                   navigateTo={loginSignupNavigateTo(navigateTo)}
                 />
               </Suspense>
+              <Text
+                variant="disclaimer"
+                width={{ base: '80%', sm: '65%' }}
+                textAlign="center"
+              >
+                We missed you while you were gone.
+              </Text>
             </Flex>
           </Card>
           <Link href="/signup">

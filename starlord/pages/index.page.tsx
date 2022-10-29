@@ -91,14 +91,11 @@ const Home: NextPage = () => {
                 <Suspense
                   fallback={
                     <Button variant="primary" size="xl" mb="2">
-                      Get Early Access*
+                      Create Your City
                     </Button>
                   }
                 >
-                  <CreateAccountButton
-                    ctaText="Get Early Access*"
-                    size={{ base: 'md', lg: 'lg' }}
-                  />
+                  <CreateAccountButton size={{ base: 'md', lg: 'lg' }} />
                 </Suspense>
                 <Link href="/pricing">
                   <Text
@@ -107,7 +104,7 @@ const Home: NextPage = () => {
                     maxWidth="250px"
                     margin="0 auto"
                   >
-                    *Offer may expire randomly.
+                    *Your TodoCity will always be free.
                   </Text>
                 </Link>
               </Box>
@@ -139,8 +136,8 @@ const Home: NextPage = () => {
             description="TodoCity is an intuitive todo list app allowing you to manage multiple todo lists at a time."
             imgSrc={
               colorMode === 'light'
-                ? './static/images/todo-list-light.png'
-                : './static/images/todo-list-dark.png'
+                ? './static/images/todo-lists-light.png'
+                : './static/images/todo-lists-dark.png'
             }
             textRight
           />
@@ -188,14 +185,11 @@ const Home: NextPage = () => {
             <Suspense
               fallback={
                 <Button variant="primary" size="xl" mb="2">
-                  Get Early Access*
+                  Create Your City
                 </Button>
               }
             >
-              <CreateAccountButton
-                ctaText="Get Early Access*"
-                size={{ base: 'md', lg: 'lg' }}
-              />
+              <CreateAccountButton size={{ base: 'md', lg: 'lg' }} />
             </Suspense>
           </Box>
         </Container>

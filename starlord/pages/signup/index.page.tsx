@@ -22,13 +22,13 @@ const textCopy = (navigateTo: string | undefined) => {
   switch (navigateTo) {
     case 'checkout':
       return {
-        title: "Let's create your Metropolis!",
-        description: 'Create an account first to pre-order.',
+        title: 'Super charge your city!',
+        description: 'Sign up to get metropolis 🤩',
       };
     default:
       return {
-        title: 'Get Early Access Today!',
-        description: 'Create an account and try out the demo city now!',
+        title: 'Your new city is waiting!',
+        description: 'Create an account and start doing 💪',
       };
   }
 };
@@ -83,7 +83,7 @@ const Signup: NextPage = () => {
                 </Suspense>
                 <Text
                   variant="disclaimer"
-                  width={{ base: '80%', sm: '60%' }}
+                  width={{ base: '80%', sm: '65%' }}
                   textAlign="center"
                 >
                   By doing so you agree to our{' '}

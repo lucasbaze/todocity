@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { eventTriggers } from '@todocity/analytics/events/constants';
 import { useAuth } from '@todocity/auth';
+import { Icon } from '@todocity/ui/core';
 
 import { AnalButton } from '../../../analytics/components/anal-button/anal-button';
 
@@ -28,13 +29,28 @@ export const CreateAccountButton = ({
           mb="2"
           isLoading={loading}
           analytics={{ buttonName: eventTriggers.MAIN_CTA }}
+          _hover={{
+            '> .arrow-right': {
+              transform: 'translateX(10px)',
+            },
+          }}
         >
           {user ? (
             <>
-              Go to Your City <IconArrowRight />
+              Go to Your City <IconArrowRight className="arrow-right" />
             </>
           ) : (
-            ctaText || 'Create your city'
+            ctaText || (
+              <>
+                Create Your City{' '}
+                <Icon
+                  as={IconArrowRight}
+                  ml="2"
+                  transition="transform 0.2s"
+                  className="arrow-right"
+                />
+              </>
+            )
           )}
         </AnalButton>
       </Link>

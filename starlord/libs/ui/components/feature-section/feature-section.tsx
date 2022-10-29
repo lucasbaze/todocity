@@ -68,14 +68,11 @@ export function FeatureSection({
           <Suspense
             fallback={
               <Button variant="primary" size="md" mb="2">
-                Get Early Access
+                Create Your City
               </Button>
             }
           >
-            <CreateAccountButton
-              ctaText="Get Early Access"
-              size={{ base: 'md' }}
-            />
+            <CreateAccountButton size={{ base: 'md' }} />
           </Suspense>
         </Box>
       </Flex>

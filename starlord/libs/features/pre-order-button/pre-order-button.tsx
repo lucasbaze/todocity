@@ -7,7 +7,7 @@ import { useAuth } from '@todocity/auth';
 
 export function PreOrderButton({
   variant = 'primary',
-  size = 'lg',
+  size = 'md',
   ctaText = 'Pre-order Today',
 }) {
   const router = useRouter();
