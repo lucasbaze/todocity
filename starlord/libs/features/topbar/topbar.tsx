@@ -47,18 +47,24 @@ export function TopBar({}: ITopBarProps) {
   const demoNotifBgColor = useColorModeValue('purple.300', 'purple.600');
 
   const countdownCopy = useCallback(() => {
-    let tooltip: string = '';
+    // There's a better way to do this, but I'm not sure at the moment
+    let tooltip: string =
+      'Every 5 minutes a portal opens and drops off a package';
     let body: ReactNode = null;
     if (cityStatsQuery.data?.city) {
       if (cityStatsQuery.data?.city.packages.length > 0) {
         tooltip = 'You have a package of points!';
         body = <Text fontWeight="bold">Package! 📦</Text>;
-      } else if (cityStatsQuery.data?.city.powerLevel === 0) {
+      } else if (cityStatsQuery.data?.city.powerLevel <= 0) {
         tooltip = 'No power... complete todos to bring the portal back online';
         body = <Text fontWeight="bold">No Power 😭</Text>;
-      } else {
-        tooltip = 'Every 5 minutes a portal opens and drops off a package';
+      } else if (
+        cityStatsQuery.data?.city.packages.length === 0 &&
+        cityStatsQuery.data?.city.powerLevel > 0
+      ) {
         body = <CountdownTimer />;
+      } else {
+        body = 'Charging...';
       }
     }
     return { tooltip, body };

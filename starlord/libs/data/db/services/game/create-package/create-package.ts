@@ -10,7 +10,7 @@ export async function createPackage(userId: string) {
 
   // Update power level of the city
   const powerReduction =
-    Math.max(newPackage.cityPoints, newPackage.lotPoints) * 3;
+    Math.max(newPackage.cityPoints, newPackage.lotPoints) * 2;
 
   const cityModel = new CityModel();
   await cityModel.updateCity(userId, {

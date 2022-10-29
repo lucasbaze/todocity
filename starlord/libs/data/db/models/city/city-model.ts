@@ -29,7 +29,7 @@ export class CityModel implements ICityModel {
         delete newValues[key];
       }
 
-      if (newValues['powerLevel']) {
+      if (newValues['city.powerLevel']) {
         await runTransaction(db, async (transaction) => {
           const userDoc = await transaction.get(userRef(userId));
           if (!userDoc.exists()) {

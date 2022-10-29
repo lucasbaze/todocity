@@ -34,10 +34,12 @@ export class PackageModel implements IPackageModel {
 
       if (Math.random() > 0.6) {
         newPackage.cityPoints = Math.round(
-          (structuresPlaced * currPowerLevel) / 100
+          structuresPlaced + currPowerLevel / 20
         );
       } else {
-        newPackage.lotPoints = structuresPlaced;
+        newPackage.lotPoints = Math.round(
+          structuresPlaced + currPowerLevel / (Math.random() * 20)
+        );
       }
       console.log('Created package: ', userId, newPackage);
     } catch (error) {

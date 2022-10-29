@@ -4,7 +4,6 @@ import { devtools } from 'zustand/middleware';
 import type { TLotPreview } from '@todocity/data/types';
 
 interface ILotsStore {
-  countdownStart: number;
   lotPreview: TLotPreview;
   setPreviewModel: (lotId: string, modelId: string) => void;
   removePreviewModel: () => void;
@@ -13,7 +12,6 @@ interface ILotsStore {
 }
 
 export const initialLotsStore = {
-  countdownStart: Date.now() + 5 * 60000,
   lotPreview: null,
   demoCompleted: false,
 };
