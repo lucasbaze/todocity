@@ -95,7 +95,10 @@ const Home: NextPage = () => {
                     </Button>
                   }
                 >
-                  <CreateAccountButton size={{ base: 'md', lg: 'lg' }} />
+                  <CreateAccountButton
+                    includeAsterisk
+                    size={{ base: 'md', lg: 'lg' }}
+                  />
                 </Suspense>
                 <Link href="/pricing">
                   <Text

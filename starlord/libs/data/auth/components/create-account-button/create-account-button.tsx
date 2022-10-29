@@ -12,11 +12,13 @@ import { AnalButton } from '../../../analytics/components/anal-button/anal-butto
 interface ICreateAccountButtonProps {
   size: ButtonProps['size'];
   ctaText?: string;
+  includeAsterisk?: boolean;
 }
 
 export const CreateAccountButton = ({
   size = 'xl',
   ctaText,
+  includeAsterisk,
 }: ICreateAccountButtonProps) => {
   const { user, loading } = useAuth();
 
@@ -42,7 +44,7 @@ export const CreateAccountButton = ({
           ) : (
             ctaText || (
               <>
-                Create Your City{' '}
+                Create Your City{includeAsterisk && '*'}
                 <Icon
                   as={IconArrowRight}
                   ml="2"
