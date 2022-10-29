@@ -5,13 +5,7 @@ import {
   useTheme,
   useToast,
 } from '@chakra-ui/react';
-import {
-  Icon3dCubeSphere,
-  IconBuildingCommunity,
-  IconFence,
-  IconListCheck,
-  IconStars,
-} from '@tabler/icons';
+import { Icon3dCubeSphere, IconListCheck, IconStars } from '@tabler/icons';
 
 import { AnalIconButton } from '@todocity/analytics/components/anal-icon-button/anal-icon-button';
 import { eventTriggers } from '@todocity/analytics/events/constants';
@@ -20,7 +14,6 @@ import { LightDarkButton } from '@todocity/features/light-dark-button/light-dark
 import { Avatar, Badge, Box, Flex, Text, Tooltip } from '@todocity/ui/core';
 
 import { SettingsModal } from '../settings/settings-modal';
-// import { SceneSettings } from './scene-settings/scene-settings';
 
 export function Toolbar() {
   const { user } = useAuth();
