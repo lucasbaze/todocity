@@ -226,6 +226,7 @@ interface IChallengeRowProps {
 
 function ChallengeRow({ challenge, stats }: IChallengeRowProps) {
   const borderColor = useColorModeValue('gray.250', 'gray.600');
+  const barBgColor = useColorModeValue('blackAlpha.50', 'blackAlpha.500');
 
   // TODO: Refactor entirely. This doesn't account for multiple criteria, comparitor values, or rewards
   const calcWidth = () => {
@@ -267,11 +268,13 @@ function ChallengeRow({ challenge, stats }: IChallengeRowProps) {
         top={0}
         left={0}
         bottom={0}
-        bg="blackAlpha.50"
+        bg={barBgColor}
       />
       <Flex
+        width="100%"
         alignItems="center"
         borderBottom="1px"
+        mt="1px"
         borderColor={borderColor}
         p="2"
       >

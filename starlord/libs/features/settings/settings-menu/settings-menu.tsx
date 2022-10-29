@@ -1,9 +1,18 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { useColorModeValue } from '@chakra-ui/react';
+import { IconInfoCircle } from '@tabler/icons';
 
 import { useAuth } from '@todocity/auth';
-import { Avatar, Box, Flex, Text } from '@todocity/ui/core';
+import {
+  Avatar,
+  Badge,
+  Box,
+  Flex,
+  Icon,
+  Text,
+  Tooltip,
+} from '@todocity/ui/core';
 
 export enum ESettingsMenuItems {
   Overview = 'overview',
@@ -63,6 +72,7 @@ interface ISettingsMenuProps {
 export function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
   const { user } = useAuth();
   const sidebarBackgroundColor = useColorModeValue('gray.100', 'gray.700');
+  const sidebarSelectedColor = useColorModeValue('gray.300', 'gray.600');
 
   const handleChange = (value) => {
     setSelected(value);
@@ -72,8 +82,6 @@ export function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
     <Flex
       flex={3}
       direction="column"
-      // p={{ base: '3em 1em 1em', md: '1em' }}
-      // minHeight={{ md: '300px' }}
       backgroundColor={sidebarBackgroundColor}
       borderRight="1px solid #D6D6D6"
     >
@@ -84,10 +92,37 @@ export function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
           size="lg"
           variant="outline"
           referrerPolicy="no-referrer"
+          border="none"
           src={user?.photoURL || undefined}
+          mb="2"
         />
-        <Text>City Mayor</Text>
-        <Text>{user.displayName}</Text>
+        <Text fontWeight="bold" fontSize="lg">
+          {user.displayName}
+        </Text>
+        <Flex alignItems="center" justifyContent="center" gap={1}>
+          <Text>City Architect</Text>
+          <Tooltip
+            label={
+              <Flex direction="column" mt="1">
+                <Flex gap="2">
+                  <Badge colorScheme="purple" fontSize="0.8em" size="sm">
+                    Player Title
+                  </Badge>
+                </Flex>
+                <Box mt="1">
+                  As city architect you have certain privileges and can build
+                  your city how you like. More titles and priviledges coming
+                  soon...
+                </Box>
+              </Flex>
+            }
+            hasArrow
+          >
+            <span>
+              <Icon cursor="pointer" as={IconInfoCircle} display="block" />
+            </span>
+          </Tooltip>
+        </Flex>
       </Box>
 
       {/* City Menu Options */}
@@ -102,7 +137,7 @@ export function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
               cursor="pointer"
               py="6px"
               pl="8"
-              bg={selected === item.id && 'gray.300'}
+              bg={selected === item.id && sidebarSelectedColor}
               onClick={() => handleChange(item.id)}
             >
               {item.displayTitle}
@@ -123,7 +158,7 @@ export function SettingsMenu({ selected, setSelected }: ISettingsMenuProps) {
               cursor="pointer"
               py="6px"
               pl="8"
-              bg={selected === item.id && 'gray.300'}
+              bg={selected === item.id && sidebarSelectedColor}
               onClick={() => handleChange(item.id)}
             >
               {item.displayTitle}

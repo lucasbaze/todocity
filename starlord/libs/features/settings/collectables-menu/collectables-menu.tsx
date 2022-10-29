@@ -41,6 +41,7 @@ export function CollectablesMenu() {
                 overflow="hidden"
                 borderWidth="2px"
                 borderColor="gray.300"
+                cursor="pointer"
               >
                 <Image
                   src="./static/images/amazon-package.png"

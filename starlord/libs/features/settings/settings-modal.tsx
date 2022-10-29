@@ -80,7 +80,7 @@ export function SettingsModal({
             selected={selectedSection}
             setSelected={setSelectedSection}
           />
-          <Flex flex={7} pt="4" px="16" overflowY="auto">
+          <Flex flex={7} pt="4" px="16" overflowY="auto" overflowX="hidden">
             {settingsContent(selectedSection)}
           </Flex>
         </Flex>

@@ -44,6 +44,7 @@
     "react-hotkeys-hook": "^3.4.7",
     "react-query": "^3.39.2",
     "react-spring": "^9.5.5",
+    "recharts": "^2.1.16",
     "schema-dts": "^1.1.0",
     "stripe": "^10.2.0",
     "three": "^0.143.0",
