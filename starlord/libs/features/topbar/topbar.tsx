@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
 import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
@@ -46,21 +46,23 @@ export function TopBar({}: ITopBarProps) {
   const backgroundColor = useColorModeValue('orange.50', 'gray.900');
   const demoNotifBgColor = useColorModeValue('purple.300', 'purple.600');
 
-  const countdownCopy = () => {
+  const countdownCopy = useCallback(() => {
     let tooltip: string = '';
     let body: ReactNode = null;
-    if (cityStatsQuery.data?.city.packages.length > 0) {
-      tooltip = 'You have a package of points!';
-      body = <Text fontWeight="bold">Package! 📦</Text>;
-    } else if (cityStatsQuery.data?.city.powerLevel === 0) {
-      tooltip = 'No power... complete todos to bring the portal back online';
-      body = <Text fontWeight="bold">No Power 😭</Text>;
-    } else {
-      tooltip = 'Every 5 minutes a portal opens and drops off a package';
-      body = <CountdownTimer />;
+    if (cityStatsQuery.data?.city) {
+      if (cityStatsQuery.data?.city.packages.length > 0) {
+        tooltip = 'You have a package of points!';
+        body = <Text fontWeight="bold">Package! 📦</Text>;
+      } else if (cityStatsQuery.data?.city.powerLevel === 0) {
+        tooltip = 'No power... complete todos to bring the portal back online';
+        body = <Text fontWeight="bold">No Power 😭</Text>;
+      } else {
+        tooltip = 'Every 5 minutes a portal opens and drops off a package';
+        body = <CountdownTimer />;
+      }
     }
     return { tooltip, body };
-  };
+  }, [cityStatsQuery?.data]);
 
   return (
     <Flex

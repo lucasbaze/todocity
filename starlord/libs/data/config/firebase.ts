@@ -2,7 +2,7 @@ import { getApp as _getApp, getApps, initializeApp } from 'firebase/app';
 
 const firebaseProdConfig = {
   apiKey: 'AIzaSyAyHecyXFvLh6Yhi6mwaeKPSZBLQWeB0Ac',
-  authDomain: 'todocity-prod.firebaseapp.com',
+  authDomain: 'todocity.app',
   projectId: 'todocity-prod',
   storageBucket: 'todocity-prod.appspot.com',
   messagingSenderId: '504423188071',
