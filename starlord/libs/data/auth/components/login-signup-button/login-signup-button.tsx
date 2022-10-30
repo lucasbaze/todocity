@@ -42,7 +42,7 @@ export function LoginSignup({
 
   return (
     <Box minHeight="100px">
-      {loading && <Spinner />}
+      {loading && <Spinner mt="4" />}
       <StyledFirebaseAuth
         uiConfig={uiConfig(labelType, navigateTo)}
         firebaseAuth={auth}

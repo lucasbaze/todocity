@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import NextImage from 'next/image';
 
 import { FeatureSection } from '@todocity/ui/components/feature-section/feature-section';
 import {
@@ -47,6 +48,7 @@ const Home: NextPage = () => {
   ]);
   const { colorMode } = useColorMode();
   const secondaryTextColor = useColorModeValue('gray.600', 'gray.300');
+  const dividerColor = useColorModeValue('purple.600', 'purple.100');
 
   return (
     <>
@@ -132,32 +134,48 @@ const Home: NextPage = () => {
         </Container>
         <Container variant="two-column-md" mb={12}>
           <Box width="100px" m="0 auto">
-            <Divider borderBottomWidth="2px" borderColor="purple" />
+            <Divider borderBottomWidth="2px" borderColor={dividerColor} />
           </Box>
           <FeatureSection
             title="It's a todo list"
             description="TodoCity is an intuitive todo list app allowing you to manage multiple todo lists at a time."
-            imgSrc={
-              colorMode === 'light'
-                ? './static/images/todo-lists-light.png'
-                : './static/images/todo-lists-dark.png'
+            image={
+              <NextImage
+                src={
+                  colorMode === 'light'
+                    ? '/static/images/todo-lists-light.png'
+                    : '/static/images/todo-lists-dark.png'
+                }
+                aria-label="feature-image"
+                loading="lazy"
+                width="864px"
+                height="1008px"
+              />
             }
             textRight
           />
           <Box width="100px" m="0 auto">
-            <Divider borderBottomWidth="2px" borderColor="purple" />
+            <Divider borderBottomWidth="2px" borderColor={dividerColor} />
           </Box>
           <FeatureSection
             title="It's a game"
             description="Earn, unlock, spend, collect, and more all from simply doing your normal todos over time."
-            imgSrc={
-              colorMode === 'light'
-                ? './static/images/library-light.png'
-                : './static/images/library-dark.png'
+            image={
+              <NextImage
+                src={
+                  colorMode === 'light'
+                    ? '/static/images/library-light.png'
+                    : '/static/images/library-dark.png'
+                }
+                aria-label="feature-image"
+                loading="lazy"
+                width="650px"
+                height="888px"
+              />
             }
           />
           <Box width="100px" m="0 auto">
-            <Divider borderBottomWidth="2px" borderColor="purple" />
+            <Divider borderBottomWidth="2px" borderColor={dividerColor} />
           </Box>
           <Box
             display="flex"
@@ -173,16 +191,17 @@ const Home: NextPage = () => {
                 Your 3D world to play and be productive
               </Text>
             </Box>
-            <Box mb={8}>
-              <Image
+            <Box position="relative" mb={8} width="689px" height="368px">
+              <NextImage
+                quality={100}
                 src={
                   colorMode === 'light'
-                    ? './static/images/light-city-trans.png'
-                    : './static/images/dark-city-trans.png'
+                    ? '/static/images/light-city-trans.png'
+                    : '/static/images/dark-city-trans.png'
                 }
-                minWidth={{ base: '200%', md: '100%' }}
-                transform={{ base: 'translateX(-25%)', md: 'none' }}
-                aria-label="something"
+                aria-label="todocity-sample"
+                loading="lazy"
+                layout="fill"
               />
             </Box>
             <Suspense

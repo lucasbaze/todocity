@@ -35,7 +35,7 @@ const Logout: NextPage = () => {
             Good Bye
           </Text>
           <Text mb={6} variant="bodyBig">
-            Hope to see you soon :)
+            Hope to see you soon 👋
           </Text>
           <Flex
             flexDirection={{ base: 'column', md: 'row' }}

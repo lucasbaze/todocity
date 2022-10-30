@@ -16,14 +16,14 @@ const CreateAccountButton = dynamic(
 interface IFeatureSectuionProps {
   title: string;
   description: string;
-  imgSrc: string;
+  image: React.ReactNode;
   textRight?: boolean;
 }
 
 export function FeatureSection({
   title,
   description,
-  imgSrc,
+  image,
   textRight,
 }: IFeatureSectuionProps) {
   const secondaryTextColor = useColorModeValue('gray.600', 'gray.300');
@@ -37,13 +37,8 @@ export function FeatureSection({
       px="8"
       gap={8}
     >
-      <Flex width={{ md: '50%' }}>
-        <Image
-          src={imgSrc}
-          aria-label="something"
-          maxWidth={{ base: 'full', sm: 350 }}
-          margin={{ base: '0 auto' }}
-        />
+      <Flex width={{ md: '50%' }} position="relative">
+        {image}
       </Flex>
       <Flex
         width={{ md: '50%' }}

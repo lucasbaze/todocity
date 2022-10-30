@@ -14,7 +14,7 @@ import { useCountdown } from '@todocity/utils/hooks/use-countdown';
  */
 export function CountdownTimer() {
   const { user } = useAuth();
-  const [startTime] = useState(Date.now() + 10000);
+  const [startTime] = useState(Date.now() + 15 * 60000);
   const [timerComplete, setTimerComplete] = useState(false);
 
   const [minutes, seconds] = useCountdown(startTime);
