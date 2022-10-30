@@ -23,7 +23,6 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
-  Image,
   Input,
   Link as TodoCityLink,
   Modal,
