@@ -20,7 +20,7 @@ export function sendEmail(
   mailOptions: SendMailOptions,
   callback: (err: Error | null, info: SentMessageInfo) => void
 ): void {
-  if (process.env.APP_ENV === 'production') {
+  if (process.env.APP_ENV === 'production' || process.env.APP_ENV === 'staging') {
     // Create transporter
     const transporter = createTransport({
       host: 'smtp.gmail.com',
