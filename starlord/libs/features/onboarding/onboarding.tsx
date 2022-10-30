@@ -16,12 +16,14 @@ import { SettingsModal } from '@todocity/features/settings/settings-modal';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Card } from '@todocity/ui/components/card/card';
 import {
+  Badge,
   Button,
   Flex,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  Image,
   Input,
   Link as TodoCityLink,
   Modal,
@@ -197,41 +199,13 @@ export function Onboarding() {
                   Thanks for playing!
                 </Text>
                 <Text
-                  mb="8"
                   textAlign="center"
                   color="gray.600"
                   maxWidth="85%"
-                  m="0 auto 48px"
+                  m="0 auto 24px"
                 >
-                  Currently the full city experience is still under
-                  construction, but we will notify you as soon as we’re ready
-                  for you!
+                  You have successfully completed the onboarding phase!
                 </Text>
-                {/* <Flex width="100%" gap={4}> */}
-                {/* <Card
-                    boxProps={{
-                      flex: 1,
-                      textAlign: 'center',
-                      paddingTop: 4,
-                      paddingX: 2,
-                      minHeight: '175px', // Warning: Magic number!
-                    }}
-                  >
-                    <Text variant="bodyBig" fontWeight="bold">
-                      Want more?
-                    </Text>
-                    <Text variant="body" paddingBottom="6">
-                      Early access, more lot points, free premium...
-                    </Text>
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      boxShadow="none"
-                      onClick={handleShare}
-                    >
-                      Share TodoCity
-                    </Button>
-                  </Card> */}
                 <Card
                   boxProps={{
                     flex: 1,
@@ -242,15 +216,22 @@ export function Onboarding() {
                     margin: '0 auto 8px',
                   }}
                 >
-                  <Text variant="h3" fontWeight="bold" pb="2">
-                    Get Premium for life!
+                  <Text variant="h3" fontWeight="bold" pb="1">
+                    🤑
                   </Text>
-                  <Text variant="body" paddingBottom="8">
-                    Notifications, Reminders, Rare Structures, and more...
+                  <Text variant="h3" fontWeight="bold" pb="1">
+                    Get premium for life!
+                  </Text>
+                  <Badge colorScheme="purple" fontSize="0.8em" size="sm" mb="4">
+                    Coming Soon
+                  </Badge>
+                  <Text variant="body" pb="8">
+                    Notifications, Reminders, No Ads, Exclusive Structures, and
+                    more...
                   </Text>
                   <Link href="/pricing">
-                    <Button variant="primary" size="sm" boxShadow="none">
-                      Pre-order TodoCity!
+                    <Button variant="primary" size="md" boxShadow="none">
+                      $19 for life
                     </Button>
                   </Link>
                 </Card>

@@ -49,7 +49,7 @@ export function TopBar({}: ITopBarProps) {
   const countdownCopy = useCallback(() => {
     // There's a better way to do this, but I'm not sure at the moment
     let tooltip: string =
-      'Every 15 minutes a portal opens and drops off a package';
+      'Every 15 minutes a portal opens and drops off a package, but uses a little bit of power.';
     let body: ReactNode = null;
     if (cityStatsQuery.data?.city) {
       if (cityStatsQuery.data?.city.packages.length > 0) {
