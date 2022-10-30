@@ -170,7 +170,7 @@ function PricingPage() {
                   />
                   <PricingCard
                     data={{
-                      price: '$19',
+                      price: '$9',
                       denomination: 'life',
                       name: 'Metropolis',
                       discount: (
@@ -192,16 +192,6 @@ function PricingPage() {
                       ],
                     }}
                     button={<PreOrderButton />}
-                    // disclaimer={
-                    //   <Text
-                    //     textAlign="center"
-                    //     variant="disclaimer"
-                    //     margin="0 auto"
-                    //   >
-                    //     You will be charged today. <br /> However, you can request to cancel any
-                    //     time beforehand.
-                    //   </Text>
-                    // }
                   />
                 </Box>
               </Flex>

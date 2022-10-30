@@ -230,11 +230,10 @@ export function Onboarding() {
                   </Text>
                   <Link href="/pricing">
                     <Button variant="primary" size="md" boxShadow="none">
-                      $19 for life
+                      $9 for life
                     </Button>
                   </Link>
                 </Card>
-                {/* </Flex> */}
                 <TodoCityLink
                   onClick={() => setDemoCompletedModalOpen(false)}
                   textAlign="center"
