@@ -36,7 +36,7 @@ export class UserModel implements IUserModel {
       })[0],
       city: {
         cityName: null,
-        powerLevel: 90,
+        powerLevel: 60,
         packages: [],
         stats: {
           completedTodos: 0,
