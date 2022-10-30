@@ -10,7 +10,12 @@ import {
   where,
 } from 'firebase/firestore';
 
-import type { TLot, TStructure, TTodoItem } from '@todocity/data/types';
+import type {
+  TLot,
+  TProject,
+  TStructure,
+  TTodoItem,
+} from '@todocity/data/types';
 
 import { db } from '../config/db';
 
@@ -37,6 +42,11 @@ export const userRef = (userId: string) => doc(db, 'users', userId);
 
 // Projects
 export const projectRef = (projectId: string) => doc(db, 'projects', projectId);
+export const projectsQueryRef = (userId: string) =>
+  query(
+    collection(db, 'projects'),
+    where('ownerId', '==', userId)
+  ).withConverter(firestoreConverter<TProject>());
 export const projectTodosRef = (projectId: string) =>
   collection(doc(db, 'projects', projectId), 'todos').withConverter(
     firestoreConverter<TTodoItem & { createdAt?: string }>()

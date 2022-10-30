@@ -26,17 +26,14 @@ export function Lot({
       {hasStructures ? (
         <>
           {structures.map((structure) => {
-            const projectTodos = projects.find(
+            const project = projects.find(
               (project) => project.id === structure.projectId
             );
-            const outstandingTodos = projectTodos?.todos.filter(
-              (todo) => !todo.completed
-            ).length;
             return (
               <React.Fragment key={structure.slug}>
                 <ProjectModel
                   key={structure.slug}
-                  count={outstandingTodos}
+                  count={project?.incompleteTodosCount || 0}
                   lotId={id}
                   projectId={structure.projectId}
                   structureThumbnailUrl={structure.thumbnailSrc}

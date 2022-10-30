@@ -118,6 +118,7 @@ export type TProject = {
   description: string;
   ownerId?: string;
   editorIds?: string[];
+  incompleteTodosCount: number;
   todos: TTodoItem[];
 };
 

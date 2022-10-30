@@ -70,7 +70,7 @@ const Signup: NextPage = () => {
               variant="h3"
               color={secondaryTextColor}
               pb={12}
-              width={{ base: '100%', sm: '50%', lg: '40%' }}
+              width={{ base: '90%', sm: '100%' }}
               textAlign="center"
             >
               {description}

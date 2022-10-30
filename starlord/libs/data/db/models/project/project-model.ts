@@ -1,5 +1,6 @@
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 
+import { projectRef } from '@todocity/data/db';
 import { TProject } from '@todocity/data/types';
 
 import { db } from '../../config/db';
@@ -7,6 +8,10 @@ import { db } from '../../config/db';
 export interface IProjectModel {
   project: Partial<TProject>;
   createProject(params: Partial<TProject>): Promise<IProjectModel>;
+  updateProject(
+    projectId: string,
+    values: Partial<TProject>
+  ): Promise<IProjectModel>;
 }
 
 export class ProjectModel implements IProjectModel {
@@ -20,11 +25,13 @@ export class ProjectModel implements IProjectModel {
     title,
     description,
     ownerId,
+    incompleteTodosCount,
   }: Partial<TProject>) => {
     const newProject: Partial<TProject> = {
-      title,
-      description,
       ownerId,
+      title: title || 'New Project 🤘',
+      description: description || 'Set your project description...',
+      incompleteTodosCount: incompleteTodosCount || 0,
     };
 
     try {
@@ -38,5 +45,19 @@ export class ProjectModel implements IProjectModel {
     }
 
     return this;
+  };
+
+  updateProject = async (
+    projectId: string,
+    values: Record<string, unknown>
+  ) => {
+    try {
+      console.log('Attempting to update project: ', projectId, values);
+      await updateDoc(projectRef(projectId), values);
+      console.log('Updated project: ', projectId, values);
+      return this;
+    } catch (error) {
+      console.error('Failed to update project: ', projectId);
+    }
   };
 }

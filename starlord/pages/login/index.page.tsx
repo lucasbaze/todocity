@@ -53,7 +53,6 @@ const LoginPage: NextPage = () => {
             variant="h3"
             color={secondaryTextColor}
             pb={12}
-            width={{ base: '60%', sm: '40%', lg: '25%' }}
             textAlign="center"
           >
             Let&apos;s crush another todo list 🎯

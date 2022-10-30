@@ -15,8 +15,7 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { FogExp2 } from 'three';
 
 import { useAuth } from '@todocity/auth';
-import { useInitialGameData } from '@todocity/data/db';
-import { lotsRef } from '@todocity/data/db';
+import { lotsRef, projectsQueryRef } from '@todocity/data/db';
 import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { AmbientLight } from '@todocity/three/lights/ambient-light';
 import { DirectionalLight } from '@todocity/three/lights/directional-light';
@@ -279,7 +278,12 @@ export function CityScene() {
     lotsRef(user.uid),
     { subscribe: true }
   );
-  const { loading, data, error } = useInitialGameData(user.uid);
+
+  const userProjectsQuery = useFirestoreQueryData(
+    ['projects', user.uid],
+    projectsQueryRef(user.uid),
+    { subscribe: true }
+  );
 
   // const setLevaStoreToDisplay = useEditModeStore(
   //   (state) => state.setLevaStoreToDisplay
@@ -290,10 +294,6 @@ export function CityScene() {
   // const handleMissed = (e) => {
   //   setLevaStoreToDisplay(defaultLevaStore);
   // };
-
-  if (loading) {
-    return <ThreeDLoader />;
-  }
 
   return (
     <Canvas shadows frameloop="demand" dpr={dpr}>
@@ -311,7 +311,10 @@ export function CityScene() {
             </Html>
           }
         >
-          <Scene lots={userLotsQuery.data || []} projects={data.projects} />
+          <Scene
+            lots={userLotsQuery.data || []}
+            projects={userProjectsQuery.data || []}
+          />
         </Suspense>
       </ContextBridge>
     </Canvas>

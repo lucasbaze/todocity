@@ -1,6 +1,8 @@
 import { increment } from 'firebase/firestore';
-import { CityModel } from 'libs/data/db/models/city/city-model';
-import { TodoModel } from 'libs/data/db/models/todo/todo-model';
+
+import { CityModel } from '../../../models/city/city-model';
+import { ProjectModel } from '../../../models/project/project-model';
+import { TodoModel } from '../../../models/todo/todo-model';
 
 export async function uncompleteTodo(
   userId: string,
@@ -12,6 +14,12 @@ export async function uncompleteTodo(
   await todoModel.updateTodo(projectId, todoId, {
     completed: false,
     completedAt: null,
+  });
+
+  // Drop project's incomplete todo's count by 1
+  const projectModel = new ProjectModel();
+  await projectModel.updateProject(projectId, {
+    incompleteTodosCount: increment(1),
   });
 
   // Update city stats

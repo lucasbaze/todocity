@@ -13,7 +13,6 @@ export { updateTodo } from './projects/update-todo/update-todo';
 export { clearCompletedTodos } from './projects/clear-completed-todos/clear-completed-todos';
 
 // Game
-export { useInitialGameData } from './game/get-initial-game-data/get-initial-game-data';
 export { placeStructure } from './game/place-structure/place-structure';
 export { unlockStructure } from './game/unlock-structure/unlock-structure';
 export { unlockLot } from './game/unlock-lot/unlock-lot';

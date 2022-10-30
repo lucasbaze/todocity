@@ -23,6 +23,7 @@ async function addNewUserToFireStore(user: User) {
     ownerId: userModel.user.id,
     title: 'My First Project',
     description: 'Projects are your real world todo lists',
+    incompleteTodosCount: 0,
   });
 
   const lotModel = new LotModel();

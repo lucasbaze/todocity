@@ -1,6 +1,11 @@
-import { addDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  increment,
+  serverTimestamp,
+  updateDoc,
+} from 'firebase/firestore';
 
-import { projectTodoRef, projectTodosRef } from '@todocity/data/db';
+import { projectRef, projectTodoRef, projectTodosRef } from '@todocity/data/db';
 import { TNewTodo, TTodoItem } from '@todocity/data/types';
 
 export interface ITodoModel {
@@ -66,6 +71,14 @@ export class TodoModel implements ITodoModel {
       });
       const createdTodos = await Promise.all(todoPromises);
       console.log('Created todos: ', createdTodos);
+      await updateDoc(projectRef(projectId), {
+        incompleteTodosCount: increment(todos.length),
+      });
+      console.log(
+        'Added incomplete todos on project of count: ',
+        projectId,
+        todos?.length
+      );
     } catch (error) {
       console.error('Failed to create todos: ', userId, projectId, todos);
     }
