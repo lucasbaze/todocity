@@ -1,7 +1,6 @@
 import { addDoc, collection, doc } from 'firebase/firestore';
 
 import { db } from '../libs/data/db/config/db';
-import { initialLots } from '../libs/data/stores/initial-lots';
 import type { TLot } from '../libs/data/types/index';
 
 async function createLots(mapId: string, lots: Partial<TLot[]>) {
@@ -22,4 +21,4 @@ async function createLots(mapId: string, lots: Partial<TLot[]>) {
 
 // TODO: Upate this to be more generic in the future if needed
 // Basically a practice migration
-createLots('80d3oGwQJTitodpJrQ5d', initialLots);
+// createLots('80d3oGwQJTitodpJrQ5d', initialLots);

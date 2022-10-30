@@ -4,8 +4,8 @@ import { LotModel } from 'libs/data/db/models/lot/lot-model';
 import router from 'next/router';
 
 import * as track from '@todocity/analytics/events/track';
-import { initialDBLots } from '@todocity/stores/initial-lots';
-import { structures } from '@todocity/stores/initial-structures';
+import { initialLots } from '@todocity/stores/initial-lots';
+import { initialStructures } from '@todocity/stores/initial-structures';
 import { initialTodos } from '@todocity/stores/initial-todos';
 
 import { db } from '../../config/db';
@@ -28,11 +28,11 @@ async function addNewUserToFireStore(user: User) {
   const lotModel = new LotModel();
   await lotModel.createLots(
     userModel.user.id,
-    initialDBLots(projectModel.project.id)
+    initialLots(projectModel.project.id)
   );
 
   const structureModel = new StructureModel();
-  structureModel.createStructures(userModel.user.id, structures);
+  structureModel.createStructures(userModel.user.id, initialStructures);
 
   const todoModel = new TodoModel();
   await todoModel.createTodos(

@@ -41,9 +41,9 @@ export class UserModel implements IUserModel {
         stats: {
           completedTodos: 0,
           createdTodos: 5,
-          lotPoints: 5,
+          lotPoints: 10,
           unlockedLots: 1,
-          cityPoints: 2,
+          cityPoints: 4,
           structuresPlaced: 1,
         },
       },

@@ -33,13 +33,11 @@ export class PackageModel implements IPackageModel {
       const structuresPlaced = userDoc.data().city.stats.structuresPlaced;
 
       if (Math.random() > 0.6) {
-        newPackage.cityPoints = Math.round(
-          structuresPlaced + currPowerLevel / 20
-        );
+        newPackage.cityPoints =
+          Math.round((structuresPlaced * currPowerLevel) / 100) || 1;
       } else {
-        newPackage.lotPoints = Math.round(
-          structuresPlaced + currPowerLevel / (Math.random() * 20)
-        );
+        newPackage.lotPoints =
+          Math.round(structuresPlaced + currPowerLevel / 50) || 1;
       }
       console.log('Created package: ', userId, newPackage);
     } catch (error) {

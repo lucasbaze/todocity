@@ -1,4 +1,4 @@
-export const structures = [
+export const initialStructures = [
   {
     slug: 'main-house',
     type: 'BUILDING',
@@ -22,9 +22,9 @@ export const structures = [
     details: {
       name: 'Boring House',
       description:
-        'A lack luster house, but gives you 1 extra lot point per hour.',
-      cost: 0,
-      locked: false,
+        'A lack luster house, but can give you 1 extra lot point per package.',
+      cost: 2,
+      locked: true,
     },
   },
   {
@@ -35,9 +35,9 @@ export const structures = [
     relativePosition: [0, 0, 0],
     details: {
       name: 'Office Building',
-      description: 'A building to work. Provides 1 extra city point per hour.',
-      cost: 0,
-      locked: false,
+      description: 'A work building. Provides 1 extra city point per package.',
+      cost: 5,
+      locked: true,
     },
   },
   {
@@ -48,8 +48,8 @@ export const structures = [
     relativePosition: [0, 0, 0],
     details: {
       name: 'Restuarant',
-      description: 'Time to eat! Provides 2 extra city points per hour.',
-      cost: 3,
+      description: 'Time to eat! Provides 2 extra lots points per package.',
+      cost: 20,
       locked: true,
     },
   },
