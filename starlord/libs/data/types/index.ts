@@ -13,6 +13,12 @@ export type TUser = {
   createdAt: string; // Date ISOString
   referralCode: string;
   referrals: string[]; // user strings
+  onboarding: TOnboarding;
+  city: TCity;
+};
+
+export type TOnboarding = {
+  demoCompleted: boolean;
 };
 
 export type TCity = {

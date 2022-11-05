@@ -7,13 +7,10 @@ interface ILotsStore {
   lotPreview: TLotPreview;
   setPreviewModel: (lotId: string, modelId: string) => void;
   removePreviewModel: () => void;
-  demoCompleted: boolean;
-  completeDemo: () => void;
 }
 
 export const initialLotsStore = {
   lotPreview: null,
-  demoCompleted: false,
 };
 
 // TODO: figure out the right type here
@@ -37,14 +34,6 @@ export const actions = (set: any, get: any) => {
         return {
           ...state,
           lotPreview: null,
-        };
-      });
-    },
-    completeDemo: () => {
-      set((state: ILotsStore) => {
-        return {
-          ...state,
-          demoCompleted: true,
         };
       });
     },

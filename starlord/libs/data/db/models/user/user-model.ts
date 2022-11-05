@@ -1,5 +1,5 @@
 import { User as TFirebaseUser } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import kebabCase from 'lodash/kebabCase';
 
 import { TUser } from '@todocity/data/types';
@@ -11,6 +11,7 @@ import { db } from '../../config/db';
 export interface IUserModel {
   user: Partial<TUser>;
   createUser(params: Partial<TUser>): Promise<IUserModel>;
+  updateUser(userId: string, values: Partial<TUser>): Promise<IUserModel>;
 }
 
 export class UserModel implements IUserModel {
@@ -34,6 +35,9 @@ export class UserModel implements IUserModel {
         length: 6,
         count: 1,
       })[0],
+      onboarding: {
+        demoCompleted: false,
+      },
       city: {
         cityName: null,
         powerLevel: 60,
@@ -61,6 +65,19 @@ export class UserModel implements IUserModel {
       console.error('Failed to create new user: ', error);
     }
 
+    return this;
+  };
+
+  updateUser = async (userId: string, values: Partial<TUser>) => {
+    try {
+      console.log('Attempting to update user: ', userId, values);
+      await updateDoc(doc(db, 'users', userId), {
+        ...values,
+      });
+      console.log('Updated User: ', userId, values);
+    } catch (error) {
+      console.error('Error updating user: ', userId, values);
+    }
     return this;
   };
 }

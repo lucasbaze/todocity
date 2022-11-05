@@ -9,6 +9,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 
 import { useAuth } from '@todocity/auth';
 import {
+  completeDemo,
   completeTodo,
   uncompleteTodo,
   updateTodo,
@@ -19,7 +20,6 @@ import {
   AnimatedPointsAdd,
   AnimatedPointsSubtract,
 } from '@todocity/features/animations/complete-todo-animation';
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import {
   Box,
   Button,
@@ -141,9 +141,6 @@ export function TodoItem({
     }
   );
 
-  const { completeDemo } = useLotsManagerStore((state) => ({
-    completeDemo: state.completeDemo,
-  }));
   const borderColor = useColorModeValue('gray.250', 'gray.600');
 
   const handleClick = () => {
@@ -163,8 +160,18 @@ export function TodoItem({
     setEdit(false);
   };
 
+  const handleCompleteDemo = () => {
+    completeDemo(user.uid);
+  };
+
   const handleMarkComplete = useCallback(() => {
-    if (checkCriteria({ criteria, completeDemo, stats: cityStatsQuery.data })) {
+    if (
+      checkCriteria({
+        criteria,
+        completeDemo: handleCompleteDemo,
+        stats: cityStatsQuery.data,
+      })
+    ) {
       setChecked((checked) => {
         if (checked) {
           uncompleteTodo(user.uid, projectId, todoId);

@@ -4,6 +4,7 @@ export * from '../refs/refs';
 // Functions
 // Accounts
 export { signInSuccessWithAuthResult } from './accounts/create-account';
+export { completeDemo } from './accounts/complete-demo/complete-demo';
 
 // Projects
 export { createTodo } from './projects/create-todo/create-todo';

@@ -14,7 +14,6 @@ import { userRef } from '@todocity/data/db';
 import { isGameDevToolsEnabled } from '@todocity/data/flags';
 import { ESettingsMenuItems } from '@todocity/features/settings/settings-menu/settings-menu';
 import { SettingsModal } from '@todocity/features/settings/settings-modal';
-import { useLotsManagerStore } from '@todocity/stores/temp-lots-store';
 import { Card } from '@todocity/ui/components/card/card';
 import {
   Badge,
@@ -33,6 +32,7 @@ import {
   Text,
 } from '@todocity/ui/core';
 import { getWindow } from '@todocity/utils/global/get-window';
+import { usePrevious } from '@todocity/utils/hooks/use-previous';
 
 export function Onboarding() {
   const { user } = useAuth();
@@ -41,18 +41,15 @@ export function Onboarding() {
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
   const [demoCompletedModalOpen, setDemoCompletedModalOpen] = useState(false);
   const [cityNameModalOpen, setCityNameModalOpen] = useState(false);
-  const { demoCompleted, completeDemo } = useLotsManagerStore((state) => ({
-    demoCompleted: state.demoCompleted,
-    completeDemo: state.completeDemo,
-  }));
 
-  const userCityQuery = useFirestoreDocumentData(
+  const userQuery = useFirestoreDocumentData(
     ['user', user.uid],
     userRef(user.uid),
-    { subscribe: true },
-    {
-      select: (userDoc) => userDoc.city,
-    }
+    { subscribe: true }
+  );
+
+  const previousOnboardingStatus = usePrevious(
+    userQuery.data?.onboarding?.demoCompleted
   );
 
   const updateCityNameMutation = useFirestoreDocumentMutation(
@@ -61,20 +58,29 @@ export function Onboarding() {
   );
 
   useEffect(() => {
-    console.log('userCityQuery.data', userCityQuery.data);
-    if (userCityQuery.data && !userCityQuery.data?.cityName) {
+    console.log('userQuery.data', userQuery.data);
+    if (userQuery.data?.city && !userQuery.data?.city.cityName) {
       setCityNameModalOpen(true);
     }
-  }, [userCityQuery.data]);
+  }, [userQuery.data]);
 
   useEffect(() => {
-    if (demoCompleted) {
+    console.log('previous state: ', previousOnboardingStatus);
+    console.log('curr state: ', userQuery.data?.onboarding?.demoCompleted);
+    if (
+      userQuery.data?.onboarding?.demoCompleted &&
+      previousOnboardingStatus === false
+    ) {
       setDemoCompletedModalOpen(true);
       jsConfetti?.addConfetti({
         emojis: ['🔥', '🎇', '🎆', '🤘', '🤩', '🎯'],
       });
     }
-  }, [demoCompleted, jsConfetti]);
+  }, [
+    userQuery.data?.onboarding?.demoCompleted,
+    previousOnboardingStatus,
+    jsConfetti,
+  ]);
 
   useEffect(() => {
     if (isGameDevToolsEnabled()) {
@@ -94,11 +100,6 @@ export function Onboarding() {
     jsConfetti?.addConfetti({
       emojis: ['✅', '🌵', '💥', '🏡', '🏢'],
     });
-  };
-
-  const handleShare = () => {
-    setDemoCompletedModalOpen(true);
-    setSettingsModalOpen(true);
   };
 
   const formik = useFormik({
