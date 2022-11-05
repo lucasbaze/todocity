@@ -240,7 +240,7 @@ export function Onboarding() {
                   mt="4"
                   fontSize="12px"
                 >
-                  Continue doing
+                  Continue Todoing
                 </TodoCityLink>
               </Flex>
             </ModalContent>

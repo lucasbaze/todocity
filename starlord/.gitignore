@@ -45,3 +45,6 @@ build-storybook.log
 
 #tsc files
 *.js
+
+# service accounts
+secrets/
