@@ -124,13 +124,13 @@ export function TopBar({}: ITopBarProps) {
           <Box>
             <Tooltip
               label={
-                <Flex direction="column" mt="1">
+                <Flex direction="column" mt="1" maxWidth="200px">
                   <Flex gap="2">
                     <Badge colorScheme="purple" fontSize="0.8em" size="sm">
                       Completed Todos
                     </Badge>
                   </Flex>
-                  <Box mt="1">Total todos completed today</Box>
+                  <Box mt="1">Used to get more packages... coming soon</Box>
                 </Flex>
               }
               hasArrow
