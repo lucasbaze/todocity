@@ -7,6 +7,7 @@ import {
 import { useFormik } from 'formik';
 import JSConfetti from 'js-confetti';
 import Link from 'next/link';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import { useAuth } from '@todocity/auth';
 import { userRef } from '@todocity/data/db';
@@ -122,6 +123,18 @@ export function Onboarding() {
     },
   });
 
+  const handleSubmit = () => {
+    formik.submitForm();
+  };
+
+  const hotKeyRef = useHotkeys(
+    'cmd+return',
+    (e, handler) => {
+      handleSubmit();
+    },
+    { enableOnTags: ['TEXTAREA', 'INPUT'] }
+  );
+
   return (
     <>
       {cityNameModalOpen && (
@@ -147,6 +160,8 @@ export function Onboarding() {
                   </Text>
                   <FormControl
                     isInvalid={formik.errors.name && formik.touched.name}
+                    // @ts-ignore
+                    ref={hotKeyRef}
                   >
                     <FormLabel>City Name</FormLabel>
                     <Input

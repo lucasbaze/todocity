@@ -5,6 +5,7 @@ import { useToast } from '@chakra-ui/react';
 import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import { IconCircle, IconCircleCheck } from '@tabler/icons';
 import { useFormik } from 'formik';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import { useAuth } from '@todocity/auth';
 import {
@@ -199,6 +200,18 @@ export function TodoItem({
     },
   });
 
+  const handleSubmit = () => {
+    formik.submitForm();
+  };
+
+  const hotKeyRef = useHotkeys(
+    'cmd+return',
+    (e, handler) => {
+      handleSubmit();
+    },
+    { enableOnTags: ['TEXTAREA', 'INPUT'] }
+  );
+
   return (
     <Box
       ref={todoContainerRef}
@@ -211,7 +224,11 @@ export function TodoItem({
         <Box py="3" pr="4">
           <form onSubmit={formik.handleSubmit}>
             <Flex direction="column">
-              <Box pb="3">
+              <Box
+                pb="3"
+                // @ts-ignore
+                ref={hotKeyRef}
+              >
                 <FormControl
                   pl="26px" // WARNING: magic number from padding to match edit & non edit state ( see above )
                 >
@@ -264,11 +281,11 @@ export function TodoItem({
         </Box>
       ) : (
         <Box onClick={handleClick}>
-          <Flex px="4" pt="3" pb="4" pr="16">
+          <Flex px="4" pt="3" pb="2" pr="16">
             <Box mr="2">
               <CheckBox completed={checked} setCompleted={handleMarkComplete} />
             </Box>
-            <Box flex={1}>
+            <Box flex={1} overflowX="hidden">
               <Text
                 as={checked ? 's' : undefined}
                 fontWeight="semibold"
@@ -283,6 +300,7 @@ export function TodoItem({
                   noOfLines={1}
                   variant="description"
                   mt="1"
+                  mb="2"
                 >
                   {description}
                 </Text>
