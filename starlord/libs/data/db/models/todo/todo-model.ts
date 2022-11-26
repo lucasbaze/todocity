@@ -1,5 +1,6 @@
 import {
   addDoc,
+  deleteDoc,
   increment,
   serverTimestamp,
   updateDoc,
@@ -25,6 +26,7 @@ export interface ITodoModel {
     todoId: string,
     values: Record<string, unknown>
   ): Promise<ITodoModel>;
+  destroyTodo(projectId: string, todoId: string): Promise<ITodoModel>;
 }
 
 export class TodoModel implements ITodoModel {
@@ -97,6 +99,17 @@ export class TodoModel implements ITodoModel {
       return this;
     } catch (error) {
       console.error('Failed to update todo: ', projectId, todoId);
+    }
+  };
+
+  destroyTodo = async (projectId: string, todoId: string) => {
+    try {
+      console.log('Attempting to destroy Todo: ', projectId, todoId);
+      await deleteDoc(projectTodoRef(projectId, todoId));
+      console.log('destroy Todo: ', projectId, todoId);
+      return this;
+    } catch (error) {
+      console.error('Failed to destroy todo', projectId, todoId);
     }
   };
 }

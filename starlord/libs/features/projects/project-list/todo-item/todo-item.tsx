@@ -11,6 +11,7 @@ import { useAuth } from '@todocity/auth';
 import {
   completeDemo,
   completeTodo,
+  deleteTodo,
   uncompleteTodo,
   updateTodo,
   userRef,
@@ -160,6 +161,10 @@ export function TodoItem({
     setEdit(false);
   };
 
+  const handleDelete = () => {
+    deleteTodo(user.uid, projectId, todoId);
+  };
+
   const handleCompleteDemo = () => {
     completeDemo(user.uid);
   };
@@ -260,28 +265,41 @@ export function TodoItem({
                   />
                 </FormControl>
               </Box>
-              <Flex alignItems="center" justifyContent="flex-end" gap="3">
-                <Box>
+              <Flex alignItems="center" pl="26px">
+                <Flex flex={1}>
                   <Button
                     size="xs"
                     type="button"
-                    colorScheme="gray"
-                    variant="solid"
-                    onClick={handleCancel}
+                    colorScheme="red"
+                    variant="ghost"
+                    onClick={handleDelete}
                   >
-                    Cancel
+                    Delete
                   </Button>
-                </Box>
-                <Box alignSelf="flex-end">
-                  <Button
-                    size="xs"
-                    type="submit"
-                    colorScheme="purple"
-                    variant="solid"
-                  >
-                    Save
-                  </Button>
-                </Box>
+                </Flex>
+                <Flex justifyContent="flex-end" gap="3">
+                  <Box>
+                    <Button
+                      size="xs"
+                      type="button"
+                      colorScheme="blackAlpha"
+                      variant="ghost"
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </Button>
+                  </Box>
+                  <Box alignSelf="flex-end">
+                    <Button
+                      size="xs"
+                      type="submit"
+                      colorScheme="purple"
+                      variant="solid"
+                    >
+                      Save
+                    </Button>
+                  </Box>
+                </Flex>
               </Flex>
             </Flex>
           </form>

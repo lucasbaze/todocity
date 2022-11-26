@@ -11,6 +11,7 @@ export { createTodo } from './projects/create-todo/create-todo';
 export { completeTodo } from './projects/complete-todo/complete-todo';
 export { uncompleteTodo } from './projects/uncomplete-todo/uncomplete-todo';
 export { updateTodo } from './projects/update-todo/update-todo';
+export { deleteTodo } from './projects/delete-todo/delete-todo';
 export { clearCompletedTodos } from './projects/clear-completed-todos/clear-completed-todos';
 
 // Game
